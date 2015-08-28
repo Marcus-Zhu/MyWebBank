@@ -1,0 +1,4 @@
+#ifndef WEBBANKPAYMENT_H
+#define WEBBANKPAYMENT_H
+
+#endif // WEBBANKPAYMENT_H

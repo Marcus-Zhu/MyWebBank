@@ -1,0 +1,4 @@
+#ifndef WEBBANKACCOUNT_H
+#define WEBBANKACCOUNT_H
+
+#endif // WEBBANKACCOUNT_H

@@ -1,0 +1,4 @@
+#ifndef WEBBANKQUERY_H
+#define WEBBANKQUERY_H
+
+#endif // WEBBANKQUERY_H
