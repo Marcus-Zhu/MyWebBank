@@ -1,0 +1,61 @@
+//²åÈëº¯Êý
+bool WDBManip::dbInsert(QVector<QString> insertInfo, manipTable type){
+    QString tableName;
+    QString tableContent;
+    QSqlQuery query;
+    switch (type) {
+    case 1:
+        tableName = "user";
+        tableContent = "(name,password,id,createdDate,tel,email,address,zipCode,type)";
+        if(query.exec(QString("INSERT INTO %1 %1 VALUES ('%1','%1','%1','%1','%1','%1','%1','%1','%1')")
+                      .arg(tableName).arg(tableContent).arg(insertInfo[0]).arg(insertInfo[1])
+                      .arg(insertInfo[2]).arg(insertInfo[3]).arg(insertInfo[4]).arg(insertInfo[5])
+                      .arg(insertInfo[6]).arg(insertInfo[7]).arg(insertInfo[8])))
+            return true;
+        else
+            return false;
+        break;
+    case 2:
+        tableName = "account";
+        tableContent = "(userKey,type,number,balance,status,createdTime)";
+        if(query.exec(QString("INSERT INTO %1 %1 VALUES (%1,'%1','%1','%1','%1','%1')").arg(tableName)
+                   .arg(tableContent).arg(insertInfo[0]).arg(insertInfo[1]).arg(insertInfo[2])
+                .arg(insertInfo[3]).arg(insertInfo[4]).arg(insertInfo[5])))
+            return true;
+        else
+            return false;
+        break;
+    case 3:
+        tableName = "transactionRecord";
+        tableContent = "(accountKey1,accountKey2,sum,time,balance,type)";
+        if(query.exec(QString("INSERT INTO %1 %1 VALUES (%1,%1,'%1','%1','%1','%1')").arg(tableName)
+                   .arg(tableContent).arg(insertInfo[0]).arg(insertInfo[1]).arg(insertInfo[2])
+                .arg(insertInfo[3]).arg(insertInfo[4]).arg(insertInfo[5])))
+            return true;
+        else
+            return false;
+        break;
+    case 4:
+        tableName = "paymentRecord";
+        tableContent = "(accountKey,sum,time,balance,type)";
+        if(query.exec(QString("INSERT INTO %1 %1 VALUES (%1,'%1','%1','%1','%1')").arg(tableName)
+                   .arg(tableContent).arg(insertInfo[0]).arg(insertInfo[1]).arg(insertInfo[2])
+                .arg(insertInfo[3]).arg(insertInfo[4])))
+            return true;
+        else
+            return false;
+        break;
+    case 5:
+        tableName = "message";
+        tableContent = "(userKey,time,content)";
+        if(query.exec(QString("INSERT INTO %1 %1 VALUES (%1,'%1','%1')").arg(tableName)
+                   .arg(tableContent).arg(insertInfo[0]).arg(insertInfo[1]).arg(insertInfo[2])))
+            return true;
+        else
+            return false;
+        break;
+    default:
+        break;
+    }
+
+}
