@@ -23,7 +23,9 @@ SOURCES += main.cpp \
     WebBankCreditCard.cpp \
     WebBankQuery.cpp \
     WebBankSystemMessage.cpp \
-    WebBankDataBaseManip.cpp
+    WebBankDataBaseManip.cpp \
+    WebBankCurrentUser.cpp \
+
 
 
 
@@ -35,6 +37,7 @@ HEADERS += \
     WebBankCreditCard.h \
     WebBankQuery.h \
     WebBankSystemMessage.h \
-    WebBankDataBaseManip.h
+    WebBankDataBaseManip.h \
+    WebBankCurrentUser.h \
 
 
