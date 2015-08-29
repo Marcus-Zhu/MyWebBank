@@ -1,0 +1,60 @@
+*{
+  font-size:18px;
+  font-family:"Noto Sans CJK KR Regular";
+  border-radius: 0px;
+  text-align : left ;
+}
+
+QLabel#backgroundLabel{
+        background-image: url(image/bg.jpg);
+}
+
+QPushButton#queryBtn, QPushButton#transferBtn, QPushButton#paymentBtn, QPushButton#ccardBtn {
+        background:transparent;
+}
+
+QPushButton#queryBtn:hover, QPushButton#transferBtn:hover, QPushButton#paymentBtn:hover, QPushButton#ccardBtn:hover {
+        background: rgba(0,0,0,12);
+}
+
+QPushButton#queryBtn:pressed, QPushButton#transferBtn:pressed, QPushButton#paymentBtn:pressed, QPushButton#ccardBtn:pressed {
+    background: rgba(0,0,0,36);
+}
+
+QPushButton#queryBtn:checked, QPushButton#transferBtn:checked, QPushButton#paymentBtn:checked, QPushButton#ccardBtn:checked {
+    background: rgba(0,0,0,26);
+}
+
+QPushButton#minBtn {
+        background-image: url(image/min0.png);
+}
+
+QPushButton#minBtn:hover {
+        background-image: url(image/min1.png);
+}
+
+QPushButton#closeBtn {
+        background-image: url(image/close0.png);
+}
+
+QPushButton#closeBtn:hover {
+        background-image: url(image/close1.png);
+}
+
+QLabel#queryLabel, QLabel#transferLabel, QLabel#paymentLabel, QLabel#ccardLabel {
+        margin-left: 80px;
+        background: transparent;
+}
+
+QLabel#logInfoLabel{
+    font: 12px;
+}
+
+QLabel#creditLabel{
+    font: 12px;
+  text-align : right;
+}
+
+QLabel#currentPosLabel{
+    font: 14px;
+}
