@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         bankui.cpp \
-    wstackedwidget.cpp
+    wstackedwidget.cpp \
+    qmenubutton.cpp
 
 HEADERS  += bankui.h \
-    wstackedwidget.h
+    wstackedwidget.h \
+    qmenubutton.h
 
 RESOURCES += \
     styleset.qrc
+
+TRANSLATIONS += my.ts

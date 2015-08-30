@@ -1,6 +1,7 @@
 #include "wstackedwidget.h"
 
-WStackedWidget::WStackedWidget()
+WStackedWidget::WStackedWidget(QWidget *parent):
+    QStackedWidget(parent)
 {
 
 }

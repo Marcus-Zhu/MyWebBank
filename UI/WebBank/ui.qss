@@ -1,12 +1,13 @@
 *{
-  font-size:18px;
-  font-family:"Noto Sans CJK KR Regular";
-  border-radius: 0px;
-  text-align : left ;
+        font-size:16px;
+        font-family:"Noto Sans CJK KR Regular";
+        border-radius: 0px;
+        text-align : left ;
 }
 
 QLabel#backgroundLabel{
-        background-image: url(image/bg.jpg);
+        background: rgba(255,255,255,0);
+        background-image: url(image/bg1.png);
 }
 
 QPushButton#queryBtn, QPushButton#transferBtn, QPushButton#paymentBtn, QPushButton#ccardBtn {
@@ -18,27 +19,31 @@ QPushButton#queryBtn:hover, QPushButton#transferBtn:hover, QPushButton#paymentBt
 }
 
 QPushButton#queryBtn:pressed, QPushButton#transferBtn:pressed, QPushButton#paymentBtn:pressed, QPushButton#ccardBtn:pressed {
-    background: rgba(0,0,0,36);
+        background: rgba(0,0,0,36);
 }
 
 QPushButton#queryBtn:checked, QPushButton#transferBtn:checked, QPushButton#paymentBtn:checked, QPushButton#ccardBtn:checked {
-    background: rgba(0,0,0,26);
+        background: rgba(0,0,0,26);
 }
 
 QPushButton#minBtn {
         background-image: url(image/min0.png);
+        background-repeat: no-repeat;
 }
 
 QPushButton#minBtn:hover {
         background-image: url(image/min1.png);
+        background-repeat: no-repeat;
 }
 
 QPushButton#closeBtn {
         background-image: url(image/close0.png);
+        background-repeat: no-repeat;
 }
 
 QPushButton#closeBtn:hover {
         background-image: url(image/close1.png);
+        background-repeat: no-repeat;
 }
 
 QLabel#queryLabel, QLabel#transferLabel, QLabel#paymentLabel, QLabel#ccardLabel {
@@ -47,14 +52,33 @@ QLabel#queryLabel, QLabel#transferLabel, QLabel#paymentLabel, QLabel#ccardLabel 
 }
 
 QLabel#logInfoLabel{
-    font: 12px;
+        font: 12px;
 }
 
 QLabel#creditLabel{
-    font: 12px;
-  text-align : right;
+        font: 12px;
+        text-align : right;
 }
 
 QLabel#currentPosLabel{
-    font: 14px;
+        font: 14px;
+}
+
+QMenu#userBtnMenu, QMenu#settingBtnMenu{
+        background: #FAFAFA;
+}
+
+QMenu#userBtnMenu::item, QMenu#settingBtnMenu::item{
+        padding: 16px 24px 12px 16px;
+}
+
+QMenu#userBtnMenu::separator, QMenu#settingBtnMenu::separator{
+        height: 1px;
+        background: rgba(0,0,0,0);
+        margin-left: 2px;
+        margin-right: 2px;
+}
+
+QMenu#userBtnMenu::item:selected, QMenu#settingBtnMenu::item:selected{
+        background: #EEEEEE;
 }

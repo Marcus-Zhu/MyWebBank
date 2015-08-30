@@ -8,7 +8,7 @@
 class WStackedWidget : public QStackedWidget
 {
 public:
-    WStackedWidget();
+    WStackedWidget(QWidget *parent = 0);
 };
 
 #endif // WSTACKEDWIDGET_H
