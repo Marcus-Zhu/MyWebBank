@@ -26,7 +26,7 @@ public:
     bool dbInsert(QVector<QString> insertInfo);
     bool dbUpdate(QString updateInfo);
     bool dbSelect(QString userName,QString userPassword);
-    int dbSelect();
+    static int dbSelect();
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
 };
@@ -54,7 +54,7 @@ class DBPaymetnRecordManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
     bool dbUpdate(QString updateInfo);
-    QString dbSelect(QString selectInfo);
+    QVector<QString> dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
 };
@@ -63,8 +63,9 @@ class DBMessageManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
     bool dbUpdate(QString updateInfo);
-    QString dbSelect(QString selectInfo);
+    QVector<QString> dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
 }
+
 #endif // WEBBANKDATABASEMANIP_H

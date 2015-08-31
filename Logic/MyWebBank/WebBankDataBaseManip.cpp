@@ -134,7 +134,9 @@ bool DBTransactionRecordManip::dbInsert(QVector<QString> insertInfo){
     return result;
 }
 
-bool DBTransactionRecordManip::dbUpdate(QString updateInfo){}
+bool DBTransactionRecordManip::dbUpdate(QString updateInfo){
+    return false;
+}
 
 QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
     QVector<QString> transactionRecordInfo = new QVector<QString>;
@@ -155,11 +157,84 @@ bool DBTransactionRecordManip::dbDelete(QString deleteInfo){
 
 bool DBPaymetnRecordManip::dbTableCreate(){
     bool result;
-    result = query.exec("CREATE TABLE paymentReord (key)")
+    result = query.exec("CREATE TABLE paymentReord (key INTEGER PRIMARY KEY AUTOINCREMENT,accountKey INTEGER,"
+                        "sum REAL,time TIMESTAMP default CURRENT_TIMESTAMP,balance REAL,type VARCHAR[10])");
+    return result;
 }
 
+bool DBPaymetnRecordManip::dbInsert(QVector<QString> insertInfo){
+    int accountKey;
+    float balance;
+    bool result;
+    query.exec(QString("SELECT * FROM account WHERE number = %1").arg(insertInfo[0]));
+    accountKey = query.value(0).toInt();
+    balance = query.value(4).toFloat() - insertInfo[1].toFloat();
+    query.prepare("INSERT INTO paymentRecord (accountKey,sum,balance type)"
+                  "VALUES (?,?,?,?)");
+    query.addBindValue(accountKey);
+    query.addBindValue(insertInfo[1].toFloat());
+    query.addBindValue(balance);
+    query.addBindValue(insertInfo[2]);
+    result = query.exec();
+    return result;
+}
 
+bool DBPaymetnRecordManip::dbUpdate(QString updateInfo){
+    return false;
+}
 
+QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo){
+    QVector<QString> paymentRecordInfo = new QVector<QString>;
+    query.exec(selectInfo);
+    while(query.next()){
+        paymentRecordInfo.push_back(query.value(2).toString());
+        paymentRecordInfo.push_back(query.value(3).toString());
+        paymentRecordInfo.push_back(query.value(4).toString());
+        paymentRecordInfo.push_back(query.value(5).toString());
+    }
+    return paymentRecordInfo;
+}
+
+bool DBPaymetnRecordManip::dbDelete(QString deleteInfo){
+    return false;
+}
+
+bool DBMessageManip::dbTableCreate(){
+    bool result;
+    result = query.exec("CREATE TABLE message (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER,"
+                        "time TIMESTAMP default CURRENT_TIMESTAMP,content VARCHAR(20),status VARCHAR(15))");
+    return result;
+}
+
+bool DBMessageManip::dbInsert(QVector<QString> insertInfo){
+    bool result;
+    query.prepare("INSERT INTO message (userKey,content,status) VALUES (?,?,?)");
+    query.addBindValue(DBUserManip::dbSelect());
+    query.addBindValue(insertInfo[0]);
+    query.addBindValue("not read");
+}
+
+bool DBMessageManip::dbUpdate(QString updateInfo){
+    bool result;
+    result = query.exec("UPDATE FROM message SET status = 'already read'");
+    return result;
+}
+
+QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
+    QVector<QString> messageInfo = new QVector<QString>;
+    query.exec(selectInfo);
+    while(query.next()){
+        messageInfo.push_back(WCurrentUser::getUserName());
+        messageInfo.push_back(query.value(2).toString());
+        messageInfo.push_back(query.value(3).toString());
+        messageInfo.push_back(query.value(4).toString());
+    }
+    return messageInfo;
+}
+
+bool DBMessageManip::dbDelete(QString deleteInfo){
+    return false;
+}
 
 
 
