@@ -7,12 +7,12 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    BankUI w;
 
     QTranslator wTranslator;
-    qDebug() << wTranslator.load("my.qm");
-    qApp->installTranslator(&wTranslator);
+    qDebug() << wTranslator.load("chn.qm");
+    qDebug() << a.installTranslator(&wTranslator);
 
+    BankUI w;
     w.setAttribute(Qt::WA_TranslucentBackground);
     w.show();
 

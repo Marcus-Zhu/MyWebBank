@@ -5,7 +5,6 @@
 #include <QApplication>
 
 #include "bankui.h"
-#include "qmenubutton.h"
 
 BankUI::BankUI(QWidget *parent)
     : QWidget(parent)
@@ -51,8 +50,17 @@ void BankUI::initUI()
 
     //Components New
     backgroundLabel = new QLabel("", this);
-    userBtn = new QMenuButton(this, QMenuButton::userBtn);
-    settingBtn = new QMenuButton(this, QMenuButton::settingBtn);
+    userBtn = new QPushButton("", this);
+    settingBtn = new QPushButton("", this);
+
+    userMenu = new QMenu(this);
+    settingMenu = new QMenu(this);
+    personalInfoAction = new QAction(tr("Personal Info"), this);
+    changepwAction = new QAction(tr("Change Password"), this);
+    sysmsgAction = new QAction(tr("Message"), this);
+    logoutAction = new QAction(tr("Log Out"), this);
+    languageAction = new QAction(tr("Language"), this);
+    aboutAction = new QAction(tr("About"), this);
     minBtn  = new QPushButton("", this);
     closeBtn = new QPushButton("", this);
     queryLabel = new QLabel(tr("My Account"), this);
@@ -68,12 +76,19 @@ void BankUI::initUI()
     creditLabel = new QLabel(tr("Credit to Zhu Yilin & Tian Xingyu"), this);
     centerStack = new WStackedWidget(this);
 
+    userMenu->addAction(personalInfoAction);
+    userMenu->addAction(changepwAction);
+    userMenu->addAction(sysmsgAction);
+    userMenu->addAction(logoutAction);
+    settingMenu->addAction(languageAction);
+    settingMenu->addAction(aboutAction);
+
     //Components setObjectName for QSS
     backgroundLabel->setObjectName("backgroundLabel");
     userBtn->setObjectName("userBtn");
     settingBtn->setObjectName("settingBtn");
-    userBtn->menu->setObjectName("userBtnMenu");
-    settingBtn->menu->setObjectName("settingBtnMenu");
+    userMenu->setObjectName("userBtnMenu");
+    settingMenu->setObjectName("settingBtnMenu");
     minBtn->setObjectName("minBtn");
     closeBtn->setObjectName("closeBtn");
     queryBtn->setObjectName("queryBtn");
@@ -122,27 +137,33 @@ void BankUI::setConnections(){
     connect(transferBtn, SIGNAL(clicked(bool)), this, SLOT(popTransfer()));
     connect(paymentBtn, SIGNAL(clicked(bool)), this, SLOT(popPayment()));
     connect(ccardBtn, SIGNAL(clicked(bool)), this, SLOT(popCCard()));
-    connect(queryBtn, SIGNAL(clicked(bool)), this, SLOT(changeLanguage()));
+    connect(userBtn, SIGNAL(clicked(bool)),this, SLOT(popUserMenu()));
+    connect(settingBtn, SIGNAL(clicked(bool)),this, SLOT(popSettingMenu()));
+    connect(languageAction, SIGNAL(triggered(bool)), this, SLOT(changeLanguage()));
 }
 
 void BankUI::changeLanguage(){
     QString QmName;
     QTranslator *wTranslator = new QTranslator();
-    if(isChinese)
-    {
-       isChinese = false;
-       QmName = "english.qm";
-    }
-    else
-    {
-       isChinese = true;
-       QmName = "chinese.qm";
-    }
+    isChinese ? QmName = "eng.qm" : QmName = "chn.qm";
+    isChinese ? isChinese = false : isChinese = true;
     if(wTranslator->load(QmName))
     {
-       qDebug() << "change";
        qApp->installTranslator(wTranslator);
     }
+    personalInfoAction->setText(tr("Personal Info"));
+    changepwAction->setText(tr("Change Password"));
+    sysmsgAction->setText(tr("Message"));
+    logoutAction->setText(tr("Log Out"));
+    languageAction->setText(tr("Language"));
+    aboutAction->setText(tr("About"));
+    queryLabel->setText(tr("My Account"));
+    transferLabel->setText(tr("Transfer"));
+    paymentLabel->setText(tr("Payment"));
+    ccardLabel->setText(tr("Credit Card"));
+    currentPosLabel->setText(tr("Current Position: "));
+    logInfoLabel->setText(tr("User: "));
+    creditLabel->setText(tr("Credit to Zhu Yilin & Tian Xingyu"));
 }
 
 void BankUI::mouseMoveEvent(QMouseEvent *event)
@@ -193,4 +214,18 @@ void BankUI::popCCard()
     queryBtn->setChecked(false);
     transferBtn->setChecked(false);
     paymentBtn->setChecked(false);
+}
+
+void BankUI::popUserMenu(){
+    QPoint pos;
+    pos.setX(pos.x() - userBtn->geometry().width());
+    pos.setY(pos.y() + userBtn->geometry().height());
+    userMenu->exec(userBtn->mapToGlobal(pos));
+}
+
+void BankUI::popSettingMenu(){
+    QPoint pos;
+    pos.setX(pos.x() - settingBtn->geometry().width());
+    pos.setY(pos.y() + settingBtn->geometry().height());
+    settingMenu->exec(settingBtn->mapToGlobal(pos));
 }

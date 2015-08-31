@@ -3,12 +3,12 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QMenu>
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QTranslator>
 
 #include "wstackedwidget.h"
-#include "qmenubutton.h"
 
 class BankUI : public QWidget
 {
@@ -29,11 +29,13 @@ private slots:
     void popPayment();
     void popCCard();
     void changeLanguage();
+    void popUserMenu();
+    void popSettingMenu();
 
 private:
     QLabel *backgroundLabel;
-    QMenuButton *userBtn;
-    QMenuButton *settingBtn;
+    QPushButton *userBtn;
+    QPushButton *settingBtn;
     QPushButton *minBtn;
     QPushButton *closeBtn;
     QPushButton *queryBtn;
@@ -47,6 +49,14 @@ private:
     QLabel *currentPosLabel;
     QLabel *logInfoLabel;
     QLabel *creditLabel;
+    QMenu *userMenu;
+    QMenu *settingMenu;
+    QAction *personalInfoAction;
+    QAction *changepwAction;
+    QAction *sysmsgAction;
+    QAction *logoutAction;
+    QAction *languageAction;
+    QAction *aboutAction;
     WStackedWidget *centerStack;
     bool isPressed;
     QPoint movePoint;
