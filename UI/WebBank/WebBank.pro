@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         bankui.cpp \
-    wstackedwidget.cpp
+    wstackedwidget.cpp \
+    pages.cpp \
+    nofocusdelegate.cpp
 
 HEADERS  += bankui.h \
-    wstackedwidget.h
+    wstackedwidget.h \
+    pages.h \
+    nofocusdelegate.h
 
 RESOURCES += \
     styleset.qrc

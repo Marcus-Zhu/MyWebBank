@@ -12,6 +12,11 @@ BankUI::BankUI(QWidget *parent)
     setTranslator();
     setStyle();
     initUI();
+
+    centerStack = new WStackedWidget(this);
+    centerStack->setObjectName("centerStack");
+    centerStack->setGeometry(QRect(242, 148, 751, 534));
+
     setConnections();
 }
 
@@ -20,8 +25,9 @@ BankUI::~BankUI()
 
 }
 
-void BankUI::setTranslator(){
-    isChinese = true;
+void BankUI::setTranslator()
+{
+    isChinese = false;
 }
 
 void BankUI::setStyle()
@@ -63,18 +69,35 @@ void BankUI::initUI()
     aboutAction = new QAction(tr("About"), this);
     minBtn  = new QPushButton("", this);
     closeBtn = new QPushButton("", this);
+
     queryLabel = new QLabel(tr("My Account"), this);
+    myAccountLabel = new QLabel(tr("My Account"), this);
+    accountQueryLabel = new QLabel(tr("Account Query"), this);
     transferLabel = new QLabel(tr("Transfer"), this);
+    currTransferLabel = new QLabel(tr("Current Transfer"), this);
+    currentFixLabel = new QLabel(tr("Current-Fixed"), this);
     paymentLabel = new QLabel(tr("Payment"), this);
     ccardLabel = new QLabel(tr("Credit Card"), this);
+    ccApplyLabel = new QLabel(tr("Apply"), this);
+    ccActivateLabel = new QLabel(tr("Activate"), this);
+    ccRepayLabel = new QLabel(tr("Repay"), this);
+    ccLostLabel = new QLabel(tr("Loss Report"), this);
+
     queryBtn = new QPushButton("", this);
+    myAccountBtn = new QPushButton("", this);
+    accountQueryBtn = new QPushButton("", this);
     transferBtn = new QPushButton("", this);
+    currTransferBtn = new QPushButton("", this);
+    currentFixBtn = new QPushButton("", this);
     paymentBtn = new QPushButton("", this);
     ccardBtn = new QPushButton("", this);
-    currentPosLabel = new QLabel(tr("Current Position: "), this);
+    ccApplyBtn = new QPushButton("", this);
+    ccActivateBtn = new QPushButton("", this);
+    ccRepayBtn = new QPushButton("", this);
+    ccLostBtn = new QPushButton("", this);
+
     logInfoLabel = new QLabel(tr("User: "), this);
     creditLabel = new QLabel(tr("Credit to Zhu Yilin & Tian Xingyu"), this);
-    centerStack = new WStackedWidget(this);
 
     userMenu->addAction(personalInfoAction);
     userMenu->addAction(changepwAction);
@@ -89,17 +112,41 @@ void BankUI::initUI()
     settingBtn->setObjectName("settingBtn");
     userMenu->setObjectName("userBtnMenu");
     settingMenu->setObjectName("settingBtnMenu");
+    personalInfoAction->setObjectName(("personalInfoAction"));
+    changepwAction->setObjectName(("ChangepwAction"));
+    sysmsgAction->setObjectName(("MessageAction"));
+    logoutAction->setObjectName(("logoutAction"));
+    languageAction->setObjectName(("languageAction"));
+    aboutAction->setObjectName(("aboutAction"));
     minBtn->setObjectName("minBtn");
     closeBtn->setObjectName("closeBtn");
+
     queryBtn->setObjectName("queryBtn");
+    myAccountBtn->setObjectName("myAccountBtn");
+    accountQueryBtn->setObjectName("accountQueryBtn");
     transferBtn->setObjectName("transferBtn");
+    currTransferBtn->setObjectName("currTransferBtn");
+    currentFixBtn->setObjectName("currentFixBtn");
     paymentBtn->setObjectName("paymentBtn");
     ccardBtn->setObjectName("ccardBtn");
+    ccApplyBtn->setObjectName("ccApplyBtn");
+    ccActivateBtn->setObjectName("ccActivateBtn");
+    ccRepayBtn->setObjectName("ccRepayBtn");
+    ccLostBtn->setObjectName("ccLostBtn");
+
     queryLabel->setObjectName("queryLabel");
+    myAccountLabel->setObjectName("myAccountLabel");
+    accountQueryLabel->setObjectName("accountQueryLabel");
     transferLabel->setObjectName("transferLabel");
+    currTransferLabel->setObjectName("currTransferLabel");
+    currentFixLabel->setObjectName("currentFixLabel");
     paymentLabel->setObjectName("paymentLabel");
     ccardLabel->setObjectName("ccardLabel");
-    currentPosLabel->setObjectName("currentPosLabel");
+    ccApplyLabel->setObjectName("ccApplyLabel");
+    ccActivateLabel->setObjectName("ccActivateLabel");
+    ccRepayLabel->setObjectName("ccRepayLabel");
+    ccLostLabel->setObjectName("ccLostLabel");
+
     logInfoLabel->setObjectName("logInfoLabel");
     creditLabel->setObjectName("creditLabel");
 
@@ -109,47 +156,106 @@ void BankUI::initUI()
     settingBtn->setGeometry(QRect(928, 60, 48, 48));
     minBtn->setGeometry(QRect(950, 12, 10, 15));
     closeBtn->setGeometry(QRect(975, 12, 10, 15));
-    queryBtn->setGeometry(QRect(5, 153, 237, 64));
-    transferBtn->setGeometry(QRect(5, 217, 237, 64));
-    paymentBtn->setGeometry(QRect(5, 281, 237, 64));
-    ccardBtn->setGeometry(QRect(5, 345, 237, 64));
-    queryLabel->setGeometry(QRect(0, 160, 240, 64));
-    transferLabel->setGeometry(QRect(0, 224, 240, 64));
-    paymentLabel->setGeometry(QRect(0, 288, 240, 64));
-    ccardLabel->setGeometry(QRect(0, 352, 240, 64));
-    currentPosLabel->setGeometry(QRect(254, 158, 200, 24));
+
+    queryBtn->setGeometry(QRect(5, 152, 237, 64));
+    myAccountBtn->setGeometry(QRect(5, 216, 237, 36));
+    accountQueryBtn->setGeometry(QRect(5, 252, 237, 36));
+    transferBtn->setGeometry(QRect(5, 296, 237, 64));
+    currTransferBtn->setGeometry(QRect(5, 360, 237, 36));
+    currentFixBtn->setGeometry(QRect(5, 396, 237, 36));
+    paymentBtn->setGeometry(QRect(5, 440, 237, 64));
+    ccardBtn->setGeometry(QRect(5, 504, 237, 64));
+    ccApplyBtn->setGeometry(QRect(5, 568, 237, 36));
+    ccActivateBtn->setGeometry(QRect(5, 604, 237, 36));
+    ccRepayBtn->setGeometry(QRect(5, 640, 237, 36));
+    ccLostBtn->setGeometry(QRect(5, 676, 237, 36));
+
+    queryLabel->setGeometry(QRect(0, 160, 237, 64));
+    myAccountLabel->setGeometry(QRect(0, 216, 237, 36));
+    accountQueryLabel->setGeometry(QRect(0, 252, 237, 36));
+    transferLabel->setGeometry(QRect(0, 296, 237, 64));
+    currTransferLabel->setGeometry(QRect(0, 360, 237, 36));
+    currentFixLabel->setGeometry(QRect(0, 396, 237, 36));
+    paymentLabel->setGeometry(QRect(0, 440, 237, 64));
+    ccardLabel->setGeometry(QRect(0, 504, 237, 64));
+    ccApplyLabel->setGeometry(QRect(0, 568, 237, 36));
+    ccActivateLabel->setGeometry(QRect(0, 604, 237, 36));
+    ccRepayLabel->setGeometry(QRect(0, 640, 237, 36));
+    ccLostLabel->setGeometry(QRect(0, 676, 237, 36));
+
     logInfoLabel->setGeometry(QRect(10, 722, 300, 24));
     creditLabel->setGeometry(QRect(700, 724, 290, 24));
 
     //other settings
     queryBtn->setCheckable(true);
+    myAccountBtn->setCheckable(true);
+    accountQueryBtn->setCheckable(true);
     transferBtn->setCheckable(true);
+    currTransferBtn->setCheckable(true);
+    currentFixBtn->setCheckable(true);
     paymentBtn->setCheckable(true);
     ccardBtn->setCheckable(true);
+    ccApplyBtn->setCheckable(true);
+    ccActivateBtn->setCheckable(true);
+    ccRepayBtn->setCheckable(true);
+    ccLostBtn->setCheckable(true);
 
     creditLabel->setAlignment(Qt::AlignRight);
 }
 
-void BankUI::setConnections(){
+void BankUI::setConnections()
+{
     connect(closeBtn, SIGNAL(clicked(bool)), this, SLOT(close()));
     connect(minBtn, SIGNAL(clicked(bool)), this, SLOT(showMinimized()));
-    connect(queryBtn, SIGNAL(clicked(bool)), this, SLOT(popQuery()));
-    connect(transferBtn, SIGNAL(clicked(bool)), this, SLOT(popTransfer()));
-    connect(paymentBtn, SIGNAL(clicked(bool)), this, SLOT(popPayment()));
-    connect(ccardBtn, SIGNAL(clicked(bool)), this, SLOT(popCCard()));
-    connect(userBtn, SIGNAL(clicked(bool)),this, SLOT(popUserMenu()));
-    connect(settingBtn, SIGNAL(clicked(bool)),this, SLOT(popSettingMenu()));
+    connect(userBtn, SIGNAL(clicked(bool)), this, SLOT(popUserMenu()));
+    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(popSettingMenu()));
+
+    //connections for POP BUTTONS
+    connect(queryBtn, SIGNAL(clicked(bool)), this, SLOT(checkQuery()));
+    connect(myAccountBtn, SIGNAL(clicked(bool)), this, SLOT(checkMyAccount()));
+    connect(accountQueryBtn, SIGNAL(clicked(bool)), this, SLOT(checkAccountQuery()));
+    connect(transferBtn, SIGNAL(clicked(bool)), this, SLOT(checkTransfer()));
+    connect(currTransferBtn, SIGNAL(clicked(bool)), this, SLOT(checkCurrentTransfer()));
+    connect(currentFixBtn, SIGNAL(clicked(bool)), this, SLOT(checkCurrentFix()));
+    connect(paymentBtn, SIGNAL(clicked(bool)), this, SLOT(checkPayment()));
+    connect(ccardBtn, SIGNAL(clicked(bool)), this, SLOT(checkCCard()));
+    connect(ccApplyBtn, SIGNAL(clicked(bool)), this, SLOT(checkCCApply()));
+    connect(ccActivateBtn, SIGNAL(clicked(bool)), this, SLOT(checkCCActivate()));
+    connect(ccRepayBtn, SIGNAL(clicked(bool)), this, SLOT(checkCCRepay()));
+    connect(ccLostBtn, SIGNAL(clicked(bool)), this, SLOT(checkCCLost()));
+
+    //connections for CHANGE PAGE
+    connect(queryBtn, SIGNAL(clicked(bool)), this, SLOT(showMyAccountPage()));
+    connect(myAccountBtn, SIGNAL(clicked(bool)), this, SLOT(showMyAccountPage()));
+    connect(accountQueryBtn, SIGNAL(clicked(bool)), this, SLOT(showAccountQueryPage()));
+    connect(transferBtn, SIGNAL(clicked(bool)), this, SLOT(showTransferPage()));
+    connect(currTransferBtn, SIGNAL(clicked(bool)), this, SLOT(showTransferPage()));
+    connect(currentFixBtn, SIGNAL(clicked(bool)), this, SLOT(shouCurrentFixPage()));
+    connect(paymentBtn, SIGNAL(clicked(bool)), this, SLOT(showPaymentPage()));
+    connect(ccardBtn, SIGNAL(clicked(bool)), this, SLOT(showCardApplyPage()));
+    connect(ccApplyBtn, SIGNAL(clicked(bool)), this, SLOT(showCardApplyPage()));
+    connect(ccActivateBtn, SIGNAL(clicked(bool)), this, SLOT(showCardActivatePage()));
+    connect(ccRepayBtn, SIGNAL(clicked(bool)), this, SLOT(showCardRepayPage()));
+    connect(ccLostBtn, SIGNAL(clicked(bool)), this, SLOT(showCardLostPage()));
+
+    //connections for ACTIONS
+    connect(personalInfoAction, SIGNAL(triggered(bool)), this, SLOT(showUserInfoPage()));
+    connect(changepwAction, SIGNAL(triggered(bool)), this, SLOT(showChangePwPage()));
+    connect(sysmsgAction, SIGNAL(triggered(bool)), this, SLOT(showSysMsgPage()));
+    connect(logoutAction, SIGNAL(triggered(bool)), this, SLOT(close()));
     connect(languageAction, SIGNAL(triggered(bool)), this, SLOT(changeLanguage()));
+    connect(aboutAction, SIGNAL(triggered(bool)), this, SLOT(showAboutPage()));
 }
 
-void BankUI::changeLanguage(){
+void BankUI::changeLanguage()
+{
     QString QmName;
     QTranslator *wTranslator = new QTranslator();
     isChinese ? QmName = "eng.qm" : QmName = "chn.qm";
     isChinese ? isChinese = false : isChinese = true;
     if(wTranslator->load(QmName))
     {
-       qApp->installTranslator(wTranslator);
+        qApp->installTranslator(wTranslator);
     }
     personalInfoAction->setText(tr("Personal Info"));
     changepwAction->setText(tr("Change Password"));
@@ -157,18 +263,27 @@ void BankUI::changeLanguage(){
     logoutAction->setText(tr("Log Out"));
     languageAction->setText(tr("Language"));
     aboutAction->setText(tr("About"));
-    queryLabel->setText(tr("My Account"));
-    transferLabel->setText(tr("Transfer"));
-    paymentLabel->setText(tr("Payment"));
-    ccardLabel->setText(tr("Credit Card"));
-    currentPosLabel->setText(tr("Current Position: "));
+
     logInfoLabel->setText(tr("User: "));
     creditLabel->setText(tr("Credit to Zhu Yilin & Tian Xingyu"));
+
+    queryLabel->setText(tr("My Account"));
+    myAccountLabel->setText(tr("My Account"));
+    accountQueryLabel->setText(tr("Account Query"));
+    transferLabel->setText(tr("Transfer"));
+    currTransferLabel->setText(tr("Current Transfer"));
+    currentFixLabel->setText(tr("Current-Fixed"));
+    paymentLabel->setText(tr("Payment"));
+    ccardLabel->setText(tr("Credit Card"));
+    ccApplyLabel->setText(tr("Apply"));
+    ccActivateLabel->setText(tr("Activate"));
+    ccRepayLabel->setText(tr("Repay"));
+    ccLostLabel->setText(tr("Loss Report"));
 }
 
 void BankUI::mouseMoveEvent(QMouseEvent *event)
 {
-    if (isPressed)
+    if (isPressed && (movePoint.ry() < 160 || movePoint.ry() > 726))
     {
         QPoint point = event->globalPos();
         move(point - movePoint);
@@ -188,44 +303,257 @@ void BankUI::mouseReleaseEvent(QMouseEvent *event)
     isPressed = false;
 }
 
-void BankUI::popQuery()
+void BankUI::checkQuery()
 {
+    queryBtn->setChecked(true);
+    myAccountBtn->setChecked(true);
+    accountQueryBtn->setChecked(false);
     transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
     paymentBtn->setChecked(false);
     ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
 }
 
-void BankUI::popTransfer()
+void BankUI::checkMyAccount()
 {
     queryBtn->setChecked(false);
+    myAccountBtn->setChecked(true);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
     paymentBtn->setChecked(false);
     ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
 }
-
-void BankUI::popPayment()
+void BankUI::checkAccountQuery()
 {
     queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(true);
     transferBtn->setChecked(false);
-    ccardBtn->setChecked(false);
-}
-
-void BankUI::popCCard()
-{
-    queryBtn->setChecked(false);
-    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
     paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkTransfer()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(true);
+    currTransferBtn->setChecked(true);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCurrentTransfer()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(true);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCurrentFix()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(true);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkPayment()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(true);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCCard()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(true);
+    ccApplyBtn->setChecked(true);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCCApply()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(true);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCCActivate()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(true);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCCRepay()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(true);
+    ccLostBtn->setChecked(false);
+}
+void BankUI::checkCCLost()
+{
+    queryBtn->setChecked(false);
+    myAccountBtn->setChecked(false);
+    accountQueryBtn->setChecked(false);
+    transferBtn->setChecked(false);
+    currTransferBtn->setChecked(false);
+    currentFixBtn->setChecked(false);
+    paymentBtn->setChecked(false);
+    ccardBtn->setChecked(false);
+    ccApplyBtn->setChecked(false);
+    ccActivateBtn->setChecked(false);
+    ccRepayBtn->setChecked(false);
+    ccLostBtn->setChecked(true);
 }
 
-void BankUI::popUserMenu(){
+void BankUI::popUserMenu()
+{
     QPoint pos;
     pos.setX(pos.x() - userBtn->geometry().width());
     pos.setY(pos.y() + userBtn->geometry().height());
     userMenu->exec(userBtn->mapToGlobal(pos));
 }
 
-void BankUI::popSettingMenu(){
+void BankUI::popSettingMenu()
+{
     QPoint pos;
     pos.setX(pos.x() - settingBtn->geometry().width());
     pos.setY(pos.y() + settingBtn->geometry().height());
     settingMenu->exec(settingBtn->mapToGlobal(pos));
 }
+void BankUI::showMyAccountPage()
+{
+    centerStack->setCurrentIndex(0);
+}
+void BankUI::showAccountQueryPage()
+{
+    centerStack->setCurrentIndex(1);
+}
+void BankUI::showTransferPage()
+{
+    centerStack->setCurrentIndex(2);
+}
+void BankUI::shouCurrentFixPage()
+{
+    centerStack->setCurrentIndex(3);
+}
+void BankUI::showPaymentPage()
+{
+    centerStack->setCurrentIndex(4);
+}
+void BankUI::showAutoPayPage()
+{
+    centerStack->setCurrentIndex(5);
+}
+void BankUI::showCardApplyPage()
+{
+    centerStack->setCurrentIndex(6);
+}
+void BankUI::showCardActivatePage()
+{
+    centerStack->setCurrentIndex(7);
+}
+void BankUI::showCardRepayPage()
+{
+    centerStack->setCurrentIndex(8);
+}
+void BankUI::showCardLostPage()
+{
+    centerStack->setCurrentIndex(9);
+}
+void BankUI::showUserInfoPage()
+{
+    centerStack->setCurrentIndex(10);
+}
+void BankUI::showChangePwPage()
+{
+    centerStack->setCurrentIndex(11);
+}
+void BankUI::showSysMsgPage()
+{
+    centerStack->setCurrentIndex(12);
+}
+void BankUI::showAboutPage()
+{
+    centerStack->setCurrentIndex(13);
+}
+

@@ -1,84 +1,262 @@
-*{
-        font-size:16px;
-        font-family:"Noto Sans CJK KR Regular";
-        border-radius: 0px;
-        text-align : left ;
+* {
+font-size:18px;
+font-family:"Noto Sans CJK KR Regular";
+border-radius:0;
+text-align:left;
 }
 
-QLabel#backgroundLabel{
-        background: rgba(255,255,255,0);
-        background-image: url(image/bg1.png);
+QLabel#backgroundLabel {
+background:rgba(255,255,255,0);
+background-image:url(image/bg3.png);
 }
 
-QPushButton#queryBtn, QPushButton#transferBtn, QPushButton#paymentBtn, QPushButton#ccardBtn {
-        background:transparent;
+QPushButton#queryBtn,
+QPushButton#transferBtn,
+QPushButton#paymentBtn,
+QPushButton#ccardBtn {
+background:transparent;
 }
 
-QPushButton#queryBtn:hover, QPushButton#transferBtn:hover, QPushButton#paymentBtn:hover, QPushButton#ccardBtn:hover {
-        background: rgba(0,0,0,12);
+QPushButton#queryBtn:hover,
+QPushButton#transferBtn:hover,
+QPushButton#paymentBtn:hover,
+QPushButton#ccardBtn:hover {
+background:rgba(0,0,0,12);
 }
 
-QPushButton#queryBtn:pressed, QPushButton#transferBtn:pressed, QPushButton#paymentBtn:pressed, QPushButton#ccardBtn:pressed {
-        background: rgba(0,0,0,36);
+QPushButton#queryBtn:pressed,
+QPushButton#transferBtn:pressed,
+QPushButton#paymentBtn:pressed,
+QPushButton#ccardBtn:pressed {
+background:rgba(0,0,0,30);
 }
 
-QPushButton#queryBtn:checked, QPushButton#transferBtn:checked, QPushButton#paymentBtn:checked, QPushButton#ccardBtn:checked {
-        background: rgba(0,0,0,26);
+QPushButton#queryBtn:checked,
+QPushButton#transferBtn:checked,
+QPushButton#paymentBtn:checked,
+QPushButton#ccardBtn:checked {
+background:rgba(0,0,0,20);
+}
+
+QPushButton#myAccountBtn,
+QPushButton#accountQueryBtn,
+QPushButton#currTransferBtn,
+QPushButton#currentFixBtn,
+QPushButton#ccApplyBtn,
+QPushButton#ccActivateBtn,
+QPushButton#ccRepayBtn,
+QPushButton#ccLostBtn{
+background:transparent;
+}
+
+QPushButton#myAccountBtn:hover,
+QPushButton#accountQueryBtn:hover,
+QPushButton#currTransferBtn:hover,
+QPushButton#currentFixBtn:hover,
+QPushButton#ccApplyBtn:hover,
+QPushButton#ccActivateBtn:hover,
+QPushButton#ccRepayBtn:hover,
+QPushButton#ccLostBtn:hover{
+background:rgba(0,0,0,12);
+}
+
+QPushButton#myAccountBtn:checked,
+QPushButton#accountQueryBtn:checked,
+QPushButton#currTransferBtn:checked,
+QPushButton#currentFixBtn:checked,
+QPushButton#ccApplyBtn:checked,
+QPushButton#ccActivateBtn:checked,
+QPushButton#ccRepayBtn:checked,
+QPushButton#ccLostBtn:checked{
+background:rgba(0,0,0,20);
 }
 
 QPushButton#minBtn {
-        background-image: url(image/min0.png);
-        background-repeat: no-repeat;
+background-image:url(image/min0.png);
+background-repeat:no-repeat;
 }
 
 QPushButton#minBtn:hover {
-        background-image: url(image/min1.png);
-        background-repeat: no-repeat;
+background-image:url(image/min1.png);
+background-repeat:no-repeat;
 }
 
 QPushButton#closeBtn {
-        background-image: url(image/close0.png);
-        background-repeat: no-repeat;
+background-image:url(image/close0.png);
+background-repeat:no-repeat;
 }
 
 QPushButton#closeBtn:hover {
-        background-image: url(image/close1.png);
-        background-repeat: no-repeat;
+background-image:url(image/close1.png);
+background-repeat:no-repeat;
 }
 
-QLabel#queryLabel, QLabel#transferLabel, QLabel#paymentLabel, QLabel#ccardLabel {
-        margin-left: 80px;
-        background: transparent;
+QPushButton#userBtn {
+background-image:url(image/user0.png);
+background-repeat:no-repeat;
 }
 
-QLabel#logInfoLabel{
-        font: 12px;
+QPushButton#userBtn:hover {
+background-image:url(image/user1.png);
+background-repeat:no-repeat;
 }
 
-QLabel#creditLabel{
-        font: 12px;
-        text-align : right;
+QPushButton#settingBtn {
+background-image:url(image/setting0.png);
+background-repeat:no-repeat;
 }
 
-QLabel#currentPosLabel{
-        font: 14px;
+QPushButton#settingBtn:hover {
+background-image:url(image/setting1.png);
+background-repeat:no-repeat;
 }
 
-QMenu#userBtnMenu, QMenu#settingBtnMenu{
-        background: #FAFAFA;
+QLabel#queryLabel,
+QLabel#transferLabel,
+QLabel#paymentLabel,
+QLabel#ccardLabel {
+margin-left:80px;
+background:transparent;
+color:rgba(0,0,0,222);
 }
 
-QMenu#userBtnMenu::item, QMenu#settingBtnMenu::item{
-        padding: 16px 24px 12px 16px;
+QLabel#myAccountLabel,
+QLabel#accountQueryLabel,
+QLabel#currTransferLabel,
+QLabel#currentFixLabel,
+QLabel#ccApplyLabel,
+QLabel#ccActivateLabel,
+QLabel#ccRepayLabel,
+QLabel#ccLostLabel{
+font:14px;
+margin-left:104px;
+background:transparent;
+color:rgba(0,0,0,222);
 }
 
-QMenu#userBtnMenu::separator, QMenu#settingBtnMenu::separator{
-        height: 1px;
-        background: rgba(0,0,0,0);
-        margin-left: 2px;
-        margin-right: 2px;
+QLabel#logInfoLabel {
+font:14px;
+color:rgba(0,0,0,222);
 }
 
-QMenu#userBtnMenu::item:selected, QMenu#settingBtnMenu::item:selected{
-        background: #EEEEEE;
+QLabel#creditLabel {
+font:14px;
+color:rgba(0,0,0,222);
+text-align:right;
+}
+
+QMenu#userBtnMenu,
+QMenu#settingBtnMenu {
+background:#FAFAFA;
+}
+
+QMenu#userBtnMenu::item,
+QMenu#settingBtnMenu::item {
+font:16px;
+padding:16px 24px 12px 16px;
+}
+
+QMenu#userBtnMenu::separator,
+QMenu#settingBtnMenu::separator {
+height:1px;
+background:rgba(0,0,0,0);
+margin-left:2px;
+margin-right:2px;
+}
+
+QMenu#userBtnMenu::item:selected,
+QMenu#settingBtnMenu::item:selected {
+background:#EEEEEE;
+}
+
+QLabel#CMALabel1 {
+font:32px;
+color:rgba(0,0,0,222);
+}
+
+QLabel#CMALabel2 {
+font:24px;
+color:rgba(0,0,0,222);
+}
+
+QLabel#TTitle {
+font:32px;
+color:rgba(0,0,0,222);
+}
+
+QLabel#TLabel1,
+QLabel#TLabel2,
+QLabel#TLabel3,
+QLabel#TLabel4,
+QLabel#TLabel5{
+font:16px;
+color:rgba(0,0,0,222);
+}
+
+QComboBox{
+font:16px;
+border-bottom: solid;
+border-width: 2px;
+border-color: #DBDBDB;
+background: transparent;
+}
+
+QComboBox::drop-down{
+width: 20px;
+color:transparent;
+background:transparent;
+}
+
+QComboBox::down-arrow{
+image:url(image/dropdown.png);
+}
+
+QComboBox QAbstractItemView::item {
+padding: 4px 12px 4px 8px;
+color: rgba(0,0,0,222);
+background: #FAFAFA;
+}
+
+QComboBox QAbstractItemView::item:selected {
+height: 48px; 
+color: rgba(0,0,0,222);
+background: #EEEEEE;
+}
+
+QLineEdit#TEdit2,
+QLineEdit#TEdit3,
+QLineEdit#TEdit4,
+QLineEdit#TEdit5{
+font:16px;
+border-bottom: solid;
+border-width: 2px;
+border-color: #DBDBDB;
+background: transparent;
+}
+
+QLineEdit#TEdit2:focus,
+QLineEdit#TEdit3:focus,
+QLineEdit#TEdit4:focus,
+QLineEdit#TEdit5:focus{
+border-bottom: solid;
+border-width: 2px;
+border-color: #2196F3;
+background: transparent;
+}
+
+QPushButton#TConfirmBtn{	
+font:bold 16px;
+padding: 0px 16px;
+border-radius: 4px;
+color: #2196F3;
+}
+
+QPushButton#TConfirmBtn::hover{	
+color: #EAEAEA;
+background: #2196F3;
+}
+
+QPushButton#TConfirmBtn::pressed{	
+color: #EAEAEA;
+background: #2196F3;
 }
