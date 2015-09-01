@@ -6,8 +6,16 @@ text-align:left;
 }
 
 QLabel#backgroundLabel {
-background:rgba(255,255,255,0);
-background-image:url(image/bg3.png);
+background-image:url(image/blankbg.png);
+}
+QLabel#topbarLabel {
+background-image:url(image/topbar.png);
+}
+QLabel#menubarLabel {
+background-image:url(image/menubar.png);
+}
+QLabel#navbarLabel {
+background-image:url(image/navbar.png);
 }
 
 QPushButton#queryBtn,
@@ -240,7 +248,7 @@ QLineEdit#TEdit4:focus,
 QLineEdit#TEdit5:focus{
 border-bottom: solid;
 border-width: 2px;
-border-color: #2196F3;
+border-color: #039BE5;
 background: transparent;
 }
 
@@ -248,15 +256,14 @@ QPushButton#TConfirmBtn{
 font:bold 16px;
 padding: 0px 16px;
 border-radius: 4px;
-color: #2196F3;
-}
-
-QPushButton#TConfirmBtn::hover{	
 color: #EAEAEA;
-background: #2196F3;
+background: #039BE5;
 }
 
 QPushButton#TConfirmBtn::pressed{	
 color: #EAEAEA;
-background: #2196F3;
+background: #0288D1;
+border-bottom: solid;
+border-width: 2px;
+border-color: #01579b;
 }

@@ -17,6 +17,7 @@ class BankUI : public QWidget
 public:
     BankUI(QWidget *parent = 0);
     ~BankUI();
+    void openUX();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -53,9 +54,15 @@ private slots:
     void showChangePwPage();
     void showSysMsgPage();
     void showAboutPage();
+    bool closeWindow();
+    void showWidgets();
+    void openUX2();
 
 private:
     QLabel *backgroundLabel;
+    QLabel *topbarLabel;
+    QLabel *menubarLabel;
+    QLabel *navbarLabel;
     QPushButton *userBtn;
     QPushButton *settingBtn;
     QPushButton *minBtn;
@@ -101,6 +108,8 @@ private:
     void setStyle();
     void initUI();
     void setConnections();
+    void updateLanguage();
+    void openWindow();
 
     QTranslator wTranslator;
     bool isChinese;

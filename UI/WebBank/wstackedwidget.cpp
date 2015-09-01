@@ -15,6 +15,10 @@ WStackedWidget::WStackedWidget(QWidget *parent):
 
 }
 
+void WStackedWidget::updateLanguage(){
+    myAccountPage->updateLanguage();
+    transferPage->updateLanguage();
+}
 
 void WStackedWidget::showMyAccountPage(){
     this->setCurrentIndex(0);

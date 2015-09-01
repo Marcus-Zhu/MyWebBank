@@ -2,27 +2,36 @@
 #include "pages.h"
 #include <QListWidget>
 
-MyAccountPage::MyAccountPage(QWidget *parent) : QWidget(parent)
+WPage::WPage(QWidget *parent):QWidget(parent){
+    mainTitle = new QLabel(this);
+}
+
+MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
 {
-    title1 = new QLabel(tr("My Account"), this);
+    mainTitle->setText(tr("My Account"));
     title2 = new QLabel(tr("Recent Transaction Records"), this);
     table1 = new QTableWidget(this);
     table2 = new QTableWidget(this);
 
-    title1->setObjectName("CMALabel1");
+    mainTitle->setObjectName("CMALabel1");
     title2->setObjectName("CMALabel2");
     table1->setObjectName("CMATable1");
     table2->setObjectName("CMATable2");
 
-    title1->setGeometry(QRect(24,12,400,48));
+    mainTitle->setGeometry(QRect(24,12,400,48));
     title2->setGeometry(QRect(24,292,400,28));
     table1->setGeometry(QRect(24,72,708,192));
     table2->setGeometry(QRect(24,344,708,192));
 }
 
-TransferPage::TransferPage(QWidget *parent) : QWidget(parent)
+void MyAccountPage::updateLanguage(){
+    mainTitle->setText(tr("My Account"));
+    title2->setText(tr("Recent Transaction Records"));
+}
+
+TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 {
-    title = new QLabel(tr("Current Deposit Transfer"), this);
+    mainTitle->setText(tr("Current Deposit Transfer"));
     label1 = new QLabel(tr("paying account"), this);
     label2 = new QLabel(tr("receiver's name"), this);
     label3 = new QLabel(tr("receiver's account"), this);
@@ -35,7 +44,7 @@ TransferPage::TransferPage(QWidget *parent) : QWidget(parent)
     edit5 = new QLineEdit(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
-    title->setObjectName("TTitle");
+    mainTitle->setObjectName("TTitle");
     label1->setObjectName("TLabel1");
     label2->setObjectName("TLabel2");
     label3->setObjectName("TLabel3");
@@ -54,7 +63,7 @@ TransferPage::TransferPage(QWidget *parent) : QWidget(parent)
     NoFocusDelegate* itemDelegate = new NoFocusDelegate();
     edit1->setItemDelegate(itemDelegate);
 
-    title->setGeometry(QRect(24,12,400,48));
+    mainTitle->setGeometry(QRect(24,12,400,48));
     label1->setGeometry(QRect(24,92,200,24));
     label2->setGeometry(QRect(24,140,200,24));
     label3->setGeometry(QRect(24,188,200,24));
@@ -68,4 +77,13 @@ TransferPage::TransferPage(QWidget *parent) : QWidget(parent)
     confirmBtn->setGeometry(QRect(584,336,108,36));
 
 
+}
+
+void TransferPage::updateLanguage(){
+    mainTitle->setText(tr("Current Deposit Transfer"));
+    label1->setText(tr("paying account"));
+    label2->setText(tr("receiver's name"));
+    label3->setText(tr("receiver's account"));
+    label4->setText(tr("transfer amount"));
+    label5->setText(tr("comment"));
 }

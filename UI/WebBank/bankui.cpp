@@ -3,6 +3,9 @@
 #include <QMenu>
 #include <QDebug>
 #include <QApplication>
+#include <QDesktopWidget>
+#include <QTimer>
+#include <QPropertyAnimation>
 
 #include "bankui.h"
 
@@ -18,6 +21,7 @@ BankUI::BankUI(QWidget *parent)
     centerStack->setGeometry(QRect(242, 148, 751, 534));
 
     setConnections();
+    openWindow();
 }
 
 BankUI::~BankUI()
@@ -56,6 +60,9 @@ void BankUI::initUI()
 
     //Components New
     backgroundLabel = new QLabel("", this);
+    navbarLabel = new QLabel("", this);
+    topbarLabel = new QLabel("", this);
+    menubarLabel = new QLabel("", this);
     userBtn = new QPushButton("", this);
     settingBtn = new QPushButton("", this);
 
@@ -108,6 +115,9 @@ void BankUI::initUI()
 
     //Components setObjectName for QSS
     backgroundLabel->setObjectName("backgroundLabel");
+    topbarLabel->setObjectName("topbarLabel");
+    menubarLabel->setObjectName("menubarLabel");
+    navbarLabel->setObjectName("navbarLabel");
     userBtn->setObjectName("userBtn");
     settingBtn->setObjectName("settingBtn");
     userMenu->setObjectName("userBtnMenu");
@@ -152,6 +162,7 @@ void BankUI::initUI()
 
     //Components' position and size
     backgroundLabel->setGeometry(QRect(0, 0, 1000, 750));
+    menubarLabel->setGeometry(QRect(0, -40, 1000, 33));
     userBtn->setGeometry(QRect(856, 60, 48, 48));
     settingBtn->setGeometry(QRect(928, 60, 48, 48));
     minBtn->setGeometry(QRect(950, 12, 10, 15));
@@ -205,7 +216,7 @@ void BankUI::initUI()
 
 void BankUI::setConnections()
 {
-    connect(closeBtn, SIGNAL(clicked(bool)), this, SLOT(close()));
+    connect(closeBtn, SIGNAL(clicked(bool)), this, SLOT(closeWindow()));
     connect(minBtn, SIGNAL(clicked(bool)), this, SLOT(showMinimized()));
     connect(userBtn, SIGNAL(clicked(bool)), this, SLOT(popUserMenu()));
     connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(popSettingMenu()));
@@ -242,7 +253,7 @@ void BankUI::setConnections()
     connect(personalInfoAction, SIGNAL(triggered(bool)), this, SLOT(showUserInfoPage()));
     connect(changepwAction, SIGNAL(triggered(bool)), this, SLOT(showChangePwPage()));
     connect(sysmsgAction, SIGNAL(triggered(bool)), this, SLOT(showSysMsgPage()));
-    connect(logoutAction, SIGNAL(triggered(bool)), this, SLOT(close()));
+    connect(logoutAction, SIGNAL(triggered(bool)), this, SLOT(closeWindow()));
     connect(languageAction, SIGNAL(triggered(bool)), this, SLOT(changeLanguage()));
     connect(aboutAction, SIGNAL(triggered(bool)), this, SLOT(showAboutPage()));
 }
@@ -257,6 +268,10 @@ void BankUI::changeLanguage()
     {
         qApp->installTranslator(wTranslator);
     }
+    updateLanguage();
+}
+void BankUI::updateLanguage()
+{
     personalInfoAction->setText(tr("Personal Info"));
     changepwAction->setText(tr("Change Password"));
     sysmsgAction->setText(tr("Message"));
@@ -279,6 +294,7 @@ void BankUI::changeLanguage()
     ccActivateLabel->setText(tr("Activate"));
     ccRepayLabel->setText(tr("Repay"));
     ccLostLabel->setText(tr("Loss Report"));
+    centerStack->updateLanguage();
 }
 
 void BankUI::mouseMoveEvent(QMouseEvent *event)
@@ -289,14 +305,12 @@ void BankUI::mouseMoveEvent(QMouseEvent *event)
         move(point - movePoint);
     }
 }
-
 void BankUI::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
         isPressed = true;
     movePoint = event->globalPos() - pos();
 }
-
 void BankUI::mouseReleaseEvent(QMouseEvent *event)
 {
     event;
@@ -318,7 +332,6 @@ void BankUI::checkQuery()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
-
 void BankUI::checkMyAccount()
 {
     queryBtn->setChecked(false);
@@ -492,7 +505,6 @@ void BankUI::popUserMenu()
     pos.setY(pos.y() + userBtn->geometry().height());
     userMenu->exec(userBtn->mapToGlobal(pos));
 }
-
 void BankUI::popSettingMenu()
 {
     QPoint pos;
@@ -500,6 +512,7 @@ void BankUI::popSettingMenu()
     pos.setY(pos.y() + settingBtn->geometry().height());
     settingMenu->exec(settingBtn->mapToGlobal(pos));
 }
+
 void BankUI::showMyAccountPage()
 {
     centerStack->setCurrentIndex(0);
@@ -557,3 +570,115 @@ void BankUI::showAboutPage()
     centerStack->setCurrentIndex(13);
 }
 
+void BankUI::openWindow(){
+    userBtn->setVisible(false);
+    settingBtn->setVisible(false);
+    minBtn->setVisible(false);
+    closeBtn->setVisible(false);
+
+    queryLabel->setVisible(false);
+    myAccountLabel->setVisible(false);
+    accountQueryLabel->setVisible(false);
+    transferLabel->setVisible(false);
+    currTransferLabel->setVisible(false);
+    currentFixLabel->setVisible(false);
+    paymentLabel->setVisible(false);
+    ccardLabel->setVisible(false);
+    ccApplyLabel->setVisible(false);
+    ccActivateLabel->setVisible(false);
+    ccRepayLabel->setVisible(false);
+    ccLostLabel->setVisible(false);
+
+    logInfoLabel->setVisible(false);
+    creditLabel->setVisible(false);
+    centerStack->setVisible(false);
+}
+
+void BankUI::openUX()
+{
+    // QRect pos = QApplication::desktop()->screenGeometry();
+    // int height = pos.height();
+    // int width = pos.width();
+    // QPropertyAnimation *animation1 = new QPropertyAnimation(this, "geometry");
+    // animation1->setDuration(150);
+    // animation1->setStartValue(QRect((width - 400) / 2, (height - 300) / 2 + 50, 400, 300));
+    // animation1->setEndValue(QRect((width - 1000) / 2, (height - 750) / 2, 1000, 750));
+    // animation1->setEasingCurve(QEasingCurve::OutQuint);
+    // QPropertyAnimation *animation2 = new QPropertyAnimation(this, "windowOpacity");
+    // animation2->setDuration(200);
+    // animation2->setStartValue(0);
+    // animation2->setEndValue(1);
+    // animation2->setEasingCurve(QEasingCurve::OutQuint);
+    // animation1->start();
+    // animation2->start();
+    // topbarLabel->setGeometry(QRect(0, 0, 1000, 161));
+    // menubarLabel->setGeometry(QRect(0, 0, 1000, 33));
+    // navbarLabel->setGeometry(QRect(0, 0, 260, 751));
+    QPropertyAnimation *a1 = new QPropertyAnimation(topbarLabel, "geometry");
+    a1->setDuration(1000);
+    a1->setStartValue(QRect(0, -40, 1000, 161));
+    a1->setEndValue(QRect(0, 0, 1000, 161));
+    a1->setEasingCurve(QEasingCurve::OutExpo);
+    a1->start();
+    QPropertyAnimation *a3 = new QPropertyAnimation(menubarLabel, "geometry");
+    a3->setDuration(1000);
+    a3->setStartValue(QRect(0, -40, 1000, 33));
+    a3->setEndValue(QRect(0, 0, 1000, 33));
+    a3->setEasingCurve(QEasingCurve::OutExpo);
+    a3->start();
+    QTimer::singleShot(450,this,SLOT(openUX2()));
+}
+
+void BankUI::openUX2(){
+    QPropertyAnimation *a2 = new QPropertyAnimation(navbarLabel, "geometry");
+    a2->setDuration(750);
+    a2->setStartValue(QRect(-30, 0, 260, 751));
+    a2->setEndValue(QRect(0, 0, 260, 751));
+    a2->setEasingCurve(QEasingCurve::OutExpo);
+    a2->start();
+    QTimer::singleShot(700,this,SLOT(showWidgets()));
+}
+
+void BankUI::showWidgets(){
+    userBtn->setVisible(true);
+    settingBtn->setVisible(true);
+
+    queryLabel->setVisible(true);
+    myAccountLabel->setVisible(true);
+    accountQueryLabel->setVisible(true);
+    transferLabel->setVisible(true);
+    currTransferLabel->setVisible(true);
+    currentFixLabel->setVisible(true);
+    paymentLabel->setVisible(true);
+    ccardLabel->setVisible(true);
+    ccApplyLabel->setVisible(true);
+    ccActivateLabel->setVisible(true);
+    ccRepayLabel->setVisible(true);
+    ccLostLabel->setVisible(true);
+
+    minBtn->setVisible(true);
+    closeBtn->setVisible(true);
+
+    logInfoLabel->setVisible(true);
+    creditLabel->setVisible(true);
+    centerStack->setVisible(true);
+}
+
+bool BankUI::closeWindow()
+{
+    QPoint pos = this->mapToGlobal(QPoint(0, 0));
+    this->setMinimumSize(400,300);
+    QPropertyAnimation *animation1 = new QPropertyAnimation(this, "geometry");
+    animation1->setDuration(165);
+    animation1->setStartValue(QRect(pos.rx(), pos.ry(), 1000, 750));
+    animation1->setEndValue(QRect(pos.rx() + 300, pos.ry() + 250, 400, 300));
+    animation1->setEasingCurve(QEasingCurve::OutSine);
+    QPropertyAnimation *animation2 = new QPropertyAnimation(this, "windowOpacity");
+    animation2->setDuration(165);
+    animation2->setStartValue(1);
+    animation2->setEndValue(0);
+    animation1->start();
+    animation2->start();
+    connect(animation2, SIGNAL(finished()), this, SLOT(close()));
+    return true;
+}

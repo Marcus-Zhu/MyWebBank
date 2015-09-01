@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     BankUI w;
     w.setAttribute(Qt::WA_TranslucentBackground);
     w.show();
+    w.openUX();
 
     return a.exec();
 }

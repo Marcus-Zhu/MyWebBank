@@ -11,6 +11,7 @@ class WStackedWidget : public QStackedWidget
 {
 public:
     WStackedWidget(QWidget *parent = 0);
+    void updateLanguage();
 public slots:
     void showMyAccountPage();
     void showTransferPage();
