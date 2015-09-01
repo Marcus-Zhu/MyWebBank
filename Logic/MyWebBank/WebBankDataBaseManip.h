@@ -19,6 +19,7 @@ public:
     //virtual bool dbSelect(QString selectInfo);
     virtual bool dbDelete(QString deleteInfo);
     virtual bool dbTableCreate();
+    void dbNext(){query.next();}
 };
 
 class DBUserManip: public WDBManip{
@@ -26,7 +27,7 @@ public:
     bool dbInsert(QVector<QString> insertInfo);
     bool dbUpdate(QString updateInfo);
     bool dbSelect(QString userName,QString userPassword);
-    static int dbSelect();
+    static int dbSelectUserKey();
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
 };
@@ -34,9 +35,10 @@ public:
 class DBAccountManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
-    bool dbUpdate(QString updateInfo,QString updateBalance);
+    bool dbUpdate(QString updateInfo, float updateBalance);
     bool dbUpdate(QString updateInfo);
-    QVector<QString> dbSelect(QString selectInfo);
+    QVector<QString>& dbSelect(QString selectInfo);
+    static int dbSelectAccountKey(QString accountNumber);
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
 };
@@ -44,18 +46,18 @@ public:
 class DBTransactionRecordManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
-    bool dbUpdate(QString updateInfo);
-    QVector<QString> dbSelect(QString selectInfo);
-    bool dbDelete(QString deleteInfo);
+    bool dbUpdate(QString updateInfo = "");
+    QVector<QString>& dbSelect(QString selectInfo);
+    bool dbDelete(QString deleteInfo = "");
     bool dbTableCreate();
 };
 
 class DBPaymetnRecordManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
-    bool dbUpdate(QString updateInfo);
-    QVector<QString> dbSelect(QString selectInfo);
-    bool dbDelete(QString deleteInfo);
+    bool dbUpdate(QString updateInfo = "");
+    QVector<QString>& dbSelect(QString selectInfo);
+    bool dbDelete(QString deleteInfo = "");
     bool dbTableCreate();
 };
 
@@ -63,9 +65,18 @@ class DBMessageManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString> insertInfo);
     bool dbUpdate(QString updateInfo);
-    QVector<QString> dbSelect(QString selectInfo);
+    QVector<QString>& dbSelect(QString selectInfo);
+    bool dbDelete(QString deleteInfo = "");
+    bool dbTableCreate();
+};
+
+class DBLogRecordManip:public WDBManip{
+public:
+    bool dbInsert(QVector<QString> insertInfo);
+    bool dbUpdate(QString updateInfo);
+    QVector<QString>& dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo);
     bool dbTableCreate();
-}
+};
 
 #endif // WEBBANKDATABASEMANIP_H

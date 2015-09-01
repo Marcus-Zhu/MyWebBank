@@ -38,10 +38,8 @@ private:
     QString type;
     QVector<WAccount> account;
     QVector<WSysMsg> message;
+
 public:
-    //bool setEmail(QString newEmail);
-    //bool setAddress(QString newAddress);
-    //bool setZipCode(QString newZipCode);
     bool setPassword(QString newPassword);
     int getAccountNumber(){return account.size();}
     SUserInfo* getUserInfo();

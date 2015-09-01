@@ -29,18 +29,18 @@ bool DBUserManip::dbInsert(QVector<QString> insertInfo){
 
 bool DBUserManip::dbUpdate(QString updateInfo){
     bool result;
-    result = query.exec(QString("UPDATE user SET password = %1 WHERE name = %2").arg(WCurrentUser::getUserName()).arg(userInfo));
+    result = query.exec(QString("UPDATE user SET password = '%1' WHERE name = '%2'").arg(WCurrentUser::getUserName()).arg(userInfo));
     return result;
 }
 
 bool DBUserManip::dbDelete(QString deleteInfo){
     bool result;
-    result = query.exec(QString("DELETE FROM user WHERE name = %1").arg(deleteInfo));
+    result = query.exec(QString("DELETE FROM user WHERE name = '%1'").arg(deleteInfo));
     return result;
 }
 //核对用户的输入密码是否正确
 bool DBUserManip::dbSelect(QString userName, QString userPassword){
-    if(!query.exec(QString("SELECT * FROM user WHERE name = %1").arg(userName)))
+    if(!query.exec(QString("SELECT * FROM user WHERE name = '%1'").arg(userName)))
             qDebug()<<query.lastError();
     else{
         if(userPassword == query.value(2).toString())
@@ -50,8 +50,8 @@ bool DBUserManip::dbSelect(QString userName, QString userPassword){
     }
 }
 //返回useKey的值
-int DBUserManip::dbSelect(){
-    query.exec(QString("SELECT * FROM user WHERE name = %1").arg(WCurrentUser::getUserName()));
+int DBUserManip::dbSelectUserKey(){
+    query.exec(QString("SELECT * FROM user WHERE name = '%1'").arg(WCurrentUser::getUserName()));
     int userKey = query.value(0).toInt();
     return userKey;
 }
@@ -76,32 +76,41 @@ bool DBAccountManip::dbInsert(QVector<QString> insertInfo){
     result = query.exec();
     return result;
 }
+
+int DBAccountManip::dbSelectAccountKey(QString accountNumber){
+    int key;
+    query.exec(QString("SELECT key FROM account WHERE number = '%1'").arg(accountNumber));
+    key = query.value(0).toInt();
+    return key;
+}
 //更新账户状态
 bool DBAccountManip::dbUpdate(QString updateInfo){
     bool result;
-    if(query.exec(QString("SELECT FROM account WHERE number = %1").arg(updateInfo))){
+    if(query.exec(QString("SELECT FROM account WHERE number = '%1'").arg(updateInfo))){
         QString currentStatus = query.value(3).toString();
         if(currentStatus == "normal")
-            result = query.exec(QString("UPDATE account SET status = frozen WHERE number = %1").arg(updateInfo));
+            result = query.exec(QString("UPDATE account SET status = 'frozen' WHERE number = '%1'").arg(updateInfo));
         else
-            result = query.exec(QString("UPDATE account SET status = normal WHERE number = %1").arg(updateInfo));
+            result = query.exec(QString("UPDATE account SET status = 'normal' WHERE number = '%1'").arg(updateInfo));
     }
     return result;
 }
 //更新账户余额
-bool DBAccountManip::dbUpdate(QString updateInfo,QString updateBalance){
+bool DBAccountManip::dbUpdate(QString updateInfo,float updateBalance){
    bool result;
-   result = query.exec(QString("UPDATE account SET balance = %1 WHERE number = %2").arg(updateBalance.toFloat()).arg(updateInfo));
+   result = query.exec(QString("UPDATE account SET balance = %1 WHERE number = '%2'").arg(updateBalance).arg(updateInfo));
    return result;
 }
 
-QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
-    QVector<QString> accountInfo = new QVector<QString>(7);
-    if(query.exec(QString("SELECT * FROM account WHERE number = %1").arg(selectInfo)))
+QVector<QString>& DBAccountManip::dbSelect(QString selectInfo) {
+    QVector<QString> accountInfo = new QVector<QString>(5);
+    if(query.exec(QString("SELECT * FROM account WHERE number = '%1'").arg(selectInfo)))
     {
-        for(int i = 0;i<5;i++)
-            accountInfo[i] = query.value(2 + i).toString();
-        return accountInfo;
+        while(query.next()){
+            for(int i = 0;i<5;i++)
+                accountInfo.push_back(query.value(2 + i).toString());
+            return accountInfo;
+        }
     }
     else
         return NULL;
@@ -109,7 +118,7 @@ QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
 
 bool DBAccountManip::dbDelete(QString deleteInfo){
     bool result;
-    result = query.exec(QString("DELETE FROM account WHERE number = %1").arg(deleteInfo));
+    result = query.exec(QString("DELETE FROM account WHERE number = '%1'").arg(deleteInfo));
     return result;
 }
 
@@ -138,7 +147,7 @@ bool DBTransactionRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
+QVector<QString>& DBTransactionRecordManip::dbSelect(QString selectInfo){
     QVector<QString> transactionRecordInfo = new QVector<QString>;
     query.exec(selectInfo);
     while(query.next()){
@@ -150,9 +159,7 @@ QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
 }
 
 bool DBTransactionRecordManip::dbDelete(QString deleteInfo){
-    bool result;
-    result = query.exec(QString("DELETE FROM transactionRecord WHERE number = %1").arg(deleteInfo));
-    return result;
+    return false;
 }
 
 bool DBPaymetnRecordManip::dbTableCreate(){
@@ -166,7 +173,7 @@ bool DBPaymetnRecordManip::dbInsert(QVector<QString> insertInfo){
     int accountKey;
     float balance;
     bool result;
-    query.exec(QString("SELECT * FROM account WHERE number = %1").arg(insertInfo[0]));
+    query.exec(QString("SELECT * FROM account WHERE number = '%1'").arg(insertInfo[0]));
     accountKey = query.value(0).toInt();
     balance = query.value(4).toFloat() - insertInfo[1].toFloat();
     query.prepare("INSERT INTO paymentRecord (accountKey,sum,balance type)"
@@ -183,7 +190,7 @@ bool DBPaymetnRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo){
+QVector<QString>& DBPaymetnRecordManip::dbSelect(QString selectInfo){
     QVector<QString> paymentRecordInfo = new QVector<QString>;
     query.exec(selectInfo);
     while(query.next()){
@@ -220,7 +227,7 @@ bool DBMessageManip::dbUpdate(QString updateInfo){
     return result;
 }
 
-QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
+QVector<QString>& DBMessageManip::dbSelect(QString selectInfo){
     QVector<QString> messageInfo = new QVector<QString>;
     query.exec(selectInfo);
     while(query.next()){
@@ -236,8 +243,40 @@ bool DBMessageManip::dbDelete(QString deleteInfo){
     return false;
 }
 
+bool DBLogRecordManip::dbTableCreate()(){
+    bool result;
+    result = query.exec("CREATE TABLE logRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER"
+                        "time TIMESTAMP default CURRENT_TIMESTAMP,type VARCHAR(10))");
+    return result;
+}
 
+bool DBLogRecordManip::dbInsert(QVector<QString> insertInfo){
+    bool result;
+    query.prepare("INSERT INTO logRecord (userKey,type) VALUES (?,?)");
+    query.addBindValue(DBUserManip::dbSelectUserKey());
+    query.addBindValue(insertInfo[0]);
+    result = query.exec();
+    return result;
+}
 
+bool DBLogRecordManip::dbUpdate(QString updateInfo){
+    return false;
+}
+
+bool DBLogRecordManip::dbDelete(QString deleteInfo){
+    return false;
+}
+
+QVector<QString>& DBLogRecordManip::dbSelect(QString selectInfo){
+    query.exec(selectInfo);
+    QVector<QString> logRecord = new QVector<QString>;
+    while(query.next()){
+        logRecord.push_back(query.value(1).toString());
+        logRecord.push_back(query.value(2).toString());
+        logRecord.push_back(query.value(3).toString());
+    }
+    return logRecord;
+}
 
 
 

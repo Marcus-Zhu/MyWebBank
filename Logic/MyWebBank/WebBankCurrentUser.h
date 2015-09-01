@@ -9,9 +9,9 @@ private:
     SUserInfo userInfo;
 public:
     void copy();
-    QString getUserName();
-    QString getPassword();
-    QString getType();
+    static QString getUserName();
+    static QString getPassword();
+    static QString getType();
     WCurrentUser();
 }
 
