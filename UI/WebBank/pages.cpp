@@ -86,4 +86,5 @@ void TransferPage::updateLanguage(){
     label3->setText(tr("receiver's account"));
     label4->setText(tr("transfer amount"));
     label5->setText(tr("comment"));
+    confirmBtn->setText(tr("CONFIRM"));
 }

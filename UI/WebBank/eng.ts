@@ -4,128 +4,100 @@
 <context>
     <name>BankUI</name>
     <message>
-        <location filename="bankui.cpp" line="44"/>
+        <location filename="bankui.cpp" line="47"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="44"/>
+        <location filename="bankui.cpp" line="47"/>
         <source>QSS file missing!</source>
         <translation>QSS file missing!</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="64"/>
-        <location filename="bankui.cpp" line="253"/>
         <source>Personal Info</source>
-        <translation>Personal Info</translation>
+        <translation type="vanished">Personal Info</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="65"/>
-        <location filename="bankui.cpp" line="254"/>
         <source>Change Password</source>
-        <translation>Change Password</translation>
+        <translation type="vanished">Change Password</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="66"/>
-        <location filename="bankui.cpp" line="255"/>
         <source>Message</source>
-        <translation>Message</translation>
+        <translation type="vanished">Message</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="67"/>
-        <location filename="bankui.cpp" line="256"/>
         <source>Log Out</source>
-        <translation>Log Out</translation>
+        <translation type="vanished">Log Out</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="68"/>
-        <location filename="bankui.cpp" line="257"/>
         <source>Language</source>
-        <translation>Change Language</translation>
+        <translation type="vanished">Change Language</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="69"/>
-        <location filename="bankui.cpp" line="258"/>
         <source>About</source>
-        <translation>About</translation>
+        <translation type="vanished">About</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="73"/>
         <source>Account</source>
-        <translation>My WebBank</translation>
+        <translation type="vanished">My WebBank</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="74"/>
-        <location filename="bankui.cpp" line="259"/>
         <source>My Account</source>
-        <translation>My Account</translation>
+        <translation type="vanished">My Account</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="75"/>
         <source>Account Query</source>
-        <translation>Account Query</translation>
+        <translation type="vanished">Account Query</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="76"/>
-        <location filename="bankui.cpp" line="260"/>
         <source>Transfer</source>
-        <translation>Transfer</translation>
+        <translation type="vanished">Transfer</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="77"/>
         <source>Current Transfer</source>
-        <translation>Current Transfer</translation>
+        <translation type="vanished">Current Transfer</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="78"/>
         <source>Current-Fixed</source>
-        <translation type="unfinished">Current-Fixed</translation>
+        <translation type="obsolete">Current-Fixed</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="79"/>
-        <location filename="bankui.cpp" line="261"/>
         <source>Payment</source>
-        <translation>Payment</translation>
+        <translation type="vanished">Payment</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="80"/>
-        <location filename="bankui.cpp" line="262"/>
         <source>Credit Card</source>
-        <translation>Credit Card</translation>
+        <translation type="vanished">Credit Card</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="81"/>
         <source>Apply</source>
-        <translation>Apply</translation>
+        <translation type="vanished">Apply</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="82"/>
         <source>Activate</source>
-        <translation>Activate</translation>
+        <translation type="vanished">Activate</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="83"/>
         <source>Repay</source>
-        <translation>Repay</translation>
+        <translation type="vanished">Repay</translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="84"/>
         <source>Loss Report</source>
-        <translation>Loss Report</translation>
+        <translation type="vanished">Loss Report</translation>
     </message>
     <message>
         <source>Current Position: </source>
         <translation type="vanished">Current： </translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="99"/>
-        <location filename="bankui.cpp" line="263"/>
+        <location filename="bankui.cpp" line="65"/>
+        <location filename="bankui.cpp" line="107"/>
         <source>User: </source>
         <translation>User: </translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="100"/>
-        <location filename="bankui.cpp" line="264"/>
+        <location filename="bankui.cpp" line="66"/>
+        <location filename="bankui.cpp" line="108"/>
         <source>Credit to Zhu Yilin &amp; Tian Xingyu</source>
         <translation>Credit to Zhu Yilin &amp; Tian Xingyu</translation>
     </message>
@@ -133,12 +105,14 @@
 <context>
     <name>MyAccountPage</name>
     <message>
-        <location filename="pages.cpp" line="5"/>
+        <location filename="pages.cpp" line="11"/>
+        <location filename="pages.cpp" line="28"/>
         <source>My Account</source>
         <translation>My Account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="6"/>
+        <location filename="pages.cpp" line="12"/>
+        <location filename="pages.cpp" line="29"/>
         <source>Recent Transaction Records</source>
         <translation>Recent Records</translation>
     </message>
@@ -146,39 +120,159 @@
 <context>
     <name>TransferPage</name>
     <message>
-        <location filename="pages.cpp" line="23"/>
+        <location filename="pages.cpp" line="34"/>
+        <location filename="pages.cpp" line="83"/>
         <source>Current Deposit Transfer</source>
         <translation>Current Transfer</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="24"/>
+        <location filename="pages.cpp" line="35"/>
+        <location filename="pages.cpp" line="84"/>
         <source>paying account</source>
         <translation>paying account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="25"/>
+        <location filename="pages.cpp" line="36"/>
+        <location filename="pages.cpp" line="85"/>
         <source>receiver&apos;s name</source>
         <translation>receiver&apos;s name</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="26"/>
+        <location filename="pages.cpp" line="37"/>
+        <location filename="pages.cpp" line="86"/>
         <source>receiver&apos;s account</source>
         <translation>receiver&apos;s account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="27"/>
+        <location filename="pages.cpp" line="38"/>
+        <location filename="pages.cpp" line="87"/>
         <source>transfer amount</source>
         <translation>transfer amount</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="28"/>
+        <location filename="pages.cpp" line="39"/>
+        <location filename="pages.cpp" line="88"/>
         <source>comment</source>
         <translation>comment</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="34"/>
+        <location filename="pages.cpp" line="45"/>
+        <source>CONFIRM</source>
+        <translation>CONFIRM</translation>
+    </message>
+    <message>
         <source>confirm</source>
-        <translation>confirm</translation>
+        <translation type="vanished">confirm</translation>
+    </message>
+</context>
+<context>
+    <name>WNavbar</name>
+    <message>
+        <location filename="bars.cpp" line="96"/>
+        <location filename="bars.cpp" line="97"/>
+        <location filename="bars.cpp" line="220"/>
+        <location filename="bars.cpp" line="221"/>
+        <source>My Account</source>
+        <translation>My Account</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="98"/>
+        <location filename="bars.cpp" line="222"/>
+        <source>Account Query</source>
+        <translation>Account Query</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="99"/>
+        <location filename="bars.cpp" line="223"/>
+        <source>Transfer</source>
+        <translation>Transfer</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="100"/>
+        <location filename="bars.cpp" line="224"/>
+        <source>Current Transfer</source>
+        <translation>Current Transfer</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="101"/>
+        <location filename="bars.cpp" line="225"/>
+        <source>Current-Fixed</source>
+        <translation>Current-Fixed</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="102"/>
+        <location filename="bars.cpp" line="226"/>
+        <source>Payment</source>
+        <translation>Payment</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="103"/>
+        <location filename="bars.cpp" line="227"/>
+        <source>Credit Card</source>
+        <translation>Credit Card</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="104"/>
+        <location filename="bars.cpp" line="228"/>
+        <source>Apply</source>
+        <translation>Apply</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="105"/>
+        <location filename="bars.cpp" line="229"/>
+        <source>Activate</source>
+        <translation>Activate</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="106"/>
+        <location filename="bars.cpp" line="230"/>
+        <source>Repay</source>
+        <translation>Repay</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="107"/>
+        <location filename="bars.cpp" line="231"/>
+        <source>Loss Report</source>
+        <translation>Loss Report</translation>
+    </message>
+</context>
+<context>
+    <name>WTopbar</name>
+    <message>
+        <location filename="bars.cpp" line="17"/>
+        <location filename="bars.cpp" line="68"/>
+        <source>Personal Info</source>
+        <translation>Personal Info</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="18"/>
+        <location filename="bars.cpp" line="69"/>
+        <source>Change Password</source>
+        <translation>Change Password</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="19"/>
+        <location filename="bars.cpp" line="70"/>
+        <source>Message</source>
+        <translation>Message</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="20"/>
+        <location filename="bars.cpp" line="71"/>
+        <source>Log Out</source>
+        <translation>Log Out</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="21"/>
+        <location filename="bars.cpp" line="72"/>
+        <source>Language</source>
+        <translation>Change Language</translation>
+    </message>
+    <message>
+        <location filename="bars.cpp" line="22"/>
+        <location filename="bars.cpp" line="73"/>
+        <source>About</source>
+        <translation>About</translation>
     </message>
 </context>
 </TS>

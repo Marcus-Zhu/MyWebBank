@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         bankui.cpp \
     wstackedwidget.cpp \
     pages.cpp \
-    nofocusdelegate.cpp
+    nofocusdelegate.cpp \
+    bars.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
     pages.h \
-    nofocusdelegate.h
+    nofocusdelegate.h \
+    bars.h
 
 RESOURCES += \
     styleset.qrc

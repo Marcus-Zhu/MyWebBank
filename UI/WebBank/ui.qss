@@ -252,7 +252,8 @@ border-color: #039BE5;
 background: transparent;
 }
 
-QPushButton#TConfirmBtn{	
+QPushButton#TConfirmBtn{
+text-align:center;
 font:bold 16px;
 padding: 0px 16px;
 border-radius: 4px;

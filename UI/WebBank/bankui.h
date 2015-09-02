@@ -9,6 +9,7 @@
 #include <QTranslator>
 
 #include "wstackedwidget.h"
+#include "bars.h"
 
 class BankUI : public QWidget
 {
@@ -25,21 +26,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
-    void checkQuery();
-    void checkMyAccount();
-    void checkAccountQuery();
-    void checkTransfer();
-    void checkCurrentTransfer();
-    void checkCurrentFix();
-    void checkPayment();
-    void checkCCard();
-    void checkCCApply();
-    void checkCCActivate();
-    void checkCCRepay();
-    void checkCCLost();
     void changeLanguage();
-    void popUserMenu();
-    void popSettingMenu();
     void showMyAccountPage();
     void showAccountQueryPage();
     void showTransferPage();
@@ -54,62 +41,30 @@ private slots:
     void showChangePwPage();
     void showSysMsgPage();
     void showAboutPage();
+    void showWelcomePage();
     bool closeWindow();
-    void showWidgets();
     void openUX2();
+    void openUX3();
+    void openUX4();
+    void openUX5();
+
 
 private:
     QLabel *backgroundLabel;
-    QLabel *topbarLabel;
-    QLabel *menubarLabel;
-    QLabel *navbarLabel;
-    QPushButton *userBtn;
-    QPushButton *settingBtn;
-    QPushButton *minBtn;
-    QPushButton *closeBtn;
-    QPushButton *queryBtn;
-    QPushButton *myAccountBtn;
-    QPushButton *accountQueryBtn;
-    QPushButton *transferBtn;
-    QPushButton *currTransferBtn;
-    QPushButton *currentFixBtn;
-    QPushButton *paymentBtn;
-    QPushButton *ccardBtn;
-    QPushButton *ccApplyBtn;
-    QPushButton *ccActivateBtn;
-    QPushButton *ccRepayBtn;
-    QPushButton *ccLostBtn;
-    QLabel *queryLabel;
-    QLabel *myAccountLabel;
-    QLabel *accountQueryLabel;
-    QLabel *transferLabel;
-    QLabel *currTransferLabel;
-    QLabel *currentFixLabel;
-    QLabel *paymentLabel;
-    QLabel *ccardLabel;
-    QLabel *ccApplyLabel;
-    QLabel *ccActivateLabel;
-    QLabel *ccRepayLabel;
-    QLabel *ccLostLabel;
+    WTopbar *topbar;
+    WNavbar *navbar;
     QLabel *logInfoLabel;
     QLabel *creditLabel;
-    QMenu *userMenu;
-    QMenu *settingMenu;
-    QAction *personalInfoAction;
-    QAction *changepwAction;
-    QAction *sysmsgAction;
-    QAction *logoutAction;
-    QAction *languageAction;
-    QAction *aboutAction;
     WStackedWidget *centerStack;
+    QTimer *timer;
     bool isPressed;
+    double openingOpacity;
     QPoint movePoint;
     void setTranslator();
     void setStyle();
     void initUI();
     void setConnections();
     void updateLanguage();
-    void openWindow();
 
     QTranslator wTranslator;
     bool isChinese;
