@@ -1,12 +1,12 @@
 #ifndef WEBBANKUSER_H
 #define WEBBANKUSER_H
 
-#include <QString>
 #include <QSql>
 #include <QCoreApplication>
 #include <QtSql/QSqlDatabase>
 #include <QSqlQuery>
 #include <QVector>
+#include "WebBankCurrentUser.h"
 
 struct SUserInfo{
     QString name;
@@ -18,12 +18,9 @@ struct SUserInfo{
     QString address;
     QString zipCode;
     QString type;
-    QVector <WAccount> account;
-    QVector <WSysMsg> message;
+    QVector <QString> account;
+    int messageAmount;
 };
-
-class WAccount;
-class WSysMsg;
 
 class WUser{
 private:
@@ -36,13 +33,14 @@ private:
     QString address;
     QString zipCode;
     QString type;
-    QVector<WAccount> account;
-    QVector<WSysMsg> message;
-
+    QVector<QString> account;
+    int messageAmount;
 public:
-    bool setPassword(QString newPassword);
-    int getAccountNumber(){return account.size();}
-    SUserInfo* getUserInfo();
+    bool setPassword(QString oldPassword, QString newPassword);
+    bool addAccount(QString number);
+    int getAccountAmount(){return account.size();}
+    static int checkIn(QString name,QString password);
+    SUserInfo getUserInfo();
     WUser(SUserInfo userInfo);
     ~WUser();
 };

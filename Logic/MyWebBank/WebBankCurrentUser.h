@@ -1,19 +1,14 @@
 #ifndef WEBBANKCURRENTUSER_H
 #define WEBBANKCURRENTUSER_H
 
-#include <QVector>
-#include "WebBankUser.h"
+#include<QString>
 
 class WCurrentUser{
-private:
-    SUserInfo userInfo;
 public:
-    void copy();
-    static QString getUserName();
-    static QString getPassword();
-    static QString getType();
-    WCurrentUser();
-}
+    static QString userName;
+    static QString password;
+    static QString userType;
+};
 
 
 #endif // WEBBANKCURRENTUSER_H

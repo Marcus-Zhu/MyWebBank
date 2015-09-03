@@ -4,16 +4,22 @@
 #include <QVector>
 #include "WebBankCurrentUser.h"
 
+
 class WTransfer{
 private:
     QString myAccountNumber;
     QString transferedAccountNumber;
+    QString type;
     float sum;
-    float myAccountBalance;
+    float fixedDeposit;
+    float currentDeposit;
 public:
-    bool transfer();
+    bool transferToOther();
+    bool transferToFixed();\
+    bool transferToCurrent();
     WTransfer();
-    WTransfer(const QString number,float& balance,const float sum,const QStirng otherAccount);
+    WTransfer(const QString number,float& fixedDeposit, float& currentDeposit,
+              const QString type,const float sum,const QString otherAccount);
 };
 
 #endif // WEBBANKTRANSFER_H

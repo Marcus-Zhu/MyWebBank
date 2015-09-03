@@ -1,22 +1,7 @@
-#include <QVector>
 #include "WebBankCurrentUser.h"
 
-WCurrentUser::WCurrentUser(){
-    userInfo = *(WUser::getUserInfo());
-}
+QString WCurrentUser::userName = "";
+QString WCurrentUser::password = "";
+QString WCurrentUser::userType = "";
 
-void WCurrentUser::copy(){
-    userInfo = *(WUser::getUserInfo());
-}
 
-QString WCurrentUser::getUserName(){
-    return userInfo.name;
-}
-
-QString WCurrentUser::getPassword(){
-    return userInfo.password;
-}
-
-QString WCurrentUser::getType(){
-    return userInfo.type;
-}

@@ -16,6 +16,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
+    WebBankDataBaseManip.cpp \
     WebBankUser.cpp \
     WebBankAccount.cpp \
     WebBankTransfer.cpp \
@@ -23,7 +24,6 @@ SOURCES += main.cpp \
     WebBankCreditCard.cpp \
     WebBankQuery.cpp \
     WebBankSystemMessage.cpp \
-    WebBankDataBaseManip.cpp \
     WebBankCurrentUser.cpp \
 
 
