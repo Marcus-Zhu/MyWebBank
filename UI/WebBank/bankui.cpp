@@ -14,13 +14,7 @@ BankUI::BankUI(QWidget *parent)
     : QWidget(parent)
 {
     setTranslator();
-    setStyle();
     initUI();
-    openingOpacity = 0;
-
-    centerStack = new WStackedWidget(this);
-    centerStack->setObjectName("centerStack");
-    centerStack->setGeometry(QRect(242, 148, 751, 534));
 
     setConnections();
 }
@@ -35,22 +29,6 @@ void BankUI::setTranslator()
     isChinese = true;
 }
 
-void BankUI::setStyle()
-{
-    QFile file(":/ui/ui.qss");
-    file.open(QFile::ReadOnly);
-    if(file.isOpen())
-    {
-        this->setStyleSheet(file.readAll());
-        file.close();
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Warning"), tr("QSS file missing!"));
-        this->close();
-    }
-}
-
 void BankUI::initUI()
 {
     //Main Widget SetUp
@@ -58,18 +36,21 @@ void BankUI::initUI()
     this->setMaximumSize(1000, 750);
     this->setMinimumSize(1000, 750);
     this->setObjectName("MainWindow");
+    this->setAttribute(Qt::WA_TranslucentBackground);
 
     //Components New
     backgroundLabel = new QLabel("", this);
     navbar = new WNavbar(this);
     topbar = new WTopbar(this);
-    
+    centerStack = new WStackedWidget(this);
+
     logInfoLabel = new QLabel(tr("User: "), this);
     creditLabel = new QLabel(tr("Credit to Zhu Yilin & Tian Xingyu"), this);
-    
+
     //Components setObjectName for QSS
     backgroundLabel->setObjectName("backgroundLabel");
-    
+    centerStack->setObjectName("centerStack");
+
     logInfoLabel->setObjectName("logInfoLabel");
     creditLabel->setObjectName("creditLabel");
 
@@ -77,19 +58,18 @@ void BankUI::initUI()
     backgroundLabel->setGeometry(QRect(0, 0, 1000, 750));
     topbar->setGeometry(QRect(0, 0, 1000, 161));
     navbar->setGeometry(QRect(5, 0, 261, 750));
+    centerStack->setGeometry(QRect(242, 152, 751, 566));
 
     logInfoLabel->setGeometry(QRect(10, 722, 300, 24));
     creditLabel->setGeometry(QRect(700, 724, 290, 24));
 
     //other settings
     creditLabel->setAlignment(Qt::AlignRight);
+    openingOpacity = 0;
 }
 
 void BankUI::setConnections()
 {
-    //connections for CHANGE PAGE
-
-    //connections for ACTIONS
 }
 
 void BankUI::changeLanguage()
@@ -224,10 +204,11 @@ void BankUI::openUX()
     a1->setEndValue(QRect(0, 0, 1000, 161));
     a1->setEasingCurve(QEasingCurve::OutExpo);
     a1->start();
-    QTimer::singleShot(600,this,SLOT(openUX2()));
+    QTimer::singleShot(600, this, SLOT(openUX2()));
 }
 
-void BankUI::openUX2(){
+void BankUI::openUX2()
+{
     QPropertyAnimation *a2 = new QPropertyAnimation(navbar, "geometry");
     a2->setDuration(2000);
     a2->setStartValue(QRect(0, 0, 0, 751));
@@ -235,41 +216,45 @@ void BankUI::openUX2(){
     a2->setEasingCurve(QEasingCurve::OutExpo);
     a2->start();
     navbar->setVisible(true);
-    QTimer::singleShot(800,this,SLOT(openUX3()));
+    QTimer::singleShot(800, this, SLOT(openUX3()));
 }
 
-void BankUI::openUX3(){
+void BankUI::openUX3()
+{
     timer = new QTimer(this);
     timer->setInterval(8);
     timer->start();
-    connect(timer,SIGNAL(timeout()),this,SLOT(openUX5()));
-    QTimer::singleShot(700,timer,SLOT(stop()));
-    QTimer::singleShot(20,this,SLOT(openUX4()));
+
+    connect(timer, SIGNAL(timeout()), this, SLOT(openUX5()));
+    QTimer::singleShot(2000, timer, SLOT(stop()));
+    QTimer::singleShot(20, this, SLOT(openUX4()));
 }
 
-void BankUI::openUX4(){
+void BankUI::openUX4()
+{
     logInfoLabel->setVisible(true);
     creditLabel->setVisible(true);
     centerStack->setVisible(true);
 }
 
-void BankUI::openUX5(){
-    QGraphicsOpacityEffect *effect1=new QGraphicsOpacityEffect;
+void BankUI::openUX5()
+{
+    QGraphicsOpacityEffect *effect1 = new QGraphicsOpacityEffect;
     logInfoLabel->setGraphicsEffect(effect1);
     effect1->setOpacity(openingOpacity);
-    QGraphicsOpacityEffect *effect2=new QGraphicsOpacityEffect;
+    QGraphicsOpacityEffect *effect2 = new QGraphicsOpacityEffect;
     creditLabel->setGraphicsEffect(effect2);
     effect2->setOpacity(openingOpacity);
-    QGraphicsOpacityEffect *effect3=new QGraphicsOpacityEffect;
+    QGraphicsOpacityEffect *effect3 = new QGraphicsOpacityEffect;
     centerStack->setGraphicsEffect(effect3);
     effect3->setOpacity(openingOpacity);
-    openingOpacity+=0.02;
+    openingOpacity += 0.02;
 }
 
 bool BankUI::closeWindow()
 {
     QPoint pos = this->mapToGlobal(QPoint(0, 0));
-    this->setMinimumSize(400,300);
+    this->setMinimumSize(400, 300);
     QPropertyAnimation *animation1 = new QPropertyAnimation(this, "geometry");
     animation1->setDuration(165);
     animation1->setStartValue(QRect(pos.rx(), pos.ry(), 1000, 750));

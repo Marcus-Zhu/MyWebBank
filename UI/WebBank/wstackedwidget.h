@@ -19,7 +19,11 @@ public slots:
     void showCardApplyPage();
 private:
     MyAccountPage *myAccountPage;
+    AccountQueryPage *accountQueryPage;
     TransferPage *transferPage;
+    CurrentFixPage *currentFixPage;
+    PaymentPage *paymentPage;
+    AutoPayPage *autoPayPage;
 };
 
 #endif // WSTACKEDWIDGET_H

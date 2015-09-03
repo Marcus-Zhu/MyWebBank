@@ -64,7 +64,8 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     connect(aboutAction, SIGNAL(triggered(bool)), parent, SLOT(showAboutPage()));
 }
 
-void WTopbar::updateLanguage(){
+void WTopbar::updateLanguage()
+{
     personalInfoAction->setText(tr("Personal Info"));
     changepwAction->setText(tr("Change Password"));
     sysmsgAction->setText(tr("Message"));
@@ -216,7 +217,8 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
 
 }
 
-void WNavbar::updateLanguage(){
+void WNavbar::updateLanguage()
+{
     queryLabel->setText(tr("My Account"));
     myAccountLabel->setText(tr("My Account"));
     accountQueryLabel->setText(tr("Account Query"));
@@ -228,12 +230,12 @@ void WNavbar::updateLanguage(){
     ccApplyLabel->setText(tr("Apply"));
     ccActivateLabel->setText(tr("Activate"));
     ccRepayLabel->setText(tr("Repay"));
-    ccLostLabel->setText(tr("Loss Report"));	
+    ccLostLabel->setText(tr("Loss Report"));
 }
 
 void WNavbar::checkQuery()
 {
-    queryBtn->setChecked(true);
+    queryBtn->setChecked(false);
     myAccountBtn->setChecked(true);
     accountQueryBtn->setChecked(false);
     transferBtn->setChecked(false);
@@ -281,7 +283,7 @@ void WNavbar::checkTransfer()
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
-    transferBtn->setChecked(true);
+    transferBtn->setChecked(false);
     currTransferBtn->setChecked(true);
     currentFixBtn->setChecked(false);
     paymentBtn->setChecked(false);
@@ -345,7 +347,7 @@ void WNavbar::checkCCard()
     currTransferBtn->setChecked(false);
     currentFixBtn->setChecked(false);
     paymentBtn->setChecked(false);
-    ccardBtn->setChecked(true);
+    ccardBtn->setChecked(false);
     ccApplyBtn->setChecked(true);
     ccActivateBtn->setChecked(false);
     ccRepayBtn->setChecked(false);

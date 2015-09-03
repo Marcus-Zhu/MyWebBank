@@ -23,7 +23,7 @@ public slots:
 private:
     QLabel *topbarLabel;
     QPushButton *minBtn;
-    QPushButton *closeBtn;	
+    QPushButton *closeBtn;
     QPushButton *userBtn;
     QPushButton *settingBtn;
     QMenu *userMenu;

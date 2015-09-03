@@ -15,7 +15,8 @@
 + userKey
 + type
 + number
-+ balance
++ fixedDeposit
++ currentDeposit
 + status(normal or frozen)
 + createdTime
 
@@ -25,7 +26,8 @@
 + accountKey2
 + sum
 + time
-+ balance(of accountKey1)
++ fixedDeposit
++ currentDeposit
 
 # payment TABLE:
 + key
@@ -35,11 +37,17 @@
 + balance
 + type(Water, Electricity or Gas)
 
+# autopay TABLE:
++ key
++ accountKey
++ item
+
 # message TABLE:
 + key
 + userKey
 + time
 + content
++ status
 
 # log TABLE:
 + key

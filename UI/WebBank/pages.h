@@ -14,7 +14,7 @@ class WPage : public QWidget
     Q_OBJECT
 public:
     explicit WPage(QWidget *parent = 0);
-    virtual void updateLanguage()=0;
+    virtual void updateLanguage() = 0;
 public slots:
 protected:
     QLabel *mainTitle;
@@ -28,6 +28,7 @@ public:
     void updateLanguage();
 public slots:
 private:
+    QLabel *bgLabel;
     QLabel *title2;
     QTableWidget *table1;
     QTableWidget *table2;
@@ -43,12 +44,14 @@ public slots:
 private:
     QLabel *label1;
     QLabel *label2;
-    QComboBox *comboBox;
-    QCheckBox *box1;
-    QCheckBox *box2;
-    QPushButton *quernBtn;
-    QPushButton *recentBtn;
+    QComboBox *accountBox;
     QTableWidget *table;
+    QCheckBox *incomeCkBox;
+    QCheckBox *expenseCkBox;
+    QPushButton *searchBtn;
+    QPushButton *recentBtn;
+    QLineEdit *fromDate;
+    QLineEdit *toDate;
 };
 
 class TransferPage : public WPage
@@ -102,6 +105,7 @@ public:
     explicit PaymentPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+
 private:
     QLabel *label1;
     QLabel *label2;
@@ -112,6 +116,25 @@ private:
     QPushButton *queryBtn;
     QPushButton *confirmBtn;
     QPushButton *autoBtn;
+};
+
+class AutoPayPage : public WPage
+{
+    Q_OBJECT
+public:
+    explicit AutoPayPage(QWidget *parent = 0);
+    void updateLanguage();
+public slots:
+
+private:
+    QLabel *label1;
+    QLabel *label2;
+    QLabel *title2;
+    QComboBox *edit1;
+    QComboBox *edit2;
+    QPushButton *settingBtn;
+    QPushButton *cancelBtn;
+    QTableWidget *table;
 };
 
 class CardApplyPage : public WPage

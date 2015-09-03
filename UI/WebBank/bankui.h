@@ -61,7 +61,6 @@ private:
     double openingOpacity;
     QPoint movePoint;
     void setTranslator();
-    void setStyle();
     void initUI();
     void setConnections();
     void updateLanguage();

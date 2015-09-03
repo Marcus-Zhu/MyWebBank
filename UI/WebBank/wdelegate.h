@@ -4,11 +4,11 @@
 #include <QStyledItemDelegate>
 
 
-class NoFocusDelegate : public QStyledItemDelegate
+class WDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    NoFocusDelegate(QObject *parent = NULL);
+    WDelegate(QObject *parent = NULL);
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
 
