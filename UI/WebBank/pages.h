@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QTableWidget>
+#include <QTextEdit>
 #include <QWidget>
 
 class WPage : public QWidget
@@ -146,9 +147,7 @@ public:
 public slots:
 private:
     QLabel *label1;
-    QLabel *label2;
     QComboBox *edit1;
-    QComboBox *edit2;
     QPushButton *confirmBtn;
 };
 
@@ -162,7 +161,7 @@ public slots:
 private:
     QLabel *label1;
     QComboBox *edit1;
-    QPushButton *confirmBtn;
+    QPushButton *activateBtn;
 };
 
 class CardRepayPage : public WPage
@@ -197,7 +196,7 @@ public slots:
 private:
     QLabel *label1;
     QComboBox *edit1;
-    QPushButton *confirmBtn;
+    QPushButton *reportBtn;
 };
 
 class UserInfoPage : public WPage
@@ -250,8 +249,18 @@ public:
     void updateLanguage();
 public slots:
 private:
-    QLabel *mainTitle;
+    QLabel *bgLabel;
     QTableWidget *table;
 };
 
+class AboutPage : public WPage
+{
+    Q_OBJECT
+public:
+    explicit AboutPage(QWidget *parent = 0);
+    void updateLanguage();
+public slots:
+private:
+    QTextEdit *label1;
+};
 #endif // PAGES_H

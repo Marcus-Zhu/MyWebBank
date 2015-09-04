@@ -213,5 +213,5 @@ bool WLogin::eventFilter(QObject *obj, QEvent *event)
         if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
             return true;
     }
-    else return QObject::eventFilter(obj, event);
+    return QObject::eventFilter(obj, event);
 }

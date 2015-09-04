@@ -24,6 +24,14 @@ private:
     CurrentFixPage *currentFixPage;
     PaymentPage *paymentPage;
     AutoPayPage *autoPayPage;
+    CardApplyPage *cardApplyPage;
+    CardActivatePage *cardActivatePage;
+    CardRepayPage *cardRepayPage;
+    CardLostPage *cardLostPage;
+    UserInfoPage *userInfoPage;
+    ChangePwPage *changePwPage;
+    SysMsgPage *sysMsgPage;
+    AboutPage *aboutPage;
 };
 
 #endif // WSTACKEDWIDGET_H

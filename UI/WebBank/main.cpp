@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     wTranslator->load(QmName);
     a.installTranslator(wTranslator);
 
-    //    WLogin v;
-    //    if (v.exec() != QDialog::Accepted) return -1;
+    WLogin v;
+    if (v.exec() != QDialog::Accepted) return -1;
 
     BankUI w;
     w.show();

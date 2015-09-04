@@ -24,9 +24,9 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
 
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
-    title2->setGeometry(QRect(24, 272, 708, 48));
+    title2->setGeometry(QRect(24, 280, 708, 48));
     table1->setGeometry(QRect(24, 72, 708, 192));
-    table2->setGeometry(QRect(24, 328, 708, 192));
+    table2->setGeometry(QRect(24, 336, 708, 192));
 
     table1->setColumnCount(3);
     table1->setRowCount(5);
@@ -84,11 +84,11 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
 {
     mainTitle->setText(tr("Account Query"));
 
-    label1 = new QLabel(tr("account"), this);
-    label2 = new QLabel(tr("date range"), this);
+    label1 = new QLabel(tr("Account"), this);
+    label2 = new QLabel(tr("Date range"), this);
     accountBox = new QComboBox(this);
-    incomeCkBox = new QCheckBox(tr("income"), this);
-    expenseCkBox = new QCheckBox(tr("expense"), this);
+    incomeCkBox = new QCheckBox(tr("Income"), this);
+    expenseCkBox = new QCheckBox(tr("Expense"), this);
     searchBtn = new QPushButton(tr("SEARCH"), this);
     recentBtn = new QPushButton(tr("Recent Three Months"), this);
     fromDate = new QLineEdit(this);
@@ -116,7 +116,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     recentBtn->setGeometry(QRect(368, 134, 230, 36));
     fromDate->setGeometry(QRect(490, 92, 108, 24));
     toDate->setGeometry(QRect(628, 92, 108, 24));
-    table->setGeometry(QRect(24, 188, 708, 336));
+    table->setGeometry(QRect(24, 192, 708, 336));
 
     accountBox->addItem("1231 2312 3123 1236");
     accountBox->addItem("2175 7962 4595 4698");
@@ -160,18 +160,18 @@ void AccountQueryPage::updateLanguage()
     label2->setText(tr("Date Range"));
     incomeCkBox->setText(tr("Income"));
     expenseCkBox->setText(tr("Expense"));
-    searchBtn->setText(tr("Search"));
+    searchBtn->setText(tr("SEARCH"));
     recentBtn->setText(tr("Recent Three Months"));
 }
 
 TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 {
     mainTitle->setText(tr("Current Deposit Transfer"));
-    label1 = new QLabel(tr("paying account"), this);
-    label2 = new QLabel(tr("receiver's name"), this);
-    label3 = new QLabel(tr("receiver's account"), this);
-    label4 = new QLabel(tr("transfer amount"), this);
-    label5 = new QLabel(tr("comment"), this);
+    label1 = new QLabel(tr("Paying account"), this);
+    label2 = new QLabel(tr("Receiver's name"), this);
+    label3 = new QLabel(tr("Receiver's account"), this);
+    label4 = new QLabel(tr("Transfer amount"), this);
+    label5 = new QLabel(tr("Comment"), this);
     edit1 = new QComboBox(this);
     edit2 = new QLineEdit(this);
     edit3 = new QLineEdit(this);
@@ -213,22 +213,22 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 void TransferPage::updateLanguage()
 {
     mainTitle->setText(tr("Current Deposit Transfer"));
-    label1->setText(tr("paying account"));
-    label2->setText(tr("receiver's name"));
-    label3->setText(tr("receiver's account"));
-    label4->setText(tr("transfer amount"));
-    label5->setText(tr("comment"));
+    label1->setText(tr("Paying account"));
+    label2->setText(tr("Receiver's name"));
+    label3->setText(tr("Receiver's account"));
+    label4->setText(tr("Transfer amount"));
+    label5->setText(tr("Comment"));
     confirmBtn->setText(tr("CONFIRM"));
 }
 
 CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 {
     mainTitle->setText(tr("Current Fixed Transfer"));
-    label1 = new QLabel(tr("paying account"), this);
-    label2 = new QLabel(tr("receiver's name"), this);
-    label3 = new QLabel(tr("receiver's account"), this);
-    label4 = new QLabel(tr("transfer type"), this);
-    label5 = new QLabel(tr("transfer amount"), this);
+    label1 = new QLabel(tr("Paying account"), this);
+    label2 = new QLabel(tr("Receiver's name"), this);
+    label3 = new QLabel(tr("Receiver's account"), this);
+    label4 = new QLabel(tr("Transfer type"), this);
+    label5 = new QLabel(tr("Transfer amount"), this);
     edit1 = new QComboBox(this);
     edit2 = new QLineEdit(this);
     edit3 = new QLineEdit(this);
@@ -276,11 +276,11 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 void CurrentFixPage::updateLanguage()
 {
     mainTitle->setText(tr("Current Fixed Transfer"));
-    label1->setText(tr("paying account"));
-    label2->setText(tr("receiver's name"));
-    label3->setText(tr("receiver's account"));
-    label4->setText(tr("transfer type"));
-    label5->setText(tr("transfer amount"));
+    label1->setText(tr("Paying account"));
+    label2->setText(tr("Receiver's name"));
+    label3->setText(tr("Receiver's account"));
+    label4->setText(tr("Transfer type"));
+    label5->setText(tr("Transfer amount"));
     confirmBtn->setText(tr("CONFIRM"));
     edit4->clear();
     edit4->addItem(tr("Current to Fix"));
@@ -292,9 +292,9 @@ void CurrentFixPage::updateLanguage()
 PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
 {
     mainTitle->setText(tr("Payment"));
-    label1 = new QLabel(tr("item"), this);
-    label2 = new QLabel(tr("paying account"), this);
-    label3 = new QLabel(tr("bill number"), this);
+    label1 = new QLabel(tr("Item"), this);
+    label2 = new QLabel(tr("Paying account"), this);
+    label3 = new QLabel(tr("Bill number"), this);
     edit1 = new QComboBox(this);
     edit2 = new QComboBox(this);
     edit3 = new QLineEdit(this);
@@ -331,15 +331,17 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     autoBtn->setGeometry(QRect(430, 240, 148, 36));
     confirmBtn->setGeometry(QRect(584, 240, 108, 36));
 
-    connect(autoBtn, SIGNAL(clicked(bool)), parent->parent(), SLOT(showAutoPayPage()));
+    connect(autoBtn, SIGNAL(clicked(bool)), parent->parent(), \
+            SLOT(showAutoPayPage()));
 }
 
 void PaymentPage::updateLanguage()
 {
     mainTitle->setText(tr("Current Fixed Transfer"));
-    label1->setText(tr("paying account"));
-    label2->setText(tr("receiver's name"));
-    label3->setText(tr("receiver's account"));
+    label1->setText(tr("Paying account"));
+    label2->setText(tr("Receiver's name"));
+    label3->setText(tr("Receiver's account"));
+    autoBtn->setText(tr("SET AUTOPAY"));
     confirmBtn->setText(tr("CONFIRM"));
     edit1->clear();
     edit1->addItem(tr("Water Bill"));
@@ -352,8 +354,8 @@ void PaymentPage::updateLanguage()
 AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 {
     mainTitle->setText(tr("Auto Payment"));
-    label1 = new QLabel(tr("item"), this);
-    label2 = new QLabel(tr("paying account"), this);
+    label1 = new QLabel(tr("Item"), this);
+    label2 = new QLabel(tr("Paying account"), this);
     title2 = new QLabel(tr("Already Set Auto Payments"), this);
     edit1 = new QComboBox(this);
     edit2 = new QComboBox(this);
@@ -384,12 +386,12 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
-    title2->setGeometry(QRect(24, 224, 708, 48));
+    title2->setGeometry(QRect(24, 232, 708, 48));
     edit1->setGeometry(QRect(288, 88, 400, 32));
     edit2->setGeometry(QRect(288, 136, 400, 32));
-    settingBtn->setGeometry(QRect(484, 192, 96, 36));
-    cancelBtn->setGeometry(QRect(596, 192, 96, 36));
-    table->setGeometry(QRect(24, 280, 708, 240));
+    settingBtn->setGeometry(QRect(596, 192, 96, 36));
+    cancelBtn->setGeometry(QRect(484, 192, 96, 36));
+    table->setGeometry(QRect(24, 288, 708, 240));
 
     table->setColumnCount(3);
     table->setRowCount(5);
@@ -419,8 +421,8 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 void AutoPayPage::updateLanguage()
 {
     mainTitle->setText(tr("Auto Payment"));
-    label1->setText(tr("item"));
-    label2->setText(tr("paying account"));
+    label1->setText(tr("Item"));
+    label2->setText(tr("Paying account"));
     title2->setText(tr("Already Set Auto Payments"));
     settingBtn->setText(tr("SET"));
     cancelBtn->setText(tr("CANCEL"));
@@ -430,4 +432,351 @@ void AutoPayPage::updateLanguage()
     edit1->addItem(tr("Gas Bill"));
     WDelegate *CAPDele1 = new WDelegate();
     edit1->setItemDelegate(CAPDele1);
+}
+
+CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Credit Card Apply"));
+    label1 = new QLabel(tr("Card type"), this);
+    edit1 = new QComboBox(this);
+    confirmBtn = new QPushButton(tr("CONFIRM"), this);
+
+    label1->setObjectName("CCALabel1");
+    edit1->setObjectName("CCAEdit1");
+    confirmBtn->setObjectName("CCAConfirmBtn");
+
+    edit1->addItem(tr("TYPE 1"));
+    edit1->addItem(tr("TYPE 2"));
+    WDelegate *CCADele = new WDelegate();
+    edit1->setItemDelegate(CCADele);
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    confirmBtn->setGeometry(QRect(584, 144, 108, 36));
+}
+
+void CardApplyPage::updateLanguage()
+{
+    mainTitle->setText(tr("Credit Card Apply"));
+    label1->setText(tr("Card type"));
+    confirmBtn->setText(tr("CONFIRM"));
+    edit1->clear();
+    edit1->addItem(tr("TYPE 1"));
+    edit1->addItem(tr("TYPE 2"));
+    WDelegate *CCADele = new WDelegate();
+    edit1->setItemDelegate(CCADele);
+}
+
+CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Credit Card Activate"));
+    label1 = new QLabel(tr("Card number"), this);
+    edit1 = new QComboBox(this);
+    activateBtn = new QPushButton(tr("ACTIVATE"), this);
+
+    label1->setObjectName("CCBLabel1");
+    edit1->setObjectName("CCBEdit1");
+    activateBtn->setObjectName("CCBActivateBtn");
+
+    edit1->addItem("1231 2312 3123 1236");
+    edit1->addItem("2175 7962 4595 4698");
+    WDelegate *CCBDele = new WDelegate();
+    edit1->setItemDelegate(CCBDele);
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    activateBtn->setGeometry(QRect(584, 144, 108, 36));
+}
+
+void CardActivatePage::updateLanguage()
+{
+    mainTitle->setText(tr("Credit Card Activate"));
+    label1->setText(tr("Card number"));
+    activateBtn->setText(tr("ACTIVATE"));
+}
+
+CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Credit Card Repay"));
+    label1 = new QLabel(tr("Card number"), this);
+    label2 = new QLabel(tr("Total repay amount"), this);
+    label3 = new QLabel(tr("Minimum repay amount"), this);
+    label4 = new QLabel(tr("Repay account"), this);
+    label5 = new QLabel(tr("Repay ammount"), this);
+    edit1 = new QComboBox(this);
+    edit2 = new QLineEdit(this);
+    edit3 = new QLineEdit(this);
+    edit4 = new QComboBox(this);
+    edit5 = new QLineEdit(this);
+    confirmBtn = new QPushButton(tr("CONFIRM"), this);
+
+    label1->setObjectName("CCRLabel1");
+    label2->setObjectName("CCRLabel2");
+    label3->setObjectName("CCRLabel3");
+    label4->setObjectName("CCRLabel4");
+    label5->setObjectName("CCRLabel5");
+    edit1->setObjectName("CCREdit1");
+    edit2->setObjectName("CCREdit2");
+    edit3->setObjectName("CCREdit3");
+    edit4->setObjectName("CCREdit4");
+    edit5->setObjectName("CCREdit5");
+    confirmBtn->setObjectName("CCRConfirmBtn");
+
+    edit2->setEnabled(false);
+    edit3->setEnabled(false);
+
+    edit1->addItem("1231 2312 3123 1236");
+    edit1->addItem("2175 7962 4595 4698");
+    WDelegate *CCRDele1 = new WDelegate();
+    edit1->setItemDelegate(CCRDele1);
+
+    edit4->addItem("1231 2312 3123 1236");
+    edit4->addItem("2175 7962 4595 4698");
+    WDelegate *CCRDele2 = new WDelegate();
+    edit4->setItemDelegate(CCRDele2);
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    label2->setGeometry(QRect(24, 140, 200, 24));
+    label3->setGeometry(QRect(24, 188, 200, 24));
+    label4->setGeometry(QRect(24, 236, 200, 24));
+    label5->setGeometry(QRect(24, 284, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    edit2->setGeometry(QRect(288, 136, 400, 32));
+    edit3->setGeometry(QRect(288, 184, 400, 32));
+    edit4->setGeometry(QRect(288, 232, 400, 32));
+    edit5->setGeometry(QRect(288, 280, 400, 32));
+    confirmBtn->setGeometry(QRect(584, 336, 108, 36));
+}
+
+void CardRepayPage::updateLanguage()
+{
+    mainTitle->setText(tr("Credit Card Repay"));
+    label1->setText(tr("Card number"));
+    label2->setText(tr("Total repay amount"));
+    label3->setText(tr("Minimum repay amount"));
+    label4->setText(tr("Repay account"));
+    label5->setText(tr("Repay ammount"));
+    confirmBtn->setText(tr("CONFIRM"));
+}
+
+CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Credit Card Loss Report"));
+    label1 = new QLabel(tr("Card number"), this);
+    edit1 = new QComboBox(this);
+    reportBtn = new QPushButton(tr("REPORT"), this);
+
+    label1->setObjectName("CCLLabel1");
+    edit1->setObjectName("CCLEdit1");
+    reportBtn->setObjectName("CCLReportBtn");
+
+    edit1->addItem("1231 2312 3123 1236");
+    edit1->addItem("2175 7962 4595 4698");
+    WDelegate *CCLDele = new WDelegate();
+    edit1->setItemDelegate(CCLDele);
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    reportBtn->setGeometry(QRect(584, 144, 108, 36));
+}
+
+void CardLostPage::updateLanguage()
+{
+    mainTitle->setText(tr("Credit Card Loss Report"));
+    label1->setText(tr("Card number"));
+    reportBtn->setText(tr("REPORT"));
+}
+
+UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Personal Info"));
+    label1 = new QLabel(tr("Name"), this);
+    label2 = new QLabel(tr("ID number"), this);
+    label3 = new QLabel(tr("Activate date"), this);
+    label4 = new QLabel(tr("Mobile"), this);
+    label5 = new QLabel(tr("E-mail"), this);
+    label6 = new QLabel(tr("Address"), this);
+    label7 = new QLabel(tr("Zipcode"), this);
+    edit1 = new QLineEdit(this);
+    edit2 = new QLineEdit(this);
+    edit3 = new QLineEdit(this);
+    edit4 = new QLineEdit(this);
+    edit5 = new QLineEdit(this);
+    edit6 = new QLineEdit(this);
+    edit7 = new QLineEdit(this);
+
+    label1->setObjectName("CUILabel1");
+    label2->setObjectName("CUILabel2");
+    label3->setObjectName("CUILabel3");
+    label4->setObjectName("CUILabel4");
+    label5->setObjectName("CUILabel5");
+    label4->setObjectName("CUILabel6");
+    label5->setObjectName("CUILabel7");
+    edit1->setObjectName("CUIEdit1");
+    edit2->setObjectName("CUIEdit2");
+    edit3->setObjectName("CUIEdit3");
+    edit4->setObjectName("CUIEdit4");
+    edit5->setObjectName("CUIEdit5");
+    edit6->setObjectName("CUIEdit6");
+    edit7->setObjectName("CUIEdit7");
+
+    edit1->setEnabled(false);
+    edit2->setEnabled(false);
+    edit3->setEnabled(false);
+    edit4->setEnabled(false);
+    edit5->setEnabled(false);
+    edit6->setEnabled(false);
+    edit7->setEnabled(false);
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    label2->setGeometry(QRect(24, 140, 200, 24));
+    label3->setGeometry(QRect(24, 188, 200, 24));
+    label4->setGeometry(QRect(24, 236, 200, 24));
+    label5->setGeometry(QRect(24, 284, 200, 24));
+    label6->setGeometry(QRect(24, 332, 200, 24));
+    label7->setGeometry(QRect(24, 380, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    edit2->setGeometry(QRect(288, 136, 400, 32));
+    edit3->setGeometry(QRect(288, 184, 400, 32));
+    edit4->setGeometry(QRect(288, 232, 400, 32));
+    edit5->setGeometry(QRect(288, 280, 400, 32));
+    edit6->setGeometry(QRect(288, 336, 400, 32));
+    edit7->setGeometry(QRect(288, 384, 400, 32));
+}
+
+void UserInfoPage::updateLanguage()
+{
+    mainTitle->setText(tr("Personal Info"));
+    label1->setText(tr("Name"));
+    label2->setText(tr("ID number"));
+    label3->setText(tr("Activate date"));
+    label4->setText(tr("Mobile"));
+    label5->setText(tr("E-mail"));
+    label6->setText(tr("Address"));
+    label7->setText(tr("Zipcode"));
+}
+
+ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("Change Password"));
+    label1 = new QLabel(tr("Original password"), this);
+    label2 = new QLabel(tr("New password"), this);
+    label3 = new QLabel(tr("Confirm password"), this);
+    edit1 = new QLineEdit(this);
+    edit2 = new QLineEdit(this);
+    edit3 = new QLineEdit(this);
+    confirmBtn = new QPushButton(tr("CONFIRM"), this);
+
+    label1->setObjectName("CCPLabel1");
+    label2->setObjectName("CCPLabel2");
+    label3->setObjectName("CCPLabel3");
+    edit1->setObjectName("CCPEdit1");
+    edit2->setObjectName("CCPEdit2");
+    edit3->setObjectName("CCPEdit3");
+    confirmBtn->setObjectName("CCPConfirmBtn");
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    label2->setGeometry(QRect(24, 140, 200, 24));
+    label3->setGeometry(QRect(24, 188, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    edit2->setGeometry(QRect(288, 136, 400, 32));
+    edit3->setGeometry(QRect(288, 184, 400, 32));
+    confirmBtn->setGeometry(QRect(584, 240, 108, 36));
+}
+
+void ChangePwPage::updateLanguage()
+{
+    mainTitle->setText(tr("Change Password"));
+    label1->setText(tr("Original password"));
+    label2->setText(tr("New password"));
+    label3->setText(tr("Confirm password"));
+    confirmBtn->setText(tr("CONFIRM"));
+}
+
+SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
+{
+    bgLabel = new QLabel(this);
+    mainTitle->setText(tr("System Message"));
+    table = new QTableWidget(this);
+
+    bgLabel->setObjectName("CSMbg");
+    table->setObjectName("CSMTable");
+
+    bgLabel->setGeometry(QRect(0, 0, 751, 566));
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    table->setGeometry(QRect(24, 72, 708, 480));
+
+    table->setColumnCount(3);
+    table->setRowCount(5);
+
+    QStringList headers;
+    headers << "ID" << "Name" << "Age" << "Sex";
+    table->setHorizontalHeaderLabels(headers);
+
+    table->setItem(0, 0, new QTableWidgetItem(QString("0001")));
+    table->setItem(1, 0, new QTableWidgetItem(QString("0002")));
+    table->setItem(2, 0, new QTableWidgetItem(QString("0003")));
+    table->setItem(3, 0, new QTableWidgetItem(QString("0004")));
+    table->setItem(4, 0, new QTableWidgetItem(QString("0005")));
+    table->setItem(5, 0, new QTableWidgetItem(QString("0006")));
+    table->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+
+    WDelegate *CSMDele = new WDelegate();
+    table->setItemDelegate(CSMDele);
+
+    table->verticalHeader()->hide();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setShowGrid(false);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->horizontalHeader()->resizeSection(0, 150);
+    table->verticalHeader()->setDefaultSectionSize(48);
+}
+
+void SysMsgPage::updateLanguage()
+{
+    mainTitle->setText(tr("System Message"));
+}
+
+AboutPage::AboutPage(QWidget *parent) : WPage(parent)
+{
+    mainTitle->setText(tr("About"));
+    label1 = new QTextEdit(this);
+    label1->setText(tr("    This program is designed and developed by "
+                       "Tsinghua freshman, Zhu Yilin and Tian Xingyu. "
+                       "It serves as the big assignment for C++ course "
+                       "taught by Prof. Dong. The develop environment is "
+                       "Qt 5.5.0 MSVC2012 with Microsoft Visual C++ "
+                       "Compiler 11.0 (x86).\n"
+                       "    Here we extend special thanks to the course "
+                       "teacher and TA, who lead us into the world of C++. "
+                       "We would also like to offer thanks to the open "
+                       "source projects that make our program possible."));
+
+    label1->setEnabled(false);
+    label1->setObjectName("CALabel1");
+
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 708, 200));
+}
+
+void AboutPage::updateLanguage()
+{
+    mainTitle->setText(tr("About"));
+    label1->setText(tr("    This program is designed and developed by "
+                       "Tsinghua freshman, Zhu Yilin and Tian Xingyu. "
+                       "It serves as the big assignment for C++ course "
+                       "taught by Prof. Dong. The develop environment is "
+                       "Qt 5.5.0 MSVC2012 with Microsoft Visual C++ "
+                       "Compiler 11.0 (x86).\n"
+                       "    Here we extend special thanks to the course "
+                       "teacher and TA, who lead us into the world of C++. "
+                       "We would also like to offer thanks to the open "
+                       "source projects that make our program possible."));
 }
