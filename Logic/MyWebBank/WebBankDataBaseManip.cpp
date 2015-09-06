@@ -256,7 +256,6 @@ QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
     if(!query.exec(selectInfo))
         qDebug()<<query.lastError();
     else{
-        qDebug()<<"success!";
         while(query.next()){
             QString content[7];
             QString number1 = DBAccountManip::dbSelectAccountNumber(query.value(1).toInt());
@@ -360,7 +359,7 @@ QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
     QVector<QString> messageInfo;
     query.exec(selectInfo);
     while(query.next()){
-        messageInfo.push_back("txy");
+        messageInfo.push_back(WCurrentUser::userName);
         messageInfo.push_back(query.value(2).toString());
         messageInfo.push_back(query.value(3).toString());
         messageInfo.push_back(query.value(4).toString());

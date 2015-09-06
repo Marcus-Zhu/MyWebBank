@@ -128,24 +128,52 @@ QVector<QString>& WAccount::recentRecords(){
     QVector<QString> transactionRecord2;
     QVector<QString> paymentRecord;
     DBTransactionRecordManip transferManip;
-    DBPaymetnRecordManip paymentManip;
-    int key = DBAccountManip::dbSelectAccountKey(accountNumber);
-    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1").arg(key);
-    QString selectInfo2 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1").arg(key);
+
+    DBPaymentRecordManip paymentManip;
+    int key = DBAccountManip::dbSelectAccountKey("2014011508");
+
+    QString selectInfo1 = QString("SELECT * FROM transactionRecord WHERE accountKey1 = %1").arg(key);
+    QString selectInfo2 = QString("SELECT * FROM transactionRecord WHERE accountKey2 = %1").arg(key);
+
     transactionRecord1 = transferManip.dbSelect(selectInfo1);
     transactionRecord2 = transferManip.dbSelect(selectInfo2);
-    QString selectInfo3 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1").arg(key);
+
+    QString selectInfo3 = QString("SELECT * FROM paymentRecord WHERE accountKey = %1").arg(key);
+
     paymentRecord = paymentManip.dbSelect(selectInfo3);
-    int rows = (transactionRecord1.size()+transactionRecord2.size()
-                +paymentRecord.size())/3;
+    int rows = transactionRecord1.size()/7+transactionRecord2.size()/7
+                +paymentRecord.size()/5;
+
     QDateTime times[rows];
     int j = 0;
-    for(int i = 0;i<transactionRecord1.size();i++,j++)
-        times[j].fromString(transactionRecord1[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
-    for(int i = 0;i<transactionRecord2.size();i++,j++)
-        times[j].fromString(transactionRecord2[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
-    for(int i = 0;i<transactionRecord3.size();i++,j++)
-        times[j].fromString(transactionRecord3[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+    //转时间为QDateTime对象
+    for(int i = 0;i<transactionRecord1.size()/7;i++,j++)
+        times[j].fromString(transactionRecord1[3 + 7*i],"yyyy-MM-dd hh:mm:ss");
+    for(int i = 0;i<transactionRecord2.size()/7;i++,j++)
+        times[j].fromString(transactionRecord2[3 + 7*i],"yyyy-MM-dd hh:mm:ss");
+    for(int i = 0;i<paymentRecord.size()/5;i++,j++)
+        times[j].fromString(paymentRecord[2 + 5*i],"yyyy-MM-dd hh:mm:ss");
+    //删除无用信息
+    int size1 = transactionRecord1.size()/7;
+    for(int i = 0;i<size1;i++){
+        transactionRecord1.remove(7*(size1 - i - 1) + 5);
+        transactionRecord1.remove(7*(size1 - i - 1) + 4);
+        transactionRecord1.remove(7*(size1 - i - 1) + 1);
+        transactionRecord1.remove(7*(size1 - i - 1) );
+    }
+    int size2 = transactionRecord2.size()/7;
+    for(int i = 0;i<size2;i++){
+        transactionRecord2.remove(7*(size1 - i - 1) + 5);
+        transactionRecord2.remove(7*(size1 - i - 1) + 4);
+        transactionRecord2.remove(7*(size1 - i - 1) + 1);
+        transactionRecord2.remove(7*(size1 - i - 1) );
+    }
+    int size3 = paymentRecord.size()/5;
+    for(int i = 0;i<size3;i++){
+        paymentRecord.remove(5*(size3 - 1 - i) + 3);
+        paymentRecord.remove(5*(size3 - 1 - i));
+    }
+    //构造传回去的QVector
     QVector<QString> recentRecord;
     for(int i = 0;i<transactionRecord1.size();i++)
         recentRecord.push_back(transactionRecord1[i]);
@@ -153,6 +181,7 @@ QVector<QString>& WAccount::recentRecords(){
         recentRecord.push_back(transactionRecord2[i]);
     for(int i = 0;i<paymentRecord.size();i++)
         recentRecord.push_back(paymentRecord[i]);
+    //排序
     for(int i = 0;i<rows -1;i++)
         for(int j = 0;j<rows -1;j++){
             if(times[j]<times[j + 1]){
@@ -167,9 +196,9 @@ QVector<QString>& WAccount::recentRecords(){
                 recentRecord[3*j] = recentRecord[3*(j+1)];
                 recentRecord[3*j + 1] = recentRecord[3*(j+1) + 1];
                 recentRecord[3*j + 2] = recentRecord[3*(j+1) + 2];
-                recentRecord[3*(j+1)] = temp[0];
-                recentRecord[3*(j+1) + 1] = temp[1];
-                recentRecord[3*(j+1) + 2] = temp[2];
+                recentRecord[3*(j+1)] = temps[0];
+                recentRecord[3*(j+1) + 1] = temps[1];
+                recentRecord[3*(j+1) + 2] = temps[2];
             }
         }
     return recentRecord;
