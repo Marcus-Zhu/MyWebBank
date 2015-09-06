@@ -2,7 +2,9 @@
 #include "WebBankDataBaseManip.h"
 #include "WebBankCurrentUser.h"
 #include "WebBankTransfer.h"
+#include "WebBankPayment.h"
 #include <QString>
+#include <QDateTime>
 
 #define NORMALINTERESTRATE 0.0000096
 #define VIPINTERESTRATE 0.0000120
@@ -113,4 +115,62 @@ bool WAccount::transaction(const transferType Type, const QString otherNumber,co
 
     dbAcount.dbUpdate(accountNumber,fixedDeposit,currentDeposit);
     return result;
+}
+
+bool WAccount::payment(const QString paymentType,float sum){
+    WPayment pay(accountNumber,sum,paymentType);
+    bool result = pay.pay();
+    return result;
+}
+
+QVector<QString>& WAccount::recentRecords(){
+    QVector<QString> transactionRecord1;
+    QVector<QString> transactionRecord2;
+    QVector<QString> paymentRecord;
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    int key = DBAccountManip::dbSelectAccountKey(accountNumber);
+    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1").arg(key);
+    QString selectInfo2 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1").arg(key);
+    transactionRecord1 = transferManip.dbSelect(selectInfo1);
+    transactionRecord2 = transferManip.dbSelect(selectInfo2);
+    QString selectInfo3 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1").arg(key);
+    paymentRecord = paymentManip.dbSelect(selectInfo3);
+    int rows = (transactionRecord1.size()+transactionRecord2.size()
+                +paymentRecord.size())/3;
+    QDateTime times[rows];
+    int j = 0;
+    for(int i = 0;i<transactionRecord1.size();i++,j++)
+        times[j].fromString(transactionRecord1[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+    for(int i = 0;i<transactionRecord2.size();i++,j++)
+        times[j].fromString(transactionRecord2[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+    for(int i = 0;i<transactionRecord3.size();i++,j++)
+        times[j].fromString(transactionRecord3[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+    QVector<QString> recentRecord;
+    for(int i = 0;i<transactionRecord1.size();i++)
+        recentRecord.push_back(transactionRecord1[i]);
+    for(int i = 0;i<transactionRecord2.size();i++)
+        recentRecord.push_back(transactionRecord2[i]);
+    for(int i = 0;i<paymentRecord.size();i++)
+        recentRecord.push_back(paymentRecord[i]);
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = recentRecord[3*j];
+                temps[1] = recentRecord[3*j + 1];
+                temps[2] = recentRecord[3*j + 2];
+                recentRecord[3*j] = recentRecord[3*(j+1)];
+                recentRecord[3*j + 1] = recentRecord[3*(j+1) + 1];
+                recentRecord[3*j + 2] = recentRecord[3*(j+1) + 2];
+                recentRecord[3*(j+1)] = temp[0];
+                recentRecord[3*(j+1) + 1] = temp[1];
+                recentRecord[3*(j+1) + 2] = temp[2];
+            }
+        }
+    return recentRecord;
 }

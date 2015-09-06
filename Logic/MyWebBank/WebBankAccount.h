@@ -32,9 +32,9 @@ public:
     //转账
     bool transaction(const transferType Type, const QString otherNumber, const float sum);
     //付款
-    bool payment();
-    QVector<QString>& transactionRecord();//转账记录
-    QVector<QString>& paymentRecord();    //付款记录
+    bool payment(const QString paymentType, float sum);
+    //最近十条记录
+    QVector<QString>& recentRecords();
 };
 
 

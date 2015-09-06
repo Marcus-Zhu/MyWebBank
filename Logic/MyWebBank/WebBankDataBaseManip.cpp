@@ -34,22 +34,30 @@ bool DBUserManip::dbInsert(QVector<QString> &insertInfo){
 bool DBUserManip::dbUpdate(QString updateInfo){
     QSqlQuery query;
     bool result;
-    result = query.exec(QString("UPDATE user SET password = '%1' WHERE name = '%2'").arg(WCurrentUser::userName).arg(updateInfo));
+    query.prepare("UPDATE user SET password = :password WHERE name = :name");
+    query.bindValue(":password",updateInfo);
+    query.bindValue(":name",WCurrentUser::userName);
+    result = query.exec();
     return result;
 }
 
 bool DBUserManip::dbDelete(QString deleteInfo){
     QSqlQuery query;
     bool result;
-    result = query.exec(QString("DELETE FROM user WHERE name = '%1'").arg(deleteInfo));
+    query.prepare("DELETE FROM user WHERE name = :name");
+    query.bindValue(":name",deleteInfo);
+    result = query.exec();
     return result;
 }
 //核对用户的输入密码是否正确
 bool DBUserManip::dbSelect(QString userName, QString userPassword){
     QSqlQuery query;
-    if(!query.exec(QString("SELECT * FROM user WHERE name = '%1'").arg(userName)))
+    query.prepare("SELECT * FROM user WHERE name = :name");
+    query.bindValue(":name",userName);
+    if(!query.exec())
             qDebug()<<query.lastError();
     else{
+        query.next();
         if(userPassword == query.value(2).toString())
             return true;
         else
@@ -90,7 +98,7 @@ bool DBAccountManip::dbTableCreate(){
 bool DBAccountManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
-    query.prepare("INSERT INTO user (userKey,type,number,fixedDeposit,currentDeposit,status)"
+    query.prepare("INSERT INTO account (userKey,type,number,fixedDeposit,currentDeposit,status)"
                         "VALUES (?,?,?,?,?,?)");
     query.addBindValue(DBUserManip::dbSelectUserKey());
     query.addBindValue(insertInfo[0]);
@@ -117,7 +125,10 @@ int DBAccountManip::dbSelectUserKey(QString number){
 int DBAccountManip::dbSelectAccountKey(QString accountNumber){
     QSqlQuery query;
     int key;
-    query.exec(QString("SELECT key FROM account WHERE number = '%1'").arg(accountNumber));
+    query.prepare("SELECT * FROM account WHERE number = :number");
+    query.bindValue(":number",accountNumber);
+    query.exec();
+    query.next();
     key = query.value(0).toInt();
     return key;
 }
@@ -137,9 +148,12 @@ bool DBAccountManip::dbUpdate(QString updateInfo){
 //更新账户余额
 bool DBAccountManip::dbUpdate(QString updateInfo, float fixedDeposit, float currentDeposit){
    QSqlQuery query;
-    bool result;
-   result = query.exec(QString("UPDATE account SET fixedDeposit = %1, currentDeposit = %2 WHERE number = '%3'")
-                       .arg(fixedDeposit).arg(currentDeposit).arg(updateInfo));
+   bool result;
+   query.prepare("UPDATE account SET fixedDeposit = :fixedDeposit,currentDeposit = :currentDeposit WHERE number = :number");
+   query.bindValue(":fixedDeposit",fixedDeposit);
+   query.bindValue(":currentDeposit",currentDeposit);
+   query.bindValue(":number",updateInfo);
+   result = query.exec();
    return result;
 }
 
@@ -147,9 +161,11 @@ bool DBAccountManip::dbUpdate(QString updateInfo, float sum){
     QSqlQuery query;
     bool result;
     float currentDeposit;
-    query.exec(QString("SELECT fixedDeposit,currentDeposit FROM account WHERE number = '%1'").arg(updateInfo));
+    query.prepare("SELECT fixedDeposit,currentDeposit FROM account WHERE number = :number");
+    query.bindValue(":number",updateInfo);
+    query.exec();
     query.next();
-    currentDeposit = query.value(5).toFloat() + sum;
+    currentDeposit = query.value(1).toFloat() + sum;
     query.prepare("UPDATE currentDeposit = :currentDeposit WHERE number = :number");
     query.bindValue(":currentDeposit",currentDeposit);
     query.bindValue(":number",updateInfo);
@@ -157,19 +173,32 @@ bool DBAccountManip::dbUpdate(QString updateInfo, float sum){
     return result;
 }
 
+bool DBAccountManip::dbPaymentUpdate(QString number, float currentDeposit){
+    QSqlQuery query;
+    query.prepare("UPDATE currentDeposit = :currentDeposit WHERE number = :number");
+    query.bindValue(":currentDeposit",currentDeposit);
+    query.bindValue(":number",number);
+    bool result = query.exec();
+    return result;
+}
+
 QString DBAccountManip::dbSelectAccountNumber(int key){
     QSqlQuery query;
     QString number;
-    query.exec(QString("SELECT number FROM account WHERE key = %1").arg(key));
+    query.prepare("SELECT number FROM account WHERE key = :key");
+    query.bindValue(":key",key);
+    query.exec();
     query.next();
     number = query.value(0).toString();
     return number;
 }
 
-QVector<QString>& DBAccountManip::dbSelect(QString selectInfo) {
+QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
     QSqlQuery query;
     QVector<QString> accountInfo(6);
-    if(query.exec(QString("SELECT * FROM account WHERE number = '%1'").arg(selectInfo)))
+    query.prepare("SELECT * FROM account WHERE number = :number");
+    query.bindValue(":number",selectInfo);
+    if(query.exec())
     {
         while(query.next()){
             for(int i = 0;i<6;i++)
@@ -184,7 +213,9 @@ QVector<QString>& DBAccountManip::dbSelect(QString selectInfo) {
 bool DBAccountManip::dbDelete(QString deleteInfo){
     QSqlQuery query;
     bool result;
-    result = query.exec(QString("DELETE FROM account WHERE number = '%1'").arg(deleteInfo));
+    query.prepare("DELETE FROM account WHERE number = :number");
+    query.bindValue(":number",deleteInfo);
+    result = query.exec();
     return result;
 }
 
@@ -200,10 +231,13 @@ bool DBTransactionRecordManip::dbTableCreate(){
 bool DBTransactionRecordManip::dbInsert(QVector<QString>& insertInfo){
     QSqlQuery query;
     bool result;
-    query.prepare(QString("INSERT INTO transactionRecord (accountKey1,accountKey,"
-                                "sum,fixedDeposit,currentDeposit,type) VALUES (?,?,?,?,?,?)"));
-    query.addBindValue(insertInfo[0].toInt());
-    query.addBindValue(insertInfo[1].toInt());
+    query.prepare("INSERT INTO transactionRecord (accountKey1,accountKey2,"
+                                "sum,fixedDeposit,currentDeposit,type) VALUES (?,?,?,?,?,?)");
+
+    int key = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
+    query.addBindValue(key);
+    key = DBAccountManip::dbSelectAccountKey(insertInfo[1]);
+    query.addBindValue(key);
     query.addBindValue(insertInfo[2].toFloat());
     query.addBindValue(insertInfo[3].toFloat());
     query.addBindValue(insertInfo[4].toFloat());
@@ -216,17 +250,24 @@ bool DBTransactionRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-QVector<QString>& DBTransactionRecordManip::dbSelect(QString selectInfo){
+QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> transactionRecordInfo;
-    query.exec(selectInfo);
-    while(query.next()){
-        transactionRecordInfo.push_back(DBAccountManip::dbSelectAccountNumber(query.value(1).toInt()));
-        transactionRecordInfo.push_back(DBAccountManip::dbSelectAccountNumber(query.value(2).toInt()));
-        transactionRecordInfo.push_back(query.value(3).toString());
-        transactionRecordInfo.push_back(query.value(4).toString());
-        transactionRecordInfo.push_back(query.value(5).toString());
-        transactionRecordInfo.push_back(query.value(6).toString());
+    if(!query.exec(selectInfo))
+        qDebug()<<query.lastError();
+    else{
+        qDebug()<<"success!";
+        while(query.next()){
+            QString content[7];
+            QString number1 = DBAccountManip::dbSelectAccountNumber(query.value(1).toInt());
+            QString number2 = DBAccountManip::dbSelectAccountNumber(query.value(2).toInt());
+            content[0] = number1;
+            content[1] = number2;
+            for(int i = 2;i<7;i++)
+                content[i] = query.value(i+1).toString();
+            for(int i = 0;i<7;i++)
+                transactionRecordInfo.push_back(content[i]);
+        }
     }
     return transactionRecordInfo;
 }
@@ -235,50 +276,58 @@ bool DBTransactionRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
-bool DBPaymetnRecordManip::dbTableCreate(){
+bool DBPaymentRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
-    result = query.exec("CREATE TABLE paymentReord (key INTEGER PRIMARY KEY AUTOINCREMENT,accountKey INTEGER,"
+    result = query.exec("CREATE TABLE paymentRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,accountKey INTEGER,"
                         "sum REAL,time TIMESTAMP default CURRENT_TIMESTAMP,currentDeposit REAL,type VARCHAR[10])");
     return result;
 }
 
-bool DBPaymetnRecordManip::dbInsert(QVector<QString> &insertInfo){
+bool DBPaymentRecordManip::dbInsert(QVector<QString> &insertInfo){
+    //0--accountNumber,1--sum,2--type,3--currentDeposit
     QSqlQuery query;
     int accountKey;
-    float balance;
+    float currentDeposit;
     bool result;
-    query.exec(QString("SELECT * FROM account WHERE number = '%1'").arg(insertInfo[0]));
-    accountKey = query.value(0).toInt();
-    balance = query.value(4).toFloat() - insertInfo[1].toFloat();
-    query.prepare("INSERT INTO paymentRecord (accountKey,sum,balance type)"
+    accountKey = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
+    currentDeposit = insertInfo.value(3).toFloat() - insertInfo[1].toFloat();
+    query.prepare("INSERT INTO paymentRecord (accountKey,sum,currentDeposit,type)"
                   "VALUES (?,?,?,?)");
     query.addBindValue(accountKey);
     query.addBindValue(insertInfo[1].toFloat());
-    query.addBindValue(balance);
+    query.addBindValue(currentDeposit);
     query.addBindValue(insertInfo[2]);
     result = query.exec();
     return result;
 }
 
-bool DBPaymetnRecordManip::dbUpdate(QString updateInfo){
+bool DBPaymentRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-QVector<QString>& DBPaymetnRecordManip::dbSelect(QString selectInfo){
+QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> paymentRecordInfo;
-    query.exec(selectInfo);
+    if(!query.exec(selectInfo))
+        qDebug()<<query.lastError();
+    else{
+        qDebug()<<"success!";
     while(query.next()){
-        paymentRecordInfo.push_back(query.value(2).toString());
-        paymentRecordInfo.push_back(query.value(3).toString());
-        paymentRecordInfo.push_back(query.value(4).toString());
-        paymentRecordInfo.push_back(query.value(5).toString());
+        int key = query.value(1).toInt();
+        QString number = DBAccountManip::dbSelectAccountNumber(key);
+        QString content[4];
+        paymentRecordInfo.push_back(number);
+        for(int i = 0;i<4;i++)
+            content[i] = query.value(i + 2).toString();
+        for(int i = 0;i<4;i++)
+            paymentRecordInfo.push_back(content[i]);
+    }
     }
     return paymentRecordInfo;
 }
 
-bool DBPaymetnRecordManip::dbDelete(QString deleteInfo){
+bool DBPaymentRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
@@ -306,12 +355,12 @@ bool DBMessageManip::dbUpdate(QString updateInfo){
     return result;
 }
 
-QVector<QString>& DBMessageManip::dbSelect(QString selectInfo){
+QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> messageInfo;
     query.exec(selectInfo);
     while(query.next()){
-        messageInfo.push_back(WCurrentUser::userName);
+        messageInfo.push_back("txy");
         messageInfo.push_back(query.value(2).toString());
         messageInfo.push_back(query.value(3).toString());
         messageInfo.push_back(query.value(4).toString());
@@ -349,7 +398,7 @@ bool DBLogRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
-QVector<QString>& DBLogRecordManip::dbSelect(QString selectInfo){
+QVector<QString> DBLogRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     query.exec(selectInfo);
     QVector<QString> logRecord;
@@ -360,6 +409,79 @@ QVector<QString>& DBLogRecordManip::dbSelect(QString selectInfo){
     }
     return logRecord;
 }
+
+bool DBAutoPayManip::dbTableCreate(){
+    bool result;
+    QSqlQuery query;
+    result = query.exec("CREATE TABLE autoPay (key INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        "accountKey INTEGER, type VARCHAR[15])");
+    return result;
+}
+
+bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo){
+    bool result;
+    QSqlQuery query;
+    query.prepare("INSERT INTO autoPay (accountKey,type) VALUES (?,?)");
+    int accountKey = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
+    query.addBindValue(accountKey);
+    query.addBindValue(insertInfo[1]);
+    result = query.exec();
+    return result;
+}
+
+QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
+    QSqlQuery query;
+    QVector<QString> info;
+    query.exec(selectInfo);
+    while(query.next()){
+        info.push_back(query.value(0).toString());
+        info.push_back(query.value(1).toString());
+        info.push_back(query.value(2).toString());
+    }
+    return info;
+}
+
+bool DBAutoPayManip::dbUpdate(QString updateInfo){
+    return false;
+}
+
+bool DBAutoPayManip::dbDelete(QString deleteInfo){
+    bool result;
+    QSqlQuery query;
+    query.prepare("DELETE FROM autoPay WHERE accountKey = ?");
+    int accountKey = DBAccountManip::dbSelectAccountKey(deleteInfo);
+    query.addBindValue(accountKey);
+    result = query.exec();
+    return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

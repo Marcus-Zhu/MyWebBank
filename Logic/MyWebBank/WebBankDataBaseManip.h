@@ -31,6 +31,7 @@ public:
     bool dbInsert(QVector<QString>& insertInfo);
     bool dbUpdate(QString updateInfo, float fixedDeposit,float currentDeposit);
     bool dbUpdate(QString updateInfo,float sum);
+    bool dbPaymentUpdate(QString number, float currentDeposit);
     bool dbUpdate(QString updateInfo);
     QVector<QString>& dbSelect(QString selectInfo);
     static int dbSelectUserKey(QString number);
@@ -70,6 +71,14 @@ public:
 class DBLogRecordManip:public WDBManip{
 public:
     bool dbInsert(QVector<QString>& insertInfo);
+    bool dbUpdate(QString updateInfo);
+    QVector<QString>& dbSelect(QString selectInfo);
+    bool dbDelete(QString deleteInfo);
+    bool dbTableCreate();
+};
+
+class DBAutoPayManip:public WDBManip{
+    bool dbInsert(QVector<QString> &insertInfo);
     bool dbUpdate(QString updateInfo);
     QVector<QString>& dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo);
