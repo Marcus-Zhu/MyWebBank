@@ -37,7 +37,7 @@ private:
     int messageAmount;
 public:
     bool setPassword(QString oldPassword, QString newPassword);
-    bool addAccount(QString number);
+    bool addAccount(QString number,QString type);
     int getAccountAmount(){return account.size();}
     static int checkIn(QString name,QString password);
     SUserInfo getUserInfo();

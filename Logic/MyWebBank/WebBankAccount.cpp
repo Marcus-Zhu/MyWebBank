@@ -130,10 +130,10 @@ QVector<QString>& WAccount::recentRecords(){
     DBTransactionRecordManip transferManip;
 
     DBPaymentRecordManip paymentManip;
-    int key = DBAccountManip::dbSelectAccountKey("2014011508");
+    int key = DBAccountManip::dbSelectAccountKey(accountNumber);
 
     QString selectInfo1 = QString("SELECT * FROM transactionRecord WHERE accountKey1 = %1").arg(key);
-    QString selectInfo2 = QString("SELECT * FROM transactionRecord WHERE accountKey2 = %1").arg(key);
+    QString selectInfo2 = QString("SELECT * FROM transactionRecord WHERE accountKey2 = %1 AND accoutKey1 != %1").arg(key);
 
     transactionRecord1 = transferManip.dbSelect(selectInfo1);
     transactionRecord2 = transferManip.dbSelect(selectInfo2);
@@ -141,18 +141,7 @@ QVector<QString>& WAccount::recentRecords(){
     QString selectInfo3 = QString("SELECT * FROM paymentRecord WHERE accountKey = %1").arg(key);
 
     paymentRecord = paymentManip.dbSelect(selectInfo3);
-    int rows = transactionRecord1.size()/7+transactionRecord2.size()/7
-                +paymentRecord.size()/5;
 
-    QDateTime times[rows];
-    int j = 0;
-    //转时间为QDateTime对象
-    for(int i = 0;i<transactionRecord1.size()/7;i++,j++)
-        times[j].fromString(transactionRecord1[3 + 7*i],"yyyy-MM-dd hh:mm:ss");
-    for(int i = 0;i<transactionRecord2.size()/7;i++,j++)
-        times[j].fromString(transactionRecord2[3 + 7*i],"yyyy-MM-dd hh:mm:ss");
-    for(int i = 0;i<paymentRecord.size()/5;i++,j++)
-        times[j].fromString(paymentRecord[2 + 5*i],"yyyy-MM-dd hh:mm:ss");
     //删除无用信息
     int size1 = transactionRecord1.size()/7;
     for(int i = 0;i<size1;i++){
@@ -181,6 +170,16 @@ QVector<QString>& WAccount::recentRecords(){
         recentRecord.push_back(transactionRecord2[i]);
     for(int i = 0;i<paymentRecord.size();i++)
         recentRecord.push_back(paymentRecord[i]);
+    if(recentRecord.size()>30){
+        int size = recentRecord.size();
+        for(int i = 1;i<size - 31;i++)
+            recentRecord.remove(size - i);
+    }
+    //转时间为QDateTime对象
+    int rows = recentRecord.size()/3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++,j++)
+        times[i].fromString(recentRecord[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
     //排序
     for(int i = 0;i<rows -1;i++)
         for(int j = 0;j<rows -1;j++){

@@ -28,7 +28,7 @@ bool WUser::setPassword(QString oldPassword,QString newPassword){
         return dbUser.dbUpdate(newPassword);
 }
 
-bool WUser::addAccount(QString number){
+bool WUser::addAccount(QString number, QString type){
 
 }
 
@@ -56,3 +56,41 @@ int WUser::checkIn(QString name, QString password){
     else
         return 3;//成功登录
 }
+
+bool WUser::addAccount(QString number,QString type){
+    DBAccountManip accountManip;
+    QVector<QString> insertInfo;
+    insertInfo.push_back(type);
+    insertInfo.push_back(number);
+    insertInfo.push_back("0");
+    insertInfo.push_back("100000");
+    insertInfo.push_back("normal");
+    bool result = accountManip.dbInsert(insertInfo);
+    if(result)
+        account.push_back(number);
+    return result;
+}
+
+
+
+
+//理想与事业
+//多做学生工作对我们的人生发展和事业都有好处
+//现在发展后条件比以前好了很多，爱国奉献
+//国家发展，民族自豪感，从事到国家的大事业中去
+//这样才能获得成就感
+//明确我们的目标，坚守道德的底线
+
+
+
+
+
+
+
+
+
+
+
+
+
+

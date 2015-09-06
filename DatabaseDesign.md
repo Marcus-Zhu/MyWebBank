@@ -34,13 +34,14 @@
 + accountKey
 + sum
 + time
-+ balance
++ currentDeposit
 + type(Water, Electricity or Gas)
 
 # autopay TABLE:
 + key
 + accountKey
 + item
++ lastPayDate
 
 # message TABLE:
 + key

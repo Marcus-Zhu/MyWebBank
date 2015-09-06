@@ -334,7 +334,7 @@ bool DBMessageManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE message (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER,"
-                        "time TIMESTAMP default CURRENT_TIMESTAMP,content VARCHAR(20),status VARCHAR(15))");
+                        "time TIMESTAMP default CURRENT_TIMESTAMP,content VARCHAR(20),status VARCHAR(15) default not_read)");
     return result;
 }
 
@@ -350,7 +350,7 @@ bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
 bool DBMessageManip::dbUpdate(QString updateInfo){
     QSqlQuery query;
     bool result;
-    result = query.exec("UPDATE FROM message SET status = 'already read'");
+    result = query.exec(updateInfo);
     return result;
 }
 
@@ -369,6 +369,16 @@ QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
 
 bool DBMessageManip::dbDelete(QString deleteInfo){
     return false;
+}
+
+int DBMessageManip::dbSelectMessageAmount(){
+    QSqlQuery query;
+    query.exec("SELECT FROM message WHERE status = 'not_read'");
+    int amount = 0;
+    while(query.next()){
+        amount++;
+    }
+    return amount;
 }
 
 bool DBLogRecordManip::dbTableCreate(){
@@ -413,17 +423,19 @@ bool DBAutoPayManip::dbTableCreate(){
     bool result;
     QSqlQuery query;
     result = query.exec("CREATE TABLE autoPay (key INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "accountKey INTEGER, type VARCHAR[15])");
+                        "accountKey INTEGER, type VARCHAR(15),lastPayDate VARCHAR(20))");
     return result;
 }
 
 bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo){
     bool result;
     QSqlQuery query;
-    query.prepare("INSERT INTO autoPay (accountKey,type) VALUES (?,?)");
+    QString date;
+    query.prepare("INSERT INTO autoPay (accountKey,type,lastPayDate) VALUES (?,?,?)");
     int accountKey = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
     query.addBindValue(accountKey);
     query.addBindValue(insertInfo[1]);
+    query.addBindValue((QDate::currentDate()).toString());
     result = query.exec();
     return result;
 }
@@ -433,9 +445,9 @@ QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
     QVector<QString> info;
     query.exec(selectInfo);
     while(query.next()){
-        info.push_back(query.value(0).toString());
         info.push_back(query.value(1).toString());
         info.push_back(query.value(2).toString());
+        info.push_back(query.value(3).toString());
     }
     return info;
 }
@@ -444,12 +456,16 @@ bool DBAutoPayManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-bool DBAutoPayManip::dbDelete(QString deleteInfo){
+bool DBAutoPayManip::dbDelete(QString deleteInfo){}
+
+bool DBAutoPayManip::dbDelete(QString number,QString type){
     bool result;
     QSqlQuery query;
-    query.prepare("DELETE FROM autoPay WHERE accountKey = ?");
+    int accountKey = DBAccountManip::dbSelectAccountKey(number);
+    query.prepare("DELETE FROM autoPay WHERE accountKey = ? AND type = ?");
     int accountKey = DBAccountManip::dbSelectAccountKey(deleteInfo);
     query.addBindValue(accountKey);
+    query.addBindValue(type);
     result = query.exec();
     return result;
 }

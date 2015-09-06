@@ -66,6 +66,7 @@ public:
     QVector<QString>& dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo = "");
     bool dbTableCreate();
+    int dbSelectMessageAmount();
 };
 
 class DBLogRecordManip:public WDBManip{
