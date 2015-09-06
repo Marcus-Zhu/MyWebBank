@@ -2,4 +2,5 @@
     <qresource prefix="/ui">
         <file>ui.qss</file>
     </qresource>
+    <qresource prefix="/trans"/>
 </RCC>

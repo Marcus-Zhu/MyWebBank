@@ -671,57 +671,57 @@
         <translation>Go Back</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="66"/>
+        <location filename="wlogin.cpp" line="78"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="67"/>
+        <location filename="wlogin.cpp" line="79"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="68"/>
+        <location filename="wlogin.cpp" line="80"/>
         <source>ID Number</source>
         <translation>ID Number</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="69"/>
+        <location filename="wlogin.cpp" line="81"/>
         <source>Confirm Password</source>
         <translation>Confirm Password</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="70"/>
+        <location filename="wlogin.cpp" line="82"/>
         <source>Card Number</source>
         <translation>Card Number</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="71"/>
+        <location filename="wlogin.cpp" line="83"/>
         <source>Mobile</source>
         <translation>Mobile</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="72"/>
+        <location filename="wlogin.cpp" line="84"/>
         <source>E-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="73"/>
+        <location filename="wlogin.cpp" line="85"/>
         <source>Address</source>
         <translation>Address</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="74"/>
+        <location filename="wlogin.cpp" line="86"/>
         <source>Zipcode</source>
         <translation>Zipcode</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="100"/>
+        <location filename="wlogin.cpp" line="112"/>
         <source>Password incorrect!</source>
         <translation>Password incorrect!</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="104"/>
+        <location filename="wlogin.cpp" line="116"/>
         <source>Username not exist!</source>
         <translation>Username not exist!</translation>
     </message>

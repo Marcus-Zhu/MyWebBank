@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     pages.cpp \
     bars.cpp \
     wdelegate.cpp \
-    wlogin.cpp
+    wlogin.cpp \
+    wloading.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
     pages.h \
     bars.h \
     wdelegate.h \
-    wlogin.h
+    wlogin.h \
+    wloading.h
 
 RESOURCES += \
     styleset.qrc

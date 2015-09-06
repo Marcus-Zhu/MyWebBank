@@ -76,13 +76,18 @@ void BankUI::changeLanguage()
 {
     QString QmName;
     QTranslator *wTranslator = new QTranslator();
-    isChinese ? QmName = "eng.qm" : QmName = "chn.qm";
+    isChinese ? QmName = "trans/eng.qm" : QmName = "trans/chn.qm";
     isChinese ? isChinese = false : isChinese = true;
     if(wTranslator->load(QmName))
     {
         qApp->installTranslator(wTranslator);
     }
     updateLanguage();
+
+    QFile transFile("trans/trans.ini");
+    transFile.open(QFile::WriteOnly|QFile::Truncate);
+    isChinese ? transFile.write("trans/chn.qm") : transFile.write("trans/eng.qm");
+    transFile.close();
 }
 void BankUI::updateLanguage()
 {
@@ -199,7 +204,7 @@ void BankUI::openUX()
     creditLabel->setVisible(false);
     centerStack->setVisible(false);
     QPropertyAnimation *a1 = new QPropertyAnimation(topbar, "geometry");
-    a1->setDuration(2000);
+    a1->setDuration(1800);
     a1->setStartValue(QRect(0, -160, 1000, 161));
     a1->setEndValue(QRect(0, 0, 1000, 161));
     a1->setEasingCurve(QEasingCurve::OutExpo);
@@ -210,7 +215,7 @@ void BankUI::openUX()
 void BankUI::openUX2()
 {
     QPropertyAnimation *a2 = new QPropertyAnimation(navbar, "geometry");
-    a2->setDuration(2000);
+    a2->setDuration(1500);
     a2->setStartValue(QRect(0, 0, 0, 751));
     a2->setEndValue(QRect(0, 0, 260, 751));
     a2->setEasingCurve(QEasingCurve::OutExpo);

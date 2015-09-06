@@ -63,6 +63,18 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     registerBtn->setGeometry(QRect(263, 626, 96, 36));
     backBtn->setGeometry(QRect(167, 626, 96, 36));
 
+    regBtn->setVisible(true);
+    loginBtn->setVisible(true);
+    passwordConfirm->setVisible(false);
+    idCard->setVisible(false);
+    cardNum->setVisible(false);
+    mobile->setVisible(false);
+    email->setVisible(false);
+    address->setVisible(false);
+    zipcode->setVisible(false);
+    registerBtn->setVisible(false);
+    backBtn->setVisible(false);
+
     userName->setPlaceholderText(tr("Username"));
     password->setPlaceholderText(tr("Password"));
     idCard->setPlaceholderText(tr("ID Number"));

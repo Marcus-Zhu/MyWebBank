@@ -19,6 +19,10 @@ QLabel#LogInNotice
 	text-align:center;
 }
 
+QLabel#LoadingLabel{
+        background-image:url(image/loading.png);
+}
+
 /*BankUI*/
 QLabel#backgroundLabel
 {

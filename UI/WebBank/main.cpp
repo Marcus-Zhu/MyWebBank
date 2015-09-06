@@ -1,5 +1,6 @@
 #include "bankui.h"
 #include "wlogin.h"
+#include "wloading.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QString>
@@ -9,21 +10,28 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QFile file(":/ui/ui.qss");
-    file.open(QFile::ReadOnly);
-    if(file.isOpen())
+    QFile qssFile(":/ui/ui.qss");
+    qssFile.open(QFile::ReadOnly);
+    if(qssFile.isOpen())
     {
-        a.setStyleSheet(file.readAll());
-        file.close();
+        a.setStyleSheet(qssFile.readAll());
+        qssFile.close();
     }
 
-    QString QmName = "chn.ts";
+    QFile transFile("trans/trans.ini");
+    transFile.open(QFile::ReadOnly);
+    QString QmName = transFile.readAll();
+    qDebug() << QmName;
     QTranslator *wTranslator = new QTranslator();
     wTranslator->load(QmName);
     a.installTranslator(wTranslator);
+    transFile.close();
 
     WLogin v;
     if (v.exec() != QDialog::Accepted) return -1;
+
+    WLoading l;
+    l.exec();
 
     BankUI w;
     w.show();
