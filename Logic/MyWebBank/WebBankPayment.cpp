@@ -3,8 +3,10 @@
 #include "WebBankCurrentUser.h"
 #include <QTime>
 
+//默认构造函数
 WPayment::WPayment(){}
 
+//带参数的默认构造函数
 WPayment::WPayment(QString accountNumber, float sum, QString paymentType){
     number = accountNumber;
     sum = sum;
@@ -26,6 +28,7 @@ WPayment::WPayment(QString accountNumber, float sum, QString paymentType){
     }
 }
 
+//设置对象的私有变量中haveAutoPayment和autoPayDate
 void WPayment::setAutoPayment(bool ifChoose[]){
     for(int i = 0;i<3;i++)
         haveAutoPayment[i] = ifChoose[i];
@@ -36,6 +39,7 @@ void WPayment::setAutoPayment(bool ifChoose[]){
     }
 }
 
+//查询是否有自动付款项目
 bool WPayment::isAutoPaymentEmpty(){
     for(int i = 0;i<3;i++){
         if(haveAutoPayment[i] == true)
@@ -44,13 +48,16 @@ bool WPayment::isAutoPaymentEmpty(){
     return true;//无自动缴费项目
 }
 
+//付款
 bool WPayment::pay(){
-    if(currentDeposit<sum)
+    if(currentDeposit<sum)//钱不够
         return false;
     else{
+        //更改账户中的存款余额
         currentDeposit -= sum;
         DBAccountManip dbAccount;
         bool result = dbAccount.dbPaymentUpdate(number,currentDeposit);
+        //在payment表中插入一条新信息
         QVector<QString> insertInfo;
         int key = DBAccountManip::dbSelectAccountKey(number);
         QString accountKey = QString::setNum(key);
@@ -68,6 +75,7 @@ bool WPayment::pay(){
     }
 }
 
+//自动付款，（暂时未测试）
 bool WPayment::autoPayment(){
     bool result[3] = {true,true,true};
     DBMessageManip messageManip;
@@ -101,6 +109,7 @@ bool WPayment::autoPayment(){
     return true;
 }
 
+//删除自动付款的项目
 bool WPayment::deleteAutoPayment(QString paymentType[]){
     bool result[3] = {true,true,true};
     for(int i = 0;i<3;i++)

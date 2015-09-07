@@ -3,6 +3,7 @@
 #include "WebBankUser.h"
 #include "WebBankDataBaseManip.h"
 
+//构造函数
 WUser::WUser(SUserInfo userInfo){
     this->name = userInfo.name;
     this->password = userInfo.password;
@@ -20,6 +21,7 @@ WUser::WUser(SUserInfo userInfo){
     WCurrentUser::userType = userInfo.type;
 }
 
+//修改密码
 bool WUser::setPassword(QString oldPassword,QString newPassword){
     DBUserManip dbUser;
     if(!dbUser.dbSelect(name,oldPassword))
@@ -28,10 +30,7 @@ bool WUser::setPassword(QString oldPassword,QString newPassword){
         return dbUser.dbUpdate(newPassword);
 }
 
-bool WUser::addAccount(QString number, QString type){
-
-}
-
+//获取用户信息
 SUserInfo WUser::getUserInfo(){
     SUserInfo* info = new SUserInfo;
     info->name = name;
@@ -47,6 +46,7 @@ SUserInfo WUser::getUserInfo(){
     return *info;
 }
 
+//登录函数
 int WUser::checkIn(QString name, QString password){
     DBUserManip dbUser;
     if(!dbUser.dbSelect(name))
@@ -57,6 +57,7 @@ int WUser::checkIn(QString name, QString password){
         return 3;//成功登录
 }
 
+//添加新account
 bool WUser::addAccount(QString number,QString type){
     DBAccountManip accountManip;
     QVector<QString> insertInfo;
@@ -70,27 +71,3 @@ bool WUser::addAccount(QString number,QString type){
         account.push_back(number);
     return result;
 }
-
-
-
-
-//理想与事业
-//多做学生工作对我们的人生发展和事业都有好处
-//现在发展后条件比以前好了很多，爱国奉献
-//国家发展，民族自豪感，从事到国家的大事业中去
-//这样才能获得成就感
-//明确我们的目标，坚守道德的底线
-
-
-
-
-
-
-
-
-
-
-
-
-
-

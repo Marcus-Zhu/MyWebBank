@@ -6,6 +6,7 @@
 #include <QString>
 #include <QSqlDatabase>
 
+//创建user表
 bool DBUserManip::dbTableCreate(){
     QSqlQuery query;
     if(query.exec("CREATE TABLE user (key INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -16,6 +17,7 @@ bool DBUserManip::dbTableCreate(){
         return false;
 }
 
+//注册时向user表中插入一条新信息
 bool DBUserManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
@@ -31,6 +33,7 @@ bool DBUserManip::dbInsert(QVector<QString> &insertInfo){
     return result;
 }
 
+//更新用户密码
 bool DBUserManip::dbUpdate(QString updateInfo){
     QSqlQuery query;
     bool result;
@@ -41,6 +44,7 @@ bool DBUserManip::dbUpdate(QString updateInfo){
     return result;
 }
 
+//删除用户信息，不过貌似不需要，但是继承来必须实现
 bool DBUserManip::dbDelete(QString deleteInfo){
     QSqlQuery query;
     bool result;
@@ -86,6 +90,7 @@ int DBUserManip::dbSelectUserKey(){
     return userKey;
 }
 
+//创建account表
 bool DBAccountManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
@@ -95,6 +100,7 @@ bool DBAccountManip::dbTableCreate(){
     return result;
 }
 
+//向account表插入一条数据
 bool DBAccountManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
@@ -122,6 +128,7 @@ int DBAccountManip::dbSelectUserKey(QString number){
     return key;
 }
 
+//通过number获取accountKey的值
 int DBAccountManip::dbSelectAccountKey(QString accountNumber){
     QSqlQuery query;
     int key;
@@ -132,6 +139,7 @@ int DBAccountManip::dbSelectAccountKey(QString accountNumber){
     key = query.value(0).toInt();
     return key;
 }
+
 //更新账户状态
 bool DBAccountManip::dbUpdate(QString updateInfo){
     QSqlQuery query;
@@ -145,7 +153,8 @@ bool DBAccountManip::dbUpdate(QString updateInfo){
     }
     return result;
 }
-//更新账户余额
+
+//更新现在正在操作的账户的余额
 bool DBAccountManip::dbUpdate(QString updateInfo, float fixedDeposit, float currentDeposit){
    QSqlQuery query;
    bool result;
@@ -157,6 +166,7 @@ bool DBAccountManip::dbUpdate(QString updateInfo, float fixedDeposit, float curr
    return result;
 }
 
+//更新被转账的账户的余额
 bool DBAccountManip::dbUpdate(QString updateInfo, float sum){
     QSqlQuery query;
     bool result;
@@ -173,6 +183,7 @@ bool DBAccountManip::dbUpdate(QString updateInfo, float sum){
     return result;
 }
 
+//缴费后更新account的余额
 bool DBAccountManip::dbPaymentUpdate(QString number, float currentDeposit){
     QSqlQuery query;
     query.prepare("UPDATE currentDeposit = :currentDeposit WHERE number = :number");
@@ -182,6 +193,7 @@ bool DBAccountManip::dbPaymentUpdate(QString number, float currentDeposit){
     return result;
 }
 
+//通过accountKey获取number
 QString DBAccountManip::dbSelectAccountNumber(int key){
     QSqlQuery query;
     QString number;
@@ -193,6 +205,7 @@ QString DBAccountManip::dbSelectAccountNumber(int key){
     return number;
 }
 
+//查询某一number对应account的所有信息
 QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
     QSqlQuery query;
     QVector<QString> accountInfo(6);
@@ -210,6 +223,7 @@ QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
         return accountInfo;
 }
 
+//删除某一account
 bool DBAccountManip::dbDelete(QString deleteInfo){
     QSqlQuery query;
     bool result;
@@ -219,6 +233,7 @@ bool DBAccountManip::dbDelete(QString deleteInfo){
     return result;
 }
 
+//创建表
 bool DBTransactionRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
@@ -228,6 +243,7 @@ bool DBTransactionRecordManip::dbTableCreate(){
     return result;
 }
 
+//插入信息
 bool DBTransactionRecordManip::dbInsert(QVector<QString>& insertInfo){
     QSqlQuery query;
     bool result;
@@ -246,10 +262,12 @@ bool DBTransactionRecordManip::dbInsert(QVector<QString>& insertInfo){
     return result;
 }
 
+//更新transaction表的信息，不可用
 bool DBTransactionRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
+//查询某个number对应account的所有交易记录
 QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> transactionRecordInfo;
@@ -271,11 +289,32 @@ QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo){
     return transactionRecordInfo;
 }
 
+//输入第一个参数代表SQL语句，第二个是表示select了cols列的信息
+QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo, int cols){
+    QSqlQuery query;
+    QVector<QString> transactionRecords;
+    if(!query.exec(selectInfo))
+        qDebug()<<query.lastError();
+    else
+    {
+        while(query.next()){
+            QString content[cols];
+            for(int i = 0;i<cols;i++)
+                content[i] = query.value(i).toString();
+            for(int i = 0;i<cols;i++)
+                transactionRecords.push_back(content[i]);
+        }
+    }
+    return transactionRecords;
+}
+
+//删除交易信息，不可用
 bool DBTransactionRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
-bool DBPaymentRecordManip::dbTableCreate(){
+//创建表
+bool DBPaymetnRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE paymentRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,accountKey INTEGER,"
@@ -283,7 +322,8 @@ bool DBPaymentRecordManip::dbTableCreate(){
     return result;
 }
 
-bool DBPaymentRecordManip::dbInsert(QVector<QString> &insertInfo){
+//插入信息
+bool DBPaymetnRecordManip::dbInsert(QVector<QString> &insertInfo){
     //0--accountNumber,1--sum,2--type,3--currentDeposit
     QSqlQuery query;
     int accountKey;
@@ -301,35 +341,56 @@ bool DBPaymentRecordManip::dbInsert(QVector<QString> &insertInfo){
     return result;
 }
 
-bool DBPaymentRecordManip::dbUpdate(QString updateInfo){
+//更新信息，不可用
+bool DBPaymetnRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo){
+//查询信息，查询某个信息所在行的所有列的信息，除key外全部返回，accountKey转为了number
+QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> paymentRecordInfo;
     if(!query.exec(selectInfo))
         qDebug()<<query.lastError();
     else{
-        qDebug()<<"success!";
-    while(query.next()){
-        int key = query.value(1).toInt();
-        QString number = DBAccountManip::dbSelectAccountNumber(key);
-        QString content[4];
-        paymentRecordInfo.push_back(number);
-        for(int i = 0;i<4;i++)
-            content[i] = query.value(i + 2).toString();
-        for(int i = 0;i<4;i++)
-            paymentRecordInfo.push_back(content[i]);
-    }
+        while(query.next()){
+            int key = query.value(1).toInt();
+            QString number = DBAccountManip::dbSelectAccountNumber(key);
+            QString content[4];
+            paymentRecordInfo.push_back(number);
+            for(int i = 0;i<4;i++)
+                content[i] = query.value(i + 2).toString();
+            for(int i = 0;i<4;i++)
+                paymentRecordInfo.push_back(content[i]);
+        }
     }
     return paymentRecordInfo;
 }
 
+//查询cols列的信息并返回
+QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo, int cols){
+    QSqlQuery query;
+    QVector<QString> paymentRecords;
+    if(!query.exec(selectInfo))
+        qDebug()<<query.lastError();
+    else{
+        while(query.next()){
+            QString content[cols];
+            for(int i = 0; i<cols;i++)
+                content[i] = query.value(i).toString();
+            for(int i = 0;i<cols;i++)
+                paymentRecords.push_back(content[i]);
+        }
+    }
+    return paymentRecords;
+}
+
+//删除信息，不可用
 bool DBPaymentRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
+//创建表
 bool DBMessageManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
@@ -338,6 +399,7 @@ bool DBMessageManip::dbTableCreate(){
     return result;
 }
 
+//插入信息
 bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
@@ -347,6 +409,7 @@ bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
     query.addBindValue("not read");
 }
 
+//更新信息的状态
 bool DBMessageManip::dbUpdate(QString updateInfo){
     QSqlQuery query;
     bool result;
@@ -354,6 +417,7 @@ bool DBMessageManip::dbUpdate(QString updateInfo){
     return result;
 }
 
+//选择信息
 QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> messageInfo;
@@ -367,10 +431,12 @@ QVector<QString> DBMessageManip::dbSelect(QString selectInfo){
     return messageInfo;
 }
 
+//删除信息记录，不可用
 bool DBMessageManip::dbDelete(QString deleteInfo){
     return false;
 }
 
+//返回未读信息条数
 int DBMessageManip::dbSelectMessageAmount(){
     QSqlQuery query;
     query.exec("SELECT FROM message WHERE status = 'not_read'");
@@ -381,6 +447,7 @@ int DBMessageManip::dbSelectMessageAmount(){
     return amount;
 }
 
+//创建表
 bool DBLogRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
@@ -389,6 +456,7 @@ bool DBLogRecordManip::dbTableCreate(){
     return result;
 }
 
+//插入信息
 bool DBLogRecordManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
@@ -399,14 +467,17 @@ bool DBLogRecordManip::dbInsert(QVector<QString> &insertInfo){
     return result;
 }
 
+//更新信息，不可用
 bool DBLogRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
+//删除信息，不可用
 bool DBLogRecordManip::dbDelete(QString deleteInfo){
     return false;
 }
 
+//查询信息
 QVector<QString> DBLogRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     query.exec(selectInfo);
@@ -419,6 +490,7 @@ QVector<QString> DBLogRecordManip::dbSelect(QString selectInfo){
     return logRecord;
 }
 
+//创建表
 bool DBAutoPayManip::dbTableCreate(){
     bool result;
     QSqlQuery query;
@@ -427,6 +499,7 @@ bool DBAutoPayManip::dbTableCreate(){
     return result;
 }
 
+//插入信息
 bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo){
     bool result;
     QSqlQuery query;
@@ -440,6 +513,7 @@ bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo){
     return result;
 }
 
+//查询信息
 QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> info;
@@ -452,12 +526,17 @@ QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
     return info;
 }
 
+//更新自动付款信息
 bool DBAutoPayManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-bool DBAutoPayManip::dbDelete(QString deleteInfo){}
+//删除信息，不可用(或者男神你加一个清除所有的button来调用这个函数，我把它设置成能清除所有该number的自动付款)
+bool DBAutoPayManip::dbDelete(QString deleteInfo){
+    return false;
+}
 
+//删除信息，逐项删除
 bool DBAutoPayManip::dbDelete(QString number,QString type){
     bool result;
     QSqlQuery query;

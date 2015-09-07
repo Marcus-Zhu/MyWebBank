@@ -26,14 +26,11 @@ public:
     const QString getAccountNumber();
     float& getFixedDeposit();
     float& getCurrentDeposit();
-    const QString getStatus();
-    const QString getType();
+    const QString getStatus();            //获取用户账户当前状态（normal，frozen）
+    const QString getType();              //获取用户账户类型（normal，VIP）
 
-    //转账
     bool transaction(const transferType Type, const QString otherNumber, const float sum);
-    //付款
     bool payment(const QString paymentType, float sum);
-    //最近十条记录
     QVector<QString>& recentRecords();
 };
 

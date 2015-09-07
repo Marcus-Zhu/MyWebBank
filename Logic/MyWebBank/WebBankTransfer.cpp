@@ -5,6 +5,7 @@
 #define NORMALPOUNDAGE 10
 #define VIPPOUNDAGE 5
 
+//默认构造函数
 WTransfer::WTransfer(){
     myAccountNumber = "";
     transferedAccountNumber = "";
@@ -14,6 +15,7 @@ WTransfer::WTransfer(){
     currentDeposit = 0.0f;
 }
 
+//构造函数
 WTransfer::WTransfer(const QString number, float &fixDeposit,float &currentDeposit,
                      const QString type, const float sum, const QString otherAccount){
     myAccountNumber = number;
@@ -24,6 +26,7 @@ WTransfer::WTransfer(const QString number, float &fixDeposit,float &currentDepos
     transferedAccountNumber = otherAccount;
 }
 
+//转账给别人
 bool WTransfer::transferToOther(){
     int poundage;
     if(type == "normal")
@@ -48,6 +51,7 @@ bool WTransfer::transferToOther(){
     }
 }
 
+//活期转定期
 bool WTransfer::transferToFixed(){
     if(sum > currentDeposit)
         return false;
@@ -68,6 +72,7 @@ bool WTransfer::transferToFixed(){
     }
 }
 
+//定期转活期
 bool WTransfer::transferToCurrent(){
     if(sum > fixedDeposit)
         return false;

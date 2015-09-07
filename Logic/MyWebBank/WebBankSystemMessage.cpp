@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QString>
 
+//改变是否已读的状态
 bool WMessage::changeMessageStatus(){
     QString updateInfo = "UPDATE FROM message SET status = 'already_read' WHERE status = 'not_read'";
     DBMessageManip messageManip;
@@ -11,15 +12,18 @@ bool WMessage::changeMessageStatus(){
     return result;
 }
 
+//设置新消息的数目
 bool WMessage::setMessageNumber(){
     DBMessageManip messageManip;
     return messageManip.dbSelectMessageAmount();
 }
 
+//获取新消息数目
 int WMessage::getMessageNumber(){
     return messageNumber;
 }
 
+//设置是否有新消息
 void WMessage::setHaveNewMessage(){
     if(messageNumber == 0)
         haveNewMessage = false;
@@ -27,6 +31,7 @@ void WMessage::setHaveNewMessage(){
         haveNewMessage = true;
 }
 
+//读取是否有新消息
 bool WMessage::getHaveNewMessage(){
     return haveNewMessage;
 }

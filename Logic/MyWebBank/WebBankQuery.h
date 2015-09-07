@@ -13,7 +13,7 @@ public:
 
     QVector<QString> queryInfoLatestThreeMonths;
     QVector<QString> queryLatestThreeMonths();
-    QVector<QString> queryLatestThreeMonth();
+    QVector<QString> queryLatestThreeMonthExpense();
     QVector<QString> queryLatestThreeMonthIncome();
 
     QVector<QString> queryInfoBetweenDates;

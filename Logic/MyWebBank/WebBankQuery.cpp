@@ -5,46 +5,30 @@
 #include <QDate>
 #include <QDateTime>
 
+//查询最近十条交易或者付款信息
 QVector<QString> WQuery::queryRecentTenRecords(){
+    //取出数据
     QVector<QString> transactionRecord1;
     QVector<QString> transactionRecord2;
     QVector<QString> paymentRecord;
     DBTransactionRecordManip transferManip;
-
-    DBPaymentRecordManip paymentManip;
+    DBPaymetnRecordManip paymentManip;
     int key = DBAccountManip::dbSelectAccountKey(number);
+    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1 ORDER BY key DESC").arg(key);
+    QString selectInfo2 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1 AND accoutKey1 != %1 ORDER BY key DESC").arg(key);
+    transactionRecord1 = transferManip.dbSelect(selectInfo1,3);
+    transactionRecord2 = transferManip.dbSelect(selectInfo2,3);
+    QString selectInfo3 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1 ORDER BY key DESC").arg(key);
+    paymentRecord = paymentManip.dbSelect(selectInfo3,3);
 
-    QString selectInfo1 = QString("SELECT * FROM transactionRecord WHERE accountKey1 = %1").arg(key);
-    QString selectInfo2 = QString("SELECT * FROM transactionRecord WHERE accountKey2 = %1 AND accoutKey1 != %1").arg(key);
-
-    transactionRecord1 = transferManip.dbSelect(selectInfo1);
-    transactionRecord2 = transferManip.dbSelect(selectInfo2);
-
-    QString selectInfo3 = QString("SELECT * FROM paymentRecord WHERE accountKey = %1").arg(key);
-
-    paymentRecord = paymentManip.dbSelect(selectInfo3);
-
-    //删除无用信息
-    int size1 = (transactionRecord1.size()/7)>10?(transactionRecord1.size()/7):10;
-    for(int i = 0;i<size1;i++){
-        transactionRecord1.remove(7*(size1 - i - 1) + 5);
-        transactionRecord1.remove(7*(size1 - i - 1) + 4);
-        transactionRecord1.remove(7*(size1 - i - 1) + 1);
-        transactionRecord1.remove(7*(size1 - i - 1) );
-    }
-    int size2 = (transactionRecord2.size()/7)>10?(transactionRecord2.size()/7):10;
+    //更改某些信息
+    int size1 = (transactionRecord1.size()/3)<10?(transactionRecord1.size()/3):10;
+    int size2 = (transactionRecord2.size()/3)<10?(transactionRecord2.size()/7):10;
     for(int i = 0;i<size2;i++){
-        transactionRecord2[7*(size2 - i - 1) + 6] = "be transfered into";//转入信息，修改type对应项的值
-        transactionRecord2.remove(7*(size2 - i - 1) + 5);
-        transactionRecord2.remove(7*(size2 - i - 1) + 4);
-        transactionRecord2.remove(7*(size2 - i - 1) + 1);
-        transactionRecord2.remove(7*(size2 - i - 1) );
+        transactionRecord2[3*i + 2] = "be transfered into";//转入信息，修改type对应项的值
     }
-    int size3 = paymentRecord.size()/5;
-    for(int i = 0;i<size3;i++){
-        paymentRecord.remove(5*(size3 - 1 - i) + 3);
-        paymentRecord.remove(5*(size3 - 1 - i));
-    }
+    int size3 = paymentRecord.size()/3;
+
     //构造传回去的QVector
     QVector<QString> recentRecord;
     for(int i = 0;i<size1;i++)
@@ -53,12 +37,14 @@ QVector<QString> WQuery::queryRecentTenRecords(){
         recentRecord.push_back(transactionRecord2[i]);
     for(int i = 0;i<size3;i++)
         recentRecord.push_back(paymentRecord[i]);
+
     //转时间为QDateTime对象
     int rows = recentRecord.size()/3;
     QDateTime times[rows];
     for(int i = 0;i<rows;i++,j++)
         times[i].fromString(recentRecord[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
-    //排序
+
+    //排序，冒泡排序
     for(int i = 0;i<rows -1;i++)
         for(int j = 0;j<rows -1;j++){
             if(times[j]<times[j + 1]){
@@ -78,8 +64,427 @@ QVector<QString> WQuery::queryRecentTenRecords(){
                 recentRecord[3*(j+1) + 2] = temps[2];
             }
         }
+    return recentRecord;
 }
 
+//查询最近十条收入信息
 QVector<QString> WQuery::queryRecentTenRecordsIncome(){
+    //从数据库取出信息
     DBTransactionRecordManip transferManip;
+    QVector<QString> incomeInfo;
+    QString selectInfo = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1 ORDER BY key DESC")
+            .arg(DBAccountManip::dbSelectAccountKey(number));
+    incomeInfo = transferManip.dbSelect(selectInfo,3);
+
+    //构造时间对象的数组
+    int rows = incomeInfo.size()/3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(incomeInfo[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = incomeInfo[3*j];
+                temps[1] = incomeInfo[3*j + 1];
+                temps[2] = incomeInfo[3*j + 2];
+                incomeInfo[3*j] = incomeInfo[3*(j+1)];
+                incomeInfo[3*j + 1] = incomeInfo[3*(j+1) + 1];
+                incomeInfo[3*j + 2] = incomeInfo[3*(j+1) + 2];
+                incomeInfo[3*(j+1)] = temps[0];
+                incomeInfo[3*(j+1) + 1] = temps[1];
+                incomeInfo[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return incomeInfo;
 }
+
+//查询十条最近的支出信息
+QVector<QString> WQuery::queryRecentTenRecordsExpense(){
+    //从数据库取出数据
+    QVector<QString> transactionRecord;
+    QVector<QString> paymentRecord;
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1"
+                                  "ORDER BY key DESC").arg(DBAccountManip::dbSelectAccountKey(number));
+    transactionRecord = transferManip.dbSelect(selectInfo1,3);
+    QString selectInfo2 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1"
+                                  "ORDER BY key DESC").arg(DBAccountManip::dbSelectAccountKey(number));
+    paymentRecord = paymentManip.dbSelect(selectInfo2,3);
+
+    //构造返回的QVector
+    int size1 = (selectInfo1.size()/3)<10?(selectInfo1.size()/3):10;
+    int size2 = (selectInfo2.size()/3)<10?(selectInfo2.size()/3):10;
+    QVector<QString> expenseInfo;
+    for(int i = 0;i<size1*3;i++)
+        expenseInfo.push_back(transactionRecord[i]);
+    for(int i = 0;i<size2*3;i++)
+        expenseInfo.push_back(paymentRecord[i]);
+
+    //构造时间对象数组
+    int rows = size1 + size2;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(expenseInfo[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = expenseInfo[3*j];
+                temps[1] = expenseInfo[3*j + 1];
+                temps[2] = expenseInfo[3*j + 2];
+                expenseInfo[3*j] = expenseInfo[3*(j+1)];
+                expenseInfo[3*j + 1] = expenseInfo[3*(j+1) + 1];
+                expenseInfo[3*j + 2] = expenseInfo[3*(j+1) + 2];
+                expenseInfo[3*(j+1)] = temps[0];
+                expenseInfo[3*(j+1) + 1] = temps[1];
+                expenseInfo[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return expenseInfo;
+}
+
+//查询最近三个月的交易和付款信息
+QVector<QString> WQuery::queryLatestThreeMonth(){
+    //取出数据
+    QVector<QString> transactionRecord1;
+    QVector<QString> transactionRecord2;
+    QVector<QString> paymentRecord;
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    int key = DBAccountManip::dbSelectAccountKey(number);
+    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1 "
+                                  "AND time > datetime('now','-3 month') ORDER BY key DESC").arg(key);
+    QString selectInfo2 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1 AND accoutKey1 != %1 "
+                                  "AND time > datetime('now','-3 month') ORDER BY key DESC").arg(key);
+    transactionRecord1 = transferManip.dbSelect(selectInfo1,3);
+    transactionRecord2 = transferManip.dbSelect(selectInfo2,3);
+    QString selectInfo3 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1"
+                                  " AND time > datetime('now','-3 month') ORDER BY key DESC").arg(key);
+    paymentRecord = paymentManip.dbSelect(selectInfo3,3);
+
+    //更改某些信息
+    int size1 = (transactionRecord1.size()/3)<10?(transactionRecord1.size()/3):10;
+    int size2 = (transactionRecord2.size()/3)<10?(transactionRecord2.size()/7):10;
+    for(int i = 0;i<size2;i++){
+        transactionRecord2[3*i + 2] = "be transfered into";//转入信息，修改type对应项的值
+    }
+    int size3 = paymentRecord.size()/3;
+
+    //构造传回去的QVector
+    QVector<QString> recentRecord;
+    for(int i = 0;i<size1;i++)
+        recentRecord.push_back(transactionRecord1[i]);
+    for(int i = 0;i<size2;i++)
+        recentRecord.push_back(transactionRecord2[i]);
+    for(int i = 0;i<size3;i++)
+        recentRecord.push_back(paymentRecord[i]);
+
+    //转时间为QDateTime对象
+    int rows = recentRecord.size()/3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++,j++)
+        times[i].fromString(recentRecord[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+
+    //排序，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = recentRecord[3*j];
+                temps[1] = recentRecord[3*j + 1];
+                temps[2] = recentRecord[3*j + 2];
+                recentRecord[3*j] = recentRecord[3*(j+1)];
+                recentRecord[3*j + 1] = recentRecord[3*(j+1) + 1];
+                recentRecord[3*j + 2] = recentRecord[3*(j+1) + 2];
+                recentRecord[3*(j+1)] = temps[0];
+                recentRecord[3*(j+1) + 1] = temps[1];
+                recentRecord[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return recentRecord;
+}
+
+//查询最近3月的收入
+QVector<QString> WQuery::queryLatestThreeMonthIncome(){
+    //从数据库取出信息
+    DBTransactionRecordManip transferManip;
+    QVector<QString> incomeInfo;
+    QString selectInfo = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1 "
+                                 "AND time > datetime('now','-3 month') ORDER BY key DESC");
+            .arg(DBAccountManip::dbSelectAccountKey(number));
+    incomeInfo = transferManip.dbSelect(selectInfo,3);
+
+    //构造时间对象的数组
+    int rows = incomeInfo.size()/3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(incomeInfo[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = incomeInfo[3*j];
+                temps[1] = incomeInfo[3*j + 1];
+                temps[2] = incomeInfo[3*j + 2];
+                incomeInfo[3*j] = incomeInfo[3*(j+1)];
+                incomeInfo[3*j + 1] = incomeInfo[3*(j+1) + 1];
+                incomeInfo[3*j + 2] = incomeInfo[3*(j+1) + 2];
+                incomeInfo[3*(j+1)] = temps[0];
+                incomeInfo[3*(j+1) + 1] = temps[1];
+                incomeInfo[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return incomeInfo;
+}
+
+//查询最近三月的支出
+QVector<QString> WQuery::queryLatestThreeMonthExpense(){
+    //从数据库取出数据
+    QVector<QString> transactionRecord;
+    QVector<QString> paymentRecord;
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    QString selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1"
+                                  "AND time > datetime('now','-3 month') ORDER BY key DESC").arg(DBAccountManip::dbSelectAccountKey(number));
+    transactionRecord = transferManip.dbSelect(selectInfo1,3);
+    QString selectInfo2 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1"
+                                  "AND time > datetime('now','-3 month') ORDER BY key DESC").arg(DBAccountManip::dbSelectAccountKey(number));
+    paymentRecord = paymentManip.dbSelect(selectInfo2,3);
+
+    //构造返回的QVector
+    int size1 = (selectInfo1.size()/3)<10?(selectInfo1.size()/3):10;
+    int size2 = (selectInfo2.size()/3)<10?(selectInfo2.size()/3):10;
+    QVector<QString> expenseInfo;
+    for(int i = 0;i<size1*3;i++)
+        expenseInfo.push_back(transactionRecord[i]);
+    for(int i = 0;i<size2*3;i++)
+        expenseInfo.push_back(paymentRecord[i]);
+
+    //构造时间对象数组
+    int rows = size1 + size2;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(expenseInfo[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = expenseInfo[3*j];
+                temps[1] = expenseInfo[3*j + 1];
+                temps[2] = expenseInfo[3*j + 2];
+                expenseInfo[3*j] = expenseInfo[3*(j+1)];
+                expenseInfo[3*j + 1] = expenseInfo[3*(j+1) + 1];
+                expenseInfo[3*j + 2] = expenseInfo[3*(j+1) + 2];
+                expenseInfo[3*(j+1)] = temps[0];
+                expenseInfo[3*(j+1) + 1] = temps[1];
+                expenseInfo[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return expenseInfo;
+}
+
+//查询某两个日期之间的交易和付款记录
+QVector<QString> WQuery::queryBetweenTwoDates(QDate dateFrom, QDate dateTo){
+    //将时间转化为字符串
+    QDateTime date1(dateFrom),date2(dateTo);
+    date2 = dateTo.addDays(1);
+    QString date3 = date1.toString("yyyy-MM-dd hh:mm:ss");
+    QString date4 = date2.toString("yyyy-MM-dd hh:mm:ss");
+
+    //从数据库获取信息
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    QString selectInfo1,selectInfo2,selectInfo3;
+    selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    selectInfo2 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 != %1 AND accountKey2 = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    selectInfo3 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    QVector<QString> transactionRecord1, transactionRecord2,paymentRecord;
+    transactionRecord1 = transferManip.dbSelect(selectInfo1,3);
+    transactionRecord2 = transferManip.dbSelect(selectInfo2,3);
+    paymentRecord = paymentManip.dbSelect(selectInfo3,3);
+
+    //构造返回的QVector
+    QVector<QString> infoBetweenTwoDays;
+    int size1 = transactionRecord1.size()/3;
+    int size2 = transactionRecord2.size()/3;
+    int size3 = paymentRecord.size()/3;
+    for(int i = 0;i<size1*3;i++)
+        infoBetweenTwoDays.push_back(transactionRecord1[i]);
+    for(int i = 0;i<size2;i++){
+        infoBetweenTwoDays.push_back(transactionRecord1[3*i]);
+        infoBetweenTwoDays.push_back(transactionRecord1[3*i + 1]);
+        infoBetweenTwoDays.push_back("be transfered into");
+    }
+    for(int i = 0;i<size3*3;i++)
+        infoBetweenTwoDays.push_back(paymentRecord[i]);
+
+    //构造相应的datetime对象
+    int rows = size1 + size2 + size3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(infoBetweenTwoDays[3*i + 1],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = infoBetweenTwoDays[3*j];
+                temps[1] = infoBetweenTwoDays[3*j + 1];
+                temps[2] = infoBetweenTwoDays[3*j + 2];
+                infoBetweenTwoDays[3*j] = infoBetweenTwoDays[3*(j+1)];
+                infoBetweenTwoDays[3*j + 1] = infoBetweenTwoDays[3*(j+1) + 1];
+                infoBetweenTwoDays[3*j + 2] = infoBetweenTwoDays[3*(j+1) + 2];
+                infoBetweenTwoDays[3*(j+1)] = temps[0];
+                infoBetweenTwoDays[3*(j+1) + 1] = temps[1];
+                infoBetweenTwoDays[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return infoBetweenTwoDays;
+}
+
+//查询两个日期间的收入
+QVector<QString> WQuery::queryBetweenTwoDatesIncome(QDate dateFrom, QDate dateTo){
+    //将时间转化为字符串
+    QDateTime date1(dateFrom),date2(dateTo);
+    date2 = dateTo.addDays(1);
+    QString date3 = date1.toString("yyyy-MM-dd hh:mm:ss");
+    QString date4 = date2.toString("yyyy-MM-dd hh:mm:ss");
+
+    //从数据库获取信息
+    DBTransactionRecordManip transferManip;
+    QString selectInfo;
+    selectInfo = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey2 = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    QVector<QString> transactionRecord;
+    transactionRecord = transferManip.dbSelect(selectInfo,3);
+    for(int i = 0;i<transactionRecord.size()/3;i++)
+        if(transactionRecord[3*i + 2] == "transfer to other")transactionRecord[3*i + 2] = "be transfered into";
+
+    //构造相应的datetime对象
+    int rows = transactionRecord.size()/3;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(infoBetweenTwoDays[3*i + 1],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = transactionRecord[3*j];
+                temps[1] = transactionRecord[3*j + 1];
+                temps[2] = transactionRecord[3*j + 2];
+                transactionRecord[3*j] = transactionRecord[3*(j+1)];
+                transactionRecord[3*j + 1] = transactionRecord[3*(j+1) + 1];
+                transactionRecord[3*j + 2] = transactionRecord[3*(j+1) + 2];
+                transactionRecord[3*(j+1)] = temps[0];
+                transactionRecord[3*(j+1) + 1] = temps[1];
+                transactionRecord[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return transactionRecord;
+}
+
+//查询两个日期之间的支出
+QVector<QString> WQuery::queryBetweenTwoDatesExpense(QDate dateFrom, QDate dateTo){
+    //将时间转化为字符串
+    QDateTime date1(dateFrom),date2(dateTo);
+    date2 = dateTo.addDays(1);
+    QString date3 = date1.toString("yyyy-MM-dd hh:mm:ss");
+    QString date4 = date2.toString("yyyy-MM-dd hh:mm:ss");
+
+    //从数据库获取信息
+    DBTransactionRecordManip transferManip;
+    DBPaymetnRecordManip paymentManip;
+    QString selectInfo1,selectInfo2;
+    selectInfo1 = QString("SELECT sum,time,type FROM transactionRecord WHERE accountKey1 = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    selectInfo2 = QString("SELECT sum,time,type FROM paymentRecord WHERE accountKey = %1 AND time > datetime('%2') AND time < datetime('%3')")
+            .arg(DBAccountManip::dbSelectAccountKey(number)).arg(date3).arg(date4);
+    QVector<QString> transactionRecord;
+    QVector<QString> paymentRecord;
+    transactionRecord = transferManip.dbSelect(selectInfo1,3);
+    paymentRecord = paymentManip.dbSelect(selectInfo2,3);
+
+    //创建返回的QVector
+    int size1 = transactionRecord.size()/3;
+    int size2 = paymentRecord.size()/3;
+    QVector<QString> expenseBetweenTwoDates;
+    for(int i = 0;i<size1*3;i++)
+        expenseBetweenTwoDates.push_back(transactionRecord[i]);
+    for(int i = 0;i<size2*3;i++)
+        expenseBetweenTwoDates.push_back(paymentRecord[i]);
+
+    //创建对应的QDatetime
+    int rows = size1 + size2;
+    QDateTime times[rows];
+    for(int i = 0;i<rows;i++)
+        times[i].fromString(expenseBetweenTwoDates[3*i + 1],"yyyy-MM-dd hh:mm:ss");
+
+    //比较，冒泡排序
+    for(int i = 0;i<rows -1;i++)
+        for(int j = 0;j<rows -1;j++){
+            if(times[j]<times[j + 1]){
+                QDateTime temp;
+                temp = times[j];
+                times[j] = times[j + 1];
+                times[j + 1] = temp;
+                QString temps[3];
+                temps[0] = expenseBetweenTwoDates[3*j];
+                temps[1] = expenseBetweenTwoDates[3*j + 1];
+                temps[2] = expenseBetweenTwoDates[3*j + 2];
+                expenseBetweenTwoDates[3*j] = expenseBetweenTwoDates[3*(j+1)];
+                expenseBetweenTwoDates[3*j + 1] = expenseBetweenTwoDates[3*(j+1) + 1];
+                expenseBetweenTwoDates[3*j + 2] = expenseBetweenTwoDates[3*(j+1) + 2];
+                expenseBetweenTwoDates[3*(j+1)] = temps[0];
+                expenseBetweenTwoDates[3*(j+1) + 1] = temps[1];
+                expenseBetweenTwoDates[3*(j+1) + 2] = temps[2];
+            }
+        }
+    return expenseBetweenTwoDates;
+}
+
+
+

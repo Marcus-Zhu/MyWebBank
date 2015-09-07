@@ -11,15 +11,18 @@
 #define NORMALFIXEDRATE 0.0000150
 #define VIPFIXEDRATE 0.0000180
 
+//计算存款的获得利息的函数
 void WAccount::interestCalculation(){
     QDate currentDate = QDate::currentDate();
     QString tableTime;
     DBLogRecordManip dbLogRecord;
     DBAccountManip dbAccount;
+
+    //计算距离上次结算的天数（实际使用上次登出天数代替）
     tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'").arg(accountNumber)))[0];
     QDateTime TableTime  = QDateTime::fromString(tableTime,"yyyy-MM-dd hh:mm:ss");
     int days = -currentDate.daysTo(TableTime.date());
-    if(status == "frozen" ){}
+    if(status == "frozen" ){}//如果frozen了就不结算
     else{
         if(type == "normal"){
             fixedDeposit = fixedDeposit + fixedDeposit*days*NORMALFIXEDRATE;
@@ -93,6 +96,7 @@ const QString WAccount::getType(){
     return type;
 }
 
+//转账，返回是否操作成功
 bool WAccount::transaction(const transferType Type, const QString otherNumber,const float sum){
     WTransfer tran(accountNumber,fixedDeposit,currentDeposit,type,sum,otherNumber);
     DBAccountManip dbAcount;
@@ -117,12 +121,14 @@ bool WAccount::transaction(const transferType Type, const QString otherNumber,co
     return result;
 }
 
+//付款，返回是否操作成功
 bool WAccount::payment(const QString paymentType,float sum){
     WPayment pay(accountNumber,sum,paymentType);
     bool result = pay.pay();
     return result;
 }
 
+//最近十条记录，返回的columes依次是sum，time，type
 QVector<QString>& WAccount::recentRecords(){
     QVector<QString> transactionRecord1;
     QVector<QString> transactionRecord2;

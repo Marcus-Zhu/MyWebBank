@@ -5,9 +5,9 @@
 
 class WCurrentUser{
 public:
-    static QString userName;
-    static QString password;
-    static QString userType;
+    static QString userName;//当前用户名
+    static QString password;//当前用户密码
+    static QString userType;//当前用户类型
 };
 
 
