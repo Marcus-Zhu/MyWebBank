@@ -12,11 +12,6 @@ class WStackedWidget : public QStackedWidget
 public:
     WStackedWidget(QWidget *parent = 0);
     void updateLanguage();
-public slots:
-    void showMyAccountPage();
-    void showTransferPage();
-    void showPaymentPage();
-    void showCardApplyPage();
 private:
     MyAccountPage *myAccountPage;
     AccountQueryPage *accountQueryPage;
@@ -32,6 +27,7 @@ private:
     ChangePwPage *changePwPage;
     SysMsgPage *sysMsgPage;
     AboutPage *aboutPage;
+    WelcomePage *welcomePage;
 };
 
 #endif // WSTACKEDWIDGET_H

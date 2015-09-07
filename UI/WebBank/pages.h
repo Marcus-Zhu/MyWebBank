@@ -1,6 +1,8 @@
 #ifndef PAGES_H
 #define PAGES_H
 
+#include "wlineedit.h"
+
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
@@ -8,6 +10,7 @@
 #include <QCheckBox>
 #include <QTableWidget>
 #include <QTextEdit>
+#include <QCalendarWidget>
 #include <QWidget>
 
 class WPage : public QWidget
@@ -42,6 +45,10 @@ public:
     explicit AccountQueryPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void showCalendar1();
+    void showCalendar2();
+    void setCalendar1();
+    void setCalendar2();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -51,8 +58,11 @@ private:
     QCheckBox *expenseCkBox;
     QPushButton *searchBtn;
     QPushButton *recentBtn;
-    QLineEdit *fromDate;
-    QLineEdit *toDate;
+    WLineEdit *fromDate;
+    WLineEdit *toDate;
+    QCalendarWidget *calendar1;
+    QCalendarWidget *calendar2;
+    QLabel *calendarLabel;
 };
 
 class TransferPage : public WPage
@@ -262,5 +272,17 @@ public:
 public slots:
 private:
     QTextEdit *label1;
+};
+
+class WelcomePage : public WPage
+{
+    Q_OBJECT
+public:
+    explicit WelcomePage(QWidget *parent = 0);
+    void updateLanguage();
+public slots:
+private:
+    QTextEdit *label1;
+    QTextEdit *label2;
 };
 #endif // PAGES_H

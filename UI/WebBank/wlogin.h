@@ -45,7 +45,6 @@ private:
     QPushButton *backBtn;
     bool isPressed;
     QPoint movePoint;
-    int i;
 };
 
 #endif // WLOGIN_H

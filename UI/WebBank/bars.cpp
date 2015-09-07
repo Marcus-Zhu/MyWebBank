@@ -5,6 +5,7 @@
 
 WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 {
+    //components new
     topbarLabel = new QLabel("", this);
 
     userBtn = new QPushButton("", this);
@@ -21,6 +22,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     languageAction = new QAction(tr("Language"), this);
     aboutAction = new QAction(tr("About"), this);
 
+    //adda actions to menu
     userMenu->addAction(personalInfoAction);
     userMenu->addAction(changepwAction);
     userMenu->addAction(sysmsgAction);
@@ -28,6 +30,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     settingMenu->addAction(languageAction);
     settingMenu->addAction(aboutAction);
 
+    //set object name
     topbarLabel->setObjectName("topbarLabel");
 
     userBtn->setObjectName("userBtn");
@@ -44,12 +47,14 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     languageAction->setObjectName(("languageAction"));
     aboutAction->setObjectName(("aboutAction"));
 
+    //set position and size
     topbarLabel->setGeometry(QRect(0, 0, 1000, 161));
     userBtn->setGeometry(QRect(856, 60, 48, 48));
     settingBtn->setGeometry(QRect(928, 60, 48, 48));
     minBtn->setGeometry(QRect(950, 12, 10, 15));
     closeBtn->setGeometry(QRect(975, 12, 10, 15));
 
+    //set connections
     connect(userBtn, SIGNAL(clicked(bool)), this, SLOT(popUserMenu()));
     connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(popSettingMenu()));
 
@@ -66,6 +71,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
 void WTopbar::updateLanguage()
 {
+    //update language
     personalInfoAction->setText(tr("Personal Info"));
     changepwAction->setText(tr("Change Password"));
     sysmsgAction->setText(tr("Message"));
@@ -76,6 +82,7 @@ void WTopbar::updateLanguage()
 
 void WTopbar::popUserMenu()
 {
+    //pop up user menu according to user button position
     QPoint pos;
     pos.setX(pos.x() - userBtn->geometry().width());
     pos.setY(pos.y() + userBtn->geometry().height());
@@ -83,15 +90,16 @@ void WTopbar::popUserMenu()
 }
 void WTopbar::popSettingMenu()
 {
+    //pop up setting menu according to setting button position
     QPoint pos;
     pos.setX(pos.x() - settingBtn->geometry().width());
     pos.setY(pos.y() + settingBtn->geometry().height());
     settingMenu->exec(settingBtn->mapToGlobal(pos));
 }
 
-
 WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
 {
+    //components new
     navbarLabel = new QLabel("", this);
 
     queryLabel = new QLabel(tr("My Account"), this);
@@ -120,6 +128,7 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
     ccRepayBtn = new QPushButton("", this);
     ccLostBtn = new QPushButton("", this);
 
+    //set object name
     navbarLabel->setObjectName("navbarLabel");
 
     queryLabel->setObjectName("queryLabel");
@@ -148,6 +157,7 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
     ccRepayBtn->setObjectName("ccRepayBtn");
     ccLostBtn->setObjectName("ccLostBtn");
 
+    //set position and size
     navbarLabel->setGeometry(QRect(0, 0, 260, 751));
 
     queryBtn->setGeometry(QRect(5, 152, 237, 64));
@@ -176,6 +186,7 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
     ccRepayLabel->setGeometry(QRect(0, 640, 237, 36));
     ccLostLabel->setGeometry(QRect(0, 676, 237, 36));
 
+    //set connections
     connect(queryBtn, SIGNAL(clicked(bool)), this, SLOT(checkQuery()));
     connect(myAccountBtn, SIGNAL(clicked(bool)), this, SLOT(checkMyAccount()));
     connect(accountQueryBtn, SIGNAL(clicked(bool)), this, SLOT(checkAccountQuery()));
@@ -202,6 +213,7 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
     connect(ccRepayBtn, SIGNAL(clicked(bool)), parent, SLOT(showCardRepayPage()));
     connect(ccLostBtn, SIGNAL(clicked(bool)), parent, SLOT(showCardLostPage()));
 
+    //set buttons attributes
     queryBtn->setCheckable(true);
     myAccountBtn->setCheckable(true);
     accountQueryBtn->setCheckable(true);
@@ -219,6 +231,7 @@ WNavbar::WNavbar(QWidget *parent) : QWidget(parent)
 
 void WNavbar::updateLanguage()
 {
+    //update language
     queryLabel->setText(tr("My Account"));
     myAccountLabel->setText(tr("My Account"));
     accountQueryLabel->setText(tr("Account Query"));
@@ -235,6 +248,7 @@ void WNavbar::updateLanguage()
 
 void WNavbar::checkQuery()
 {
+    //if query button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(true);
     accountQueryBtn->setChecked(false);
@@ -248,8 +262,10 @@ void WNavbar::checkQuery()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkMyAccount()
 {
+    //if my account button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(true);
     accountQueryBtn->setChecked(false);
@@ -263,8 +279,10 @@ void WNavbar::checkMyAccount()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkAccountQuery()
 {
+    //if account query button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(true);
@@ -278,8 +296,10 @@ void WNavbar::checkAccountQuery()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkTransfer()
 {
+    //if transfer button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -293,8 +313,10 @@ void WNavbar::checkTransfer()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCurrentTransfer()
 {
+    //if  current transfer button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -308,8 +330,10 @@ void WNavbar::checkCurrentTransfer()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCurrentFix()
 {
+    //if current fix button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -323,8 +347,10 @@ void WNavbar::checkCurrentFix()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkPayment()
 {
+    //if payment button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -338,8 +364,10 @@ void WNavbar::checkPayment()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCCard()
 {
+    //if ccard button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -353,8 +381,10 @@ void WNavbar::checkCCard()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCCApply()
 {
+    //if ccapply button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -368,8 +398,10 @@ void WNavbar::checkCCApply()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCCActivate()
 {
+    //if ccactivate button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -383,8 +415,10 @@ void WNavbar::checkCCActivate()
     ccRepayBtn->setChecked(false);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCCRepay()
 {
+    //if ccrepay button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);
@@ -398,8 +432,10 @@ void WNavbar::checkCCRepay()
     ccRepayBtn->setChecked(true);
     ccLostBtn->setChecked(false);
 }
+
 void WNavbar::checkCCLost()
 {
+    //if cclost button is checked
     queryBtn->setChecked(false);
     myAccountBtn->setChecked(false);
     accountQueryBtn->setChecked(false);

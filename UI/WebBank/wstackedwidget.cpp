@@ -4,6 +4,7 @@
 WStackedWidget::WStackedWidget(QWidget *parent):
     QStackedWidget(parent)
 {
+    //new and add all 14 pages to the center stack widget
     myAccountPage = new MyAccountPage(this);
     myAccountPage->setObjectName("MyAccountPage");
     accountQueryPage = new AccountQueryPage(this);
@@ -32,6 +33,8 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     sysMsgPage->setObjectName("SysMsgPage");
     aboutPage = new AboutPage(this);
     aboutPage->setObjectName("AboutPage");
+    welcomePage = new WelcomePage(this);
+    welcomePage->setObjectName("WelcomePage");
 
     this->addWidget(myAccountPage);
     this->addWidget(accountQueryPage);
@@ -47,7 +50,8 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     this->addWidget(changePwPage);
     this->addWidget(sysMsgPage);
     this->addWidget(aboutPage);
-    this->setCurrentIndex(5);
+    this->addWidget(welcomePage);
+    this->setCurrentIndex(14);
 }
 
 void WStackedWidget::updateLanguage()
@@ -66,21 +70,5 @@ void WStackedWidget::updateLanguage()
     changePwPage->updateLanguage();
     sysMsgPage->updateLanguage();
     aboutPage->updateLanguage();
-}
-
-void WStackedWidget::showMyAccountPage()
-{
-    this->setCurrentIndex(0);
-}
-void WStackedWidget::showTransferPage()
-{
-    this->setCurrentIndex(1);
-}
-void WStackedWidget::showPaymentPage()
-{
-    this->setCurrentIndex(2);
-}
-void WStackedWidget::showCardApplyPage()
-{
-    this->setCurrentIndex(3);
+    welcomePage->updateLanguage();
 }

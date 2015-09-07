@@ -2,6 +2,8 @@
 #include "pages.h"
 #include <QHeaderView>
 #include <QListWidget>
+#include <QToolButton>
+#include <QDebug>
 
 WPage::WPage(QWidget *parent): QWidget(parent)
 {
@@ -11,23 +13,27 @@ WPage::WPage(QWidget *parent): QWidget(parent)
 
 MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     bgLabel = new QLabel(this);
     mainTitle->setText(tr("My Account"));
     title2 = new QLabel(tr("Recent Transaction Records"), this);
     table1 = new QTableWidget(this);
     table2 = new QTableWidget(this);
 
+    //set object name
     bgLabel->setObjectName("CMAbg");
     title2->setObjectName("CMALabel2");
     table1->setObjectName("CMATable1");
     table2->setObjectName("CMATable2");
 
+    //set position and size
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     title2->setGeometry(QRect(24, 280, 708, 48));
     table1->setGeometry(QRect(24, 72, 708, 192));
     table2->setGeometry(QRect(24, 336, 708, 192));
 
+    //setup tables
     table1->setColumnCount(3);
     table1->setRowCount(5);
     table2->setColumnCount(3);
@@ -76,12 +82,14 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
 
 void MyAccountPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("My Account"));
     title2->setText(tr("Recent Transaction Records"));
 }
 
 AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Account Query"));
 
     label1 = new QLabel(tr("Account"), this);
@@ -91,10 +99,16 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     expenseCkBox = new QCheckBox(tr("Expense"), this);
     searchBtn = new QPushButton(tr("SEARCH"), this);
     recentBtn = new QPushButton(tr("Recent Three Months"), this);
-    fromDate = new QLineEdit(this);
-    toDate = new QLineEdit(this);
+    fromDate = new WLineEdit(this);
+    toDate = new WLineEdit(this);
     table = new QTableWidget(this);
+    calendarLabel = new QLabel(this);
+    calendar1 = new QCalendarWidget(this);
+    calendar1->setGridVisible(false);
+    calendar2 = new QCalendarWidget(this);
+    calendar2->setGridVisible(false);
 
+    //set object name
     label1->setObjectName("CAQLabel");
     label2->setObjectName("CAQDate");
     accountBox->setObjectName("CAQAccount");
@@ -105,7 +119,9 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     fromDate->setObjectName("CAQFrom");
     toDate->setObjectName("CAQTo");
     table->setObjectName("CAQTable");
+    calendarLabel->setObjectName("calendarLabel");
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(368, 92, 100, 24));
@@ -117,12 +133,29 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     fromDate->setGeometry(QRect(490, 92, 108, 24));
     toDate->setGeometry(QRect(628, 92, 108, 24));
     table->setGeometry(QRect(24, 192, 708, 336));
+    calendarLabel->setGeometry(QRect(360, 120, 380, 100));
+    calendar1->move(QPoint(350, 120));
+    calendar2->move(QPoint(360, 120));
 
+    //setup calendar
+    calendar1->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    calendar1->setHorizontalHeaderFormat(QCalendarWidget::ShortDayNames);
+    calendar1->setStyleSheet("font:16px;");
+    calendar2->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    calendar2->setHorizontalHeaderFormat(QCalendarWidget::ShortDayNames);
+    calendar2->setStyleSheet("font:16px;");
+
+    calendar1->setVisible(false);
+    calendar2->setVisible(false);
+    calendarLabel->setVisible(false);
+
+    //setup accounts
     accountBox->addItem("1231 2312 3123 1236");
     accountBox->addItem("2175 7962 4595 4698");
     WDelegate *CMADele = new WDelegate();
     accountBox->setItemDelegate(CMADele);
 
+    //setup table
     table->setColumnCount(3);
     table->setRowCount(5);
 
@@ -146,15 +179,51 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     table->horizontalHeader()->resizeSection(0, 150);
     table->verticalHeader()->setDefaultSectionSize(48);
 
+    //setup date edit
     fromDate->setPlaceholderText("YYYY.MM.DD");
     toDate->setPlaceholderText("YYYY.MM.DD");
     QRegExp dateRestriction("[1-2][0-9]{3}\\.[0-9]{1,2}\\.[0-9]{1,2}");
     toDate->setValidator(new QRegExpValidator(dateRestriction, this));
     fromDate->setValidator(new QRegExpValidator(dateRestriction, this));
+
+    //set connections
+    connect(fromDate, SIGNAL(Wclicked()), this, SLOT(showCalendar1()));
+    connect(calendar1, SIGNAL(clicked(QDate)), this, SLOT(setCalendar1()));
+    connect(toDate, SIGNAL(Wclicked()), this, SLOT(showCalendar2()));
+    connect(calendar2, SIGNAL(clicked(QDate)), this, SLOT(setCalendar2()));
+}
+
+void AccountQueryPage::showCalendar1()
+{
+    calendar1->setVisible(true);
+    calendar2->setVisible(false);
+    calendarLabel->setVisible(true);
+}
+
+void AccountQueryPage::showCalendar2()
+{
+    calendar1->setVisible(false);
+    calendar2->setVisible(true);
+    calendarLabel->setVisible(true);
+}
+
+void AccountQueryPage::setCalendar1()
+{
+    fromDate->setText(calendar1->selectedDate().toString("yyyy.MM.dd"));
+    calendar1->setVisible(false);
+    calendarLabel->setVisible(false);
+}
+
+void AccountQueryPage::setCalendar2()
+{
+    toDate->setText(calendar2->selectedDate().toString("yyyy.MM.dd"));
+    calendar2->setVisible(false);
+    calendarLabel->setVisible(false);
 }
 
 void AccountQueryPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Account Query"));
     label1->setText(tr("Account"));
     label2->setText(tr("Date Range"));
@@ -166,6 +235,7 @@ void AccountQueryPage::updateLanguage()
 
 TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Current Deposit Transfer"));
     label1 = new QLabel(tr("Paying account"), this);
     label2 = new QLabel(tr("Receiver's name"), this);
@@ -179,6 +249,7 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     edit5 = new QLineEdit(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CTLabel1");
     label2->setObjectName("CTLabel2");
     label3->setObjectName("CTLabel3");
@@ -196,6 +267,7 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     WDelegate *CTDele = new WDelegate();
     edit1->setItemDelegate(CTDele);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -212,6 +284,7 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 
 void TransferPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Current Deposit Transfer"));
     label1->setText(tr("Paying account"));
     label2->setText(tr("Receiver's name"));
@@ -223,6 +296,7 @@ void TransferPage::updateLanguage()
 
 CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Current Fixed Transfer"));
     label1 = new QLabel(tr("Paying account"), this);
     label2 = new QLabel(tr("Receiver's name"), this);
@@ -236,6 +310,7 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     edit5 = new QLineEdit(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CCFLabel1");
     label2->setObjectName("CCFLabel2");
     label3->setObjectName("CCFLabel3");
@@ -248,7 +323,7 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     edit5->setObjectName("CCFEdit5");
     confirmBtn->setObjectName("CCFConfirmBtn");
 
-
+    //setup accounts
     edit1->addItem("1231 2312 3123 1236");
     edit1->addItem("2175 7962 4595 4698");
     WDelegate *CCFDele1 = new WDelegate();
@@ -259,6 +334,7 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     WDelegate *CCFDele2 = new WDelegate();
     edit4->setItemDelegate(CCFDele2);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -275,6 +351,7 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 
 void CurrentFixPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Current Fixed Transfer"));
     label1->setText(tr("Paying account"));
     label2->setText(tr("Receiver's name"));
@@ -291,6 +368,7 @@ void CurrentFixPage::updateLanguage()
 
 PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Payment"));
     label1 = new QLabel(tr("Item"), this);
     label2 = new QLabel(tr("Paying account"), this);
@@ -301,6 +379,7 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     autoBtn = new QPushButton(tr("SET AUTOPAY"), this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CPLabel1");
     label2->setObjectName("CPLabel2");
     label3->setObjectName("CPLabel3");
@@ -310,17 +389,20 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     autoBtn->setObjectName("CPAutoBtn");
     confirmBtn->setObjectName("CPConfirmBtn");
 
+    //setup combobox item
     edit1->addItem(tr("Water Bill"));
     edit1->addItem(tr("Electricity Bill"));
     edit1->addItem(tr("Gas Bill"));
     WDelegate *CPDele1 = new WDelegate();
     edit1->setItemDelegate(CPDele1);
 
+    //setup accounts
     edit2->addItem("2175 7962 4595 4698");
     edit2->addItem("1745 7962 4595 4698");
     WDelegate *CPDele2 = new WDelegate();
     edit2->setItemDelegate(CPDele2);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -331,12 +413,14 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     autoBtn->setGeometry(QRect(430, 240, 148, 36));
     confirmBtn->setGeometry(QRect(584, 240, 108, 36));
 
+    //set connections to autopay page
     connect(autoBtn, SIGNAL(clicked(bool)), parent->parent(), \
             SLOT(showAutoPayPage()));
 }
 
 void PaymentPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Current Fixed Transfer"));
     label1->setText(tr("Paying account"));
     label2->setText(tr("Receiver's name"));
@@ -353,6 +437,7 @@ void PaymentPage::updateLanguage()
 
 AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Auto Payment"));
     label1 = new QLabel(tr("Item"), this);
     label2 = new QLabel(tr("Paying account"), this);
@@ -363,6 +448,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     cancelBtn = new QPushButton(tr("CANCEL"), this);
     table = new QTableWidget(this);
 
+    //set object name
     label1->setObjectName("CAPLabel1");
     label2->setObjectName("CAPLabel2");
     title2->setObjectName("CAPLabel3");
@@ -383,6 +469,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     WDelegate *CAPDele2 = new WDelegate();
     edit2->setItemDelegate(CAPDele2);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -393,6 +480,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     cancelBtn->setGeometry(QRect(484, 192, 96, 36));
     table->setGeometry(QRect(24, 288, 708, 240));
 
+    //setup table
     table->setColumnCount(3);
     table->setRowCount(5);
 
@@ -420,6 +508,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 
 void AutoPayPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Auto Payment"));
     label1->setText(tr("Item"));
     label2->setText(tr("Paying account"));
@@ -436,20 +525,24 @@ void AutoPayPage::updateLanguage()
 
 CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Credit Card Apply"));
     label1 = new QLabel(tr("Card type"), this);
     edit1 = new QComboBox(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CCALabel1");
     edit1->setObjectName("CCAEdit1");
     confirmBtn->setObjectName("CCAConfirmBtn");
 
+    //setup combobox item
     edit1->addItem(tr("TYPE 1"));
     edit1->addItem(tr("TYPE 2"));
     WDelegate *CCADele = new WDelegate();
     edit1->setItemDelegate(CCADele);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
@@ -458,6 +551,7 @@ CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
 
 void CardApplyPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Credit Card Apply"));
     label1->setText(tr("Card type"));
     confirmBtn->setText(tr("CONFIRM"));
@@ -470,20 +564,24 @@ void CardApplyPage::updateLanguage()
 
 CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Credit Card Activate"));
     label1 = new QLabel(tr("Card number"), this);
     edit1 = new QComboBox(this);
     activateBtn = new QPushButton(tr("ACTIVATE"), this);
 
+    //set object name
     label1->setObjectName("CCBLabel1");
     edit1->setObjectName("CCBEdit1");
     activateBtn->setObjectName("CCBActivateBtn");
 
+    //setup accounts
     edit1->addItem("1231 2312 3123 1236");
     edit1->addItem("2175 7962 4595 4698");
     WDelegate *CCBDele = new WDelegate();
     edit1->setItemDelegate(CCBDele);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
@@ -492,6 +590,7 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
 
 void CardActivatePage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Credit Card Activate"));
     label1->setText(tr("Card number"));
     activateBtn->setText(tr("ACTIVATE"));
@@ -499,6 +598,7 @@ void CardActivatePage::updateLanguage()
 
 CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Credit Card Repay"));
     label1 = new QLabel(tr("Card number"), this);
     label2 = new QLabel(tr("Total repay amount"), this);
@@ -512,6 +612,7 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     edit5 = new QLineEdit(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CCRLabel1");
     label2->setObjectName("CCRLabel2");
     label3->setObjectName("CCRLabel3");
@@ -524,19 +625,23 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     edit5->setObjectName("CCREdit5");
     confirmBtn->setObjectName("CCRConfirmBtn");
 
+    //set disable attribute
     edit2->setEnabled(false);
     edit3->setEnabled(false);
 
+    //setup accounts
     edit1->addItem("1231 2312 3123 1236");
     edit1->addItem("2175 7962 4595 4698");
     WDelegate *CCRDele1 = new WDelegate();
     edit1->setItemDelegate(CCRDele1);
 
+    //setup accounts
     edit4->addItem("1231 2312 3123 1236");
     edit4->addItem("2175 7962 4595 4698");
     WDelegate *CCRDele2 = new WDelegate();
     edit4->setItemDelegate(CCRDele2);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -553,6 +658,7 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
 
 void CardRepayPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Credit Card Repay"));
     label1->setText(tr("Card number"));
     label2->setText(tr("Total repay amount"));
@@ -564,20 +670,24 @@ void CardRepayPage::updateLanguage()
 
 CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Credit Card Loss Report"));
     label1 = new QLabel(tr("Card number"), this);
     edit1 = new QComboBox(this);
     reportBtn = new QPushButton(tr("REPORT"), this);
 
+    //set object name
     label1->setObjectName("CCLLabel1");
     edit1->setObjectName("CCLEdit1");
     reportBtn->setObjectName("CCLReportBtn");
 
+    //setup accounts
     edit1->addItem("1231 2312 3123 1236");
     edit1->addItem("2175 7962 4595 4698");
     WDelegate *CCLDele = new WDelegate();
     edit1->setItemDelegate(CCLDele);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
@@ -586,6 +696,7 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
 
 void CardLostPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Credit Card Loss Report"));
     label1->setText(tr("Card number"));
     reportBtn->setText(tr("REPORT"));
@@ -593,6 +704,7 @@ void CardLostPage::updateLanguage()
 
 UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Personal Info"));
     label1 = new QLabel(tr("Name"), this);
     label2 = new QLabel(tr("ID number"), this);
@@ -609,6 +721,7 @@ UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
     edit6 = new QLineEdit(this);
     edit7 = new QLineEdit(this);
 
+    //set object name
     label1->setObjectName("CUILabel1");
     label2->setObjectName("CUILabel2");
     label3->setObjectName("CUILabel3");
@@ -624,6 +737,7 @@ UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
     edit6->setObjectName("CUIEdit6");
     edit7->setObjectName("CUIEdit7");
 
+    //set disable attributes
     edit1->setEnabled(false);
     edit2->setEnabled(false);
     edit3->setEnabled(false);
@@ -632,6 +746,7 @@ UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
     edit6->setEnabled(false);
     edit7->setEnabled(false);
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -651,6 +766,7 @@ UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
 
 void UserInfoPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Personal Info"));
     label1->setText(tr("Name"));
     label2->setText(tr("ID number"));
@@ -663,6 +779,7 @@ void UserInfoPage::updateLanguage()
 
 ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("Change Password"));
     label1 = new QLabel(tr("Original password"), this);
     label2 = new QLabel(tr("New password"), this);
@@ -672,6 +789,7 @@ ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
     edit3 = new QLineEdit(this);
     confirmBtn = new QPushButton(tr("CONFIRM"), this);
 
+    //set object name
     label1->setObjectName("CCPLabel1");
     label2->setObjectName("CCPLabel2");
     label3->setObjectName("CCPLabel3");
@@ -680,6 +798,7 @@ ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
     edit3->setObjectName("CCPEdit3");
     confirmBtn->setObjectName("CCPConfirmBtn");
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -692,6 +811,7 @@ ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
 
 void ChangePwPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("Change Password"));
     label1->setText(tr("Original password"));
     label2->setText(tr("New password"));
@@ -701,17 +821,20 @@ void ChangePwPage::updateLanguage()
 
 SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     bgLabel = new QLabel(this);
     mainTitle->setText(tr("System Message"));
     table = new QTableWidget(this);
-
     bgLabel->setObjectName("CSMbg");
     table->setObjectName("CSMTable");
 
+
+    //set position and size
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     table->setGeometry(QRect(24, 72, 708, 480));
 
+    //setup table
     table->setColumnCount(3);
     table->setRowCount(5);
 
@@ -741,11 +864,13 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
 
 void SysMsgPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("System Message"));
 }
 
 AboutPage::AboutPage(QWidget *parent) : WPage(parent)
 {
+    //components new
     mainTitle->setText(tr("About"));
     label1 = new QTextEdit(this);
     label1->setText(tr("    This program is designed and developed by "
@@ -759,15 +884,18 @@ AboutPage::AboutPage(QWidget *parent) : WPage(parent)
                        "We would also like to offer thanks to the open "
                        "source projects that make our program possible."));
 
+    //set object name and attribute
     label1->setEnabled(false);
     label1->setObjectName("CALabel1");
 
+    //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 708, 200));
 }
 
 void AboutPage::updateLanguage()
 {
+    //update language in this page
     mainTitle->setText(tr("About"));
     label1->setText(tr("    This program is designed and developed by "
                        "Tsinghua freshman, Zhu Yilin and Tian Xingyu. "
@@ -779,4 +907,41 @@ void AboutPage::updateLanguage()
                        "teacher and TA, who lead us into the world of C++. "
                        "We would also like to offer thanks to the open "
                        "source projects that make our program possible."));
+}
+
+WelcomePage::WelcomePage(QWidget *parent) : WPage(parent)
+{
+    //components new
+    mainTitle->setText(tr("Welcome"));
+    label1 = new QTextEdit(this);
+    label2 = new QTextEdit(this);
+    label1->setText(tr("Click on the left navigation bar to choose function."));
+    label2->setText(tr("Click on the two top right buttons for user and setting fuctions."));
+
+    //set object name and attribute
+    label1->setEnabled(false);
+    label2->setEnabled(false);
+    label1->setObjectName("CWLabel1");
+    label2->setObjectName("CWLabel2");
+
+    //set alignment
+    mainTitle->setAlignment(Qt::AlignCenter);
+    label1->setAlignment(Qt::AlignCenter);
+    label2->setAlignment(Qt::AlignCenter);
+
+    //set position and sizelabel2->setAlignment(Qt::AlignHCenter);
+    mainTitle->setGeometry(QRect(124, 180, 508, 60));
+    label1->setGeometry(QRect(124, 276, 508, 200));
+    label2->setGeometry(QRect(74, 302, 608, 200));
+}
+
+void WelcomePage::updateLanguage()
+{
+    //update language in this page
+    mainTitle->setText(tr("Welcome"));
+    label1->setText(tr("Click on the left navigation bar to choose function."));
+    label2->setText(tr("Click on the two top right buttons for user and setting fuctions."));
+    mainTitle->setAlignment(Qt::AlignCenter);
+    label1->setAlignment(Qt::AlignCenter);
+    label2->setAlignment(Qt::AlignCenter);
 }

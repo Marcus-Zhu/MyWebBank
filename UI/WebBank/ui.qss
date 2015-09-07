@@ -454,3 +454,39 @@ QTextEdit{
 	font:18px;
 	background:transparent;
 }
+
+QCalendarWidget QToolButton
+{
+        background-color:#81D4FA;
+        height:36px;
+        width:80px;
+}
+
+QCalendarWidget QSpinBox
+{
+        background-color:#E1F5FE;
+}
+
+QCalendarWidget QSpinBox::up-button
+{
+        image:url(image/spinbox-down.png);
+}
+
+QCalendarWidget QSpinBox::down-button
+{
+        image:url(image/spinbox-up.png);
+}
+
+QCalendarWidget QAbstractItemView:enabled
+{
+        background-color:#EEE;
+        color:rgba(0,0,0,222);
+        font-size:24px;
+        selection-background-color:#039BE5;
+        selection-color:rgba(0,0,0,222);
+}
+
+QLabel#calendarLabel
+{
+        background-color:#81D4FA;
+}

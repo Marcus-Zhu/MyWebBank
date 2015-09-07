@@ -17,7 +17,6 @@ class BankUI : public QWidget
 
 public:
     BankUI(QWidget *parent = 0);
-    ~BankUI();
     void openUX();
 
 protected:
@@ -48,7 +47,6 @@ private slots:
     void openUX4();
     void openUX5();
 
-
 private:
     QLabel *backgroundLabel;
     WTopbar *topbar;
@@ -62,11 +60,10 @@ private:
     QPoint movePoint;
     void setTranslator();
     void initUI();
-    void setConnections();
     void updateLanguage();
 
     QTranslator wTranslator;
-    bool isChinese;
+    bool isChinese;//record the current language
 };
 
 #endif // BANKUI_H

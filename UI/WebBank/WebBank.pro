@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     bars.cpp \
     wdelegate.cpp \
     wlogin.cpp \
-    wloading.cpp
+    wloading.cpp \
+    wlineedit.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
@@ -27,7 +28,8 @@ HEADERS  += bankui.h \
     bars.h \
     wdelegate.h \
     wlogin.h \
-    wloading.h
+    wloading.h \
+    wlineedit.h
 
 RESOURCES += \
     styleset.qrc
