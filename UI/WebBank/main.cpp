@@ -29,14 +29,17 @@ int main(int argc, char *argv[])
 
     //login window
     WLogin v;
+    v.setWindowIcon(QIcon("image/logo.png"));
     if (v.exec() != QDialog::Accepted) return -1;
 
     //loading window
     WLoading l;
+    l.setWindowIcon(QIcon("image/logo.png"));
     l.exec();
 
     //main window
     BankUI w;
+    w.setWindowIcon(QIcon("image/logo.png"));
     w.show();
     w.openUX();
 
