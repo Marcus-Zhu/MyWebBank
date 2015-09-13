@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QString>
+#include <QtSql>
+#include <QSqlDatabase>
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +30,13 @@ int main(int argc, char *argv[])
     a.installTranslator(wTranslator);
     transFile.close();
 
+    //open database
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("WebBankDatabase.db");
+    db.setUserName("txy");
+    db.setPassword("494799822");
+    qDebug() << db.open();
+
     //login window
     WLogin v;
     v.setWindowIcon(QIcon("image/logo.png"));
@@ -44,5 +53,6 @@ int main(int argc, char *argv[])
     w.show();
     w.openUX();
 
+    db.close();
     return a.exec();
 }

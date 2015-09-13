@@ -1,8 +1,12 @@
 #include "wlogin.h"
+#include "wuimanip.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include <QString>
+#include <QVector>
+#include <QCryptographicHash>
 
 WLogin::WLogin(QWidget *parent) : QDialog(parent)
 {
@@ -98,9 +102,9 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     userName->setFocus();
 
     //set connections
-    connect(userName, SIGNAL(returnPressed()), this, SLOT(checkLogin()));
     connect(password, SIGNAL(returnPressed()), this, SLOT(checkLogin()));
     connect(zipcode, SIGNAL(returnPressed()), this, SLOT(checkReg()));
+    connect(registerBtn, SIGNAL(clicked(bool)), this, SLOT(checkReg()));
     connect(closeBtn, SIGNAL(clicked(bool)), this, SLOT(reject()));
     connect(regBtn, SIGNAL(clicked(bool)), this, SLOT(changeToReg()));
     connect(loginBtn, SIGNAL(clicked(bool)), this, SLOT(checkLogin()));
@@ -113,23 +117,65 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
 void WLogin::checkLogin()
 {
     //after login button clicked, check validation
-    if (userName->text() == "TXY" && password->text() == "txy")
+    QString encrypted;
+    QByteArray bin;
+    bin = QCryptographicHash::hash(password->text().toLatin1(), QCryptographicHash::Sha3_256);
+    encrypted.append(bin.toHex());
+    int val = WUIManip::login(userName->text(),encrypted);
+    switch(val)
     {
-        accept();
-    }
-    else if (userName->text() == "TXY")
-    {
-        notice->setText(tr("Password incorrect!"));
-    }
-    else
-    {
+    case 1:
         notice->setText(tr("Username not exist!"));
+        break;
+    case 2:
+        notice->setText(tr("Password incorrect!"));
+        break;
+    case 3:
+        accept();
+        break;
     }
 }
 
 void WLogin::checkReg()
 {
     //after registration button clicked, check validation
+    if(password->text().length() < 6)
+    {
+        notice->setText(tr("Password too short!"));
+        return;
+    }
+    if(password->text() != passwordConfirm->text())
+    {
+        notice->setText(tr("Password inconform!"));
+        return;
+    }
+    if(cardNum->text().length() != 19)
+    {
+        notice->setText(tr("Card number invalid!"));
+        return;
+    }
+    QString encrypted;
+    QByteArray bin;
+    bin = QCryptographicHash::hash(password->text().toLatin1(), QCryptographicHash::Sha3_256);
+    encrypted.append(bin.toHex());
+    QVector<QString> userinfo;
+    userinfo.push_back(userName->text());//0
+    userinfo.push_back(encrypted);//1
+    userinfo.push_back(idCard->text());//2
+    userinfo.push_back(mobile->text());//3
+    userinfo.push_back(email->text());//4
+    userinfo.push_back(address->text());//5
+    userinfo.push_back(zipcode->text());//6
+    userinfo.push_back(cardNum->text());//7
+    bool val = WUIManip::registration(userinfo);
+    if (val)
+    {
+        accept();
+    }
+    else
+    {
+        notice->setText(tr("Registration failed!"));
+    }
 }
 
 void WLogin::openWindow()
@@ -179,6 +225,7 @@ void WLogin::changeToReg()
     backBtn->setVisible(true);
 
     //reset widgets position and size
+    notice->setGeometry(QRect(41, 178, 294, 16));
     userName->setGeometry(QRect(41, 190, 318, 36));
     password->setGeometry(QRect(41, 238, 318, 36));
 
@@ -215,6 +262,7 @@ void WLogin::changeToLogin()
     backBtn->setVisible(false);
 
     //reset widgets position and size
+    notice->setGeometry(QRect(41, 182, 294, 16));
     userName->setGeometry(QRect(41, 190, 200, 36));
     password->setGeometry(QRect(41, 238, 200, 36));
 
