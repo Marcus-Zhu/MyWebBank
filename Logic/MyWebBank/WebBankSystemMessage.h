@@ -7,11 +7,12 @@ private:
     int messageNumber;
 
 public:
+    WMessage();
     bool changeMessageStatus();
     void setHaveNewMessage();
     bool getHaveNewMessage();
     void setMessageNumber(int n = 0);
     int getMessageNumber();
-}
+};
 
 #endif // WEBBANKSYSTEMMESSAGE_H

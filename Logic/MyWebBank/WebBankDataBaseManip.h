@@ -53,7 +53,7 @@ public:
     bool dbTableCreate();
 };
 
-class DBPaymetnRecordManip: public WDBManip{
+class DBPaymentRecordManip: public WDBManip{
 public:
     bool dbInsert(QVector<QString>& insertInfo);
     bool dbUpdate(QString updateInfo = "");
@@ -83,10 +83,12 @@ public:
 };
 
 class DBAutoPayManip:public WDBManip{
+public:
     bool dbInsert(QVector<QString> &insertInfo);
     bool dbUpdate(QString updateInfo);
     QVector<QString> dbSelect(QString selectInfo);
     bool dbDelete(QString deleteInfo);
+    bool dbDelete(QString number,QString type);
     bool dbTableCreate();
 };
 

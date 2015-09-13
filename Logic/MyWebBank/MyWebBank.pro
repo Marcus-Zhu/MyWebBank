@@ -16,28 +16,28 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
+    WebBankCurrentUser.cpp \
     WebBankDataBaseManip.cpp \
     WebBankUser.cpp \
-    WebBankAccount.cpp \
     WebBankTransfer.cpp \
     WebBankPayment.cpp \
     WebBankCreditCard.cpp \
     WebBankQuery.cpp \
     WebBankSystemMessage.cpp \
-    WebBankCurrentUser.cpp \
+    WebBankAccount.cpp \
 
 
 
 
 HEADERS += \
+    WebBankCurrentUser.h \
+    WebBankDataBaseManip.h \
     WebBankUser.h \
-    WebBankAccount.h\
     WebBankTransfer.h\
     WebBankPayment.h \
     WebBankCreditCard.h \
     WebBankQuery.h \
     WebBankSystemMessage.h \
-    WebBankDataBaseManip.h \
-    WebBankCurrentUser.h \
+    WebBankAccount.h\
 
 

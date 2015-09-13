@@ -9,13 +9,13 @@ WPayment::WPayment(){}
 //带参数的默认构造函数
 WPayment::WPayment(QString accountNumber, float sum, QString paymentType){
     number = accountNumber;
-    sum = sum;
+    this->sum = sum;
     type = paymentType;
     haveAutoPayment[1] = haveAutoPayment[2] = haveAutoPayment[3] = false;
     DBAccountManip dbAccount;
     QVector<QString> accountInfo = dbAccount.dbSelect(number);
-    currentDeposit = (accountInfo[4].toFloat());
-    fixedDeposit = accountInfo[3].toFloat();
+    currentDeposit = (accountInfo[3].toFloat());
+    fixedDeposit = accountInfo[2].toFloat();
     QString selectInfo = QString("SELECT * FROM autoPay WHERE accountKey = %1").arg(DBAccountManip::dbSelectAccountKey(number));
     DBAutoPayManip dbAutoPay;
     QVector<QString> autoPayInfo;
@@ -23,8 +23,9 @@ WPayment::WPayment(QString accountNumber, float sum, QString paymentType){
     int size = autoPayInfo.size()/3;
     for(int i = 0;i<size;i++){
         haveAutoPayment[i] = true;
-        autoPayDate = autoPayInfo[2 + 3*i];
-        autoPayType = autoPayInfo[1 + 3*i];
+        QDateTime time = QDateTime::fromString(autoPayInfo[2 + 3*i]);
+        autoPayDate[i] = time.date();
+        autoPayType[i] = autoPayInfo[1 + 3*i];
     }
 }
 
@@ -50,26 +51,37 @@ bool WPayment::isAutoPaymentEmpty(){
 
 //付款
 bool WPayment::pay(){
-    if(currentDeposit<sum)//钱不够
+    DBAccountManip dbAccount;
+    QVector<QString> info = dbAccount.dbSelect(number);
+    qDebug()<<"pos1";
+    for(int i = 0;i<info.size();i++)
+        qDebug()<<info[i];
+    QString accountType = info[0];
+    if((currentDeposit<sum&&accountType == "normalAccount")
+            ||(currentDeposit+fixedDeposit<sum&&accountType == "creditCard"))//钱不够
         return false;
     else{
         //更改账户中的存款余额
         currentDeposit -= sum;
         DBAccountManip dbAccount;
         bool result = dbAccount.dbPaymentUpdate(number,currentDeposit);
+        qDebug()<<"pos2";
+        qDebug()<<result;
         //在payment表中插入一条新信息
         QVector<QString> insertInfo;
-        int key = DBAccountManip::dbSelectAccountKey(number);
-        QString accountKey = QString::setNum(key);
-        insertInfo.push_back(accountKey);
-        QString Sum = QString::setNum(sum);
+        insertInfo.push_back(number);
+        QString Sum;
+        Sum.setNum(sum);
         insertInfo.push_back(Sum);
-        QString CurrentDeposit = QString::setNum(currentDeposit);
-        insertInfo.push_back(CurrentDeposit);
         insertInfo.push_back(type);
+        QString CurrentDeposit;
+        CurrentDeposit.setNum(currentDeposit);
+        insertInfo.push_back(CurrentDeposit);
         if(result){
-            DBPaymetnRecordManip paymentManip;
+            qDebug()<<"pos3";
+            DBPaymentRecordManip paymentManip;
             result = paymentManip.dbInsert(insertInfo);
+            qDebug()<<result;
         }
         return result;
     }
@@ -82,18 +94,19 @@ bool WPayment::autoPayment(){
     for(int i = 0;i<3;i++){
         if(haveAutoPayment[i]){
             if(QDate::currentDate()>= autoPayDate[i].addMonths(1)){
-                type = Type;
+                type = autoPayType[i];
                 int months = 0;
                 bool r;
                 while(QDate::currentDate()>=autoPayDate[i].addMonths(1)){
                     months++;
                     autoPayDate[i] = autoPayDate[i].addMonths(1);
-                    qsrand(time(NULL));
+                    QTime time = QTime::currentTime();
+                    qsrand(time.msec()+time.second()*1000);
                     sum = (100 + qrand()%50);
                     type = autoPayType[i];
                     r = pay();
                     QVector<QString> insertInfo;
-                    QString userKey = QString("%1").arg(DBUserManip::dbSelectUserKey(WCurrentUser::userName));
+                    QString userKey = QString("%1").arg(DBUserManip::dbSelectUserKey());
                     insertInfo.push_back(userKey);
                     insertInfo.push_back(autoPayDate[i].toString());
                     insertInfo.push_back(QString("auto pay for the %1").arg(autoPayType[i]));

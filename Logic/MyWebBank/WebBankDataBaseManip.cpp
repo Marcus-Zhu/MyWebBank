@@ -96,7 +96,7 @@ bool DBAccountManip::dbTableCreate(){
     bool result;
     result = query.exec("CREATE TABLE account (key INTEGER PRIMARY KEY AUTOINCREMENT,"
              "userKey INTEGER,type VARCHAR(10),number VARCHAR(20),fixedDeposit REAL,"
-             "currentDeposit REAL,status VARCHAR(10),createdTime TIMESTAMP default CURRENT_TIMESTAMP)");
+             "currentDeposit REAL,status VARCHAR(10),createdTime TIMESTAMP NOT NULL default CURRENT_TIMESTAMP)");
     return result;
 }
 
@@ -186,7 +186,7 @@ bool DBAccountManip::dbUpdate(QString updateInfo, float sum){
 //缴费后更新account的余额
 bool DBAccountManip::dbPaymentUpdate(QString number, float currentDeposit){
     QSqlQuery query;
-    query.prepare("UPDATE currentDeposit = :currentDeposit WHERE number = :number");
+    query.prepare("UPDATE account SET currentDeposit = :currentDeposit WHERE number = :number");
     query.bindValue(":currentDeposit",currentDeposit);
     query.bindValue(":number",number);
     bool result = query.exec();
@@ -208,7 +208,7 @@ QString DBAccountManip::dbSelectAccountNumber(int key){
 //查询某一number对应account的所有信息
 QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
     QSqlQuery query;
-    QVector<QString> accountInfo(6);
+    QVector<QString> accountInfo;
     query.prepare("SELECT * FROM account WHERE number = :number");
     query.bindValue(":number",selectInfo);
     if(query.exec())
@@ -238,7 +238,7 @@ bool DBTransactionRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE transactionRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        "accountKey1 INTEGER,accountKey2 INTEGER,sum REAL,time TIMESTAMP default CURRENT_TIMESTAMP,"
+                        "accountKey1 INTEGER,accountKey2 INTEGER,sum REAL,time TIMESTAMP NOT NULL default CURRENT_TIMESTAMP,"
                         "fixedDeposit REAL,currentDeposit REAL,type VARCHAR(30))");
     return result;
 }
@@ -314,40 +314,38 @@ bool DBTransactionRecordManip::dbDelete(QString deleteInfo){
 }
 
 //创建表
-bool DBPaymetnRecordManip::dbTableCreate(){
+bool DBPaymentRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE paymentRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,accountKey INTEGER,"
-                        "sum REAL,time TIMESTAMP default CURRENT_TIMESTAMP,currentDeposit REAL,type VARCHAR[10])");
+                        "sum REAL,time TIMESTAMP NOT NULL default CURRENT_TIMESTAMP,currentDeposit REAL,type VARCHAR[10])");
     return result;
 }
 
 //插入信息
-bool DBPaymetnRecordManip::dbInsert(QVector<QString> &insertInfo){
+bool DBPaymentRecordManip::dbInsert(QVector<QString> &insertInfo){
     //0--accountNumber,1--sum,2--type,3--currentDeposit
     QSqlQuery query;
     int accountKey;
-    float currentDeposit;
     bool result;
     accountKey = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
-    currentDeposit = insertInfo.value(3).toFloat() - insertInfo[1].toFloat();
-    query.prepare("INSERT INTO paymentRecord (accountKey,sum,currentDeposit,type)"
+    query.prepare("INSERT INTO paymentRecord (accountKey,sum,currentDeposit,type) "
                   "VALUES (?,?,?,?)");
     query.addBindValue(accountKey);
     query.addBindValue(insertInfo[1].toFloat());
-    query.addBindValue(currentDeposit);
+    query.addBindValue(insertInfo[3].toFloat());
     query.addBindValue(insertInfo[2]);
     result = query.exec();
     return result;
 }
 
 //更新信息，不可用
-bool DBPaymetnRecordManip::dbUpdate(QString updateInfo){
+bool DBPaymentRecordManip::dbUpdate(QString updateInfo){
     return false;
 }
 
 //查询信息，查询某个信息所在行的所有列的信息，除key外全部返回，accountKey转为了number
-QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo){
+QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo){
     QSqlQuery query;
     QVector<QString> paymentRecordInfo;
     if(!query.exec(selectInfo))
@@ -368,7 +366,7 @@ QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo){
 }
 
 //查询cols列的信息并返回
-QVector<QString> DBPaymetnRecordManip::dbSelect(QString selectInfo, int cols){
+QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo, int cols){
     QSqlQuery query;
     QVector<QString> paymentRecords;
     if(!query.exec(selectInfo))
@@ -395,7 +393,7 @@ bool DBMessageManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE message (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER,"
-                        "time TIMESTAMP default CURRENT_TIMESTAMP,content VARCHAR(20),status VARCHAR(15) default not_read)");
+                        "time TIMESTAMP NOT NULL default CURRENT_TIMESTAMP,content VARCHAR(20),status VARCHAR(15) default not_read)");
     return result;
 }
 
@@ -404,9 +402,11 @@ bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
     query.prepare("INSERT INTO message (userKey,content,status) VALUES (?,?,?)");
-    query.addBindValue(DBUserManip::dbSelectUserKey());
-    query.addBindValue(insertInfo[0]);
+    query.addBindValue(insertInfo[0].toInt());
+    query.addBindValue(insertInfo[1]);
     query.addBindValue("not read");
+    result = query.exec();
+    return result;
 }
 
 //更新信息的状态
@@ -452,7 +452,7 @@ bool DBLogRecordManip::dbTableCreate(){
     QSqlQuery query;
     bool result;
     result = query.exec("CREATE TABLE logRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER"
-                        "time TIMESTAMP default CURRENT_TIMESTAMP,type VARCHAR(10))");
+                        "time TIMESTAMP NOT NULL default CURRENT_TIMESTAMP,type VARCHAR(10))");
     return result;
 }
 
@@ -531,7 +531,7 @@ bool DBAutoPayManip::dbUpdate(QString updateInfo){
     return false;
 }
 
-//删除信息，不可用(或者男神你加一个清除所有的button来调用这个函数，我把它设置成能清除所有该number的自动付款)
+//删除信息，不可用
 bool DBAutoPayManip::dbDelete(QString deleteInfo){
     return false;
 }
@@ -542,40 +542,9 @@ bool DBAutoPayManip::dbDelete(QString number,QString type){
     QSqlQuery query;
     int accountKey = DBAccountManip::dbSelectAccountKey(number);
     query.prepare("DELETE FROM autoPay WHERE accountKey = ? AND type = ?");
-    int accountKey = DBAccountManip::dbSelectAccountKey(deleteInfo);
     query.addBindValue(accountKey);
     query.addBindValue(type);
     result = query.exec();
     return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,26 +1,16 @@
 #include "WebBankTransfer.h"
 #include "WebBankDataBaseManip.h"
+#include "WebBankCurrentUser.h"
 #include <QVector>
 
-#define NORMALPOUNDAGE 10
-#define VIPPOUNDAGE 5
-
-//默认构造函数
-WTransfer::WTransfer(){
-    myAccountNumber = "";
-    transferedAccountNumber = "";
-    type = "";
-    sum = 0.0f;
-    fixedDeposit = 0.0f;
-    currentDeposit = 0.0f;
-}
+#define NORMALPOUNDAGE 0.005
+#define VIPPOUNDAGE 0.002
 
 //构造函数
-WTransfer::WTransfer(const QString number, float &fixDeposit,float &currentDeposit,
-                     const QString type, const float sum, const QString otherAccount){
+WTransfer::WTransfer(const QString number, float &fixedDeposit,float &currentDeposit,
+                     const QString type, const float sum, const QString otherAccount)
+                     :fixedDeposit(fixedDeposit),currentDeposit(currentDeposit){
     myAccountNumber = number;
-    this->fixedDeposit = fixDeposit;
-    this->currentDeposit = currentDeposit;
     this->type = type;
     this->sum = sum;
     transferedAccountNumber = otherAccount;
@@ -29,22 +19,23 @@ WTransfer::WTransfer(const QString number, float &fixDeposit,float &currentDepos
 //转账给别人
 bool WTransfer::transferToOther(){
     int poundage;
-    if(type == "normal")
-        poundage = NORMALPOUNDAGE;
+    if(WCurrentUser::userType == "normal")
+        poundage = NORMALPOUNDAGE*sum;
     else
-        poundage = VIPPOUNDAGE;
-    if(sum > currentDeposit - poundage)
+        poundage = VIPPOUNDAGE*sum;
+    if((sum > currentDeposit - poundage&&type == "normalAccount")
+            ||(sum > currentDeposit + fixedDeposit - poundage&&type == "creditCard"))
         return false;
     else{
         bool result;
         DBTransactionRecordManip db;
-        QVector<QString> transferInfo(5);
-        transferInfo[0].setNum(DBAccountManip::dbSelectAccountKey(myAccountNumber));
-        transferInfo[1].setNum(DBAccountManip::dbSelectAccountKey(transferedAccountNumber));
+        QVector<QString> transferInfo(6);
+        transferInfo[0] = myAccountNumber;
+        transferInfo[1] = transferedAccountNumber;
         transferInfo[2].setNum(sum);
-        currentDeposit = currentDeposit -sum -poundage;
-        transferInfo[3].setNum(currentDeposit);
-        transferInfo[4].setNum(fixedDeposit);
+        currentDeposit = currentDeposit -sum - poundage;
+        transferInfo[3].setNum(fixedDeposit);
+        transferInfo[4].setNum(currentDeposit);
         transferInfo[5] = "transfer to other";
         result = db.dbInsert(transferInfo);
         return result;
@@ -58,14 +49,14 @@ bool WTransfer::transferToFixed(){
     else{
         bool result;
         DBTransactionRecordManip db;
-        QVector<QString> transferInfo(5);
-        transferInfo[0].setNum(DBAccountManip::dbSelectAccountKey(myAccountNumber));
-        transferInfo[1].setNum(DBAccountManip::dbSelectAccountKey(myAccountNumber));
+        QVector<QString> transferInfo(6);
+        transferInfo[0] = myAccountNumber;
+        transferInfo[1] = myAccountNumber;
         transferInfo[2].setNum(sum);
         currentDeposit = currentDeposit - sum;
         fixedDeposit = fixedDeposit + sum;
-        transferInfo[3].setNum(currentDeposit);
-        transferInfo[4].setNum(fixedDeposit);
+        transferInfo[3].setNum(fixedDeposit);
+        transferInfo[4].setNum(currentDeposit);
         transferInfo[5] = "transfer to fixed";
         result = db.dbInsert(transferInfo);
         return result;
@@ -79,15 +70,15 @@ bool WTransfer::transferToCurrent(){
     else{
         bool result;
         DBTransactionRecordManip db;
-        QVector<QString> transferInfo;
-        transferInfo[0].setNum(DBAccountManip::dbSelectAccountKey(myAccountNumber));
-        transferInfo[1].setNum(DBAccountManip::dbSelectAccountKey(myAccountNumber));
+        QVector<QString> transferInfo(6);
+        transferInfo[0] = myAccountNumber;
+        transferInfo[1] = myAccountNumber;
         transferInfo[2].setNum(sum);
         currentDeposit = currentDeposit + sum;
         fixedDeposit = fixedDeposit - sum;
-        transferInfo[3].setNum(currentDeposit);
-        transferInfo[4].setNum(fixedDeposit);
-        transferInfo[5] = "transfer to fixed";
+        transferInfo[3].setNum(fixedDeposit);
+        transferInfo[4].setNum(currentDeposit);
+        transferInfo[5] = "transfer to current";
         result = db.dbInsert(transferInfo);
         return result;
     }

@@ -21,13 +21,10 @@ public:
     QVector<QString> queryBetweenTwoDatesIncome(QDate dateFrom,QDate dateTo);
     QVector<QString> queryBetweenTwoDatesExpense(QDate dateFrom,QDate dateTo);
 
-    WQuery(Qstring number):number(number){}
+    WQuery(QString number):number(number){}
 private:
     QString number;
 };
 
 #endif // WEBBANKQUERY_H
-
-
-//返回时间，类型，金额
 

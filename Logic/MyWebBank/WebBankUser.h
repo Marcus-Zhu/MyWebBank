@@ -33,16 +33,17 @@ private:
     QString address;
     QString zipCode;
     QString type;
-    QVector<QString> account;
     int messageAmount;
 public:
+    QVector<QString> account;
     bool setPassword(QString oldPassword, QString newPassword);
     bool addAccount(QString number,QString type);
     int getAccountAmount(){return account.size();}
-    static int checkIn(QString name,QString password);
+    static int checkIn(QString Name,QString password);
     SUserInfo getUserInfo();
     WUser(SUserInfo userInfo);
-    ~WUser();
+    WUser(){}
+    ~WUser(){};
 };
 
 

@@ -11,132 +11,73 @@
 #define NORMALFIXEDRATE 0.0000150
 #define VIPFIXEDRATE 0.0000180
 
-//计算存款的获得利息的函数
-void WAccount::interestCalculation(){
-    QDate currentDate = QDate::currentDate();
-    QString tableTime;
-    DBLogRecordManip dbLogRecord;
-    DBAccountManip dbAccount;
+//WAccount类
+QString WAccount::getUserName(){
+    return userName;
+}
 
-    //计算距离上次结算的天数（实际使用上次登出天数代替）
-    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'").arg(accountNumber)))[0];
-    QDateTime TableTime  = QDateTime::fromString(tableTime,"yyyy-MM-dd hh:mm:ss");
-    int days = -currentDate.daysTo(TableTime.date());
-    if(status == "frozen" ){}//如果frozen了就不结算
-    else{
-        if(type == "normal"){
-            fixedDeposit = fixedDeposit + fixedDeposit*days*NORMALFIXEDRATE;
-            currentDeposit = currentDeposit + currentDeposit*days*NORMALINTERESTRATE;
+QString WAccount::getAccountNumber(){
+    return accountNumber;
+}
 
-        }
-        else
-            fixedDeposit = fixedDeposit + fixedDeposit*days*VIPFIXEDRATE;
-            currentDeposit = currentDeposit + currentDeposit*days*VIPINTERESTRATE;
-    }
+QString WAccount::getStatus(){
+    return status;
+}
 
-    if(!dbAccount.dbUpdate(accountNumber,fixedDeposit,currentDeposit))
-        qDebug()<<"fail to update";
+QString WAccount::getType(){
+    return type;
+}
+
+void WAccount::setUserName(QString name){
+    userName = name;
+}
+
+void WAccount::setAccountNumber(QString number){
+    accountNumber = number;
+}
+
+void WAccount::setType(QString type){
+    this->type = type;
+}
+
+void WAccount::setStatus(){
+    status = "normal";
+}
+
+void WAccount::setStatus(QString Status){
+    status = Status;
+}
+
+void WAccount::changeStatus(){
+    if(status == "normal")
+        status = "frozen";
+    else
+        status = "normal";
 }
 
 void WAccount::freezeAccount(){
+    if(getStatus() == "freeze")
+        return;
     DBAccountManip dbAccount;
     dbAccount.dbUpdate(accountNumber);
 }
 
 void WAccount::releaseAccount(){
+    if(getStatus() == "normal")
+        return;
     DBAccountManip dbAccount;
     dbAccount.dbUpdate(accountNumber);
 }
 
-WAccount::WAccount(){
-    userName = WCurrentUser::userName;
-    accountNumber = "";
-    fixedDeposit = 0.0f;
-    currentDeposit = 0.0f;
-    status = "";
-    type = "";
-}
-
-WAccount::WAccount(QString number){
-    setAccountInfo(number);
-}
-
-void WAccount::setAccountInfo(QString number){
-    DBAccountManip dbAccout;
-    QVector<QString> accountInfo = dbAccout.dbSelect(number);
-    userName = WCurrentUser::userName;
-    accountNumber = number;
-    fixedDeposit = accountInfo[2].toFloat();
-    currentDeposit = accountInfo[3].toFloat();
-    status = accountInfo[4];
-    type = accountInfo[0];
-}
-
-const QString WAccount::getUserName(){
-    return userName;
-}
-
-const QString WAccount::getAccountNumber(){
-    return accountNumber;
-}
-
-float& WAccount::getFixedDeposit(){
-    return fixedDeposit;
-}
-
-float& WAccount::getCurrentDeposit(){
-    return currentDeposit;
-}
-
-const QString WAccount::getStatus(){
-    return status;
-}
-
-const QString WAccount::getType(){
-    return type;
-}
-
-//转账，返回是否操作成功
-bool WAccount::transaction(const transferType Type, const QString otherNumber,const float sum){
-    WTransfer tran(accountNumber,fixedDeposit,currentDeposit,type,sum,otherNumber);
-    DBAccountManip dbAcount;
-    bool result;
-    if(Type == TransferToOther){
-        result = tran.transferToOther();
-        dbAcount.dbUpdate(otherNumber,sum);
-        DBMessageManip dbMessage;
-        QVector<QString> insertInfo;
-        int userKey = DBAccountManip::dbSelectUserKey(otherNumber);
-        insertInfo[0].setNum(userKey);
-        insertInfo[1] = "tranfered into";
-        dbMessage.dbInsert(insertInfo);
-    }
-    else if(Type == TransferToFixed){
-        result = tran.transferToFixed();
-    }
-    else
-        result = tran.transferToCurrent();
-
-    dbAcount.dbUpdate(accountNumber,fixedDeposit,currentDeposit);
-    return result;
-}
-
-//付款，返回是否操作成功
-bool WAccount::payment(const QString paymentType,float sum){
-    WPayment pay(accountNumber,sum,paymentType);
-    bool result = pay.pay();
-    return result;
-}
-
 //最近十条记录，返回的columes依次是sum，time，type
-QVector<QString>& WAccount::recentRecords(){
+QVector<QString> WAccount::recentRecords(){
     QVector<QString> transactionRecord1;
     QVector<QString> transactionRecord2;
     QVector<QString> paymentRecord;
     DBTransactionRecordManip transferManip;
 
     DBPaymentRecordManip paymentManip;
-    int key = DBAccountManip::dbSelectAccountKey(accountNumber);
+    int key = DBAccountManip::dbSelectAccountKey(getAccountNumber());
 
     QString selectInfo1 = QString("SELECT * FROM transactionRecord WHERE accountKey1 = %1").arg(key);
     QString selectInfo2 = QString("SELECT * FROM transactionRecord WHERE accountKey2 = %1 AND accoutKey1 != %1").arg(key);
@@ -184,7 +125,7 @@ QVector<QString>& WAccount::recentRecords(){
     //转时间为QDateTime对象
     int rows = recentRecord.size()/3;
     QDateTime times[rows];
-    for(int i = 0;i<rows;i++,j++)
+    for(int i = 0;i<rows;i++)
         times[i].fromString(recentRecord[1 + 3*i],"yyyy-MM-dd hh:mm:ss");
     //排序
     for(int i = 0;i<rows -1;i++)
@@ -208,3 +149,99 @@ QVector<QString>& WAccount::recentRecords(){
         }
     return recentRecord;
 }
+
+//WNormalAccount 类
+WNormalAccount::WNormalAccount(){
+    setUserName(WCurrentUser::userName);
+    setAccountNumber("");
+    fixedDeposit = 0.0f;
+    currentDeposit = 0.0f;
+    setType("");
+    setStatus();
+}
+
+WNormalAccount::WNormalAccount(QString number){
+    setAccountInfo(number);
+}
+//计算存款的获得利息的函数
+void WNormalAccount::interestCalculation(){
+    QDate currentDate = QDate::currentDate();
+    QString tableTime;
+    DBLogRecordManip dbLogRecord;
+    DBAccountManip dbAccount;
+
+    //计算距离上次结算的天数（实际使用上次登出天数代替）
+    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'")
+                                      .arg(getAccountNumber())))[0];
+    QDateTime TableTime  = QDateTime::fromString(tableTime,"yyyy-MM-dd hh:mm:ss");
+    int days = -currentDate.daysTo(TableTime.date());
+    if(getStatus() == "frozen" ){}//如果frozen了就不结算
+    else{
+        if(getType() == "normal"){
+            fixedDeposit = fixedDeposit + fixedDeposit*days*NORMALFIXEDRATE;
+            currentDeposit = currentDeposit + currentDeposit*days*NORMALINTERESTRATE;
+
+        }
+        else
+            fixedDeposit = fixedDeposit + fixedDeposit*days*VIPFIXEDRATE;
+            currentDeposit = currentDeposit + currentDeposit*days*VIPINTERESTRATE;
+    }
+
+    if(!dbAccount.dbUpdate(getAccountNumber(),fixedDeposit,currentDeposit))
+        qDebug()<<"fail to update";
+}
+
+void WNormalAccount::setAccountInfo(QString number){
+    DBAccountManip dbAccout;
+    QVector<QString> accountInfo = dbAccout.dbSelect(number);
+    setUserName(WCurrentUser::userName);
+    setAccountNumber(number);
+    fixedDeposit = accountInfo[2].toFloat();
+    currentDeposit = accountInfo[3].toFloat();
+    setStatus(accountInfo[4]);
+    setType(accountInfo[0]);
+}
+
+
+
+float& WNormalAccount::getFixedDeposit(){
+    return fixedDeposit;
+}
+
+float& WNormalAccount::getCurrentDeposit(){
+    return currentDeposit;
+}
+
+
+
+//转账，返回是否操作成功
+bool WNormalAccount::transaction(const transferType Type, const QString otherNumber,const float sum){
+    WTransfer tran(getAccountNumber(),fixedDeposit,currentDeposit,getType(),sum,otherNumber);
+    DBAccountManip dbAcount;
+    bool result;
+    if(Type == TransferToOther){
+        result = tran.transferToOther();
+        dbAcount.dbUpdate(otherNumber,sum);
+        DBMessageManip dbMessage;
+        QVector<QString> insertInfo(2);
+        int userKey = DBAccountManip::dbSelectUserKey(otherNumber);
+        insertInfo[0].setNum(userKey);
+        insertInfo[1] = "tranfered into";
+        dbMessage.dbInsert(insertInfo);
+    }
+    else if(Type == TransferToFixed){
+        result = tran.transferToFixed();
+    }
+    else
+        result = tran.transferToCurrent();
+    dbAcount.dbUpdate(getAccountNumber(),fixedDeposit,currentDeposit);
+    return result;
+}
+
+//付款，返回是否操作成功
+bool WNormalAccount::payment(const QString paymentType,float sum){
+    WPayment pay(getAccountNumber(),sum,paymentType);
+    bool result = pay.pay();
+    return result;
+}
+

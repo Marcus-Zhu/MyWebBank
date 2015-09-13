@@ -14,7 +14,8 @@ WUser::WUser(SUserInfo userInfo){
     this->address = userInfo.address;
     this->zipCode = userInfo.zipCode;
     this->type = userInfo.type;
-    this->account = userInfo.account;
+    for(int i = 0;i<userInfo.account.size();i++)
+        this->account.push_back(userInfo.account[i]);
     this->messageAmount = userInfo.messageAmount;
     WCurrentUser::userName = userInfo.name;
     WCurrentUser::password = userInfo.password;
@@ -47,11 +48,11 @@ SUserInfo WUser::getUserInfo(){
 }
 
 //登录函数
-int WUser::checkIn(QString name, QString password){
+int WUser::checkIn(QString Name, QString password){
     DBUserManip dbUser;
-    if(!dbUser.dbSelect(name))
+    if(!dbUser.dbSelect(Name))
         return 1;//用户名不存在
-    else if(!dbUser.dbSelect(name,password))
+    else if(!dbUser.dbSelect(Name,password))
         return 2;//密码不正确
     else
         return 3;//成功登录
