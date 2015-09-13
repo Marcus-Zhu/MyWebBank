@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     QString QmName = transFile.readAll();
     QTranslator *wTranslator = new QTranslator();
     wTranslator->load(QmName);
+    int isChinese = QmName == "trans/chn.qm" ? 1 : 0;
     a.installTranslator(wTranslator);
     transFile.close();
 
@@ -38,7 +39,7 @@ int main(int argc, char *argv[])
     l.exec();
 
     //main window
-    BankUI w;
+    BankUI w(0,isChinese);
     w.setWindowIcon(QIcon("image/logo.png"));
     w.show();
     w.openUX();

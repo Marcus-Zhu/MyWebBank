@@ -321,15 +321,20 @@
         <translation>信用卡卡号</translation>
     </message>
     <message>
+        <source>Total repay amount</source>
+        <translation type="vanished">全部应还款</translation>
+    </message>
+    <message>
         <location filename="pages.cpp" line="604"/>
         <location filename="pages.cpp" line="664"/>
-        <source>Total repay amount</source>
+        <source>Total due</source>
         <translation>全部应还款</translation>
     </message>
     <message>
         <location filename="pages.cpp" line="605"/>
         <location filename="pages.cpp" line="665"/>
-        <source>Minimum repay amount</source>
+        <source>Minimum due</source>
+        <oldsource>Minimum repay amount</oldsource>
         <translation>最低应还款</translation>
     </message>
     <message>

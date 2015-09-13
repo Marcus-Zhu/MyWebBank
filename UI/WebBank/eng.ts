@@ -321,16 +321,21 @@
         <translation>Card Number</translation>
     </message>
     <message>
+        <source>Total repay amount</source>
+        <translation type="vanished">Total repay amount</translation>
+    </message>
+    <message>
         <location filename="pages.cpp" line="604"/>
         <location filename="pages.cpp" line="664"/>
-        <source>Total repay amount</source>
-        <translation>Total repay amount</translation>
+        <source>Total due</source>
+        <translation>Total due</translation>
     </message>
     <message>
         <location filename="pages.cpp" line="605"/>
         <location filename="pages.cpp" line="665"/>
-        <source>Minimum repay amount</source>
-        <translation>Minimum repay amount</translation>
+        <source>Minimum due</source>
+        <oldsource>Minimum repay amount</oldsource>
+        <translation>Minimum due</translation>
     </message>
     <message>
         <location filename="pages.cpp" line="606"/>

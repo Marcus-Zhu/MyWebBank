@@ -601,8 +601,8 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     //components new
     mainTitle->setText(tr("Credit Card Repay"));
     label1 = new QLabel(tr("Card number"), this);
-    label2 = new QLabel(tr("Total repay amount"), this);
-    label3 = new QLabel(tr("Minimum repay amount"), this);
+    label2 = new QLabel(tr("Total due"), this);
+    label3 = new QLabel(tr("Minimum due"), this);
     label4 = new QLabel(tr("Repay account"), this);
     label5 = new QLabel(tr("Repay ammount"), this);
     edit1 = new QComboBox(this);
@@ -661,8 +661,8 @@ void CardRepayPage::updateLanguage()
     //update language in this page
     mainTitle->setText(tr("Credit Card Repay"));
     label1->setText(tr("Card number"));
-    label2->setText(tr("Total repay amount"));
-    label3->setText(tr("Minimum repay amount"));
+    label2->setText(tr("Total due"));
+    label3->setText(tr("Minimum due"));
     label4->setText(tr("Repay account"));
     label5->setText(tr("Repay ammount"));
     confirmBtn->setText(tr("CONFIRM"));

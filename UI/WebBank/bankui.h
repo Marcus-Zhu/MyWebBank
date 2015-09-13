@@ -16,7 +16,7 @@ class BankUI : public QWidget
     Q_OBJECT
 
 public:
-    BankUI(QWidget *parent = 0);
+    BankUI(QWidget *parent = 0, int trans = 0);
     void openUX();
 
 protected:
@@ -58,7 +58,7 @@ private:
     bool isPressed;
     double openingOpacity;
     QPoint movePoint;
-    void setTranslator();
+    void setTranslator(int i);
     void initUI();
     void updateLanguage();
 

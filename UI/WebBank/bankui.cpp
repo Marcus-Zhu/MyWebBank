@@ -10,16 +10,16 @@
 
 #include "bankui.h"
 
-BankUI::BankUI(QWidget *parent)
+BankUI::BankUI(QWidget *parent, int trans)
     : QWidget(parent)
 {
-    setTranslator();
+    setTranslator(trans);
     initUI();
 }
 
-void BankUI::setTranslator()
+void BankUI::setTranslator(int i)
 {
-    isChinese = true;
+    isChinese = i ? true : false;
 }
 
 void BankUI::initUI()

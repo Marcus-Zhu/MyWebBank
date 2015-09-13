@@ -19,7 +19,6 @@ class WPage : public QWidget
 public:
     explicit WPage(QWidget *parent = 0);
     virtual void updateLanguage() = 0;
-public slots:
 protected:
     QLabel *mainTitle;
 };
