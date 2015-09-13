@@ -5,12 +5,13 @@
 #include "WebBankCurrentUser.h"
 #include <QString>
 #include <QSqlDatabase>
+#include <QDate>
 
 //创建user表
 bool DBUserManip::dbTableCreate(){
     QSqlQuery query;
     if(query.exec("CREATE TABLE user (key INTEGER PRIMARY KEY AUTOINCREMENT,"
-               "name VARCHAR(20),password VARCHAR(20),id VARCHAR(20),createdDate VARCHAR(20),tel VARCHAR(20),"
+               "name VARCHAR(20),password VARCHAR(128),id VARCHAR(20),createdDate VARCHAR(20),tel VARCHAR(20),"
                "email VARCHAR(40),address VARCHAR(50),zipCode VARCHAR(10),type VARCHAR(10))"))
         return true;
     else
@@ -23,9 +24,16 @@ bool DBUserManip::dbInsert(QVector<QString> &insertInfo){
     bool result;
     query.prepare("INSERT INTO user (name,password,id,createdDate,tel,email,address,zipCode,type)"
                         "VALUES (?,?,?,?,?,?,?,?,?)");
-    for(int i = 0;i<9;i++){
+    QDate date = QDate::currentDate();
+    QString createdDate = date.toString();
+    insertInfo.insert(3,createdDate);
+    for(int i = 0;i<8;i++)
         query.addBindValue(insertInfo[i]);
-    }
+    long a = insertInfo[4].toLong();
+    if(a%2 == 0)
+        query.addBindValue("normal");
+    else
+        query.addBindValue("VIP");
     if(query.exec())
         result = true;
     else
