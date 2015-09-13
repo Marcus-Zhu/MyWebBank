@@ -42,9 +42,8 @@ public:
     static int checkIn(QString Name,QString password);
     SUserInfo getUserInfo();
     WUser(SUserInfo userInfo);
-    WUser(QString userName);
     WUser(){}
-    ~WUser(){}
+    ~WUser(){};
 };
 
 

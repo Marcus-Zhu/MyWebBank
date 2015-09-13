@@ -91,13 +91,15 @@ int main(int argc, char *argv[])
 //        qDebug()<<"transfer successfully";
 //    else
 //        qDebug()<<"fail to transfer";
-    WQuery que(user.account[0]);
-    QVector<QString> records;
-    QDate date1 = QDate::currentDate().addDays(-3);
-    QDate date2 = QDate::currentDate();
-    records = que.queryBetweenTwoDatesIncome(date1,date2);
-    for(int i = 0;i<records.size();i++)
-        qDebug()<<records[i];
+//    WQuery que(user.account[0]);
+//    QVector<QString> records;
+//    QDate date1 = QDate::currentDate().addDays(-3);
+//    QDate date2 = QDate::currentDate();
+//    records = que.queryBetweenTwoDatesIncome(date1,date2);
+//    for(int i = 0;i<records.size();i++)
+//        qDebug()<<records[i];
+    
+    
 
     return a.exec();
 }
