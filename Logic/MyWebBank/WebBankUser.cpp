@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <QVector>
+#include <QtSql>
 #include "WebBankUser.h"
 #include "WebBankDataBaseManip.h"
 
@@ -20,6 +21,33 @@ WUser::WUser(SUserInfo userInfo){
     WCurrentUser::userName = userInfo.name;
     WCurrentUser::password = userInfo.password;
     WCurrentUser::userType = userInfo.type;
+}
+
+//构造函数
+WUser::WUser(QString userName){
+    QSqlQuery query;
+    query.prepare("SELECT * FROM user WHERE name = ?");
+    query.addBindValue(userName);
+    query.next();
+    name = query.value(1).toString();
+    password = query.value(2).toString();
+    id = query.value(3).toString();
+    createdDate = query.value(4).toString();
+    tel = query.value(5).toString();
+    email = query.value(6).toString();
+    address = query.value(7).toString();
+    zipCode = query.value(8).toString();
+    type = query.value(9).toString();
+    WCurrentUser::userName = info.name;
+    query.prepare("SELECT number FROM account WHERE userKey = ?");
+    query.addBindValue(DBUserManip::dbSelectUserKey());
+    int i = 0;
+    while(query.next()&&i<3){
+        account.push_back(query.value(0).toString());
+        i++;
+    }
+    WMessage message;
+    messageAmount = message.getMessageNumber();
 }
 
 //修改密码
