@@ -4,7 +4,8 @@
 #include "WebBankDataBaseManip.h"
 
 //构造函数
-WUser::WUser(SUserInfo userInfo){
+WUser::WUser(SUserInfo userInfo)
+{
     this->name = userInfo.name;
     this->password = userInfo.password;
     this->id = userInfo.id;
@@ -14,7 +15,7 @@ WUser::WUser(SUserInfo userInfo){
     this->address = userInfo.address;
     this->zipCode = userInfo.zipCode;
     this->type = userInfo.type;
-    for(int i = 0;i<userInfo.account.size();i++)
+    for(int i = 0; i < userInfo.account.size(); i++)
         this->account.push_back(userInfo.account[i]);
     this->messageAmount = userInfo.messageAmount;
     WCurrentUser::userName = userInfo.name;
@@ -23,17 +24,19 @@ WUser::WUser(SUserInfo userInfo){
 }
 
 //修改密码
-bool WUser::setPassword(QString oldPassword,QString newPassword){
+bool WUser::setPassword(QString oldPassword, QString newPassword)
+{
     DBUserManip dbUser;
-    if(!dbUser.dbSelect(name,oldPassword))
+    if(!dbUser.dbSelect(name, oldPassword))
         return false;
     else
         return dbUser.dbUpdate(newPassword);
 }
 
 //获取用户信息
-SUserInfo WUser::getUserInfo(){
-    SUserInfo* info = new SUserInfo;
+SUserInfo WUser::getUserInfo()
+{
+    SUserInfo *info = new SUserInfo;
     info->name = name;
     info->password = password;
     info->id = id;
@@ -48,18 +51,20 @@ SUserInfo WUser::getUserInfo(){
 }
 
 //登录函数
-int WUser::checkIn(QString Name, QString password){
+int WUser::checkIn(QString Name, QString password)
+{
     DBUserManip dbUser;
     if(!dbUser.dbSelect(Name))
         return 1;//用户名不存在
-    else if(!dbUser.dbSelect(Name,password))
+    else if(!dbUser.dbSelect(Name, password))
         return 2;//密码不正确
     else
         return 3;//成功登录
 }
 
 //添加新account
-bool WUser::addAccount(QString number,QString type){
+bool WUser::addAccount(QString number, QString type)
+{
     DBAccountManip accountManip;
     QVector<QString> insertInfo;
     insertInfo.push_back(type);

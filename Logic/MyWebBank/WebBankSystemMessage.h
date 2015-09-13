@@ -1,7 +1,8 @@
 #ifndef WEBBANKSYSTEMMESSAGE_H
 #define WEBBANKSYSTEMMESSAGE_H
 
-class WMessage{
+class WMessage
+{
 private:
     bool haveNewMessage;
     int messageNumber;

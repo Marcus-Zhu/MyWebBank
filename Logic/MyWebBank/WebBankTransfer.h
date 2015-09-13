@@ -5,20 +5,22 @@
 #include <QString>
 
 
-class WTransfer{
+class WTransfer
+{
 private:
     QString myAccountNumber;
     QString transferedAccountNumber;
     QString type;
     float sum;
-    float& fixedDeposit;
-    float& currentDeposit;
+    float &fixedDeposit;
+    float &currentDeposit;
 public:
     bool transferToOther();
-    bool transferToFixed();\
+    bool transferToFixed();
+    \
     bool transferToCurrent();
-    WTransfer(const QString number,float& fixedDeposit, float& currentDeposit,
-              const QString type,const float sum,const QString otherAccount);
+    WTransfer(const QString number, float &fixedDeposit, float &currentDeposit,
+              const QString type, const float sum, const QString otherAccount);
 };
 
 #endif // WEBBANKTRANSFER_H

@@ -4,7 +4,8 @@
 #include <QVector>
 #include <QDate>
 
-class WQuery{
+class WQuery
+{
 public:
     QVector<QString> queryInfoRecentTenRecords;
     QVector<QString> queryRecentTenRecords();
@@ -17,11 +18,11 @@ public:
     QVector<QString> queryLatestThreeMonthIncome();
 
     QVector<QString> queryInfoBetweenDates;
-    QVector<QString> queryBetweenTwoDates(QDate dateFrom,QDate dateTo);
-    QVector<QString> queryBetweenTwoDatesIncome(QDate dateFrom,QDate dateTo);
-    QVector<QString> queryBetweenTwoDatesExpense(QDate dateFrom,QDate dateTo);
+    QVector<QString> queryBetweenTwoDates(QDate dateFrom, QDate dateTo);
+    QVector<QString> queryBetweenTwoDatesIncome(QDate dateFrom, QDate dateTo);
+    QVector<QString> queryBetweenTwoDatesExpense(QDate dateFrom, QDate dateTo);
 
-    WQuery(QString number):number(number){}
+    WQuery(QString number): number(number) {}
 private:
     QString number;
 };
