@@ -5,12 +5,13 @@
 #include <QVariant>
 #include <QDebug>
 
-#include "WebBankSystemMessage.h"
-#include "WebBankUser.h"
-#include "WebBankCurrentUser.h"
-#include "WebBankDataBaseManip.h"
+#include "wsysmsg.h"
+#include "wuser.h"
+#include "wcurrentuser.h"
+#include "wDBmanip.h"
 
-WUser::WUser(SUserInfo userInfo){
+WUser::WUser(SUserInfo userInfo)
+{
     this->name = userInfo.name;
     this->password = userInfo.password;
     this->id = userInfo.id;
@@ -20,7 +21,7 @@ WUser::WUser(SUserInfo userInfo){
     this->address = userInfo.address;
     this->zipCode = userInfo.zipCode;
     this->type = userInfo.type;
-    for(int i = 0;i<userInfo.account.size();i++)
+    for(int i = 0; i < userInfo.account.size(); i++)
         this->account.push_back(userInfo.account[i]);
     this->messageAmount = userInfo.messageAmount;
     WCurrentUser::userName = userInfo.name;
@@ -28,7 +29,8 @@ WUser::WUser(SUserInfo userInfo){
     WCurrentUser::userType = userInfo.type;
 }
 
-WUser::WUser(QString userName){
+WUser::WUser(QString userName)
+{
     QSqlQuery query;
     query.prepare("SELECT * FROM user WHERE name = ?");
     query.addBindValue(userName);
@@ -48,7 +50,7 @@ WUser::WUser(QString userName){
     query.addBindValue(DBUserManip::dbSelectUserKey());
     query.exec();
     int i = 0;
-    while(query.next() && i<3)
+    while(query.next() && i < 3)
     {
         account.push_back(query.value(0).toString());
         i++;
@@ -57,16 +59,18 @@ WUser::WUser(QString userName){
     messageAmount = message.getMessageNumber();
 }
 
-bool WUser::setPassword(QString oldPassword,QString newPassword){
+bool WUser::setPassword(QString oldPassword, QString newPassword)
+{
     DBUserManip dbUser;
-    if(!dbUser.dbSelect(name,oldPassword))
+    if(!dbUser.dbSelect(name, oldPassword))
         return false;
     else
         return dbUser.dbUpdate(newPassword);
 }
 
-SUserInfo WUser::getUserInfo(){
-    SUserInfo* info = new SUserInfo;
+SUserInfo WUser::getUserInfo()
+{
+    SUserInfo *info = new SUserInfo;
     info->name = name;
     info->password = password;
     info->id = id;
@@ -80,11 +84,12 @@ SUserInfo WUser::getUserInfo(){
     return *info;
 }
 
-int WUser::checkIn(QString name, QString password){
+int WUser::checkIn(QString name, QString password)
+{
     DBUserManip dbUser;
     if(!dbUser.dbSelect(name))
         return 1;
-    else if(!dbUser.dbSelect(name,password))
+    else if(!dbUser.dbSelect(name, password))
         return 2;
     else
     {
@@ -93,7 +98,8 @@ int WUser::checkIn(QString name, QString password){
     }
 }
 
-bool WUser::addAccount(QString number,QString type){
+bool WUser::addAccount(QString number, QString type)
+{
     DBAccountManip accountManip;
     QVector<QString> insertInfo;
     insertInfo.push_back(type);

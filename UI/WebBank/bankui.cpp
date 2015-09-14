@@ -10,7 +10,7 @@
 #include <QPropertyAnimation>
 
 #include "bankui.h"
-#include "WebBankCurrentUser.h"
+#include "wcurrentuser.h"
 
 BankUI::BankUI(QWidget *parent, int trans)
     : QWidget(parent)
@@ -87,14 +87,14 @@ void BankUI::changeLanguage()
 
     //write current language into trans.ini
     QFile transFile("trans/trans.ini");
-    transFile.open(QFile::WriteOnly|QFile::Truncate);
+    transFile.open(QFile::WriteOnly | QFile::Truncate);
     isChinese ? transFile.write("trans/chn.qm") : transFile.write("trans/eng.qm");
     transFile.close();
 }
 
 void BankUI::updateLanguage()
 {
-    //update the language in this widget    
+    //update the language in this widget
     QString loginfo = tr("User: ");
     loginfo.append(WCurrentUser::userName);
     logInfoLabel->setText(loginfo);
@@ -314,7 +314,7 @@ bool BankUI::closeWindow()
     animation1->setStartValue(QRect(pos.rx(), pos.ry(), 1000, 750));
     animation1->setEndValue(QRect(pos.rx() + 300, pos.ry() + 250, 400, 300));
     animation1->setEasingCurve(QEasingCurve::OutSine);
-    
+
     //set opacity change animation
     QPropertyAnimation *animation2 = new QPropertyAnimation(this, "windowOpacity");
     animation2->setDuration(165);

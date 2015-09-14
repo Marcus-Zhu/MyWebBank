@@ -5,7 +5,9 @@
 #include <QHeaderView>
 #include <QListWidget>
 #include <QToolButton>
+#include <QTime>
 #include <QDebug>
+#include <QCryptographicHash>
 
 WPage::WPage(QWidget *parent): QWidget(parent)
 {
@@ -35,6 +37,7 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->setGeometry(QRect(24, 72, 708, 192));
     table2->setGeometry(QRect(24, 336, 708, 192));
 
+
     //setup table1
     int accountNum = WUIManip::getAccountNum();
 
@@ -42,21 +45,31 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->setRowCount(accountNum);
 
     QStringList header1;
-    header1 << tr("Type") << tr("Card Number")
-            << tr("Fixed")  << tr("Deposit") << tr("Status");
+    header1 << tr("Card Type")
+            << tr("Card Number")
+            << tr("Fixed")
+            << tr("Deposit")
+            << tr("Status");
     table1->setHorizontalHeaderLabels(header1);
-    table1->horizontalHeader()->resizeSection(0,40);
-    table1->horizontalHeader()->resizeSection(1,200);
-    table1->horizontalHeader()->resizeSection(2,120);
-    table1->horizontalHeader()->resizeSection(3,120);
+    table1->horizontalHeader()->resizeSection(0, 160);
+    table1->horizontalHeader()->resizeSection(1, 240);
+    table1->horizontalHeader()->resizeSection(2, 110);
+    table1->horizontalHeader()->resizeSection(3, 110);
 
     for (int i = 0; i < accountNum; ++i)
     {
-
         QVector<QString> accountInfo = WUIManip::getAccountInfo(i);
         for (int j = 0; j < 5; ++j)
         {
             table1->setItem(i, j, new QTableWidgetItem(accountInfo[j]));
+            if (j != 2 && j != 3)
+            {
+                table1->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            }
+            else
+            {
+                table1->item(i, j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
         }
     }
 
@@ -68,25 +81,33 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->setShowGrid(false);
     table1->setSelectionBehavior(QAbstractItemView::SelectRows);
     table1->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table1->horizontalHeader()->resizeSection(0, 150);
+    table1->horizontalHeader()->setHighlightSections(false);
     table1->verticalHeader()->setDefaultSectionSize(48);
 
     //setup table2
     QVector<QString> recordInfo = WUIManip::getAccountRecord(0);
     table2->setColumnCount(3);
-    table2->setRowCount(recordInfo.size()/3);
+    table2->setRowCount(recordInfo.size() / 3);
 
     QStringList header2;
-    header2 << tr("Amount") << tr("Time") << tr("Type");
+    header2 << tr("Amount") << tr("Time") << tr("Transaction Type");
     table2->setHorizontalHeaderLabels(header2);
-    table2->horizontalHeader()->resizeSection(0,150);
-    table2->horizontalHeader()->resizeSection(1,250);
+    table2->horizontalHeader()->resizeSection(0, 100);
+    table2->horizontalHeader()->resizeSection(1, 250);
 
-    for (int i = 0; i < recordInfo.size()/3; ++i)
+    for (int i = 0; i < recordInfo.size() / 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3*i+j]));
+            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            if (j != 0)
+            {
+                table2->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            }
+            else
+            {
+                table2->item(i, j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
         }
     }
 
@@ -98,23 +119,31 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table2->setShowGrid(false);
     table2->setSelectionBehavior(QAbstractItemView::SelectRows);
     table2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table2->horizontalHeader()->resizeSection(0, 150);
+    table2->horizontalHeader()->setHighlightSections(false);
     table2->verticalHeader()->setDefaultSectionSize(48);
 
-    connect(table1, SIGNAL(cellClicked(int,int)), this, SLOT(showAccountRecord(int, int)));
+    connect(table1, SIGNAL(cellClicked(int, int)), this, SLOT(showAccountRecord(int, int)));
 }
 
 void MyAccountPage::showAccountRecord(int row, int column)
 {
     QVector<QString> recordInfo = WUIManip::getAccountRecord(row);
-    QStringList header2;
-    table2->setRowCount(recordInfo.size()/3);
+    column;
+    table2->setRowCount(recordInfo.size() / 3);
     table2->clearContents();
-    for (int i = 0; i < recordInfo.size()/3; ++i)
+    for (int i = 0; i < recordInfo.size() / 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3*i+j]));
+            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            if (j != 0)
+            {
+                table2->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            }
+            else
+            {
+                table2->item(i, j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
         }
     }
 }
@@ -124,11 +153,24 @@ void MyAccountPage::updateLanguage()
     //update language in this page
     mainTitle->setText(tr("My Account"));
     title2->setText(tr("Recent Transaction Records"));
+
+    QStringList header1;
+    header1 << tr("Card Type")
+            << tr("Card Number")
+            << tr("Fixed")
+            << tr("Deposit")
+            << tr("Status");
+    table1->setHorizontalHeaderLabels(header1);
+
+    QStringList header2;
+    header2 << tr("Amount") << tr("Time") << tr("Transaction Type");
+    table2->setHorizontalHeaderLabels(header2);
 }
 
 AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
 {
     //components new
+    bgLabel = new QLabel(this);
     mainTitle->setText(tr("Account Query"));
 
     label1 = new QLabel(tr("Account"), this);
@@ -148,6 +190,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     calendar2->setGridVisible(false);
 
     //set object name
+    bgLabel->setObjectName("CAQbg");
     label1->setObjectName("CAQLabel");
     label2->setObjectName("CAQDate");
     accountBox->setObjectName("CAQAccount");
@@ -161,6 +204,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     calendarLabel->setObjectName("calendarLabel");
 
     //set position and size
+    bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(368, 92, 100, 24));
@@ -188,7 +232,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     calendar2->setVisible(false);
     calendarLabel->setVisible(false);
 
-    //setup accounts    
+    //setup accounts
     int accountNum = WUIManip::getAccountNum();
     for (int i = 0; i < accountNum; ++i)
     {
@@ -203,10 +247,10 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     table->setRowCount(5);
 
     QStringList header;
-    header << tr("Amount") << tr("Time") << tr("Type");
+    header << tr("Amount") << tr("Time") << tr("Transaction Type");
     table->setHorizontalHeaderLabels(header);
-    table->horizontalHeader()->resizeSection(0,150);
-    table->horizontalHeader()->resizeSection(1,250);
+    table->horizontalHeader()->resizeSection(0, 100);
+    table->horizontalHeader()->resizeSection(1, 250);
     WDelegate *CAQDele = new WDelegate();
     table->setItemDelegate(CAQDele);
     table->verticalHeader()->hide();
@@ -214,7 +258,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     table->setShowGrid(false);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table->horizontalHeader()->resizeSection(0, 150);
+    table->horizontalHeader()->setHighlightSections(false);
     table->verticalHeader()->setDefaultSectionSize(48);
 
     //setup date edit
@@ -229,6 +273,8 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     connect(calendar1, SIGNAL(clicked(QDate)), this, SLOT(setCalendar1()));
     connect(toDate, SIGNAL(Wclicked()), this, SLOT(showCalendar2()));
     connect(calendar2, SIGNAL(clicked(QDate)), this, SLOT(setCalendar2()));
+    connect(incomeCkBox, SIGNAL(clicked(bool)), this, SLOT(popExpense()));
+    connect(expenseCkBox, SIGNAL(clicked(bool)), this, SLOT(popIncome()));
     connect(searchBtn, SIGNAL(clicked(bool)), this, SLOT(search()));
     connect(recentBtn, SIGNAL(clicked(bool)), this, SLOT(recent()));
 }
@@ -269,14 +315,21 @@ void AccountQueryPage::search()
             records = WUIManip::dateQuery(0, accountBox->currentText(), from, to);
         }
     }
-    QStringList header;
-    table->setRowCount(records.size()/3);
+    table->setRowCount(records.size() / 3);
     table->clearContents();
-    for (int i = 0; i < records.size()/3; ++i)
+    for (int i = 0; i < records.size() / 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            table->setItem(i, j, new QTableWidgetItem(records[3*i+j]));
+            table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            if (j != 0)
+            {
+                table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            }
+            else
+            {
+                table->item(i, j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
         }
     }
 }
@@ -297,15 +350,33 @@ void AccountQueryPage::recent()
         records = WUIManip::query(4, accountBox->currentText());
     }
     QStringList header;
-    table->setRowCount(records.size()/3);
+    table->setRowCount(records.size() / 3);
     table->clearContents();
-    for (int i = 0; i < records.size()/3; ++i)
+    for (int i = 0; i < records.size() / 3; ++i)
     {
         for (int j = 0; j < 3; ++j)
         {
-            table->setItem(i, j, new QTableWidgetItem(records[3*i+j]));
+            table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            if (j != 0)
+            {
+                table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            }
+            else
+            {
+                table->item(i, j)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
         }
     }
+}
+
+void AccountQueryPage::popExpense()
+{
+    expenseCkBox->setChecked(false);
+}
+
+void AccountQueryPage::popIncome()
+{
+    incomeCkBox->setChecked(false);
 }
 
 void AccountQueryPage::showCalendar1()
@@ -336,11 +407,6 @@ void AccountQueryPage::setCalendar2()
     calendarLabel->setVisible(false);
 }
 
-void AccountQueryPage::showMsgBox()
-{
-    WMsgBox::information(tr("Success!"));
-}
-
 void AccountQueryPage::updateLanguage()
 {
     //update language in this page
@@ -351,6 +417,10 @@ void AccountQueryPage::updateLanguage()
     expenseCkBox->setText(tr("Expense"));
     searchBtn->setText(tr("SEARCH"));
     recentBtn->setText(tr("Recent Three Months"));
+
+    QStringList header;
+    header << tr("Amount") << tr("Time") << tr("Transaction Type");
+    table->setHorizontalHeaderLabels(header);
 }
 
 TransferPage::TransferPage(QWidget *parent) : WPage(parent)
@@ -470,6 +540,8 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     WDelegate *CCFDele1 = new WDelegate();
     edit1->setItemDelegate(CCFDele1);
 
+    edit3->setText(edit1->currentText());
+
     edit4->addItem(tr("Current to Fix"));
     edit4->addItem(tr("Fix to Current"));
     WDelegate *CCFDele2 = new WDelegate();
@@ -489,11 +561,13 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     edit5->setGeometry(QRect(288, 280, 400, 32));
     confirmBtn->setGeometry(QRect(584, 336, 108, 36));
 
+    connect(edit1, SIGNAL(currentIndexChanged(QString)), edit3, SLOT(setText(QString)));
     connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
 }
 
 void CurrentFixPage::confirm()
 {
+    edit3->setText(edit1->currentText());
     bool val = WUIManip::currentFix(edit4->currentIndex(), edit1->currentText(), edit3->text(), edit5->text());
     if (val)
         WMsgBox::information(tr("Action Success!"));
@@ -524,7 +598,7 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     mainTitle->setText(tr("Payment"));
     label1 = new QLabel(tr("Item"), this);
     label2 = new QLabel(tr("Paying account"), this);
-    label3 = new QLabel(tr("Bill number"), this);
+    label3 = new QLabel(tr("Due"), this);
     edit1 = new QComboBox(this);
     edit2 = new QComboBox(this);
     edit3 = new QLineEdit(this);
@@ -541,7 +615,15 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     autoBtn->setObjectName("CPAutoBtn");
     confirmBtn->setObjectName("CPConfirmBtn");
 
-    //setup combobox item
+    //setup item
+    edit3->setEnabled(false);
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    int value[3];
+    for (int i = 0; i < 3; ++i)
+    {
+        value[i] = qrand() % 150 + 150;
+    }
+    edit3->setText(QString::number(value[0]));
     edit1->addItem(tr("Water Bill"));
     edit1->addItem(tr("Electricity Bill"));
     edit1->addItem(tr("Gas Bill"));
@@ -588,10 +670,10 @@ void PaymentPage::confirm()
 void PaymentPage::updateLanguage()
 {
     //update language in this page
-    mainTitle->setText(tr("Current Fixed Transfer"));
-    label1->setText(tr("Paying account"));
-    label2->setText(tr("Receiver's name"));
-    label3->setText(tr("Receiver's account"));
+    mainTitle->setText(tr("Payment"));
+    label1->setText(tr("Item"));
+    label2->setText(tr("Paying account"));
+    label3->setText(tr("Due"));
     autoBtn->setText(tr("SET AUTOPAY"));
     confirmBtn->setText(tr("CONFIRM"));
     edit1->clear();
@@ -605,6 +687,7 @@ void PaymentPage::updateLanguage()
 AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 {
     //components new
+    bgLabel = new QLabel(this);
     mainTitle->setText(tr("Auto Payment"));
     label1 = new QLabel(tr("Item"), this);
     label2 = new QLabel(tr("Paying account"), this);
@@ -616,6 +699,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     table = new QTableWidget(this);
 
     //set object name
+    bgLabel->setObjectName("CAPbg");
     label1->setObjectName("CAPLabel1");
     label2->setObjectName("CAPLabel2");
     title2->setObjectName("CAPLabel3");
@@ -642,6 +726,7 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     edit2->setItemDelegate(CAPDele2);
 
     //set position and size
+    bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
     label2->setGeometry(QRect(24, 140, 200, 24));
@@ -659,13 +744,6 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     QStringList headers;
     headers << "ID" << "Name" << "Age" << "Sex";
     table->setHorizontalHeaderLabels(headers);
-    table->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-    table->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-    table->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-    table->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-    table->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-    table->setItem(5, 0, new QTableWidgetItem(QString("0006")));
-    table->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
     WDelegate *CAPDele = new WDelegate();
     table->setItemDelegate(CAPDele);
     table->verticalHeader()->hide();
@@ -675,6 +753,18 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->resizeSection(0, 150);
     table->verticalHeader()->setDefaultSectionSize(48);
+
+    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(setAutoPay()));
+    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(cancelAutoPay()));
+}
+
+void AutoPayPage::setAutoPay()
+{
+
+}
+
+void AutoPayPage::cancelAutoPay()
+{
 
 }
 
@@ -719,6 +809,13 @@ CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
     confirmBtn->setGeometry(QRect(584, 144, 108, 36));
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void CardApplyPage::confirm()
+{
+
 }
 
 void CardApplyPage::updateLanguage()
@@ -763,6 +860,13 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
     activateBtn->setGeometry(QRect(584, 144, 108, 36));
+
+    connect(activateBtn, SIGNAL(clicked(bool)), this, SLOT(activate()));
+}
+
+void CardActivatePage::activate()
+{
+
 }
 
 void CardActivatePage::updateLanguage()
@@ -841,6 +945,13 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     edit4->setGeometry(QRect(288, 232, 400, 32));
     edit5->setGeometry(QRect(288, 280, 400, 32));
     confirmBtn->setGeometry(QRect(584, 336, 108, 36));
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void CardRepayPage::confirm()
+{
+
 }
 
 void CardRepayPage::updateLanguage()
@@ -884,6 +995,13 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
     label1->setGeometry(QRect(24, 92, 200, 24));
     edit1->setGeometry(QRect(288, 88, 400, 32));
     reportBtn->setGeometry(QRect(584, 144, 108, 36));
+
+    connect(reportBtn, SIGNAL(clicked(bool)), this, SLOT(report()));
+}
+
+void CardLostPage::report()
+{
+
 }
 
 void CardLostPage::updateLanguage()
@@ -954,6 +1072,16 @@ UserInfoPage::UserInfoPage(QWidget *parent) : WPage(parent)
     edit5->setGeometry(QRect(288, 280, 400, 32));
     edit6->setGeometry(QRect(288, 336, 400, 32));
     edit7->setGeometry(QRect(288, 384, 400, 32));
+
+    //set info
+    QVector<QString> info = WUIManip::userInfo();
+    edit1->setText(info[0]);
+    edit2->setText(info[1]);
+    edit3->setText(info[2]);
+    edit4->setText(info[3]);
+    edit5->setText(info[4]);
+    edit6->setText(info[5]);
+    edit7->setText(info[6]);
 }
 
 void UserInfoPage::updateLanguage()
@@ -999,6 +1127,38 @@ ChangePwPage::ChangePwPage(QWidget *parent) : WPage(parent)
     edit2->setGeometry(QRect(288, 136, 400, 32));
     edit3->setGeometry(QRect(288, 184, 400, 32));
     confirmBtn->setGeometry(QRect(584, 240, 108, 36));
+
+    edit1->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    edit2->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    edit3->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void ChangePwPage::confirm()
+{
+    if (edit2->text() != edit3->text())
+    {
+        WMsgBox::information(tr("New Password Inconsistent!"));
+        return;
+    }
+    QString encrypted1, encrypted2;
+    QByteArray bin1, bin2;
+    bin1 = QCryptographicHash::hash(edit1->text().toLatin1(), QCryptographicHash::Sha3_256);
+    bin2 = QCryptographicHash::hash(edit2->text().toLatin1(), QCryptographicHash::Sha3_256);
+    encrypted1.append(bin1.toHex());
+    encrypted2.append(bin2.toHex());
+    bool val = WUIManip::changePwd(encrypted1, encrypted2);
+    if (val)
+    {
+        WMsgBox::information(tr("Action Success!"));
+        return;
+    }
+    else
+    {
+        WMsgBox::information(tr("Action Failed!"));
+        return;
+    }
 }
 
 void ChangePwPage::updateLanguage()
@@ -1027,20 +1187,23 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     table->setGeometry(QRect(24, 72, 708, 480));
 
     //setup table
-    table->setColumnCount(3);
-    table->setRowCount(5);
+    QVector<QString> msg = WUIManip::getSysMsg();
+    table->setColumnCount(2);
+    table->setRowCount(msg.size()/2);
 
     QStringList headers;
-    headers << "ID" << "Name" << "Age" << "Sex";
+    headers << tr("Message Time") << tr("Content");
     table->setHorizontalHeaderLabels(headers);
+    table->horizontalHeader()->resizeSection(0,400);
 
-    table->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-    table->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-    table->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-    table->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-    table->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-    table->setItem(5, 0, new QTableWidgetItem(QString("0006")));
-    table->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+    for (int i = 0; i < msg.size()/2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
+            table->setItem(i, j, new QTableWidgetItem(msg[j]));
+            table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+        }
+    }
 
     WDelegate *CSMDele = new WDelegate();
     table->setItemDelegate(CSMDele);
@@ -1050,6 +1213,7 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     table->setShowGrid(false);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->horizontalHeader()->setHighlightSections(false);
     table->horizontalHeader()->resizeSection(0, 150);
     table->verticalHeader()->setDefaultSectionSize(48);
 }

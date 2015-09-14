@@ -48,11 +48,11 @@ int main(int argc, char *argv[])
     l.exec();
 
     //main window
-    BankUI w(0,isChinese);
+    BankUI w(0, isChinese);
     w.setWindowIcon(QIcon("image/logo.png"));
     w.show();
     w.openUX();
 
-//    db.close();
+    //    db.close();
     return a.exec();
 }

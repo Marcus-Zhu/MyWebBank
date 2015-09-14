@@ -5,10 +5,11 @@
 #include <QString>
 #include <QDate>
 
-class WPayment{
+class WPayment
+{
 public:
     WPayment();
-    WPayment(QString accountNumber,float sum = 0.0,QString paymentType = "");
+    WPayment(QString accountNumber, float sum = 0.0, QString paymentType = "");
     void setAutoPayment(bool ifChoose[3]);
     bool isAutoPaymentEmpty();
     bool pay();

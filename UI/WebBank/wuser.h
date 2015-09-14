@@ -5,9 +5,10 @@
 #include <QCoreApplication>
 #include <QtSql/QSqlDatabase>
 #include <QVector>
-#include "WebBankCurrentUser.h"
+#include "wcurrentuser.h"
 
-struct SUserInfo{
+struct SUserInfo
+{
     QString name;
     QString password;
     QString id;
@@ -21,7 +22,8 @@ struct SUserInfo{
     int messageAmount;
 };
 
-class WUser{
+class WUser
+{
 private:
     QString name;
     QString password;
@@ -36,14 +38,17 @@ private:
 public:
     QVector<QString> account;
     bool setPassword(QString oldPassword, QString newPassword);
-    bool addAccount(QString number,QString type);
-    int getAccountAmount(){return account.size();}
-    static int checkIn(QString Name,QString password);
+    bool addAccount(QString number, QString type);
+    int getAccountAmount()
+    {
+        return account.size();
+    }
+    static int checkIn(QString Name, QString password);
     SUserInfo getUserInfo();
     WUser(SUserInfo userInfo);
     WUser(QString userName);
-    WUser(){}
-    ~WUser(){}
+    WUser() {}
+    ~WUser() {}
 };
 
 

@@ -1,10 +1,11 @@
 #include "wuimanip.h"
-#include "WebBankCurrentUser.h"
-#include "WebBankDataBaseManip.h"
-#include "WebBankUser.h"
-#include "WebBankAccount.h"
-#include "WebBankCreditCard.h"
-#include "WebBankQuery.h"
+#include "wcurrentuser.h"
+#include "wDBmanip.h"
+#include "wuser.h"
+#include "waccount.h"
+#include "wcreditcard.h"
+#include "wquery.h"
+#include "wuser.h"
 
 #include <QString>
 #include <QVector>
@@ -27,7 +28,7 @@ bool WUIManip::registration(QVector<QString> userInfo)
     if (val1) return false;
     bool val2 = userManip.dbInsert(userInfo);
     WUser user;
-    user.addAccount(userInfo[8],"normalAccount");
+    user.addAccount(userInfo[8], "normalAccount");
     return val2;
 }
 
@@ -163,7 +164,7 @@ QVector<QString> WUIManip::query(int type, QString account)
     return records;
 }
 
-QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom,QDate dateTo)
+QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom, QDate dateTo)
 {
     qDebug() << dateFrom << dateTo;
     QVector<QString> records;
@@ -181,4 +182,36 @@ QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom,Q
         break;
     }
     return records;
+}
+
+
+
+QVector<QString> WUIManip::getSysMsg()
+{
+    DBMessageManip msgManip;
+    QVector<QString> msg = msgManip.dbSelect();
+    msgManip.dbUpdate("");
+    return msg;
+}
+
+bool WUIManip::changePwd(QString oldPwd, QString newPwd)
+{
+    WUser user(WCurrentUser::userName);
+    bool val = user.setPassword(oldPwd, newPwd);
+    return val;
+}
+
+QVector<QString> WUIManip::userInfo()
+{
+    WUser user(WCurrentUser::userName);
+    QVector<QString> vec;
+    SUserInfo info = user.getUserInfo();
+    vec.push_back(info.name);
+    vec.push_back(info.id);
+    vec.push_back(info.createdDate);
+    vec.push_back(info.tel);
+    vec.push_back(info.email);
+    vec.push_back(info.address);
+    vec.push_back(info.zipCode);
+    return vec;
 }

@@ -3,7 +3,8 @@
 
 #include<QString>
 
-class WCurrentUser{
+class WCurrentUser
+{
 public:
     static QString userName;
     static QString password;

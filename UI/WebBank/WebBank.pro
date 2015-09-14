@@ -23,16 +23,16 @@ SOURCES += main.cpp\
     wloading.cpp \
     wlineedit.cpp \
     wuimanip.cpp \
-    WebBankCurrentUser.cpp \
-    WebBankDataBaseManip.cpp \
-    WebBankUser.cpp \
-    WebBankSystemMessage.cpp \
     wmsgbox.cpp \
-    WebBankAccount.cpp \
-    WebBankCreditCard.cpp \
-    WebBankPayment.cpp \
-    WebBankTransfer.cpp \
-    WebBankQuery.cpp
+    wuser.cpp \
+    wtransfer.cpp \
+    wsysmsg.cpp \
+    wquery.cpp \
+    wpayment.cpp \
+    wDBmanip.cpp \
+    waccount.cpp \
+    wcreditcard.cpp \
+    wcurrentuser.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
@@ -43,16 +43,16 @@ HEADERS  += bankui.h \
     wloading.h \
     wlineedit.h \
     wuimanip.h \
-    WebBankCurrentUser.h \
-    WebBankDataBaseManip.h \
-    WebBankUser.h \
-    WebBankSystemMessage.h \
     wmsgbox.h \
-    WebBankAccount.h \
-    WebBankCreditCard.h \
-    WebBankPayment.h \
-    WebBankTransfer.h \
-    WebBankQuery.h
+    wuser.h \
+    wtransfer.h \
+    wsysmsg.h \
+    wquery.h \
+    wpayment.h \
+    wDBmanip.h \
+    waccount.h \
+    wcreditcard.h \
+    wcurrentuser.h
 
 RESOURCES += \
     styleset.qrc

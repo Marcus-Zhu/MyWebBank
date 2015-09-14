@@ -4,10 +4,12 @@
 #include <QVector>
 #include <QString>
 
-enum transferType{TransferToOther = 1,TransferToFixed = 2,
-                 TransferToCurrent = 3};
+enum transferType {TransferToOther = 1, TransferToFixed = 2,
+                   TransferToCurrent = 3
+                  };
 
-class WAccount{
+class WAccount
+{
 private:
     QString userName;
     QString accountNumber;
@@ -31,7 +33,8 @@ public:
 };
 
 
-class WNormalAccount:public WAccount{
+class WNormalAccount: public WAccount
+{
 private:
     float fixedDeposit;
     float currentDeposit;
@@ -40,8 +43,8 @@ public:
     WNormalAccount();
     WNormalAccount(QString number);
     void interestCalculation();
-    float& getFixedDeposit();
-    float& getCurrentDeposit();
+    float &getFixedDeposit();
+    float &getCurrentDeposit();
     bool transaction(const transferType Type, const QString otherNumber, const float sum);
     bool payment(const QString paymentType, float sum);
 };

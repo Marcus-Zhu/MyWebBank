@@ -49,10 +49,12 @@ public slots:
     void showCalendar2();
     void setCalendar1();
     void setCalendar2();
-    void showMsgBox();
+    void popExpense();
+    void popIncome();
     void search();
     void recent();
 private:
+    QLabel *bgLabel;
     QLabel *label1;
     QLabel *label2;
     QComboBox *accountBox;
@@ -141,8 +143,10 @@ public:
     explicit AutoPayPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
-
+    void setAutoPay();
+    void cancelAutoPay();
 private:
+    QLabel *bgLabel;
     QLabel *label1;
     QLabel *label2;
     QLabel *title2;
@@ -160,6 +164,7 @@ public:
     explicit CardApplyPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void confirm();
 private:
     QLabel *label1;
     QComboBox *edit1;
@@ -173,6 +178,7 @@ public:
     explicit CardActivatePage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void activate();
 private:
     QLabel *label1;
     QComboBox *edit1;
@@ -186,6 +192,7 @@ public:
     explicit CardRepayPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void confirm();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -197,7 +204,6 @@ private:
     QLineEdit *edit3;
     QComboBox *edit4;
     QLineEdit *edit5;
-    QPushButton *queryBtn;
     QPushButton *confirmBtn;
 };
 
@@ -208,6 +214,7 @@ public:
     explicit CardLostPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void report();
 private:
     QLabel *label1;
     QComboBox *edit1;
@@ -245,6 +252,7 @@ public:
     explicit ChangePwPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void confirm();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -290,4 +298,5 @@ private:
     QTextEdit *label1;
     QTextEdit *label2;
 };
+
 #endif // PAGES_H

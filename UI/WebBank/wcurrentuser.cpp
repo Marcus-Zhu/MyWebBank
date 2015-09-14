@@ -1,4 +1,4 @@
-#include "WebBankCurrentUser.h"
+#include "wcurrentuser.h"
 
 QString WCurrentUser::userName = "";
 QString WCurrentUser::password = "";

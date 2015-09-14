@@ -1,19 +1,20 @@
 #ifndef WEBBANKCREDITCARD_H
 #define WEBBANKCREDITCARD_H
 
-#include "WebBankAccount.h"
+#include "waccount.h"
 
-class WCreditCard:public WAccount{
+class WCreditCard: public WAccount
+{
 private:
     float deposit;
     float creditLimit;
 public:
     void setAccountInfo(QString number);
-    WCreditCard(){};
+    WCreditCard() {};
     WCreditCard(QString number);
 
     void interestCaculation();
-    float& getDeposit();
+    float &getDeposit();
     float getCreditLimit();
     void setCreditLimit(float limit);
 

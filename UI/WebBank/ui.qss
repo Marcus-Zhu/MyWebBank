@@ -192,6 +192,21 @@ QLabel#CMAbg
 	background-image:url(image/CMAbg.png);
 }
 
+QLabel#CAPbg
+{
+        background-image:url(image/CAPbg.png);
+}
+
+QLabel#CAQbg
+{
+        background-image:url(image/CAQbg.png);
+}
+
+QLabel#CSMbg
+{
+        background-image:url(image/CSMbg.png);
+}
+
 QLabel#CMALabel2,
 QLabel#CAPLabel3
 {
@@ -384,6 +399,7 @@ QLineEdit:focus
 	border-width:2px;
 }
 
+QLineEdit#CPEdit3,
 QLineEdit#CCREdit2,
 QLineEdit#CCREdit3,
 QLineEdit#CUIEdit1,

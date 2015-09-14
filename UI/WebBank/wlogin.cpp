@@ -121,7 +121,7 @@ void WLogin::checkLogin()
     QByteArray bin;
     bin = QCryptographicHash::hash(password->text().toLatin1(), QCryptographicHash::Sha3_256);
     encrypted.append(bin.toHex());
-    int val = WUIManip::login(userName->text(),encrypted);
+    int val = WUIManip::login(userName->text(), encrypted);
     switch(val)
     {
     case 1:
