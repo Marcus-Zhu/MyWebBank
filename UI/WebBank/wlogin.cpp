@@ -130,7 +130,7 @@ void WLogin::checkLogin()
     case 2:
         notice->setText(tr("Password incorrect!"));
         break;
-    case 3:
+    case 4:
         accept();
         break;
     }

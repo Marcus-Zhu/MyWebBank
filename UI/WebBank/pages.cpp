@@ -1,5 +1,7 @@
 #include "wdelegate.h"
 #include "pages.h"
+#include "wmsgbox.h"
+#include "wuimanip.h"
 #include <QHeaderView>
 #include <QListWidget>
 #include <QToolButton>
@@ -33,32 +35,30 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->setGeometry(QRect(24, 72, 708, 192));
     table2->setGeometry(QRect(24, 336, 708, 192));
 
-    //setup tables
-    table1->setColumnCount(3);
-    table1->setRowCount(5);
-    table2->setColumnCount(3);
-    table2->setRowCount(5);
+    //setup table1
+    int accountNum = WUIManip::getAccountNum();
 
-    QStringList headers;
-    headers << "ID" << "Name" << "Age" << "Sex";
-    table1->setHorizontalHeaderLabels(headers);
-    table2->setHorizontalHeaderLabels(headers);
+    table1->setColumnCount(5);
+    table1->setRowCount(accountNum);
 
-    table1->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-    table1->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-    table1->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-    table1->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-    table1->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-    table1->setItem(5, 0, new QTableWidgetItem(QString("0006")));
-    table1->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+    QStringList header1;
+    header1 << tr("Type") << tr("Card Number")
+            << tr("Fixed")  << tr("Deposit") << tr("Status");
+    table1->setHorizontalHeaderLabels(header1);
+    table1->horizontalHeader()->resizeSection(0,40);
+    table1->horizontalHeader()->resizeSection(1,200);
+    table1->horizontalHeader()->resizeSection(2,120);
+    table1->horizontalHeader()->resizeSection(3,120);
 
-    table2->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-    table2->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-    table2->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-    table2->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-    table2->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-    table2->setItem(5, 0, new QTableWidgetItem(QString("0006")));
-    table2->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+    for (int i = 0; i < accountNum; ++i)
+    {
+
+        QVector<QString> accountInfo = WUIManip::getAccountInfo(i);
+        for (int j = 0; j < 5; ++j)
+        {
+            table1->setItem(i, j, new QTableWidgetItem(accountInfo[j]));
+        }
+    }
 
     WDelegate *CMADele1 = new WDelegate();
     table1->setItemDelegate(CMADele1);
@@ -71,6 +71,28 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->horizontalHeader()->resizeSection(0, 150);
     table1->verticalHeader()->setDefaultSectionSize(48);
 
+    //setup table2
+    QVector<QString> recordInfo = WUIManip::getAccountRecord(0);
+    table2->setColumnCount(3);
+    table2->setRowCount(recordInfo.size()/3);
+
+    QStringList header2;
+    header2 << tr("Amount") << tr("Time") << tr("Type");
+    table2->setHorizontalHeaderLabels(header2);
+    table2->horizontalHeader()->resizeSection(0,150);
+    table2->horizontalHeader()->resizeSection(1,250);
+
+    for (int i = 0; i < recordInfo.size()/3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3*i+j]));
+        }
+    }
+
+    WDelegate *CMADele2 = new WDelegate();
+    table2->setItemDelegate(CMADele2);
+
     table2->verticalHeader()->hide();
     table2->horizontalHeader()->setStretchLastSection(true);
     table2->setShowGrid(false);
@@ -78,6 +100,23 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table2->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table2->horizontalHeader()->resizeSection(0, 150);
     table2->verticalHeader()->setDefaultSectionSize(48);
+
+    connect(table1, SIGNAL(cellClicked(int,int)), this, SLOT(showAccountRecord(int, int)));
+}
+
+void MyAccountPage::showAccountRecord(int row, int column)
+{
+    QVector<QString> recordInfo = WUIManip::getAccountRecord(row);
+    QStringList header2;
+    table2->setRowCount(recordInfo.size()/3);
+    table2->clearContents();
+    for (int i = 0; i < recordInfo.size()/3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3*i+j]));
+        }
+    }
 }
 
 void MyAccountPage::updateLanguage()
@@ -149,9 +188,13 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     calendar2->setVisible(false);
     calendarLabel->setVisible(false);
 
-    //setup accounts
-    accountBox->addItem("1231 2312 3123 1236");
-    accountBox->addItem("2175 7962 4595 4698");
+    //setup accounts    
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        accountBox->addItem(accounts[1]);
+    }
     WDelegate *CMADele = new WDelegate();
     accountBox->setItemDelegate(CMADele);
 
@@ -159,16 +202,11 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     table->setColumnCount(3);
     table->setRowCount(5);
 
-    QStringList headers;
-    headers << "ID" << "Name" << "Age" << "Sex";
-    table->setHorizontalHeaderLabels(headers);
-    table->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-    table->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-    table->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-    table->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-    table->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-    table->setItem(5, 0, new QTableWidgetItem(QString("0006")));
-    table->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+    QStringList header;
+    header << tr("Amount") << tr("Time") << tr("Type");
+    table->setHorizontalHeaderLabels(header);
+    table->horizontalHeader()->resizeSection(0,150);
+    table->horizontalHeader()->resizeSection(1,250);
     WDelegate *CAQDele = new WDelegate();
     table->setItemDelegate(CAQDele);
     table->verticalHeader()->hide();
@@ -191,6 +229,83 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     connect(calendar1, SIGNAL(clicked(QDate)), this, SLOT(setCalendar1()));
     connect(toDate, SIGNAL(Wclicked()), this, SLOT(showCalendar2()));
     connect(calendar2, SIGNAL(clicked(QDate)), this, SLOT(setCalendar2()));
+    connect(searchBtn, SIGNAL(clicked(bool)), this, SLOT(search()));
+    connect(recentBtn, SIGNAL(clicked(bool)), this, SLOT(recent()));
+}
+
+void AccountQueryPage::search()
+{
+    QVector<QString> records;
+    if (fromDate->text().length() == 0 || toDate->text().length() == 0)
+    {
+        if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
+        {
+            records = WUIManip::query(1, accountBox->currentText());
+        }
+        else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
+        {
+            records = WUIManip::query(2, accountBox->currentText());
+        }
+        else
+        {
+            records = WUIManip::query(0, accountBox->currentText());
+        }
+    }
+    else
+    {
+        QDate from, to, temp;
+        from = temp.fromString(fromDate->text(), "yyyy.MM.dd");
+        to = temp.fromString(toDate->text(), "yyyy.MM.dd");
+        if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
+        {
+            records = WUIManip::dateQuery(1, accountBox->currentText(), from, to);
+        }
+        else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
+        {
+            records = WUIManip::dateQuery(2, accountBox->currentText(), from, to);
+        }
+        else
+        {
+            records = WUIManip::dateQuery(0, accountBox->currentText(), from, to);
+        }
+    }
+    QStringList header;
+    table->setRowCount(records.size()/3);
+    table->clearContents();
+    for (int i = 0; i < records.size()/3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            table->setItem(i, j, new QTableWidgetItem(records[3*i+j]));
+        }
+    }
+}
+
+void AccountQueryPage::recent()
+{
+    QVector<QString> records;
+    if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
+    {
+        records = WUIManip::query(8, accountBox->currentText());
+    }
+    else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
+    {
+        records = WUIManip::query(16, accountBox->currentText());
+    }
+    else
+    {
+        records = WUIManip::query(4, accountBox->currentText());
+    }
+    QStringList header;
+    table->setRowCount(records.size()/3);
+    table->clearContents();
+    for (int i = 0; i < records.size()/3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            table->setItem(i, j, new QTableWidgetItem(records[3*i+j]));
+        }
+    }
 }
 
 void AccountQueryPage::showCalendar1()
@@ -219,6 +334,11 @@ void AccountQueryPage::setCalendar2()
     toDate->setText(calendar2->selectedDate().toString("yyyy.MM.dd"));
     calendar2->setVisible(false);
     calendarLabel->setVisible(false);
+}
+
+void AccountQueryPage::showMsgBox()
+{
+    WMsgBox::information(tr("Success!"));
 }
 
 void AccountQueryPage::updateLanguage()
@@ -262,8 +382,13 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     edit5->setObjectName("CTEdit5");
     confirmBtn->setObjectName("CTConfirmBtn");
 
-    edit1->addItem("1231 2312 3123 1236");
-    edit1->addItem("2175 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
     WDelegate *CTDele = new WDelegate();
     edit1->setItemDelegate(CTDele);
 
@@ -280,6 +405,17 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     edit4->setGeometry(QRect(288, 232, 400, 32));
     edit5->setGeometry(QRect(288, 280, 400, 32));
     confirmBtn->setGeometry(QRect(584, 336, 108, 36));
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void TransferPage::confirm()
+{
+    bool val = WUIManip::transfer(edit1->currentText(), edit3->text(), edit4->text());
+    if (val)
+        WMsgBox::information(tr("Action Success!"));
+    else
+        WMsgBox::information(tr("Action Failed!"));
 }
 
 void TransferPage::updateLanguage()
@@ -324,8 +460,13 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     confirmBtn->setObjectName("CCFConfirmBtn");
 
     //setup accounts
-    edit1->addItem("1231 2312 3123 1236");
-    edit1->addItem("2175 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
     WDelegate *CCFDele1 = new WDelegate();
     edit1->setItemDelegate(CCFDele1);
 
@@ -347,6 +488,17 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     edit4->setGeometry(QRect(288, 232, 400, 32));
     edit5->setGeometry(QRect(288, 280, 400, 32));
     confirmBtn->setGeometry(QRect(584, 336, 108, 36));
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void CurrentFixPage::confirm()
+{
+    bool val = WUIManip::currentFix(edit4->currentIndex(), edit1->currentText(), edit3->text(), edit5->text());
+    if (val)
+        WMsgBox::information(tr("Action Success!"));
+    else
+        WMsgBox::information(tr("Action Failed!"));
 }
 
 void CurrentFixPage::updateLanguage()
@@ -397,8 +549,13 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     edit1->setItemDelegate(CPDele1);
 
     //setup accounts
-    edit2->addItem("2175 7962 4595 4698");
-    edit2->addItem("1745 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit2->addItem(accounts[1]);
+    }
+
     WDelegate *CPDele2 = new WDelegate();
     edit2->setItemDelegate(CPDele2);
 
@@ -416,6 +573,16 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     //set connections to autopay page
     connect(autoBtn, SIGNAL(clicked(bool)), parent->parent(), \
             SLOT(showAutoPayPage()));
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void PaymentPage::confirm()
+{
+    bool val = WUIManip::payment(edit1->currentText(), edit2->currentText(), edit3->text());
+    if (val)
+        WMsgBox::information(tr("Action Success!"));
+    else
+        WMsgBox::information(tr("Action Failed!"));
 }
 
 void PaymentPage::updateLanguage()
@@ -464,8 +631,13 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     WDelegate *CAPDele1 = new WDelegate();
     edit1->setItemDelegate(CAPDele1);
 
-    edit2->addItem("2175 7962 4595 4698");
-    edit2->addItem("1745 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit2->addItem(accounts[1]);
+    }
+
     WDelegate *CAPDele2 = new WDelegate();
     edit2->setItemDelegate(CAPDele2);
 
@@ -576,8 +748,13 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
     activateBtn->setObjectName("CCBActivateBtn");
 
     //setup accounts
-    edit1->addItem("1231 2312 3123 1236");
-    edit1->addItem("2175 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
     WDelegate *CCBDele = new WDelegate();
     edit1->setItemDelegate(CCBDele);
 
@@ -630,14 +807,24 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     edit3->setEnabled(false);
 
     //setup accounts
-    edit1->addItem("1231 2312 3123 1236");
-    edit1->addItem("2175 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
     WDelegate *CCRDele1 = new WDelegate();
     edit1->setItemDelegate(CCRDele1);
 
     //setup accounts
-    edit4->addItem("1231 2312 3123 1236");
-    edit4->addItem("2175 7962 4595 4698");
+    int CRAccountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < CRAccountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit4->addItem(accounts[1]);
+    }
+
     WDelegate *CCRDele2 = new WDelegate();
     edit4->setItemDelegate(CCRDele2);
 
@@ -682,8 +869,13 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
     reportBtn->setObjectName("CCLReportBtn");
 
     //setup accounts
-    edit1->addItem("1231 2312 3123 1236");
-    edit1->addItem("2175 7962 4595 4698");
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
     WDelegate *CCLDele = new WDelegate();
     edit1->setItemDelegate(CCLDele);
 

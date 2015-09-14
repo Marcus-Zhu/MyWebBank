@@ -4,14 +4,14 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="pages.cpp" line="874"/>
-        <location filename="pages.cpp" line="899"/>
+        <location filename="pages.cpp" line="881"/>
+        <location filename="pages.cpp" line="906"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="876"/>
-        <location filename="pages.cpp" line="900"/>
+        <location filename="pages.cpp" line="883"/>
+        <location filename="pages.cpp" line="907"/>
         <source>    This program is designed and developed by Tsinghua freshman, Zhu Yilin and Tian Xingyu. It serves as the big assignment for C++ course taught by Prof. Dong. The develop environment is Qt 5.5.0 MSVC2012 with Microsoft Visual C++ Compiler 11.0 (x86).
     Here we extend special thanks to the course teacher and TA, who lead us into the world of C++. We would also like to offer thanks to the open source projects that make our program possible.</source>
         <translation>    This program is designed and developed by Tsinghua freshman, Zhu Yilin and Tian Xingyu. It serves as the big assignment for C++ course taught by Prof. Dong. The develop environment is Qt 5.5.0 MSVC2012 with Microsoft Visual C++ Compiler 11.0 (x86).
@@ -21,52 +21,57 @@
 <context>
     <name>AccountQueryPage</name>
     <message>
-        <location filename="pages.cpp" line="93"/>
-        <location filename="pages.cpp" line="227"/>
+        <location filename="pages.cpp" line="94"/>
+        <location filename="pages.cpp" line="234"/>
         <source>Account Query</source>
         <translation>Account Query</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="95"/>
-        <location filename="pages.cpp" line="228"/>
+        <location filename="pages.cpp" line="96"/>
+        <location filename="pages.cpp" line="235"/>
         <source>Account</source>
         <oldsource>account</oldsource>
         <translation>Account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="96"/>
+        <location filename="pages.cpp" line="97"/>
         <source>Date range</source>
         <oldsource>date range</oldsource>
         <translation>Date range</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="98"/>
-        <location filename="pages.cpp" line="230"/>
+        <location filename="pages.cpp" line="99"/>
+        <location filename="pages.cpp" line="237"/>
         <source>Income</source>
         <oldsource>income</oldsource>
         <translation>Income</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="99"/>
-        <location filename="pages.cpp" line="231"/>
+        <location filename="pages.cpp" line="100"/>
+        <location filename="pages.cpp" line="238"/>
         <source>Expense</source>
         <oldsource>expense</oldsource>
         <translation>Expense</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="100"/>
-        <location filename="pages.cpp" line="232"/>
+        <location filename="pages.cpp" line="101"/>
+        <location filename="pages.cpp" line="239"/>
         <source>SEARCH</source>
         <translation>SEARCH</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="101"/>
-        <location filename="pages.cpp" line="233"/>
+        <location filename="pages.cpp" line="102"/>
+        <location filename="pages.cpp" line="240"/>
         <source>Recent Three Months</source>
         <translation>Recent Three Months</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="229"/>
+        <location filename="pages.cpp" line="228"/>
+        <source>Success!</source>
+        <translation>Success!</translation>
+    </message>
+    <message>
+        <location filename="pages.cpp" line="236"/>
         <source>Date Range</source>
         <translation>date range</translation>
     </message>
@@ -74,8 +79,8 @@
 <context>
     <name>AutoPayPage</name>
     <message>
-        <location filename="pages.cpp" line="441"/>
-        <location filename="pages.cpp" line="512"/>
+        <location filename="pages.cpp" line="448"/>
+        <location filename="pages.cpp" line="519"/>
         <source>Auto Payment</source>
         <translation>Auto Payment</translation>
     </message>
@@ -84,50 +89,50 @@
         <translation type="vanished">item</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="442"/>
-        <location filename="pages.cpp" line="513"/>
+        <location filename="pages.cpp" line="449"/>
+        <location filename="pages.cpp" line="520"/>
         <source>Item</source>
         <translation>Item</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="443"/>
-        <location filename="pages.cpp" line="514"/>
+        <location filename="pages.cpp" line="450"/>
+        <location filename="pages.cpp" line="521"/>
         <source>Paying account</source>
         <translation>Paying account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="444"/>
-        <location filename="pages.cpp" line="515"/>
+        <location filename="pages.cpp" line="451"/>
+        <location filename="pages.cpp" line="522"/>
         <source>Already Set Auto Payments</source>
         <translation>Already Set Auto Payments</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="447"/>
-        <location filename="pages.cpp" line="516"/>
+        <location filename="pages.cpp" line="454"/>
+        <location filename="pages.cpp" line="523"/>
         <source>SET</source>
         <translation>SET</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="448"/>
-        <location filename="pages.cpp" line="517"/>
+        <location filename="pages.cpp" line="455"/>
+        <location filename="pages.cpp" line="524"/>
         <source>CANCEL</source>
         <translation>CANCEL</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="461"/>
-        <location filename="pages.cpp" line="519"/>
+        <location filename="pages.cpp" line="468"/>
+        <location filename="pages.cpp" line="526"/>
         <source>Water Bill</source>
         <translation>Water Bill</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="462"/>
-        <location filename="pages.cpp" line="520"/>
+        <location filename="pages.cpp" line="469"/>
+        <location filename="pages.cpp" line="527"/>
         <source>Electricity Bill</source>
         <translation>Electricity Bill</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="463"/>
-        <location filename="pages.cpp" line="521"/>
+        <location filename="pages.cpp" line="470"/>
+        <location filename="pages.cpp" line="528"/>
         <source>Gas Bill</source>
         <translation>Gas Bill</translation>
     </message>
@@ -234,20 +239,20 @@
 <context>
     <name>CardActivatePage</name>
     <message>
-        <location filename="pages.cpp" line="568"/>
-        <location filename="pages.cpp" line="594"/>
+        <location filename="pages.cpp" line="575"/>
+        <location filename="pages.cpp" line="601"/>
         <source>Credit Card Activate</source>
         <translation>Credit Card Activate</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="569"/>
-        <location filename="pages.cpp" line="595"/>
+        <location filename="pages.cpp" line="576"/>
+        <location filename="pages.cpp" line="602"/>
         <source>Card number</source>
         <translation>Card Number</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="571"/>
-        <location filename="pages.cpp" line="596"/>
+        <location filename="pages.cpp" line="578"/>
+        <location filename="pages.cpp" line="603"/>
         <source>ACTIVATE</source>
         <translation>ACTIVATE</translation>
     </message>
@@ -255,32 +260,32 @@
 <context>
     <name>CardApplyPage</name>
     <message>
-        <location filename="pages.cpp" line="529"/>
-        <location filename="pages.cpp" line="555"/>
+        <location filename="pages.cpp" line="536"/>
+        <location filename="pages.cpp" line="562"/>
         <source>Credit Card Apply</source>
         <translation>Credit Card Apply</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="530"/>
-        <location filename="pages.cpp" line="556"/>
+        <location filename="pages.cpp" line="537"/>
+        <location filename="pages.cpp" line="563"/>
         <source>Card type</source>
         <translation>Card type</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="532"/>
-        <location filename="pages.cpp" line="557"/>
+        <location filename="pages.cpp" line="539"/>
+        <location filename="pages.cpp" line="564"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="540"/>
-        <location filename="pages.cpp" line="559"/>
+        <location filename="pages.cpp" line="547"/>
+        <location filename="pages.cpp" line="566"/>
         <source>TYPE 1</source>
         <translation>TYPE 1</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="541"/>
-        <location filename="pages.cpp" line="560"/>
+        <location filename="pages.cpp" line="548"/>
+        <location filename="pages.cpp" line="567"/>
         <source>TYPE 2</source>
         <translation>TYPE2</translation>
     </message>
@@ -288,20 +293,20 @@
 <context>
     <name>CardLostPage</name>
     <message>
-        <location filename="pages.cpp" line="674"/>
-        <location filename="pages.cpp" line="700"/>
+        <location filename="pages.cpp" line="681"/>
+        <location filename="pages.cpp" line="707"/>
         <source>Credit Card Loss Report</source>
         <translation>Credit Card Loss Report</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="675"/>
-        <location filename="pages.cpp" line="701"/>
+        <location filename="pages.cpp" line="682"/>
+        <location filename="pages.cpp" line="708"/>
         <source>Card number</source>
         <translation>Card Number</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="677"/>
-        <location filename="pages.cpp" line="702"/>
+        <location filename="pages.cpp" line="684"/>
+        <location filename="pages.cpp" line="709"/>
         <source>REPORT</source>
         <translation>REPORT</translation>
     </message>
@@ -309,14 +314,14 @@
 <context>
     <name>CardRepayPage</name>
     <message>
-        <location filename="pages.cpp" line="602"/>
-        <location filename="pages.cpp" line="662"/>
+        <location filename="pages.cpp" line="609"/>
+        <location filename="pages.cpp" line="669"/>
         <source>Credit Card Repay</source>
         <translation>Credit Card Repay</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="603"/>
-        <location filename="pages.cpp" line="663"/>
+        <location filename="pages.cpp" line="610"/>
+        <location filename="pages.cpp" line="670"/>
         <source>Card number</source>
         <translation>Card Number</translation>
     </message>
@@ -325,33 +330,33 @@
         <translation type="vanished">Total repay amount</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="604"/>
-        <location filename="pages.cpp" line="664"/>
+        <location filename="pages.cpp" line="611"/>
+        <location filename="pages.cpp" line="671"/>
         <source>Total due</source>
         <translation>Total due</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="605"/>
-        <location filename="pages.cpp" line="665"/>
+        <location filename="pages.cpp" line="612"/>
+        <location filename="pages.cpp" line="672"/>
         <source>Minimum due</source>
         <oldsource>Minimum repay amount</oldsource>
         <translation>Minimum due</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="606"/>
-        <location filename="pages.cpp" line="666"/>
+        <location filename="pages.cpp" line="613"/>
+        <location filename="pages.cpp" line="673"/>
         <source>Repay account</source>
         <translation>Repay account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="607"/>
-        <location filename="pages.cpp" line="667"/>
+        <location filename="pages.cpp" line="614"/>
+        <location filename="pages.cpp" line="674"/>
         <source>Repay ammount</source>
         <translation>Repay amount</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="613"/>
-        <location filename="pages.cpp" line="668"/>
+        <location filename="pages.cpp" line="620"/>
+        <location filename="pages.cpp" line="675"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
@@ -359,32 +364,32 @@
 <context>
     <name>ChangePwPage</name>
     <message>
-        <location filename="pages.cpp" line="783"/>
-        <location filename="pages.cpp" line="815"/>
+        <location filename="pages.cpp" line="790"/>
+        <location filename="pages.cpp" line="822"/>
         <source>Change Password</source>
         <translation>Change Password</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="784"/>
-        <location filename="pages.cpp" line="816"/>
+        <location filename="pages.cpp" line="791"/>
+        <location filename="pages.cpp" line="823"/>
         <source>Original password</source>
         <translation>Original password</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="785"/>
-        <location filename="pages.cpp" line="817"/>
+        <location filename="pages.cpp" line="792"/>
+        <location filename="pages.cpp" line="824"/>
         <source>New password</source>
         <translation>New password</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="786"/>
-        <location filename="pages.cpp" line="818"/>
+        <location filename="pages.cpp" line="793"/>
+        <location filename="pages.cpp" line="825"/>
         <source>Confirm password</source>
         <translation>Confirm password</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="790"/>
-        <location filename="pages.cpp" line="819"/>
+        <location filename="pages.cpp" line="797"/>
+        <location filename="pages.cpp" line="826"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
@@ -392,61 +397,61 @@
 <context>
     <name>CurrentFixPage</name>
     <message>
-        <location filename="pages.cpp" line="300"/>
-        <location filename="pages.cpp" line="355"/>
+        <location filename="pages.cpp" line="307"/>
+        <location filename="pages.cpp" line="362"/>
         <source>Current Fixed Transfer</source>
         <translation>Current Fixed Transfer</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="301"/>
-        <location filename="pages.cpp" line="356"/>
+        <location filename="pages.cpp" line="308"/>
+        <location filename="pages.cpp" line="363"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>Paying account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="302"/>
-        <location filename="pages.cpp" line="357"/>
+        <location filename="pages.cpp" line="309"/>
+        <location filename="pages.cpp" line="364"/>
         <source>Receiver&apos;s name</source>
         <oldsource>receiver&apos;s name</oldsource>
         <translation>receiver&apos;s name</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="303"/>
-        <location filename="pages.cpp" line="358"/>
+        <location filename="pages.cpp" line="310"/>
+        <location filename="pages.cpp" line="365"/>
         <source>Receiver&apos;s account</source>
         <oldsource>receiver&apos;s account</oldsource>
         <translation>receiver&apos;s account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="304"/>
-        <location filename="pages.cpp" line="359"/>
+        <location filename="pages.cpp" line="311"/>
+        <location filename="pages.cpp" line="366"/>
         <source>Transfer type</source>
         <oldsource>transfer type</oldsource>
         <translation>transfer type</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="305"/>
-        <location filename="pages.cpp" line="360"/>
+        <location filename="pages.cpp" line="312"/>
+        <location filename="pages.cpp" line="367"/>
         <source>Transfer amount</source>
         <oldsource>transfer amount</oldsource>
         <translation>transfer amount</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="311"/>
-        <location filename="pages.cpp" line="361"/>
+        <location filename="pages.cpp" line="318"/>
+        <location filename="pages.cpp" line="368"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="332"/>
-        <location filename="pages.cpp" line="363"/>
+        <location filename="pages.cpp" line="339"/>
+        <location filename="pages.cpp" line="370"/>
         <source>Current to Fix</source>
         <translation>Current to Fix</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="333"/>
-        <location filename="pages.cpp" line="364"/>
+        <location filename="pages.cpp" line="340"/>
+        <location filename="pages.cpp" line="371"/>
         <source>Fix to Current</source>
         <translation>Fix to Current</translation>
     </message>
@@ -454,14 +459,14 @@
 <context>
     <name>MyAccountPage</name>
     <message>
-        <location filename="pages.cpp" line="18"/>
-        <location filename="pages.cpp" line="86"/>
+        <location filename="pages.cpp" line="19"/>
+        <location filename="pages.cpp" line="87"/>
         <source>My Account</source>
         <translation>My Account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="19"/>
-        <location filename="pages.cpp" line="87"/>
+        <location filename="pages.cpp" line="20"/>
+        <location filename="pages.cpp" line="88"/>
         <source>Recent Transaction Records</source>
         <translation>Recent Records</translation>
     </message>
@@ -469,66 +474,66 @@
 <context>
     <name>PaymentPage</name>
     <message>
-        <location filename="pages.cpp" line="372"/>
+        <location filename="pages.cpp" line="379"/>
         <source>Payment</source>
         <translation>Payment</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="373"/>
+        <location filename="pages.cpp" line="380"/>
         <source>Item</source>
         <oldsource>item</oldsource>
         <translation>Item</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="374"/>
-        <location filename="pages.cpp" line="425"/>
+        <location filename="pages.cpp" line="381"/>
+        <location filename="pages.cpp" line="432"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>Paying account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="375"/>
+        <location filename="pages.cpp" line="382"/>
         <source>Bill number</source>
         <oldsource>bill number</oldsource>
         <translation>Bill number</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="379"/>
-        <location filename="pages.cpp" line="428"/>
+        <location filename="pages.cpp" line="386"/>
+        <location filename="pages.cpp" line="435"/>
         <source>SET AUTOPAY</source>
         <translation>SET AUTOPAY</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="380"/>
-        <location filename="pages.cpp" line="429"/>
+        <location filename="pages.cpp" line="387"/>
+        <location filename="pages.cpp" line="436"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="393"/>
-        <location filename="pages.cpp" line="431"/>
+        <location filename="pages.cpp" line="400"/>
+        <location filename="pages.cpp" line="438"/>
         <source>Water Bill</source>
         <translation>Water Bill</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="394"/>
-        <location filename="pages.cpp" line="432"/>
+        <location filename="pages.cpp" line="401"/>
+        <location filename="pages.cpp" line="439"/>
         <source>Electricity Bill</source>
         <translation>Electricity Bill</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="395"/>
-        <location filename="pages.cpp" line="433"/>
+        <location filename="pages.cpp" line="402"/>
+        <location filename="pages.cpp" line="440"/>
         <source>Gas Bill</source>
         <translation>Gas Bill</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="424"/>
+        <location filename="pages.cpp" line="431"/>
         <source>Current Fixed Transfer</source>
         <translation>Current Fixed Transfer</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="427"/>
+        <location filename="pages.cpp" line="434"/>
         <source>Receiver&apos;s account</source>
         <translation>Receiver&apos;s account</translation>
     </message>
@@ -537,7 +542,7 @@
         <translation type="vanished">receiver&apos;s name</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="426"/>
+        <location filename="pages.cpp" line="433"/>
         <source>Receiver&apos;s name</source>
         <oldsource>receiver&apos;s account</oldsource>
         <translation>Receiver&apos;s account</translation>
@@ -546,8 +551,8 @@
 <context>
     <name>SysMsgPage</name>
     <message>
-        <location filename="pages.cpp" line="826"/>
-        <location filename="pages.cpp" line="868"/>
+        <location filename="pages.cpp" line="833"/>
+        <location filename="pages.cpp" line="875"/>
         <source>System Message</source>
         <translation>System Message</translation>
     </message>
@@ -555,49 +560,49 @@
 <context>
     <name>TransferPage</name>
     <message>
-        <location filename="pages.cpp" line="239"/>
-        <location filename="pages.cpp" line="288"/>
+        <location filename="pages.cpp" line="246"/>
+        <location filename="pages.cpp" line="295"/>
         <source>Current Deposit Transfer</source>
         <translation>Current Transfer</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="240"/>
-        <location filename="pages.cpp" line="289"/>
+        <location filename="pages.cpp" line="247"/>
+        <location filename="pages.cpp" line="296"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>Paying account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="241"/>
-        <location filename="pages.cpp" line="290"/>
+        <location filename="pages.cpp" line="248"/>
+        <location filename="pages.cpp" line="297"/>
         <source>Receiver&apos;s name</source>
         <oldsource>receiver&apos;s name</oldsource>
         <translation>Receiver&apos;s name</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="242"/>
-        <location filename="pages.cpp" line="291"/>
+        <location filename="pages.cpp" line="249"/>
+        <location filename="pages.cpp" line="298"/>
         <source>Receiver&apos;s account</source>
         <oldsource>receiver&apos;s account</oldsource>
         <translation>Receiver&apos;s account</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="243"/>
-        <location filename="pages.cpp" line="292"/>
+        <location filename="pages.cpp" line="250"/>
+        <location filename="pages.cpp" line="299"/>
         <source>Transfer amount</source>
         <oldsource>transfer amount</oldsource>
         <translation>Transfer amount</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="244"/>
-        <location filename="pages.cpp" line="293"/>
+        <location filename="pages.cpp" line="251"/>
+        <location filename="pages.cpp" line="300"/>
         <source>Comment</source>
         <oldsource>comment</oldsource>
         <translation>Comment</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="250"/>
-        <location filename="pages.cpp" line="294"/>
+        <location filename="pages.cpp" line="257"/>
+        <location filename="pages.cpp" line="301"/>
         <source>CONFIRM</source>
         <translation>CONFIRM</translation>
     </message>
@@ -609,50 +614,50 @@
 <context>
     <name>UserInfoPage</name>
     <message>
-        <location filename="pages.cpp" line="708"/>
-        <location filename="pages.cpp" line="770"/>
+        <location filename="pages.cpp" line="715"/>
+        <location filename="pages.cpp" line="777"/>
         <source>Personal Info</source>
         <translation>Personal Info</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="709"/>
-        <location filename="pages.cpp" line="771"/>
+        <location filename="pages.cpp" line="716"/>
+        <location filename="pages.cpp" line="778"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="710"/>
-        <location filename="pages.cpp" line="772"/>
+        <location filename="pages.cpp" line="717"/>
+        <location filename="pages.cpp" line="779"/>
         <source>ID number</source>
         <translation>ID Number</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="711"/>
-        <location filename="pages.cpp" line="773"/>
+        <location filename="pages.cpp" line="718"/>
+        <location filename="pages.cpp" line="780"/>
         <source>Activate date</source>
         <translation>Activate date</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="712"/>
-        <location filename="pages.cpp" line="774"/>
+        <location filename="pages.cpp" line="719"/>
+        <location filename="pages.cpp" line="781"/>
         <source>Mobile</source>
         <translation>Mobile</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="713"/>
-        <location filename="pages.cpp" line="775"/>
+        <location filename="pages.cpp" line="720"/>
+        <location filename="pages.cpp" line="782"/>
         <source>E-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="714"/>
-        <location filename="pages.cpp" line="776"/>
+        <location filename="pages.cpp" line="721"/>
+        <location filename="pages.cpp" line="783"/>
         <source>Address</source>
         <translation>Address</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="715"/>
-        <location filename="pages.cpp" line="777"/>
+        <location filename="pages.cpp" line="722"/>
+        <location filename="pages.cpp" line="784"/>
         <source>Zipcode</source>
         <translation>Zipcode</translation>
     </message>
@@ -660,75 +665,103 @@
 <context>
     <name>WLogin</name>
     <message>
-        <location filename="wlogin.cpp" line="28"/>
-        <location filename="wlogin.cpp" line="30"/>
+        <location filename="wlogin.cpp" line="32"/>
+        <location filename="wlogin.cpp" line="34"/>
         <source>Register</source>
         <translation>Register</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="29"/>
+        <location filename="wlogin.cpp" line="33"/>
         <source>Login</source>
         <translation>Login</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="31"/>
+        <location filename="wlogin.cpp" line="35"/>
         <source>Go Back</source>
         <translation>Go Back</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="84"/>
+        <location filename="wlogin.cpp" line="88"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="85"/>
+        <location filename="wlogin.cpp" line="89"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="86"/>
+        <location filename="wlogin.cpp" line="90"/>
         <source>ID Number</source>
         <translation>ID Number</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="87"/>
+        <location filename="wlogin.cpp" line="91"/>
         <source>Confirm Password</source>
         <translation>Confirm Password</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="88"/>
+        <location filename="wlogin.cpp" line="92"/>
         <source>Card Number</source>
         <translation>Card Number</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="89"/>
+        <location filename="wlogin.cpp" line="93"/>
         <source>Mobile</source>
         <translation>Mobile</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="90"/>
+        <location filename="wlogin.cpp" line="94"/>
         <source>E-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="91"/>
+        <location filename="wlogin.cpp" line="95"/>
         <source>Address</source>
         <translation>Address</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="92"/>
+        <location filename="wlogin.cpp" line="96"/>
         <source>Zipcode</source>
         <translation>Zipcode</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="122"/>
+        <location filename="wlogin.cpp" line="131"/>
         <source>Password incorrect!</source>
         <translation>Password incorrect!</translation>
     </message>
     <message>
-        <location filename="wlogin.cpp" line="126"/>
+        <location filename="wlogin.cpp" line="144"/>
+        <source>Password too short!</source>
+        <translation>Password too short!</translation>
+    </message>
+    <message>
+        <location filename="wlogin.cpp" line="149"/>
+        <source>Password inconform!</source>
+        <translation>Password inconform!</translation>
+    </message>
+    <message>
+        <location filename="wlogin.cpp" line="154"/>
+        <source>Card number invalid!</source>
+        <translation>Card number invalid!</translation>
+    </message>
+    <message>
+        <location filename="wlogin.cpp" line="177"/>
+        <source>Registration failed!</source>
+        <translation>Registration failed!</translation>
+    </message>
+    <message>
+        <location filename="wlogin.cpp" line="128"/>
         <source>Username not exist!</source>
         <translation>Username not exist!</translation>
+    </message>
+</context>
+<context>
+    <name>WMsgBox</name>
+    <message>
+        <location filename="wmsgbox.cpp" line="52"/>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -844,20 +877,20 @@
 <context>
     <name>WelcomePage</name>
     <message>
-        <location filename="pages.cpp" line="915"/>
-        <location filename="pages.cpp" line="941"/>
+        <location filename="pages.cpp" line="922"/>
+        <location filename="pages.cpp" line="948"/>
         <source>Welcome</source>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="918"/>
-        <location filename="pages.cpp" line="942"/>
+        <location filename="pages.cpp" line="925"/>
+        <location filename="pages.cpp" line="949"/>
         <source>Click on the left navigation bar to choose function.</source>
         <translation>Click on the left navigation bar to choose function.</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="919"/>
-        <location filename="pages.cpp" line="943"/>
+        <location filename="pages.cpp" line="926"/>
+        <location filename="pages.cpp" line="950"/>
         <source>Click on the two top right buttons for user and setting fuctions.</source>
         <translation>Click on the two top right buttons for user and setting fuctions.</translation>
     </message>

@@ -53,6 +53,6 @@ int main(int argc, char *argv[])
     w.show();
     w.openUX();
 
-    db.close();
+//    db.close();
     return a.exec();
 }

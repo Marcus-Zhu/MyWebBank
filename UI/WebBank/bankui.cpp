@@ -5,10 +5,12 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTimer>
+#include <QString>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
 
 #include "bankui.h"
+#include "WebBankCurrentUser.h"
 
 BankUI::BankUI(QWidget *parent, int trans)
     : QWidget(parent)
@@ -37,7 +39,10 @@ void BankUI::initUI()
     topbar = new WTopbar(this);
     centerStack = new WStackedWidget(this);
 
-    logInfoLabel = new QLabel(tr("User: "), this);
+    QString loginfo = tr("User: ");
+    loginfo.append(WCurrentUser::userName);
+
+    logInfoLabel = new QLabel(loginfo, this);
     creditLabel = new QLabel(tr("Credit to Zhu Yilin & Tian Xingyu"), this);
 
     //components setObjectName for QSS
@@ -89,8 +94,10 @@ void BankUI::changeLanguage()
 
 void BankUI::updateLanguage()
 {
-    //update the language in this widget
-    logInfoLabel->setText(tr("User: "));
+    //update the language in this widget    
+    QString loginfo = tr("User: ");
+    loginfo.append(WCurrentUser::userName);
+    logInfoLabel->setText(loginfo);
     creditLabel->setText(tr("Credit to Zhu Yilin & Tian Xingyu"));
 
     //update language in son widgets

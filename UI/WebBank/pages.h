@@ -30,6 +30,7 @@ public:
     explicit MyAccountPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void showAccountRecord(int row, int column);
 private:
     QLabel *bgLabel;
     QLabel *title2;
@@ -48,6 +49,9 @@ public slots:
     void showCalendar2();
     void setCalendar1();
     void setCalendar2();
+    void showMsgBox();
+    void search();
+    void recent();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -71,6 +75,7 @@ public:
     explicit TransferPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void confirm();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -93,6 +98,7 @@ public:
     explicit CurrentFixPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
+    void confirm();
 private:
     QLabel *label1;
     QLabel *label2;
@@ -115,7 +121,7 @@ public:
     explicit PaymentPage(QWidget *parent = 0);
     void updateLanguage();
 public slots:
-
+    void confirm();
 private:
     QLabel *label1;
     QLabel *label2;

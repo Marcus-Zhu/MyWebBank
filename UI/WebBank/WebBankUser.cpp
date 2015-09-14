@@ -3,9 +3,11 @@
 #include <Qsql>
 #include <QSqlQuery>
 #include <QVariant>
+#include <QDebug>
 
 #include "WebBankSystemMessage.h"
 #include "WebBankUser.h"
+#include "WebBankCurrentUser.h"
 #include "WebBankDataBaseManip.h"
 
 WUser::WUser(SUserInfo userInfo){
@@ -30,6 +32,7 @@ WUser::WUser(QString userName){
     QSqlQuery query;
     query.prepare("SELECT * FROM user WHERE name = ?");
     query.addBindValue(userName);
+    query.exec();
     query.next();
     name = query.value(1).toString();
     password = query.value(2).toString();
@@ -43,8 +46,10 @@ WUser::WUser(QString userName){
     WCurrentUser::userName = name;
     query.prepare("SELECT number FROM account WHERE userKey = ?");
     query.addBindValue(DBUserManip::dbSelectUserKey());
+    query.exec();
     int i = 0;
-    while(query.next()&&i<3){
+    while(query.next() && i<3)
+    {
         account.push_back(query.value(0).toString());
         i++;
     }
@@ -75,14 +80,17 @@ SUserInfo WUser::getUserInfo(){
     return *info;
 }
 
-int WUser::checkIn(QString Name, QString password){
+int WUser::checkIn(QString name, QString password){
     DBUserManip dbUser;
-    if(!dbUser.dbSelect(Name))
+    if(!dbUser.dbSelect(name))
         return 1;
-    else if(!dbUser.dbSelect(Name,password))
+    else if(!dbUser.dbSelect(name,password))
         return 2;
     else
-        return 3;
+    {
+        WCurrentUser::userName = name;
+        return 4;
+    }
 }
 
 bool WUser::addAccount(QString number,QString type){

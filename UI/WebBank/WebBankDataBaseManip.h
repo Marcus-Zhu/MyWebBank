@@ -33,6 +33,7 @@ public:
     bool dbPaymentUpdate(QString number, float currentDeposit);
     bool dbUpdate(QString updateInfo);
     QVector<QString> dbSelect(QString selectInfo);
+    QVector<QString> dbSelect(int num);
     static int dbSelectUserKey(QString number);
     static int dbSelectAccountKey(QString accountNumber);
     static QString dbSelectAccountNumber(int key);

@@ -26,7 +26,13 @@ SOURCES += main.cpp\
     WebBankCurrentUser.cpp \
     WebBankDataBaseManip.cpp \
     WebBankUser.cpp \
-    WebBankSystemMessage.cpp
+    WebBankSystemMessage.cpp \
+    wmsgbox.cpp \
+    WebBankAccount.cpp \
+    WebBankCreditCard.cpp \
+    WebBankPayment.cpp \
+    WebBankTransfer.cpp \
+    WebBankQuery.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
@@ -40,7 +46,13 @@ HEADERS  += bankui.h \
     WebBankCurrentUser.h \
     WebBankDataBaseManip.h \
     WebBankUser.h \
-    WebBankSystemMessage.h
+    WebBankSystemMessage.h \
+    wmsgbox.h \
+    WebBankAccount.h \
+    WebBankCreditCard.h \
+    WebBankPayment.h \
+    WebBankTransfer.h \
+    WebBankQuery.h
 
 RESOURCES += \
     styleset.qrc

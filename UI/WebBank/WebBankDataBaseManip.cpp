@@ -66,7 +66,7 @@ bool DBUserManip::dbSelect(QString userName, QString userPassword){
     query.prepare("SELECT * FROM user WHERE name = :name");
     query.bindValue(":name",userName);
     if(!query.exec())
-            qDebug()<<query.lastError();
+        return false;
     else{
         query.next();
         if(userPassword == query.value(2).toString())
@@ -217,8 +217,21 @@ QVector<QString> DBAccountManip::dbSelect(QString selectInfo) {
             return accountInfo;
         }
     }
-    else
-        return accountInfo;
+    return accountInfo;
+}
+
+QVector<QString> DBAccountManip::dbSelect(int num)
+{
+    QVector<QString> info;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM account WHERE userKey = ?");
+    query.addBindValue(DBUserManip::dbSelectUserKey());
+    query.exec();
+    for(int i = 0;i<=num;i++)
+        query.next();
+    for(int i = 0;i<5;i++)
+        info.push_back(query.value(2+i).toString());
+    return info;
 }
 
 bool DBAccountManip::dbDelete(QString deleteInfo){
