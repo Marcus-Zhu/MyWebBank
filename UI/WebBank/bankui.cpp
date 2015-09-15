@@ -11,6 +11,8 @@
 
 #include "bankui.h"
 #include "wcurrentuser.h"
+#include "wuimanip.h"
+#include "wmsgbox.h"
 
 BankUI::BankUI(QWidget *parent, int trans)
     : QWidget(parent)
@@ -106,6 +108,11 @@ void BankUI::updateLanguage()
     centerStack->updateLanguage();
 }
 
+void BankUI::changeColor()
+{
+
+}
+
 void BankUI::mouseMoveEvent(QMouseEvent *event)
 {
     //if mouse click on top or bottom bar and drag, move the window
@@ -197,12 +204,12 @@ void BankUI::showSysMsgPage()
 
 void BankUI::showAboutPage()
 {
-    centerStack->setCurrentIndex(13);
+    WMsgBox::about();
 }
 
 void BankUI::showWelcomePage()
 {
-    centerStack->setCurrentIndex(14);
+    centerStack->setCurrentIndex(13);
 }
 
 //set up the opening animation
@@ -327,5 +334,11 @@ bool BankUI::closeWindow()
 
     //after animation done, close the window
     connect(animation2, SIGNAL(finished()), this, SLOT(close()));
+    return true;
+}
+
+bool BankUI::restartWindow()
+{
+    qApp->exit(2);
     return true;
 }

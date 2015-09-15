@@ -13,6 +13,7 @@ public:
     void setAutoPayment(bool ifChoose[3]);
     bool isAutoPaymentEmpty();
     bool pay();
+    bool pay(int months);
     bool autoPayment();
     bool deleteAutoPayment(QString paymentType[3]);
 private:

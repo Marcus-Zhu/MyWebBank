@@ -27,8 +27,8 @@ public:
     void setStatus();
     void setStatus(QString Status);
     void changeStatus();
-    void freezeAccount();
-    void releaseAccount();
+    bool freezeAccount();
+    bool releaseAccount();
     QVector<QString> recentRecords();
 };
 

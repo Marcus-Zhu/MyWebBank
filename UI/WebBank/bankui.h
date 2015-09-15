@@ -26,6 +26,7 @@ protected:
 
 private slots:
     void changeLanguage();
+    void changeColor();
     void showMyAccountPage();
     void showAccountQueryPage();
     void showTransferPage();
@@ -42,6 +43,7 @@ private slots:
     void showAboutPage();
     void showWelcomePage();
     bool closeWindow();
+    bool restartWindow();
     void openUX2();
     void openUX3();
     void openUX4();

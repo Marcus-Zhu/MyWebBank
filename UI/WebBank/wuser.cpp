@@ -106,7 +106,7 @@ bool WUser::addAccount(QString number, QString type)
     insertInfo.push_back(number);
     insertInfo.push_back("0");
     insertInfo.push_back("100000");
-    insertInfo.push_back("normal");
+    insertInfo.push_back("frozen");
     bool result = accountManip.dbInsert(insertInfo);
     if(result)
         account.push_back(number);

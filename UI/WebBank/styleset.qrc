@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/ui">
-        <file>ui.qss</file>
+        <file>ui_blue.qss</file>
+        <file>ui_green.qss</file>
+        <file>ui_orange.qss</file>
+        <file>ui_purple.qss</file>
+        <file>ui_yellow.qss</file>
+        <file>ui_red.qss</file>
     </qresource>
     <qresource prefix="/trans"/>
 </RCC>

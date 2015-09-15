@@ -65,20 +65,20 @@ void WAccount::changeStatus()
         status = "normal";
 }
 
-void WAccount::freezeAccount()
+bool WAccount::freezeAccount()
 {
     if(getStatus() == "freeze")
-        return;
+        return true;
     DBAccountManip dbAccount;
-    dbAccount.dbUpdate(accountNumber);
+    return dbAccount.dbUpdate(accountNumber);
 }
 
-void WAccount::releaseAccount()
+bool WAccount::releaseAccount()
 {
     if(getStatus() == "normal")
-        return;
+        return true;
     DBAccountManip dbAccount;
-    dbAccount.dbUpdate(accountNumber);
+    return dbAccount.dbUpdate(accountNumber);
 }
 
 QVector<QString> WAccount::recentRecords()
@@ -196,8 +196,6 @@ void WNormalAccount::setAccountInfo(QString number)
     setType(accountInfo[0]);
 }
 
-
-
 float &WNormalAccount::getFixedDeposit()
 {
     return fixedDeposit;
@@ -221,7 +219,7 @@ bool WNormalAccount::transaction(const transferType Type, const QString otherNum
         QVector<QString> insertInfo(2);
         int userKey = DBAccountManip::dbSelectUserKey(otherNumber);
         insertInfo[0].setNum(userKey);
-        insertInfo[1] = QString("%1 tranfer %2 to you").arg(otherNumber).arg(sum);
+        insertInfo[1] = QString("%1 tranferred %2 to your account.").arg(otherNumber).arg(sum);
         qDebug() << insertInfo[1];
         dbMessage.dbInsert(insertInfo);
     }

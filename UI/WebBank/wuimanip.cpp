@@ -10,9 +10,25 @@
 #include <QString>
 #include <QVector>
 #include <QDebug>
+#include <QSqlDatabase>
 
 WUIManip::WUIManip()
 {
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("WebBankDatabase.db");
+    database.setUserName("txy");
+    database.setPassword("494799822");
+}
+
+bool WUIManip::openDatabase()
+{
+    qDebug() << database.open();
+    return database.isValid() ? true : false;
+}
+
+void WUIManip::closeDatabase()
+{
+    database.close();
 }
 
 int WUIManip::login(QString name, QString pwd)
@@ -136,6 +152,38 @@ bool WUIManip::payment(QString type, QString account, QString amount)
     return val;
 }
 
+bool WUIManip::setAutopay(QString account, QString type)
+{
+    QVector<QString> info;
+    info.push_back(account);
+    info.push_back(type);
+    DBAutoPayManip manip;
+    if (!manip.dbSelectAutoPayment(account, type))
+    {
+        return false;
+    }
+    return manip.dbInsert(info);
+}
+
+bool WUIManip::cancelAutopay(QString account, QString type)
+{
+//    QVector<QString> info;
+//    info.push_back(account);
+//    info.push_back(type);
+    DBAutoPayManip manip;
+    if (manip.dbSelectAutoPayment(account, type))
+    {
+        return false;
+    }
+    return manip.dbDelete(account, type);
+}
+
+QVector<QString> WUIManip::getAutopayRecord()
+{
+    DBAutoPayManip manip;
+    return manip.dbSelect("");
+}
+
 QVector<QString> WUIManip::query(int type, QString account)
 {
     QVector<QString> records;
@@ -166,7 +214,6 @@ QVector<QString> WUIManip::query(int type, QString account)
 
 QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom, QDate dateTo)
 {
-    qDebug() << dateFrom << dateTo;
     QVector<QString> records;
     WQuery query(account);
     switch(type)
@@ -184,7 +231,40 @@ QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom, 
     return records;
 }
 
+bool WUIManip::cardApply(int type)
+{
+    WUser user(WCurrentUser::userName);
+    QString account;
+    DBAccountManip manip;
+    do{
+        account.clear();
+        qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+        for (int i = 0; i < 19; ++i)
+        {
+            account.append(QString::number(qrand()%10));
+        }
+    }while(manip.dbSelectAccount(account));
+    return user.addAccount(account, "creditCard");
+}
 
+bool WUIManip::cardActivate(QString account)
+{
+    WCreditCard card(account);
+    return card.releaseAccount();
+}
+
+bool WUIManip::cardRepay(QString account1, QString account2, QString amount)
+{
+    QVector<QString> info;
+    WCreditCard *creditCard = new WCreditCard(info[1]);
+    return creditCard->transaction(account2, amount.toFloat());
+}
+
+bool WUIManip::cardLost(QString account)
+{
+    WCreditCard card(account);
+    return card.freezeAccount();
+}
 
 QVector<QString> WUIManip::getSysMsg()
 {
@@ -197,8 +277,7 @@ QVector<QString> WUIManip::getSysMsg()
 bool WUIManip::changePwd(QString oldPwd, QString newPwd)
 {
     WUser user(WCurrentUser::userName);
-    bool val = user.setPassword(oldPwd, newPwd);
-    return val;
+    return user.setPassword(oldPwd, newPwd);
 }
 
 QVector<QString> WUIManip::userInfo()

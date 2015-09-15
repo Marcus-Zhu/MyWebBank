@@ -20,6 +20,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     sysmsgAction = new QAction(tr("Message"), this);
     logoutAction = new QAction(tr("Log Out"), this);
     languageAction = new QAction(tr("Language"), this);
+    colorAction = new QAction(tr("Change Theme"), this);
     aboutAction = new QAction(tr("About"), this);
 
     //adda actions to menu
@@ -28,6 +29,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     userMenu->addAction(sysmsgAction);
     userMenu->addAction(logoutAction);
     settingMenu->addAction(languageAction);
+    settingMenu->addAction(colorAction);
     settingMenu->addAction(aboutAction);
 
     //set object name
@@ -40,12 +42,13 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
     userMenu->setObjectName("userBtnMenu");
     settingMenu->setObjectName("settingBtnMenu");
-    personalInfoAction->setObjectName(("personalInfoAction"));
-    changepwAction->setObjectName(("ChangepwAction"));
-    sysmsgAction->setObjectName(("MessageAction"));
-    logoutAction->setObjectName(("logoutAction"));
-    languageAction->setObjectName(("languageAction"));
-    aboutAction->setObjectName(("aboutAction"));
+    personalInfoAction->setObjectName("personalInfoAction");
+    changepwAction->setObjectName("ChangepwAction");
+    sysmsgAction->setObjectName("MessageAction");
+    logoutAction->setObjectName("logoutAction");
+    languageAction->setObjectName("languageAction");
+    colorAction->setObjectName("colorAction");
+    aboutAction->setObjectName("aboutAction");
 
     //set position and size
     topbarLabel->setGeometry(QRect(0, 0, 1000, 161));
@@ -64,8 +67,9 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     connect(personalInfoAction, SIGNAL(triggered(bool)), parent, SLOT(showUserInfoPage()));
     connect(changepwAction, SIGNAL(triggered(bool)), parent, SLOT(showChangePwPage()));
     connect(sysmsgAction, SIGNAL(triggered(bool)), parent, SLOT(showSysMsgPage()));
-    connect(logoutAction, SIGNAL(triggered(bool)), parent, SLOT(closeWindow()));
+    connect(logoutAction, SIGNAL(triggered(bool)), parent, SLOT(restartWindow()));
     connect(languageAction, SIGNAL(triggered(bool)), parent, SLOT(changeLanguage()));
+    connect(colorAction, SIGNAL(triggered(bool)), parent, SLOT(changeColor()));
     connect(aboutAction, SIGNAL(triggered(bool)), parent, SLOT(showAboutPage()));
 }
 
@@ -77,6 +81,7 @@ void WTopbar::updateLanguage()
     sysmsgAction->setText(tr("Message"));
     logoutAction->setText(tr("Log Out"));
     languageAction->setText(tr("Language"));
+    colorAction->setText(tr("Change Theme"));
     aboutAction->setText(tr("About"));
 }
 

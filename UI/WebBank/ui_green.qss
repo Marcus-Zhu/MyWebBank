@@ -1,0 +1,534 @@
+*
+{
+	border-radius:0;
+	font-family:"Noto Sans CJK KR Regular";
+	font-size:18px;
+	text-align:left;
+}
+
+/*Login*/
+QLabel#LogInBG
+{
+        background-image:url(image/green/login_green.png);
+        background-repeat:no-repeat;
+}
+
+QLabel#RegBG
+{
+        background-image:url(image/green/reg_green.png);
+}
+
+QLabel#LogInNotice
+{
+	color:red;
+	font:16px;
+	text-align:center;
+}
+
+QLabel#LoadingLabel{
+        background-image:url(image/loading.png);
+}
+
+/*MsgBox*/
+QLabel#MsgBoxBG
+{
+        background-image:url(image/green/msgbox_green.png);
+}
+
+QLabel#AboutBoxBG
+{
+        background-image:url(image/green/aboutbox_green.png);
+}
+
+QLabel#MsgBoxContent
+{
+        font:20px;
+}
+
+/*BankUI*/
+QLabel#backgroundLabel
+{
+	background-image:url(image/blankbg.png);
+}
+
+QLabel#topbarLabel
+{
+        background-image:url(image/green/topbar_green.png);
+}
+
+QLabel#navbarLabel
+{
+	background-image:url(image/navbar.png);
+}
+
+QPushButton#queryBtn:pressed,
+QPushButton#transferBtn:pressed,
+QPushButton#paymentBtn:pressed,
+QPushButton#ccardBtn:pressed
+{
+	background:rgba(0,0,0,30);
+}
+
+QPushButton#minBtn
+{
+	background-image:url(image/min0.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#minBtn:hover
+{
+	background-image:url(image/min1.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#closeBtn,
+QPushButton#LogInClose,
+QPushButton#MsgBoxClose
+{
+	background-image:url(image/close0.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#closeBtn:hover,
+QPushButton#LogInClose:hover,
+QPushButton#MsgBoxClose:hover
+{
+	background-image:url(image/close1.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#userBtn
+{
+	background-image:url(image/user0.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#userBtn:hover
+{
+	background-image:url(image/user1.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#settingBtn
+{
+	background-image:url(image/setting0.png);
+	background-repeat:no-repeat;
+}
+
+QPushButton#settingBtn:hover
+{
+	background-image:url(image/setting1.png);
+	background-repeat:no-repeat;
+}
+
+QLabel#queryLabel,
+QLabel#transferLabel,
+QLabel#paymentLabel,
+QLabel#ccardLabel
+{
+	background:transparent;
+	color:rgba(0,0,0,222);
+	margin-left:80px;
+}
+
+QLabel#myAccountLabel,
+QLabel#accountQueryLabel,
+QLabel#currTransferLabel,
+QLabel#currentFixLabel,
+QLabel#ccApplyLabel,
+QLabel#ccActivateLabel,
+QLabel#ccRepayLabel,
+QLabel#ccLostLabel
+{
+	background:transparent;
+	color:rgba(0,0,0,222);
+	font:14px;
+	margin-left:104px;
+}
+
+QLabel#logInfoLabel
+{
+	color:rgba(0,0,0,222);
+	font:14px;
+}
+
+QLabel#creditLabel
+{
+	color:rgba(0,0,0,222);
+	font:14px;
+	text-align:right;
+}
+
+QMenu#userBtnMenu,
+QMenu#settingBtnMenu
+{
+	background:#FAFAFA;
+}
+
+QMenu#userBtnMenu::item,
+QMenu#settingBtnMenu::item
+{
+	font:16px;
+	padding:16px 24px 12px 16px;
+}
+
+QMenu#userBtnMenu::separator,
+QMenu#settingBtnMenu::separator
+{
+	background:rgba(0,0,0,0);
+	height:1px;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+QMenu#userBtnMenu::item:selected,
+QMenu#settingBtnMenu::item:selected
+{
+	background:#EEE;
+}
+
+/*centerStack*/
+QLabel#Title
+{
+	background:transparent;
+	border-bottom:solid;
+	border-color:#DBDBDB;
+	border-width:1px;
+	color:rgba(0,0,0,222);
+	font:32px;
+}
+
+QLabel#CMAbg
+{
+	background-image:url(image/CMAbg.png);
+}
+
+QLabel#CAPbg
+{
+        background-image:url(image/CAPbg.png);
+}
+
+QLabel#CAQbg
+{
+        background-image:url(image/CAQbg.png);
+}
+
+QLabel#CSMbg
+{
+        background-image:url(image/CSMbg.png);
+}
+
+QLabel#CMALabel2,
+QLabel#CAPLabel3
+{
+	background:transparent;
+	border-bottom:solid;
+	border-color:#DBDBDB;
+	border-width:1px;
+	color:rgba(0,0,0,222);
+	font:24px;
+}
+
+QLabel#CTTitle
+{
+	color:rgba(0,0,0,222);
+	font:32px;
+}
+
+QLabel
+{
+	color:rgba(0,0,0,222);
+	font:16px;
+}
+
+QPushButton#LogInReg,
+QPushButton#RegBack,
+QPushButton#CPAutoBtn
+{
+	background:transparent;
+	border-radius:4px;
+        color:#7CB342;
+	font:bold 16px;
+	padding:0 16px;
+	text-align:center;
+}
+
+QPushButton#CAQSearch,
+QPushButton#CAQRecent,
+QPushButton#CTConfirmBtn,
+QPushButton#CCFConfirmBtn,
+QPushButton#CPConfirmBtn,
+QPushButton#CAPSettingBtn,
+QPushButton#CAPCancelBtn,
+QPushButton#CCAConfirmBtn,
+QPushButton#CCBActivateBtn,
+QPushButton#CCRConfirmBtn,
+QPushButton#CCLReportBtn,
+QPushButton#CCPConfirmBtn,
+QPushButton#LogInLogIn,
+QPushButton#RegRegister,
+QPushButton#MsgBoxOK
+{
+        background:#7CB342;
+	border-radius:4px;
+	color:#EAEAEA;
+	font:bold 16px;
+	padding:0 16px;
+	text-align:center;
+}
+
+QPushButton#LogInReg:pressed,
+QPushButton#RegBack:pressed,
+QPushButton#CPAutoBtn:pressed
+{
+        color:#558B2F;
+}
+
+QPushButton#CAQSearch:pressed,
+QPushButton#CAQRecent:pressed,
+QPushButton#CTConfirmBtn:pressed,
+QPushButton#CCFConfirmBtn:pressed,
+QPushButton#CPConfirmBtn:pressed,
+QPushButton#CAPSettingBtn:pressed,
+QPushButton#CAPCancelBtn:pressed,
+QPushButton#CCAConfirmBtn:pressed,
+QPushButton#CCBActivateBtn:pressed,
+QPushButton#CCRConfirmBtn:pressed,
+QPushButton#CCLReportBtn:pressed,
+QPushButton#CCPConfirmBtn:pressed,
+QPushButton#RegRegister:pressed,
+QPushButton#LogInLogIn:pressed,
+QPushButton#MsgBoxOK:pressed
+{
+        background:#689F38;
+	border-bottom:solid;
+        border-color:#33691E;
+	border-width:2px;
+	color:#EAEAEA;
+}
+
+QPushButton#queryBtn,
+QPushButton#transferBtn,
+QPushButton#paymentBtn,
+QPushButton#ccardBtn,
+QPushButton#myAccountBtn,
+QPushButton#accountQueryBtn,
+QPushButton#currTransferBtn,
+QPushButton#currentFixBtn,
+QPushButton#ccApplyBtn,
+QPushButton#ccActivateBtn,
+QPushButton#ccRepayBtn,
+QPushButton#ccLostBtn,
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical
+{
+	background:transparent;
+}
+
+QPushButton#queryBtn:hover,
+QPushButton#transferBtn:hover,
+QPushButton#paymentBtn:hover,
+QPushButton#ccardBtn:hover,
+QPushButton#myAccountBtn:hover,
+QPushButton#accountQueryBtn:hover,
+QPushButton#currTransferBtn:hover,
+QPushButton#currentFixBtn:hover,
+QPushButton#ccApplyBtn:hover,
+QPushButton#ccActivateBtn:hover,
+QPushButton#ccRepayBtn:hover,
+QPushButton#ccLostBtn:hover
+{
+	background:rgba(0,0,0,12);
+}
+
+QPushButton#queryBtn:checked,
+QPushButton#transferBtn:checked,
+QPushButton#paymentBtn:checked,
+QPushButton#ccardBtn:checked,
+QPushButton#myAccountBtn:checked,
+QPushButton#accountQueryBtn:checked,
+QPushButton#currTransferBtn:checked,
+QPushButton#currentFixBtn:checked,
+QPushButton#ccApplyBtn:checked,
+QPushButton#ccActivateBtn:checked,
+QPushButton#ccRepayBtn:checked,
+QPushButton#ccLostBtn:checked
+{
+	background:rgba(0,0,0,20);
+}
+
+QComboBox
+{
+	background:transparent;
+	border-bottom:solid;
+	border-color:#DBDBDB;
+	border-width:2px;
+	font:16px;
+}
+
+QComboBox::drop-down
+{
+	background:transparent;
+	color:transparent;
+	width:20px;
+}
+
+QComboBox::down-arrow
+{
+	image:url(image/dropdown.png);
+}
+
+QComboBox QAbstractItemView::item
+{
+	background:#FAFAFA;
+	color:rgba(0,0,0,222);
+	padding:4px 12px 4px 8px;
+}
+
+QComboBox QAbstractItemView::item:selected
+{
+	background:#EEE;
+	color:rgba(0,0,0,222);
+	height:48px;
+}
+
+QLineEdit
+{
+	background:transparent;
+	border-bottom:solid;
+	border-color:#DBDBDB;
+	border-width:2px;
+	color:rgba(0,0,0,222);
+	font:16px;
+}
+
+QLineEdit:focus
+{
+	background:transparent;
+	border-bottom:solid;
+        border-color:#7CB342;
+	border-width:2px;
+}
+
+QLineEdit#CPEdit3,
+QLineEdit#CCREdit2,
+QLineEdit#CCREdit3,
+QLineEdit#CUIEdit1,
+QLineEdit#CUIEdit2,
+QLineEdit#CUIEdit3,
+QLineEdit#CUIEdit4,
+QLineEdit#CUIEdit5,
+QLineEdit#CUIEdit6,
+QLineEdit#CUIEdit7
+{	
+	background:transparent;
+	border-bottom:dotted;
+	border-color:#DBDBDB;
+	border-width:2px;
+	color:rgba(0,0,0,222);
+	font:16px;
+}
+
+QTableWidget
+{
+	alternate-background-color:#303337;
+	background:#FFF;
+	font:16px;
+        selection-background-color:#DCEDC8;
+	selection-color:#202020;
+}
+
+QHeaderView::section
+{
+	background:#FFF;
+	border-bottom:solid;
+	border-color:#C7C7C7;
+	border-style:flat;
+	border-width:1px;
+	font:regular;
+	height:48px;
+	text-align:center;
+}
+
+QScrollBar:vertical
+{
+	background:transparent;
+	border:3px solid transparent;
+	width:12px;
+}
+
+QScrollBar::handle:vertical
+{
+	background:rgba(0,0,0,69);
+	border-radius:3px;
+	min-height:20px;
+}
+
+QScrollBar::handle:vertical:hover
+{
+	background:rgba(0,0,0,122);
+	border-radius:3px;
+	min-height:20px;
+}
+
+QCheckBox
+{
+	font:16px;
+}
+
+QCheckBox::indicator
+{
+	height:17px;
+	width:17px;
+}
+
+QCheckBox::indicator:unchecked
+{
+	image:url(image/checkbox0.png);
+}
+
+QCheckBox::indicator:checked
+{
+        image:url(image/green/checkbox1_green.png);
+}
+
+QTextEdit{
+	font:18px;
+	background:transparent;
+}
+
+QCalendarWidget QToolButton
+{
+        background-color:#C5E1A5;
+        height:36px;
+        width:80px;
+}
+
+QCalendarWidget QSpinBox
+{
+        background-color:#F1F8E9;
+}
+
+QCalendarWidget QSpinBox::up-button
+{
+        image:url(image/spinbox-down.png);
+}
+
+QCalendarWidget QSpinBox::down-button
+{
+        image:url(image/spinbox-up.png);
+}
+
+QCalendarWidget QAbstractItemView:enabled
+{
+        background-color:#EEE;
+        color:rgba(0,0,0,222);
+        font-size:24px;
+        selection-background-color:#7CB342;
+        selection-color:rgba(0,0,0,222);
+}
+
+QLabel#calendarLabel
+{
+        background-color:#C5E1A5;
+}

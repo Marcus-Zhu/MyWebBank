@@ -27,7 +27,8 @@ public slots:
     void changeToLogin();
 
 private:
-    QLabel *bgLabel;
+    QLabel *loginBgLabel;
+    QLabel *regBgLabel;
     QLineEdit *userName;
     QLineEdit *password;
     QLineEdit *passwordConfirm;

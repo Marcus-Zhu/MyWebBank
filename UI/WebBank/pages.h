@@ -124,6 +124,7 @@ public:
     void updateLanguage();
 public slots:
     void confirm();
+    void changeValue(int i);
 private:
     QLabel *label1;
     QLabel *label2;
@@ -134,6 +135,7 @@ private:
     QPushButton *queryBtn;
     QPushButton *confirmBtn;
     QPushButton *autoBtn;
+    int value[3];
 };
 
 class AutoPayPage : public WPage
@@ -145,6 +147,7 @@ public:
 public slots:
     void setAutoPay();
     void cancelAutoPay();
+    void updateTable();
 private:
     QLabel *bgLabel;
     QLabel *label1;

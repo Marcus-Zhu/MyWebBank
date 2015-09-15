@@ -160,9 +160,9 @@ bool DBAccountManip::dbUpdate(QString updateInfo)
 {
     QSqlQuery query;
     bool result;
-    if(query.exec(QString("SELECT FROM account WHERE number = '%1'").arg(updateInfo)))
+    if(query.exec(QString("SELECT * FROM account WHERE number = '%1'").arg(updateInfo)))
     {
-        QString currentStatus = query.value(3).toString();
+        QString currentStatus = query.value(6).toString();
         if(currentStatus == "normal")
             result = query.exec(QString("UPDATE account SET status = 'frozen' WHERE number = '%1'").arg(updateInfo));
         else
@@ -252,6 +252,16 @@ QVector<QString> DBAccountManip::dbSelect(int num)
     for(int i = 0; i < 5; i++)
         info.push_back(query.value(2 + i).toString());
     return info;
+}
+
+bool DBAccountManip::dbSelectAccount(QString number)
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM account WHERE number = ?");
+    query.addBindValue(number);
+    while(query.next())
+        return true;
+    return false;
 }
 
 bool DBAccountManip::dbDelete(QString deleteInfo)
@@ -426,6 +436,16 @@ bool DBPaymentRecordManip::dbDelete(QString deleteInfo)
     return false;
 }
 
+int DBPaymentRecordManip::dbSelectMaxKey()
+{
+    int key;
+    QSqlQuery query;
+    query.exec("SELECT max(key) FROM paymentRecord");
+    query.next();
+    key = query.value(0).toInt();
+    return key;
+}
+
 bool DBMessageManip::dbTableCreate()
 {
     QSqlQuery query;
@@ -435,15 +455,31 @@ bool DBMessageManip::dbTableCreate()
     return result;
 }
 
-bool DBMessageManip::dbInsert(QVector<QString> &insertInfo)
-{
+bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
     QSqlQuery query;
     bool result;
     query.prepare("INSERT INTO message (userKey,content,status) VALUES (?,?,?)");
-    query.addBindValue(insertInfo[0].toInt());
-    query.addBindValue(insertInfo[1]);
-    query.addBindValue("not read");
-    result = query.exec();
+    if(insertInfo.size() == 3){
+        query.addBindValue(insertInfo[0].toInt());
+        query.addBindValue(insertInfo[2]);
+        query.addBindValue("not read");
+        result = query.exec();
+        if(result){
+            int key;
+            query.exec("SELECT max(key) FROM message");
+            query.next();
+            key = query.value(0).toInt();
+            QString str = QString("datetime('now','-%1 month')").arg(insertInfo[1]);
+            QString updateInfo = QString("UPDATE message SET time = %1 WHERE key = %2").arg(str).arg(key);
+            result = query.exec(updateInfo);
+        }
+    }
+    else{
+        query.addBindValue(insertInfo[0].toInt());
+        query.addBindValue(insertInfo[1]);
+        query.addBindValue("not read");
+        result = query.exec();
+    }
     return result;
 }
 
@@ -467,7 +503,8 @@ QVector<QString> DBMessageManip::dbSelect()
     query.prepare("SELECT * FROM message WHERE userKey = ?");
     query.addBindValue(key);
     query.exec();
-    while(query.next()){
+    while(query.next())
+    {
         messageInfo.push_back(query.value(2).toString());
         messageInfo.push_back(query.value(3).toString());
     }
@@ -553,7 +590,8 @@ bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo)
     int accountKey = DBAccountManip::dbSelectAccountKey(insertInfo[0]);
     query.addBindValue(accountKey);
     query.addBindValue(insertInfo[1]);
-    query.addBindValue((QDate::currentDate()).toString());
+    date = QDate::currentDate().toString("yyyy-MM-dd");
+    query.addBindValue(date);
     result = query.exec();
     return result;
 }
@@ -562,12 +600,23 @@ QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo)
 {
     QSqlQuery query;
     QVector<QString> info;
-    query.exec(selectInfo);
-    while(query.next())
-    {
-        info.push_back(query.value(1).toString());
-        info.push_back(query.value(2).toString());
-        info.push_back(query.value(3).toString());
+    QString number;
+    int key = DBUserManip::dbSelectUserKey();
+    query.prepare("SELECT number FROM account WHERE userKey = ?");
+    query.addBindValue(key);
+    query.exec();
+    while(query.next()){
+        number = query.value(0).toString();
+        key = DBAccountManip::dbSelectAccountKey(number);
+        QSqlQuery query1;
+        query1.prepare("SELECT * FROM autoPay WHERE accountKey = ?");
+        query1.addBindValue(key);
+        query1.exec();
+        while(query1.next()){
+            info.push_back(number);
+            info.push_back(query1.value(2).toString());
+            info.push_back(query1.value(3).toString());
+        }
     }
     return info;
 }
@@ -594,3 +643,17 @@ bool DBAutoPayManip::dbDelete(QString number, QString type)
     return result;
 }
 
+bool DBAutoPayManip::dbSelectAutoPayment(QString number, QString type){
+    QSqlQuery query;
+    query.prepare("SELECT type FROM autoPay WHERE accountKey = ?");
+    int accountKey = DBAccountManip::dbSelectAccountKey(number);
+    query.addBindValue(accountKey);
+    bool result = query.exec();
+    if(result){
+        while(query.next()){
+            if(type == query.value(0).toString())
+                return false;
+        }
+    }
+    return result;
+}

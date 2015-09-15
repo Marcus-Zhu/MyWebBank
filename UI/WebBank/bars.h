@@ -33,6 +33,7 @@ private:
     QAction *sysmsgAction;
     QAction *logoutAction;
     QAction *languageAction;
+    QAction *colorAction;
     QAction *aboutAction;
 };
 

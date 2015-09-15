@@ -481,11 +481,34 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
 
 void TransferPage::confirm()
 {
+    if (edit2->text().length() == 0)
+    {
+        WMsgBox::information(tr("Receiver's Name Empty!"));
+        return;
+    }
+    if (edit3->text().length() != 19)
+    {
+        WMsgBox::information(tr("Receiver's Account Invalid!"));
+        return;
+    }
+    QByteArray ba = edit3->text().toLatin1();
+    const char *s = ba.data();
+    while(*s && *s >= '0' && *s <= '9') s++;
+    if (*s)
+    {
+        WMsgBox::information(tr("Receiver's Account Invalid!"));
+        return;
+    }
+    if (edit4->text().toFloat() <= 0)
+    {
+        WMsgBox::information(tr("Amount Invalid!"));
+        return;
+    }
     bool val = WUIManip::transfer(edit1->currentText(), edit3->text(), edit4->text());
     if (val)
-        WMsgBox::information(tr("Action Success!"));
+        WMsgBox::information(tr("Transfer Success!"));
     else
-        WMsgBox::information(tr("Action Failed!"));
+        WMsgBox::information(tr("Transfer Failed!"));
 }
 
 void TransferPage::updateLanguage()
@@ -568,11 +591,34 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 void CurrentFixPage::confirm()
 {
     edit3->setText(edit1->currentText());
+    if (edit2->text().length() == 0)
+    {
+        WMsgBox::information(tr("Receiver's Name Empty!"));
+        return;
+    }
+    if (edit3->text().length() != 19)
+    {
+        WMsgBox::information(tr("Receiver's Account Invalid!"));
+        return;
+    }
+    QByteArray ba = edit3->text().toLatin1();
+    const char *s = ba.data();
+    while(*s && *s >= '0' && *s <= '9') s++;
+    if (*s)
+    {
+        WMsgBox::information(tr("Receiver's Account Invalid!"));
+        return;
+    }
+    if (edit5->text().toFloat() <= 0)
+    {
+        WMsgBox::information(tr("Amount Invalid!"));
+        return;
+    }
     bool val = WUIManip::currentFix(edit4->currentIndex(), edit1->currentText(), edit3->text(), edit5->text());
     if (val)
-        WMsgBox::information(tr("Action Success!"));
+        WMsgBox::information(tr("Exchange Success!"));
     else
-        WMsgBox::information(tr("Action Failed!"));
+        WMsgBox::information(tr("Exchange Failed!"));
 }
 
 void CurrentFixPage::updateLanguage()
@@ -617,11 +663,10 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
 
     //setup item
     edit3->setEnabled(false);
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-    int value[3];
+    qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
     for (int i = 0; i < 3; ++i)
     {
-        value[i] = qrand() % 150 + 150;
+        value[i] = qrand() % 100 + 100;
     }
     edit3->setText(QString::number(value[0]));
     edit1->addItem(tr("Water Bill"));
@@ -655,16 +700,35 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     //set connections to autopay page
     connect(autoBtn, SIGNAL(clicked(bool)), parent->parent(), \
             SLOT(showAutoPayPage()));
+    connect(edit1, SIGNAL(currentIndexChanged(int)), this, SLOT(changeValue(int)));
     connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
 }
 
 void PaymentPage::confirm()
 {
-    bool val = WUIManip::payment(edit1->currentText(), edit2->currentText(), edit3->text());
+    QString type;
+    switch(edit1->currentIndex())
+    {
+    case 0:
+        type = "water";
+        break;
+    case 1:
+        type = "electricity";
+        break;
+    case 2:
+        type = "gas";
+        break;
+    }
+    bool val = WUIManip::payment(type, edit2->currentText(), edit3->text());
     if (val)
-        WMsgBox::information(tr("Action Success!"));
+        WMsgBox::information(tr("Pay Success!"));
     else
-        WMsgBox::information(tr("Action Failed!"));
+        WMsgBox::information(tr("Pay Failed!"));
+}
+
+void PaymentPage::changeValue(int i)
+{
+    edit3->setText(QString::number(value[i]));
 }
 
 void PaymentPage::updateLanguage()
@@ -738,14 +802,27 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     table->setGeometry(QRect(24, 288, 708, 240));
 
     //setup table
-    table->setColumnCount(3);
-    table->setRowCount(5);
+    QVector<QString> log = WUIManip::getAutopayRecord();
+    table->setColumnCount(2);
+    table->setRowCount(log.size() / 3);
 
     QStringList headers;
-    headers << "ID" << "Name" << "Age" << "Sex";
+    headers << tr("Account") << tr("Item");
     table->setHorizontalHeaderLabels(headers);
+    table->horizontalHeader()->resizeSection(0, 500);
+
+    for (int i = 0; i < log.size() / 3; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
+            table->setItem(i, j, new QTableWidgetItem(log[3 * i + j]));
+            table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+        }
+    }
+
     WDelegate *CAPDele = new WDelegate();
     table->setItemDelegate(CAPDele);
+
     table->verticalHeader()->hide();
     table->horizontalHeader()->setStretchLastSection(true);
     table->setShowGrid(false);
@@ -756,16 +833,66 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
 
     connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(setAutoPay()));
     connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(cancelAutoPay()));
+    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
+    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
 }
 
 void AutoPayPage::setAutoPay()
 {
-
+    QString type;
+    switch(edit1->currentIndex())
+    {
+    case 0:
+        type = "water";
+        break;
+    case 1:
+        type = "electricity";
+        break;
+    case 2:
+        type = "gas";
+        break;
+    }
+    bool val = WUIManip::setAutopay(edit2->currentText(), type);
+    if (val)
+        WMsgBox::information(tr("Autopay Set Success!"));
+    else
+        WMsgBox::information(tr("Autopay Set Failed!"));
 }
 
 void AutoPayPage::cancelAutoPay()
 {
+    QString type;
+    switch(edit1->currentIndex())
+    {
+    case 0:
+        type = "water";
+        break;
+    case 1:
+        type = "electricity";
+        break;
+    case 2:
+        type = "gas";
+        break;
+    }
+    bool val = WUIManip::cancelAutopay(edit2->currentText(), type);
+    if (val)
+        WMsgBox::information(tr("Autopay Cancel Success!"));
+    else
+        WMsgBox::information(tr("Autopay Cancel Failed!"));
+}
 
+void AutoPayPage::updateTable()
+{
+    QVector<QString> log = WUIManip::getAutopayRecord();
+    table->clearContents();
+    for (int i = 0; i < log.size() / 3; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
+            table->setItem(i, j, new QTableWidgetItem(log[3 * i + j]));
+            table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+        }
+    }
 }
 
 void AutoPayPage::updateLanguage()
@@ -815,7 +942,11 @@ CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
 
 void CardApplyPage::confirm()
 {
-
+    bool val = WUIManip::cardApply(edit1->currentIndex());
+    if (val)
+        WMsgBox::information(tr("Apply Success!"));
+    else
+        WMsgBox::information(tr("Apply Failed!"));
 }
 
 void CardApplyPage::updateLanguage()
@@ -866,7 +997,11 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
 
 void CardActivatePage::activate()
 {
-
+    bool val = WUIManip::cardActivate(edit1->currentText());
+    if (val)
+        WMsgBox::information(tr("Activate Success!"));
+    else
+        WMsgBox::information(tr("Activate Failed!"));
 }
 
 void CardActivatePage::updateLanguage()
@@ -909,6 +1044,13 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     //set disable attribute
     edit2->setEnabled(false);
     edit3->setEnabled(false);
+    QString val1, val2;
+    qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+    float val = (qrand() % 9000 + 1000) / 10;
+    val1.setNum(val);
+    val2.setNum(val/10);
+    edit2->setText(val1);
+    edit3->setText(val2);
 
     //setup accounts
     int accountNum = WUIManip::getAccountNum();
@@ -951,6 +1093,21 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
 
 void CardRepayPage::confirm()
 {
+    if (edit5->text().toFloat() < edit3->text().toFloat())
+    {
+        WMsgBox::information(tr("Amount Too Small!"));
+        return;
+    }
+    if (edit5->text().toFloat() > edit2->text().toFloat())
+    {
+        WMsgBox::information(tr("Amount Too Large!"));
+        return;
+    }
+    bool val = WUIManip::cardRepay(edit1->currentText(), edit4->currentText(), edit5->text());
+    if (val)
+        WMsgBox::information(tr("Transfer Success!"));
+    else
+        WMsgBox::information(tr("Transfer Failed!"));
 
 }
 
@@ -1001,7 +1158,11 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
 
 void CardLostPage::report()
 {
-
+    bool val = WUIManip::cardLost(edit1->currentText());
+    if (val)
+        WMsgBox::information(tr("Report Success!"));
+    else
+        WMsgBox::information(tr("Report Failed!"));
 }
 
 void CardLostPage::updateLanguage()
@@ -1180,7 +1341,6 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     bgLabel->setObjectName("CSMbg");
     table->setObjectName("CSMTable");
 
-
     //set position and size
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
@@ -1189,18 +1349,18 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     //setup table
     QVector<QString> msg = WUIManip::getSysMsg();
     table->setColumnCount(2);
-    table->setRowCount(msg.size()/2);
+    table->setRowCount(msg.size() / 2);
 
     QStringList headers;
     headers << tr("Message Time") << tr("Content");
     table->setHorizontalHeaderLabels(headers);
-    table->horizontalHeader()->resizeSection(0,400);
+    table->horizontalHeader()->resizeSection(0, 400);
 
-    for (int i = 0; i < msg.size()/2; ++i)
+    for (int i = 0; i < msg.size() / 2; ++i)
     {
         for (int j = 0; j < 2; ++j)
         {
-            table->setItem(i, j, new QTableWidgetItem(msg[j]));
+            table->setItem(i, j, new QTableWidgetItem(msg[2 * i + j]));
             table->item(i, j)->setTextAlignment(Qt::AlignCenter);
         }
     }

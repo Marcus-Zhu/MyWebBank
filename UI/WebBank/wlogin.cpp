@@ -17,7 +17,8 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     this->setObjectName("LoginWindow");
 
     //components new
-    bgLabel = new QLabel(this);
+    loginBgLabel = new QLabel(this);
+    regBgLabel = new QLabel(this);
     userName = new QLineEdit(this);
     password = new QLineEdit(this);
     passwordConfirm = new QLineEdit(this);
@@ -35,7 +36,8 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     backBtn = new QPushButton(tr("Go Back"), this);
 
     //set object name
-    bgLabel->setObjectName("LogInBG");
+    loginBgLabel->setObjectName("LogInBG");
+    regBgLabel->setObjectName("RegBG");
     userName->setObjectName("LogInUser");
     password->setObjectName("LogInPW");
     passwordConfirm->setObjectName("RegPWConfirm");
@@ -53,7 +55,8 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     backBtn->setObjectName("RegBack");
 
     //set position and size
-    bgLabel->setGeometry(QRect(0, 0, 400, 678));
+    loginBgLabel->setGeometry(QRect(0, 0, 400, 678));
+    regBgLabel->setGeometry(QRect(0, 0, 400, 678));
     userName->setGeometry(QRect(41, 198, 200, 36));
     password->setGeometry(QRect(41, 246, 200, 36));
     passwordConfirm->setGeometry(QRect(41, 286, 318, 36));
@@ -72,6 +75,8 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
     backBtn->setGeometry(QRect(167, 626, 96, 36));
 
     //hide the registration buttons
+    loginBgLabel->setVisible(true);
+    regBgLabel->setVisible(false);
     regBtn->setVisible(true);
     loginBtn->setVisible(true);
     passwordConfirm->setVisible(false);
@@ -210,7 +215,8 @@ void WLogin::changeToReg()
     //change from login window to reg window
 
     //change widget settings
-    bgLabel->setStyleSheet("background-image:url(image/reg.png)");
+    loginBgLabel->setVisible(false);
+    regBgLabel->setVisible(true);
     notice->setText("");
     regBtn->setVisible(false);
     loginBtn->setVisible(false);
@@ -246,8 +252,8 @@ void WLogin::changeToLogin()
     //change from reg window to login window
 
     //change widget settings
-    bgLabel->setStyleSheet("background-image:url(image/login.png);"
-                           "background-repeat:no-repeat;");
+    loginBgLabel->setVisible(true);
+    regBgLabel->setVisible(false);
     notice->setText("");
     regBtn->setVisible(true);
     loginBtn->setVisible(true);
