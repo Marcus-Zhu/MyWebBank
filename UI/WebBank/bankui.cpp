@@ -5,10 +5,12 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTimer>
+#include <QString>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
 
 #include "bankui.h"
+#include "wcurrentuser.h"
 
 BankUI::BankUI(QWidget *parent, int trans)
     : QWidget(parent)
@@ -37,7 +39,10 @@ void BankUI::initUI()
     topbar = new WTopbar(this);
     centerStack = new WStackedWidget(this);
 
-    logInfoLabel = new QLabel(tr("User: "), this);
+    QString loginfo = tr("User: ");
+    loginfo.append(WCurrentUser::userName);
+
+    logInfoLabel = new QLabel(loginfo, this);
     creditLabel = new QLabel(tr("Credit to Zhu Yilin & Tian Xingyu"), this);
 
     //components setObjectName for QSS
@@ -82,7 +87,7 @@ void BankUI::changeLanguage()
 
     //write current language into trans.ini
     QFile transFile("trans/trans.ini");
-    transFile.open(QFile::WriteOnly|QFile::Truncate);
+    transFile.open(QFile::WriteOnly | QFile::Truncate);
     isChinese ? transFile.write("trans/chn.qm") : transFile.write("trans/eng.qm");
     transFile.close();
 }
@@ -90,7 +95,9 @@ void BankUI::changeLanguage()
 void BankUI::updateLanguage()
 {
     //update the language in this widget
-    logInfoLabel->setText(tr("User: "));
+    QString loginfo = tr("User: ");
+    loginfo.append(WCurrentUser::userName);
+    logInfoLabel->setText(loginfo);
     creditLabel->setText(tr("Credit to Zhu Yilin & Tian Xingyu"));
 
     //update language in son widgets
@@ -307,7 +314,7 @@ bool BankUI::closeWindow()
     animation1->setStartValue(QRect(pos.rx(), pos.ry(), 1000, 750));
     animation1->setEndValue(QRect(pos.rx() + 300, pos.ry() + 250, 400, 300));
     animation1->setEasingCurve(QEasingCurve::OutSine);
-    
+
     //set opacity change animation
     QPropertyAnimation *animation2 = new QPropertyAnimation(this, "windowOpacity");
     animation2->setDuration(165);

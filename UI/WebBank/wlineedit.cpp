@@ -9,8 +9,8 @@ WLineEdit::WLineEdit(QWidget *parent):
 
 void WLineEdit::mousePressEvent(QMouseEvent *e)
 {
-	//if QLineEdit is clicked, emit a clicked signal
-    if (e->button()==Qt::LeftButton)
+    //if QLineEdit is clicked, emit a clicked signal
+    if (e->button() == Qt::LeftButton)
     {
         emit Wclicked();
     }

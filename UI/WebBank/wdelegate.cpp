@@ -7,7 +7,7 @@ WDelegate::WDelegate(QObject *parent)
 
 void WDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	//if an item has focus, get rid of it
+    //if an item has focus, get rid of it
     QStyleOptionViewItem item(option);
     if (item.state & QStyle::State_HasFocus)
     {

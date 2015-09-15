@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +21,18 @@ SOURCES += main.cpp\
     wdelegate.cpp \
     wlogin.cpp \
     wloading.cpp \
-    wlineedit.cpp
+    wlineedit.cpp \
+    wuimanip.cpp \
+    wmsgbox.cpp \
+    wuser.cpp \
+    wtransfer.cpp \
+    wsysmsg.cpp \
+    wquery.cpp \
+    wpayment.cpp \
+    wDBmanip.cpp \
+    waccount.cpp \
+    wcreditcard.cpp \
+    wcurrentuser.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
@@ -29,7 +41,18 @@ HEADERS  += bankui.h \
     wdelegate.h \
     wlogin.h \
     wloading.h \
-    wlineedit.h
+    wlineedit.h \
+    wuimanip.h \
+    wmsgbox.h \
+    wuser.h \
+    wtransfer.h \
+    wsysmsg.h \
+    wquery.h \
+    wpayment.h \
+    wDBmanip.h \
+    waccount.h \
+    wcreditcard.h \
+    wcurrentuser.h
 
 RESOURCES += \
     styleset.qrc

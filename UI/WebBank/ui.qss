@@ -23,6 +23,17 @@ QLabel#LoadingLabel{
         background-image:url(image/loading.png);
 }
 
+/*MsgBox*/
+QLabel#MsgBoxBG
+{
+        background-image:url(image/msgbox.png);
+}
+
+QLabel#MsgBoxContent
+{
+        font:20px;
+}
+
 /*BankUI*/
 QLabel#backgroundLabel
 {
@@ -60,14 +71,16 @@ QPushButton#minBtn:hover
 }
 
 QPushButton#closeBtn,
-QPushButton#LogInClose
+QPushButton#LogInClose,
+QPushButton#MsgBoxClose
 {
 	background-image:url(image/close0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#closeBtn:hover,
-QPushButton#LogInClose:hover
+QPushButton#LogInClose:hover,
+QPushButton#MsgBoxClose:hover
 {
 	background-image:url(image/close1.png);
 	background-repeat:no-repeat;
@@ -179,6 +192,21 @@ QLabel#CMAbg
 	background-image:url(image/CMAbg.png);
 }
 
+QLabel#CAPbg
+{
+        background-image:url(image/CAPbg.png);
+}
+
+QLabel#CAQbg
+{
+        background-image:url(image/CAQbg.png);
+}
+
+QLabel#CSMbg
+{
+        background-image:url(image/CSMbg.png);
+}
+
 QLabel#CMALabel2,
 QLabel#CAPLabel3
 {
@@ -227,7 +255,8 @@ QPushButton#CCRConfirmBtn,
 QPushButton#CCLReportBtn,
 QPushButton#CCPConfirmBtn,
 QPushButton#LogInLogIn,
-QPushButton#RegRegister
+QPushButton#RegRegister,
+QPushButton#MsgBoxOK
 {
 	background:#039BE5;
 	border-radius:4px;
@@ -257,7 +286,8 @@ QPushButton#CCRConfirmBtn:pressed,
 QPushButton#CCLReportBtn:pressed,
 QPushButton#CCPConfirmBtn:pressed,
 QPushButton#RegRegister:pressed,
-QPushButton#LogInLogIn:pressed
+QPushButton#LogInLogIn:pressed,
+QPushButton#MsgBoxOK:pressed
 {
 	background:#0288D1;
 	border-bottom:solid;
@@ -369,6 +399,7 @@ QLineEdit:focus
 	border-width:2px;
 }
 
+QLineEdit#CPEdit3,
 QLineEdit#CCREdit2,
 QLineEdit#CCREdit3,
 QLineEdit#CUIEdit1,
