@@ -9,13 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-        background-image:url(image/yellow/login_yellow.png);
+        background-image:url(image/yellow/login.png);
         background-repeat:no-repeat;
 }
 
 QLabel#RegBG
 {
-        background-image:url(image/yellow/reg_yellow.png);
+        background-image:url(image/yellow/reg.png);
 }
 
 QLabel#LogInNotice
@@ -32,12 +32,12 @@ QLabel#LoadingLabel{
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/yellow/msgbox_yellow.png);
+        background-image:url(image/yellow/msgbox.png);
 }
 
 QLabel#AboutBoxBG
 {
-        background-image:url(image/yellow/aboutbox_yellow.png);
+        background-image:url(image/yellow/aboutbox.png);
 }
 
 QLabel#MsgBoxContent
@@ -53,7 +53,7 @@ QLabel#backgroundLabel
 
 QLabel#topbarLabel
 {
-	background-image:url(image/yellow/topbar_yellow.png);
+        background-image:url(image/yellow/topbar.png);
 }
 
 QLabel#navbarLabel
@@ -99,25 +99,25 @@ QPushButton#MsgBoxClose:hover
 
 QPushButton#userBtn
 {
-	background-image:url(image/user0.png);
+        background-image:url(image/user1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#userBtn:hover
 {
-	background-image:url(image/user1.png);
+        background-image:url(image/user0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn
 {
-	background-image:url(image/setting0.png);
+        background-image:url(image/setting1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn:hover
 {
-	background-image:url(image/setting1.png);
+        background-image:url(image/setting0.png);
 	background-repeat:no-repeat;
 }
 
@@ -271,7 +271,7 @@ QPushButton#MsgBoxOK
 {
         background:#fdd835;
 	border-radius:4px;
-	color:#EAEAEA;
+        color:#454545;
 	font:bold 16px;
 	padding:0 16px;
 	text-align:center;
@@ -303,8 +303,7 @@ QPushButton#MsgBoxOK:pressed
         background:#fcb02d;
 	border-bottom:solid;
         border-color:#f57f17;
-	border-width:2px;
-	color:#EAEAEA;
+        border-width:2px;
 }
 
 QPushButton#queryBtn,
@@ -489,7 +488,7 @@ QCheckBox::indicator:unchecked
 
 QCheckBox::indicator:checked
 {
-        image:url(image/yellow/checkbox1_yellow.png);
+        image:url(image/checkbox1.png);
 }
 
 QTextEdit{

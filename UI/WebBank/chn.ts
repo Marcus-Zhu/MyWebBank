@@ -4,14 +4,14 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="pages.cpp" line="1386"/>
-        <location filename="pages.cpp" line="1411"/>
+        <location filename="pages.cpp" line="1412"/>
+        <location filename="pages.cpp" line="1437"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1388"/>
-        <location filename="pages.cpp" line="1412"/>
+        <location filename="pages.cpp" line="1414"/>
+        <location filename="pages.cpp" line="1438"/>
         <source>    This program is designed and developed by Tsinghua freshman, Zhu Yilin and Tian Xingyu. It serves as the big assignment for C++ course taught by Prof. Dong. The develop environment is Qt 5.5.0 MSVC2012 with Microsoft Visual C++ Compiler 11.0 (x86).
     Here we extend special thanks to the course teacher and TA, who lead us into the world of C++. We would also like to offer thanks to the open source projects that make our program possible.</source>
         <translation>    此程序由清华学生朱奕霖与田星宇设计并开发，是由董伟老师讲授的C++课程的大作业项目。使用的开发环境为Qt 5.5.0 MSVC2012和Microsoft Visual C++ Compiler 11.0 (x86)编译器。
@@ -21,65 +21,65 @@
 <context>
     <name>AccountQueryPage</name>
     <message>
-        <location filename="pages.cpp" line="174"/>
-        <location filename="pages.cpp" line="413"/>
+        <location filename="pages.cpp" line="177"/>
+        <location filename="pages.cpp" line="421"/>
         <source>Account Query</source>
         <translation>账户查询</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="176"/>
-        <location filename="pages.cpp" line="414"/>
+        <location filename="pages.cpp" line="179"/>
+        <location filename="pages.cpp" line="422"/>
         <source>Account</source>
         <oldsource>account</oldsource>
         <translation>账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="177"/>
+        <location filename="pages.cpp" line="180"/>
         <source>Date range</source>
         <oldsource>date range</oldsource>
         <translation>日期范围</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="179"/>
-        <location filename="pages.cpp" line="416"/>
+        <location filename="pages.cpp" line="182"/>
+        <location filename="pages.cpp" line="424"/>
         <source>Income</source>
         <oldsource>income</oldsource>
         <translation>收入</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="180"/>
-        <location filename="pages.cpp" line="417"/>
+        <location filename="pages.cpp" line="183"/>
+        <location filename="pages.cpp" line="425"/>
         <source>Expense</source>
         <oldsource>expense</oldsource>
         <translation>支出</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="181"/>
-        <location filename="pages.cpp" line="418"/>
+        <location filename="pages.cpp" line="184"/>
+        <location filename="pages.cpp" line="426"/>
         <source>SEARCH</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="182"/>
-        <location filename="pages.cpp" line="419"/>
+        <location filename="pages.cpp" line="185"/>
+        <location filename="pages.cpp" line="427"/>
         <source>Recent Three Months</source>
         <translation>最近三月记录</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="250"/>
-        <location filename="pages.cpp" line="422"/>
+        <location filename="pages.cpp" line="275"/>
+        <location filename="pages.cpp" line="430"/>
         <source>Amount</source>
         <translation>金额</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="250"/>
-        <location filename="pages.cpp" line="422"/>
+        <location filename="pages.cpp" line="275"/>
+        <location filename="pages.cpp" line="430"/>
         <source>Time</source>
         <translation>交易时间</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="250"/>
-        <location filename="pages.cpp" line="422"/>
+        <location filename="pages.cpp" line="275"/>
+        <location filename="pages.cpp" line="430"/>
         <source>Transaction Type</source>
         <translation>交易类型</translation>
     </message>
@@ -92,7 +92,7 @@
         <translation type="vanished">操作成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="415"/>
+        <location filename="pages.cpp" line="423"/>
         <source>Date Range</source>
         <translation>日期范围</translation>
     </message>
@@ -100,8 +100,8 @@
 <context>
     <name>AutoPayPage</name>
     <message>
-        <location filename="pages.cpp" line="755"/>
-        <location filename="pages.cpp" line="901"/>
+        <location filename="pages.cpp" line="763"/>
+        <location filename="pages.cpp" line="914"/>
         <source>Auto Payment</source>
         <translation>自动缴费</translation>
     </message>
@@ -110,76 +110,76 @@
         <translation type="vanished">项目</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="756"/>
-        <location filename="pages.cpp" line="810"/>
-        <location filename="pages.cpp" line="902"/>
+        <location filename="pages.cpp" line="764"/>
+        <location filename="pages.cpp" line="827"/>
+        <location filename="pages.cpp" line="915"/>
         <source>Item</source>
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="757"/>
-        <location filename="pages.cpp" line="903"/>
+        <location filename="pages.cpp" line="765"/>
+        <location filename="pages.cpp" line="916"/>
         <source>Paying account</source>
         <translation>付款账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="758"/>
-        <location filename="pages.cpp" line="904"/>
+        <location filename="pages.cpp" line="766"/>
+        <location filename="pages.cpp" line="917"/>
         <source>Already Set Auto Payments</source>
         <translation>已设置自动付款项目</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="761"/>
-        <location filename="pages.cpp" line="905"/>
+        <location filename="pages.cpp" line="769"/>
+        <location filename="pages.cpp" line="918"/>
         <source>SET</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="762"/>
-        <location filename="pages.cpp" line="906"/>
+        <location filename="pages.cpp" line="770"/>
+        <location filename="pages.cpp" line="919"/>
         <source>CANCEL</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="776"/>
-        <location filename="pages.cpp" line="908"/>
+        <location filename="pages.cpp" line="784"/>
+        <location filename="pages.cpp" line="921"/>
         <source>Water Bill</source>
         <translation>水费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="777"/>
-        <location filename="pages.cpp" line="909"/>
+        <location filename="pages.cpp" line="785"/>
+        <location filename="pages.cpp" line="922"/>
         <source>Electricity Bill</source>
         <translation>电费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="778"/>
-        <location filename="pages.cpp" line="910"/>
+        <location filename="pages.cpp" line="786"/>
+        <location filename="pages.cpp" line="923"/>
         <source>Gas Bill</source>
         <translation>燃气费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="810"/>
+        <location filename="pages.cpp" line="827"/>
         <source>Account</source>
         <translation>付款账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="857"/>
+        <location filename="pages.cpp" line="869"/>
         <source>Autopay Set Success!</source>
         <translation>自动付款设置成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="859"/>
+        <location filename="pages.cpp" line="871"/>
         <source>Autopay Set Failed!</source>
         <translation>自动付款设置失败！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="879"/>
+        <location filename="pages.cpp" line="891"/>
         <source>Autopay Cancel Success!</source>
         <translation>自动付款取消成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="881"/>
+        <location filename="pages.cpp" line="893"/>
         <source>Autopay Cancel Failed!</source>
         <translation>自动付款取消失败！</translation>
     </message>
@@ -271,14 +271,14 @@
         <translation type="vanished">当前位置： </translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="44"/>
-        <location filename="bankui.cpp" line="100"/>
+        <location filename="bankui.cpp" line="45"/>
+        <location filename="bankui.cpp" line="101"/>
         <source>User: </source>
         <translation>用户： </translation>
     </message>
     <message>
-        <location filename="bankui.cpp" line="48"/>
-        <location filename="bankui.cpp" line="103"/>
+        <location filename="bankui.cpp" line="49"/>
+        <location filename="bankui.cpp" line="104"/>
         <source>Credit to Zhu Yilin &amp; Tian Xingyu</source>
         <translation>朱奕霖 田星宇 版权所有</translation>
     </message>
@@ -286,30 +286,30 @@
 <context>
     <name>CardActivatePage</name>
     <message>
-        <location filename="pages.cpp" line="968"/>
-        <location filename="pages.cpp" line="1010"/>
+        <location filename="pages.cpp" line="981"/>
+        <location filename="pages.cpp" line="1023"/>
         <source>Credit Card Activate</source>
         <translation>信用卡激活</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="969"/>
-        <location filename="pages.cpp" line="1011"/>
+        <location filename="pages.cpp" line="982"/>
+        <location filename="pages.cpp" line="1024"/>
         <source>Card number</source>
         <translation>信用卡卡号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="971"/>
-        <location filename="pages.cpp" line="1012"/>
+        <location filename="pages.cpp" line="984"/>
+        <location filename="pages.cpp" line="1025"/>
         <source>ACTIVATE</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1002"/>
+        <location filename="pages.cpp" line="1015"/>
         <source>Activate Success!</source>
         <translation>激活成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1004"/>
+        <location filename="pages.cpp" line="1017"/>
         <source>Activate Failed!</source>
         <translation>激活失败！</translation>
     </message>
@@ -317,42 +317,42 @@
 <context>
     <name>CardApplyPage</name>
     <message>
-        <location filename="pages.cpp" line="918"/>
-        <location filename="pages.cpp" line="955"/>
+        <location filename="pages.cpp" line="931"/>
+        <location filename="pages.cpp" line="968"/>
         <source>Credit Card Apply</source>
         <translation>信用卡申请</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="919"/>
-        <location filename="pages.cpp" line="956"/>
+        <location filename="pages.cpp" line="932"/>
+        <location filename="pages.cpp" line="969"/>
         <source>Card type</source>
         <translation>卡种</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="921"/>
-        <location filename="pages.cpp" line="957"/>
+        <location filename="pages.cpp" line="934"/>
+        <location filename="pages.cpp" line="970"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="929"/>
-        <location filename="pages.cpp" line="959"/>
+        <location filename="pages.cpp" line="942"/>
+        <location filename="pages.cpp" line="972"/>
         <source>TYPE 1</source>
         <translation>类型1</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="930"/>
-        <location filename="pages.cpp" line="960"/>
+        <location filename="pages.cpp" line="943"/>
+        <location filename="pages.cpp" line="973"/>
         <source>TYPE 2</source>
         <translation>类型2</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="947"/>
+        <location filename="pages.cpp" line="960"/>
         <source>Apply Success!</source>
         <translation>申请成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="949"/>
+        <location filename="pages.cpp" line="962"/>
         <source>Apply Failed!</source>
         <translation>申请失败！</translation>
     </message>
@@ -360,35 +360,45 @@
 <context>
     <name>CardLostPage</name>
     <message>
-        <location filename="pages.cpp" line="1129"/>
-        <location filename="pages.cpp" line="1167"/>
+        <location filename="pages.cpp" line="1142"/>
+        <location filename="pages.cpp" line="1184"/>
         <source>Credit Card Loss Report</source>
         <translation>信用卡挂失</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1130"/>
-        <location filename="pages.cpp" line="1168"/>
+        <location filename="pages.cpp" line="1143"/>
+        <location filename="pages.cpp" line="1185"/>
         <source>Card number</source>
         <translation>信用卡卡号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1132"/>
-        <location filename="pages.cpp" line="1169"/>
+        <location filename="pages.cpp" line="1145"/>
+        <location filename="pages.cpp" line="1186"/>
         <source>REPORT</source>
         <translation>挂失</translation>
+    </message>
+    <message>
+        <location filename="pages.cpp" line="1176"/>
+        <source>Report Success!</source>
+        <translation>挂失成功！</translation>
+    </message>
+    <message>
+        <location filename="pages.cpp" line="1178"/>
+        <source>Report Failed!</source>
+        <translation>挂失失败！</translation>
     </message>
 </context>
 <context>
     <name>CardRepayPage</name>
     <message>
-        <location filename="pages.cpp" line="1018"/>
-        <location filename="pages.cpp" line="1117"/>
+        <location filename="pages.cpp" line="1031"/>
+        <location filename="pages.cpp" line="1130"/>
         <source>Credit Card Repay</source>
         <translation>信用卡还款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1019"/>
-        <location filename="pages.cpp" line="1118"/>
+        <location filename="pages.cpp" line="1032"/>
+        <location filename="pages.cpp" line="1131"/>
         <source>Card number</source>
         <translation>信用卡卡号</translation>
     </message>
@@ -397,53 +407,53 @@
         <translation type="vanished">全部应还款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1020"/>
-        <location filename="pages.cpp" line="1119"/>
+        <location filename="pages.cpp" line="1033"/>
+        <location filename="pages.cpp" line="1132"/>
         <source>Total due</source>
         <translation>全部应还款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1021"/>
-        <location filename="pages.cpp" line="1120"/>
+        <location filename="pages.cpp" line="1034"/>
+        <location filename="pages.cpp" line="1133"/>
         <source>Minimum due</source>
         <oldsource>Minimum repay amount</oldsource>
         <translation>最低应还款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1022"/>
-        <location filename="pages.cpp" line="1121"/>
+        <location filename="pages.cpp" line="1035"/>
+        <location filename="pages.cpp" line="1134"/>
         <source>Repay account</source>
         <translation>还款账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1023"/>
-        <location filename="pages.cpp" line="1122"/>
+        <location filename="pages.cpp" line="1036"/>
+        <location filename="pages.cpp" line="1135"/>
         <source>Repay ammount</source>
         <translation>还款金额</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1029"/>
-        <location filename="pages.cpp" line="1123"/>
+        <location filename="pages.cpp" line="1042"/>
+        <location filename="pages.cpp" line="1136"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1098"/>
+        <location filename="pages.cpp" line="1111"/>
         <source>Amount Too Small!</source>
         <translation>支付金额过少！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1103"/>
+        <location filename="pages.cpp" line="1116"/>
         <source>Amount Too Large!</source>
         <translation>支付金额过多！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1108"/>
+        <location filename="pages.cpp" line="1121"/>
         <source>Transfer Success!</source>
         <translation>还款成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1110"/>
+        <location filename="pages.cpp" line="1123"/>
         <source>Transfer Failed!</source>
         <translation>还款失败！</translation>
     </message>
@@ -451,47 +461,47 @@
 <context>
     <name>ChangePwPage</name>
     <message>
-        <location filename="pages.cpp" line="1260"/>
-        <location filename="pages.cpp" line="1324"/>
+        <location filename="pages.cpp" line="1277"/>
+        <location filename="pages.cpp" line="1341"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1261"/>
-        <location filename="pages.cpp" line="1325"/>
+        <location filename="pages.cpp" line="1278"/>
+        <location filename="pages.cpp" line="1342"/>
         <source>Original password</source>
         <translation>原密码</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1262"/>
-        <location filename="pages.cpp" line="1326"/>
+        <location filename="pages.cpp" line="1279"/>
+        <location filename="pages.cpp" line="1343"/>
         <source>New password</source>
         <translation>新密码</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1263"/>
-        <location filename="pages.cpp" line="1327"/>
+        <location filename="pages.cpp" line="1280"/>
+        <location filename="pages.cpp" line="1344"/>
         <source>Confirm password</source>
         <translation>确认密码</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1267"/>
-        <location filename="pages.cpp" line="1328"/>
+        <location filename="pages.cpp" line="1284"/>
+        <location filename="pages.cpp" line="1345"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1299"/>
+        <location filename="pages.cpp" line="1316"/>
         <source>New Password Inconsistent!</source>
         <translation>新密码不一致！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1311"/>
+        <location filename="pages.cpp" line="1328"/>
         <source>Action Success!</source>
         <translation>操作成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1316"/>
+        <location filename="pages.cpp" line="1333"/>
         <source>Action Failed!</source>
         <translation>操作失败！</translation>
     </message>
@@ -499,87 +509,87 @@
 <context>
     <name>CurrentFixPage</name>
     <message>
-        <location filename="pages.cpp" line="529"/>
-        <location filename="pages.cpp" line="627"/>
+        <location filename="pages.cpp" line="537"/>
+        <location filename="pages.cpp" line="635"/>
         <source>Current Fixed Transfer</source>
         <translation>定活互转</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="530"/>
-        <location filename="pages.cpp" line="628"/>
+        <location filename="pages.cpp" line="538"/>
+        <location filename="pages.cpp" line="636"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>付款账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="531"/>
-        <location filename="pages.cpp" line="629"/>
+        <location filename="pages.cpp" line="539"/>
+        <location filename="pages.cpp" line="637"/>
         <source>Receiver&apos;s name</source>
         <oldsource>receiver&apos;s name</oldsource>
         <translation>收款人姓名</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="532"/>
-        <location filename="pages.cpp" line="630"/>
+        <location filename="pages.cpp" line="540"/>
+        <location filename="pages.cpp" line="638"/>
         <source>Receiver&apos;s account</source>
         <oldsource>receiver&apos;s account</oldsource>
         <translation>收款人账号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="533"/>
-        <location filename="pages.cpp" line="631"/>
+        <location filename="pages.cpp" line="541"/>
+        <location filename="pages.cpp" line="639"/>
         <source>Transfer type</source>
         <oldsource>transfer type</oldsource>
         <translation>转账类型</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="534"/>
-        <location filename="pages.cpp" line="632"/>
+        <location filename="pages.cpp" line="542"/>
+        <location filename="pages.cpp" line="640"/>
         <source>Transfer amount</source>
         <oldsource>transfer amount</oldsource>
         <translation>转账金额</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="540"/>
-        <location filename="pages.cpp" line="633"/>
+        <location filename="pages.cpp" line="548"/>
+        <location filename="pages.cpp" line="641"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="568"/>
-        <location filename="pages.cpp" line="635"/>
+        <location filename="pages.cpp" line="576"/>
+        <location filename="pages.cpp" line="643"/>
         <source>Current to Fix</source>
         <translation>定转活</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="569"/>
-        <location filename="pages.cpp" line="636"/>
+        <location filename="pages.cpp" line="577"/>
+        <location filename="pages.cpp" line="644"/>
         <source>Fix to Current</source>
         <translation>活转定</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="596"/>
+        <location filename="pages.cpp" line="604"/>
         <source>Receiver&apos;s Name Empty!</source>
         <translation>无收款人姓名！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="601"/>
         <location filename="pages.cpp" line="609"/>
+        <location filename="pages.cpp" line="617"/>
         <source>Receiver&apos;s Account Invalid!</source>
         <translation>收款人账号无效！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="614"/>
+        <location filename="pages.cpp" line="622"/>
         <source>Amount Invalid!</source>
         <translation>金额无效！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="619"/>
+        <location filename="pages.cpp" line="627"/>
         <source>Exchange Success!</source>
         <translation>交易成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="621"/>
+        <location filename="pages.cpp" line="629"/>
         <source>Exchange Failed!</source>
         <translation>交易失败！</translation>
     </message>
@@ -596,13 +606,13 @@
     <name>MyAccountPage</name>
     <message>
         <location filename="pages.cpp" line="22"/>
-        <location filename="pages.cpp" line="154"/>
+        <location filename="pages.cpp" line="157"/>
         <source>My Account</source>
         <translation>我的账户</translation>
     </message>
     <message>
         <location filename="pages.cpp" line="23"/>
-        <location filename="pages.cpp" line="155"/>
+        <location filename="pages.cpp" line="158"/>
         <source>Recent Transaction Records</source>
         <translation>最近交易记录</translation>
     </message>
@@ -611,50 +621,50 @@
         <translation type="vanished">卡种</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="48"/>
-        <location filename="pages.cpp" line="158"/>
+        <location filename="pages.cpp" line="52"/>
+        <location filename="pages.cpp" line="161"/>
         <source>Card Type</source>
         <translation>卡种</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="49"/>
-        <location filename="pages.cpp" line="159"/>
+        <location filename="pages.cpp" line="53"/>
+        <location filename="pages.cpp" line="162"/>
         <source>Card Number</source>
         <translation>卡号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="50"/>
-        <location filename="pages.cpp" line="160"/>
+        <location filename="pages.cpp" line="54"/>
+        <location filename="pages.cpp" line="163"/>
         <source>Fixed</source>
         <translation>定期存款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="51"/>
-        <location filename="pages.cpp" line="161"/>
+        <location filename="pages.cpp" line="55"/>
+        <location filename="pages.cpp" line="164"/>
         <source>Deposit</source>
         <translation>活期存款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="52"/>
-        <location filename="pages.cpp" line="162"/>
+        <location filename="pages.cpp" line="56"/>
+        <location filename="pages.cpp" line="165"/>
         <source>Status</source>
         <translation>账户状态</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="93"/>
-        <location filename="pages.cpp" line="166"/>
+        <location filename="pages.cpp" line="98"/>
+        <location filename="pages.cpp" line="169"/>
         <source>Time</source>
         <translation>交易时间</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="93"/>
-        <location filename="pages.cpp" line="166"/>
+        <location filename="pages.cpp" line="98"/>
+        <location filename="pages.cpp" line="169"/>
         <source>Amount</source>
         <translation>金额</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="93"/>
-        <location filename="pages.cpp" line="166"/>
+        <location filename="pages.cpp" line="98"/>
+        <location filename="pages.cpp" line="169"/>
         <source>Transaction Type</source>
         <translation>交易类型</translation>
     </message>
@@ -662,21 +672,21 @@
 <context>
     <name>PaymentPage</name>
     <message>
-        <location filename="pages.cpp" line="644"/>
-        <location filename="pages.cpp" line="737"/>
+        <location filename="pages.cpp" line="652"/>
+        <location filename="pages.cpp" line="745"/>
         <source>Payment</source>
         <translation>缴费支付</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="645"/>
-        <location filename="pages.cpp" line="738"/>
+        <location filename="pages.cpp" line="653"/>
+        <location filename="pages.cpp" line="746"/>
         <source>Item</source>
         <oldsource>item</oldsource>
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="646"/>
-        <location filename="pages.cpp" line="739"/>
+        <location filename="pages.cpp" line="654"/>
+        <location filename="pages.cpp" line="747"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>付款账户</translation>
@@ -687,48 +697,48 @@
         <translation type="vanished">账单号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="647"/>
-        <location filename="pages.cpp" line="740"/>
+        <location filename="pages.cpp" line="655"/>
+        <location filename="pages.cpp" line="748"/>
         <source>Due</source>
         <translation>缴纳费用</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="651"/>
-        <location filename="pages.cpp" line="741"/>
+        <location filename="pages.cpp" line="659"/>
+        <location filename="pages.cpp" line="749"/>
         <source>SET AUTOPAY</source>
         <translation>设置自动付款</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="652"/>
-        <location filename="pages.cpp" line="742"/>
+        <location filename="pages.cpp" line="660"/>
+        <location filename="pages.cpp" line="750"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="672"/>
-        <location filename="pages.cpp" line="744"/>
+        <location filename="pages.cpp" line="680"/>
+        <location filename="pages.cpp" line="752"/>
         <source>Water Bill</source>
         <translation>水费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="673"/>
-        <location filename="pages.cpp" line="745"/>
+        <location filename="pages.cpp" line="681"/>
+        <location filename="pages.cpp" line="753"/>
         <source>Electricity Bill</source>
         <translation>电费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="674"/>
-        <location filename="pages.cpp" line="746"/>
+        <location filename="pages.cpp" line="682"/>
+        <location filename="pages.cpp" line="754"/>
         <source>Gas Bill</source>
         <translation>燃气费</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="724"/>
+        <location filename="pages.cpp" line="732"/>
         <source>Pay Success!</source>
         <translation>缴费成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="726"/>
+        <location filename="pages.cpp" line="734"/>
         <source>Pay Failed!</source>
         <translation>缴费失败！</translation>
     </message>
@@ -761,12 +771,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="29"/>
+        <location filename="main.cpp" line="34"/>
         <source>Unable to open QSS File!</source>
         <translation>无法打开QSS文件！</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="46"/>
+        <location filename="main.cpp" line="49"/>
         <source>Unable to open database!</source>
         <translation>无法打开数据库！</translation>
     </message>
@@ -774,18 +784,20 @@
 <context>
     <name>SysMsgPage</name>
     <message>
-        <location filename="pages.cpp" line="1335"/>
-        <location filename="pages.cpp" line="1380"/>
+        <location filename="pages.cpp" line="1352"/>
+        <location filename="pages.cpp" line="1401"/>
         <source>System Message</source>
         <translation>系统消息</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1351"/>
+        <location filename="pages.cpp" line="1371"/>
+        <location filename="pages.cpp" line="1404"/>
         <source>Message Time</source>
         <translation>消息时间</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1351"/>
+        <location filename="pages.cpp" line="1372"/>
+        <location filename="pages.cpp" line="1405"/>
         <source>Content</source>
         <translation>消息内容</translation>
     </message>
@@ -793,75 +805,75 @@
 <context>
     <name>TransferPage</name>
     <message>
-        <location filename="pages.cpp" line="429"/>
-        <location filename="pages.cpp" line="517"/>
+        <location filename="pages.cpp" line="437"/>
+        <location filename="pages.cpp" line="525"/>
         <source>Current Deposit Transfer</source>
         <translation>活期转账</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="430"/>
-        <location filename="pages.cpp" line="518"/>
+        <location filename="pages.cpp" line="438"/>
+        <location filename="pages.cpp" line="526"/>
         <source>Paying account</source>
         <oldsource>paying account</oldsource>
         <translation>付款账户</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="431"/>
-        <location filename="pages.cpp" line="519"/>
+        <location filename="pages.cpp" line="439"/>
+        <location filename="pages.cpp" line="527"/>
         <source>Receiver&apos;s name</source>
         <oldsource>receiver&apos;s name</oldsource>
         <translation>收款人姓名</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="432"/>
-        <location filename="pages.cpp" line="520"/>
+        <location filename="pages.cpp" line="440"/>
+        <location filename="pages.cpp" line="528"/>
         <source>Receiver&apos;s account</source>
         <oldsource>receiver&apos;s account</oldsource>
         <translation>收款人账号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="433"/>
-        <location filename="pages.cpp" line="521"/>
+        <location filename="pages.cpp" line="441"/>
+        <location filename="pages.cpp" line="529"/>
         <source>Transfer amount</source>
         <oldsource>transfer amount</oldsource>
         <translation>转账金额</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="434"/>
-        <location filename="pages.cpp" line="522"/>
+        <location filename="pages.cpp" line="442"/>
+        <location filename="pages.cpp" line="530"/>
         <source>Comment</source>
         <oldsource>comment</oldsource>
         <translation>附言</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="440"/>
-        <location filename="pages.cpp" line="523"/>
+        <location filename="pages.cpp" line="448"/>
+        <location filename="pages.cpp" line="531"/>
         <source>CONFIRM</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="486"/>
+        <location filename="pages.cpp" line="494"/>
         <source>Receiver&apos;s Name Empty!</source>
         <translation>无收款人姓名！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="491"/>
         <location filename="pages.cpp" line="499"/>
+        <location filename="pages.cpp" line="507"/>
         <source>Receiver&apos;s Account Invalid!</source>
         <translation>收款人账号无效！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="504"/>
+        <location filename="pages.cpp" line="512"/>
         <source>Amount Invalid!</source>
         <translation>金额无效！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="509"/>
+        <location filename="pages.cpp" line="517"/>
         <source>Transfer Success!</source>
         <translation>转账成功！</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="511"/>
+        <location filename="pages.cpp" line="519"/>
         <source>Transfer Failed!</source>
         <translation>转账失败！</translation>
     </message>
@@ -881,50 +893,50 @@
 <context>
     <name>UserInfoPage</name>
     <message>
-        <location filename="pages.cpp" line="1175"/>
-        <location filename="pages.cpp" line="1247"/>
+        <location filename="pages.cpp" line="1192"/>
+        <location filename="pages.cpp" line="1264"/>
         <source>Personal Info</source>
         <translation>个人信息</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1176"/>
-        <location filename="pages.cpp" line="1248"/>
+        <location filename="pages.cpp" line="1193"/>
+        <location filename="pages.cpp" line="1265"/>
         <source>Name</source>
         <translation>姓名</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1177"/>
-        <location filename="pages.cpp" line="1249"/>
+        <location filename="pages.cpp" line="1194"/>
+        <location filename="pages.cpp" line="1266"/>
         <source>ID number</source>
         <translation>身份证</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1178"/>
-        <location filename="pages.cpp" line="1250"/>
+        <location filename="pages.cpp" line="1195"/>
+        <location filename="pages.cpp" line="1267"/>
         <source>Activate date</source>
         <translation>激活日期</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1179"/>
-        <location filename="pages.cpp" line="1251"/>
+        <location filename="pages.cpp" line="1196"/>
+        <location filename="pages.cpp" line="1268"/>
         <source>Mobile</source>
         <translation>手机号</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1180"/>
-        <location filename="pages.cpp" line="1252"/>
+        <location filename="pages.cpp" line="1197"/>
+        <location filename="pages.cpp" line="1269"/>
         <source>E-mail</source>
         <translation>电子邮箱</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1181"/>
-        <location filename="pages.cpp" line="1253"/>
+        <location filename="pages.cpp" line="1198"/>
+        <location filename="pages.cpp" line="1270"/>
         <source>Address</source>
         <translation>联系地址</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1182"/>
-        <location filename="pages.cpp" line="1254"/>
+        <location filename="pages.cpp" line="1199"/>
+        <location filename="pages.cpp" line="1271"/>
         <source>Zipcode</source>
         <translation>邮编</translation>
     </message>
@@ -1026,86 +1038,91 @@
 <context>
     <name>WMsgBox</name>
     <message>
-        <location filename="wmsgbox.cpp" line="24"/>
-        <location filename="wmsgbox.cpp" line="61"/>
+        <location filename="wmsgbox.cpp" line="25"/>
+        <location filename="wmsgbox.cpp" line="62"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="wmsgbox.cpp" line="62"/>
+        <location filename="wmsgbox.cpp" line="63"/>
         <source>    This program is designed and developed by Tsinghua freshman, Zhu Yilin and Tian Xingyu. It serves as the big assignment for C++ course taught by Prof. Dong. The develop environment is Qt 5.5.0 MSVC2012 with Microsoft Visual C++ Compiler 11.0 (x86).
     Here we extend special thanks to the course teacher and TA, who lead us into the world of C++. We would also like to offer thanks to the open source projects that make our program possible.</source>
         <translation>    此程序由清华学生朱奕霖与田星宇设计并开发，是由董伟老师讲授的C++课程的大作业项目。使用的开发环境为Qt 5.5.0 MSVC2012和Microsoft Visual C++ Compiler 11.0 (x86)编译器。
     在这里我们感谢董老师与助教们，是你们帮助、开导、启发我们学习C++语言。另外，我们也想感谢使我们的程序能够顺利开发的开源项目。</translation>
     </message>
+    <message>
+        <location filename="wmsgbox.cpp" line="109"/>
+        <source>Choose a theme</source>
+        <translation>选择主题颜色</translation>
+    </message>
 </context>
 <context>
     <name>WNavbar</name>
     <message>
-        <location filename="bars.cpp" line="110"/>
-        <location filename="bars.cpp" line="111"/>
-        <location filename="bars.cpp" line="240"/>
-        <location filename="bars.cpp" line="241"/>
+        <location filename="bars.cpp" line="127"/>
+        <location filename="bars.cpp" line="128"/>
+        <location filename="bars.cpp" line="257"/>
+        <location filename="bars.cpp" line="258"/>
         <source>My Account</source>
         <translation>我的账户</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="112"/>
-        <location filename="bars.cpp" line="242"/>
+        <location filename="bars.cpp" line="129"/>
+        <location filename="bars.cpp" line="259"/>
         <source>Account Query</source>
         <translation>账户查询</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="113"/>
-        <location filename="bars.cpp" line="243"/>
+        <location filename="bars.cpp" line="130"/>
+        <location filename="bars.cpp" line="260"/>
         <source>Transfer</source>
         <translation>转账汇款</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="114"/>
-        <location filename="bars.cpp" line="244"/>
+        <location filename="bars.cpp" line="131"/>
+        <location filename="bars.cpp" line="261"/>
         <source>Current Transfer</source>
         <translation>活期转账</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="115"/>
-        <location filename="bars.cpp" line="245"/>
+        <location filename="bars.cpp" line="132"/>
+        <location filename="bars.cpp" line="262"/>
         <source>Current-Fixed</source>
         <translation>定活互转</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="116"/>
-        <location filename="bars.cpp" line="246"/>
+        <location filename="bars.cpp" line="133"/>
+        <location filename="bars.cpp" line="263"/>
         <source>Payment</source>
         <translation>缴费支付</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="117"/>
-        <location filename="bars.cpp" line="247"/>
+        <location filename="bars.cpp" line="134"/>
+        <location filename="bars.cpp" line="264"/>
         <source>Credit Card</source>
         <translation>信用卡</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="118"/>
-        <location filename="bars.cpp" line="248"/>
+        <location filename="bars.cpp" line="135"/>
+        <location filename="bars.cpp" line="265"/>
         <source>Apply</source>
         <translation>申请</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="119"/>
-        <location filename="bars.cpp" line="249"/>
+        <location filename="bars.cpp" line="136"/>
+        <location filename="bars.cpp" line="266"/>
         <source>Activate</source>
         <translation>激活</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="120"/>
-        <location filename="bars.cpp" line="250"/>
+        <location filename="bars.cpp" line="137"/>
+        <location filename="bars.cpp" line="267"/>
         <source>Repay</source>
         <translation>还款</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="121"/>
-        <location filename="bars.cpp" line="251"/>
+        <location filename="bars.cpp" line="138"/>
+        <location filename="bars.cpp" line="268"/>
         <source>Loss Report</source>
         <translation>挂失</translation>
     </message>
@@ -1113,44 +1130,44 @@
 <context>
     <name>WTopbar</name>
     <message>
-        <location filename="bars.cpp" line="18"/>
-        <location filename="bars.cpp" line="79"/>
+        <location filename="bars.cpp" line="21"/>
+        <location filename="bars.cpp" line="96"/>
         <source>Personal Info</source>
         <translation>个人信息</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="19"/>
-        <location filename="bars.cpp" line="80"/>
+        <location filename="bars.cpp" line="22"/>
+        <location filename="bars.cpp" line="97"/>
         <source>Change Password</source>
         <translation>修改密码</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="20"/>
-        <location filename="bars.cpp" line="81"/>
+        <location filename="bars.cpp" line="23"/>
+        <location filename="bars.cpp" line="98"/>
         <source>Message</source>
         <translation>系统消息</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="21"/>
-        <location filename="bars.cpp" line="82"/>
+        <location filename="bars.cpp" line="24"/>
+        <location filename="bars.cpp" line="99"/>
         <source>Log Out</source>
         <translation>注销</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="22"/>
-        <location filename="bars.cpp" line="83"/>
+        <location filename="bars.cpp" line="25"/>
+        <location filename="bars.cpp" line="100"/>
         <source>Language</source>
         <translation>更改语言</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="23"/>
-        <location filename="bars.cpp" line="84"/>
+        <location filename="bars.cpp" line="26"/>
+        <location filename="bars.cpp" line="101"/>
         <source>Change Theme</source>
         <translation>更改主题</translation>
     </message>
     <message>
-        <location filename="bars.cpp" line="24"/>
-        <location filename="bars.cpp" line="85"/>
+        <location filename="bars.cpp" line="27"/>
+        <location filename="bars.cpp" line="102"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -1158,20 +1175,20 @@
 <context>
     <name>WelcomePage</name>
     <message>
-        <location filename="pages.cpp" line="1427"/>
         <location filename="pages.cpp" line="1453"/>
+        <location filename="pages.cpp" line="1479"/>
         <source>Welcome</source>
         <translation>欢迎</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1430"/>
-        <location filename="pages.cpp" line="1454"/>
+        <location filename="pages.cpp" line="1456"/>
+        <location filename="pages.cpp" line="1480"/>
         <source>Click on the left navigation bar to choose function.</source>
         <translation>点击左侧导航栏按钮以选择功能。</translation>
     </message>
     <message>
-        <location filename="pages.cpp" line="1431"/>
-        <location filename="pages.cpp" line="1455"/>
+        <location filename="pages.cpp" line="1457"/>
+        <location filename="pages.cpp" line="1481"/>
         <source>Click on the two top right buttons for user and setting fuctions.</source>
         <translation>点击右上方按钮以显示用户和系统设置。</translation>
     </message>

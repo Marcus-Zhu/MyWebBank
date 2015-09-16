@@ -12,7 +12,6 @@ class WStackedWidget : public QStackedWidget
 public:
     WStackedWidget(QWidget *parent = 0);
     void updateLanguage();
-private:
     MyAccountPage *myAccountPage;
     AccountQueryPage *accountQueryPage;
     TransferPage *transferPage;

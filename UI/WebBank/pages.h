@@ -29,6 +29,7 @@ class MyAccountPage : public WPage
 public:
     explicit MyAccountPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void showAccountRecord(int row, int column);
 private:
@@ -44,6 +45,7 @@ class AccountQueryPage : public WPage
 public:
     explicit AccountQueryPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void showCalendar1();
     void showCalendar2();
@@ -144,6 +146,7 @@ class AutoPayPage : public WPage
 public:
     explicit AutoPayPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void setAutoPay();
     void cancelAutoPay();
@@ -273,6 +276,7 @@ class SysMsgPage : public WPage
 public:
     explicit SysMsgPage(QWidget *parent = 0);
     void updateLanguage();
+    void setSysMsg();
 public slots:
 private:
     QLabel *bgLabel;

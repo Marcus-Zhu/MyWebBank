@@ -9,13 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-        background-image:url(image/orange/login_orange.png);
+        background-image:url(image/orange/login.png);
         background-repeat:no-repeat;
 }
 
 QLabel#RegBG
 {
-        background-image:url(image/orange/reg_orange.png);
+        background-image:url(image/orange/reg.png);
 }
 
 QLabel#LogInNotice
@@ -32,12 +32,12 @@ QLabel#LoadingLabel{
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/orange/msgbox_orange.png);
+        background-image:url(image/orange/msgbox.png);
 }
 
 QLabel#AboutBoxBG
 {
-        background-image:url(image/orange/aboutbox_orange.png);
+        background-image:url(image/orange/aboutbox.png);
 }
 
 QLabel#MsgBoxContent
@@ -51,9 +51,9 @@ QLabel#backgroundLabel
 	background-image:url(image/blankbg.png);
 }
 
-QLabel#rLabel
+QLabel#topbarLabel
 {
-        background-image:url(image/orange/topbar_orange.png);
+        background-image:url(image/orange/topbar.png);
 }
 
 QLabel#navbarLabel
@@ -489,7 +489,7 @@ QCheckBox::indicator:unchecked
 
 QCheckBox::indicator:checked
 {
-        image:url(image/orange/checkbox1_orange.png);
+        image:url(image/checkbox1.png);
 }
 
 QTextEdit{

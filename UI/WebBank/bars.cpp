@@ -2,16 +2,19 @@
 #include <QPoint>
 
 #include "bars.h"
+#include "wuimanip.h"
 
 WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 {
     //components new
-    topbarLabel = new QLabel("", this);
+    topbarLabel = new QLabel(this);
 
-    userBtn = new QPushButton("", this);
-    settingBtn = new QPushButton("", this);
-    minBtn  = new QPushButton("", this);
-    closeBtn = new QPushButton("", this);
+    userBtn = new QPushButton(this);
+    settingBtn = new QPushButton(this);
+    minBtn  = new QPushButton(this);
+    closeBtn = new QPushButton(this);
+
+    noticeLabel = new QLabel(this);
 
     userMenu = new QMenu(this);
     settingMenu = new QMenu(this);
@@ -34,6 +37,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
     //set object name
     topbarLabel->setObjectName("topbarLabel");
+    noticeLabel->setObjectName("noticeLabel");
 
     userBtn->setObjectName("userBtn");
     settingBtn->setObjectName("settingBtn");
@@ -52,6 +56,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
     //set position and size
     topbarLabel->setGeometry(QRect(0, 0, 1000, 161));
+    noticeLabel->setGeometry(QRect(885, 54, 25, 30));
     userBtn->setGeometry(QRect(856, 60, 48, 48));
     settingBtn->setGeometry(QRect(928, 60, 48, 48));
     minBtn->setGeometry(QRect(950, 12, 10, 15));
@@ -71,6 +76,18 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     connect(languageAction, SIGNAL(triggered(bool)), parent, SLOT(changeLanguage()));
     connect(colorAction, SIGNAL(triggered(bool)), parent, SLOT(changeColor()));
     connect(aboutAction, SIGNAL(triggered(bool)), parent, SLOT(showAboutPage()));
+}
+
+void WTopbar::checkMsg()
+{
+    if(WUIManip::hasSysMsg())
+    {
+        noticeLabel->setStyleSheet("background-image:url(image/msgnotice.png)");
+    }
+    else
+    {
+        noticeLabel->setStyleSheet("background-image:none");
+    }
 }
 
 void WTopbar::updateLanguage()

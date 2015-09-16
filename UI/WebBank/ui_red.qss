@@ -9,13 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-        background-image:url(image/red/login_red.png);
+        background-image:url(image/red/login.png);
         background-repeat:no-repeat;
 }
 
 QLabel#RegBG
 {
-        background-image:url(image/red/reg_red.png);
+        background-image:url(image/red/reg.png);
 }
 
 QLabel#LogInNotice
@@ -32,12 +32,12 @@ QLabel#LoadingLabel{
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/red/msgbox_red.png);
+        background-image:url(image/red/msgbox.png);
 }
 
 QLabel#AboutBoxBG
 {
-        background-image:url(image/red/aboutbox_red.png);
+        background-image:url(image/red/aboutbox.png);
 }
 
 QLabel#MsgBoxContent
@@ -53,7 +53,7 @@ QLabel#backgroundLabel
 
 QLabel#topbarLabel
 {
-	background-image:url(image/red/topbar_red.png);
+        background-image:url(image/red/topbar.png);
 }
 
 QLabel#navbarLabel
@@ -489,7 +489,7 @@ QCheckBox::indicator:unchecked
 
 QCheckBox::indicator:checked
 {
-        image:url(image/red/checkbox1_red.png);
+        image:url(image/checkbox1.png);
 }
 
 QTextEdit{

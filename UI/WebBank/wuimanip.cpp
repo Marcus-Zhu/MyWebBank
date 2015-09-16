@@ -5,6 +5,7 @@
 #include "waccount.h"
 #include "wcreditcard.h"
 #include "wquery.h"
+#include "wsysmsg.h"
 #include "wuser.h"
 
 #include <QString>
@@ -22,7 +23,7 @@ WUIManip::WUIManip()
 
 bool WUIManip::openDatabase()
 {
-    qDebug() << database.open();
+    database.open();
     return database.isValid() ? true : false;
 }
 
@@ -158,7 +159,7 @@ bool WUIManip::setAutopay(QString account, QString type)
     info.push_back(account);
     info.push_back(type);
     DBAutoPayManip manip;
-    if (!manip.dbSelectAutoPayment(account, type))
+    if (!manip.dbSelectAutoPayment(type))
     {
         return false;
     }
@@ -167,9 +168,6 @@ bool WUIManip::setAutopay(QString account, QString type)
 
 bool WUIManip::cancelAutopay(QString account, QString type)
 {
-//    QVector<QString> info;
-//    info.push_back(account);
-//    info.push_back(type);
     DBAutoPayManip manip;
     if (manip.dbSelectAutoPayment(account, type))
     {
@@ -236,14 +234,16 @@ bool WUIManip::cardApply(int type)
     WUser user(WCurrentUser::userName);
     QString account;
     DBAccountManip manip;
-    do{
+    do
+    {
         account.clear();
         qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
         for (int i = 0; i < 19; ++i)
         {
-            account.append(QString::number(qrand()%10));
+            account.append(QString::number(qrand() % 10));
         }
-    }while(manip.dbSelectAccount(account));
+    }
+    while(manip.dbSelectAccount(account));
     return user.addAccount(account, "creditCard");
 }
 
@@ -272,6 +272,13 @@ QVector<QString> WUIManip::getSysMsg()
     QVector<QString> msg = msgManip.dbSelect();
     msgManip.dbUpdate("");
     return msg;
+}
+
+bool WUIManip::hasSysMsg()
+{
+    WMessage msg;
+    msg.setMessageNumber();
+    return msg.getHaveNewMessage();
 }
 
 bool WUIManip::changePwd(QString oldPwd, QString newPwd)

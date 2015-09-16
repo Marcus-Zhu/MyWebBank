@@ -97,22 +97,26 @@ bool WPayment::pay(int months)
 
 bool WPayment::autoPayment()
 {
-    bool result[3] = {true,true,true};
+    bool result[3] = {true, true, true};
     DBMessageManip messageManip;
-    for(int i = 0;i<3;i++){
-        if(haveAutoPayment[i]){
-            if(QDate::currentDate()>= autoPayDate[i].addMonths(1)){
+    for(int i = 0; i < 3; i++)
+    {
+        if(haveAutoPayment[i])
+        {
+            if(QDate::currentDate() >= autoPayDate[i].addMonths(1))
+            {
                 type = autoPayType[i];
                 int months = 0;
                 bool r;
-                while(QDate::currentDate()>=autoPayDate[i].addMonths(months))
+                while(QDate::currentDate() >= autoPayDate[i].addMonths(months))
                     months++;
                 months--;
-                for(int j = 0;j<months;j++){
+                for(int j = 0; j < months; j++)
+                {
                     autoPayDate[i] = autoPayDate[i].addMonths(1);
                     QTime time = QTime::currentTime();
-                    qsrand(time.msec()+time.second()*1000);
-                    sum = (100 + qrand()%50);
+                    qsrand(time.msec() + time.second() * 1000);
+                    sum = (100 + qrand() % 50);
                     type = autoPayType[i];
                     r = pay(months - j);
                     QVector<QString> insertInfo;
@@ -128,7 +132,7 @@ bool WPayment::autoPayment()
             }
         }
     }
-    for(int i = 0;i<3;i++)
+    for(int i = 0; i < 3; i++)
         if(!result[i])
             return false;
     return true;

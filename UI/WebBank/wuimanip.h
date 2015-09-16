@@ -31,6 +31,7 @@ public:
     static bool cardRepay(QString account1, QString account2, QString amount);
     static bool cardLost(QString account);
     static QVector<QString> getSysMsg();
+    static bool hasSysMsg();
     static bool changePwd(QString oldPwd, QString newPwd);
     static QVector<QString> userInfo();
 

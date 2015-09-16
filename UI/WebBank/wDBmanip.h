@@ -99,6 +99,7 @@ public:
     bool dbDelete(QString number, QString type);
     bool dbTableCreate();
     bool dbSelectAutoPayment(QString number, QString type);
+    bool dbSelectAutoPayment(QString type);
 };
 
 #endif // WEBBANKDATABASEMANIP_H

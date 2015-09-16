@@ -2,6 +2,7 @@
 
 #include <QLabel>
 #include <QTextEdit>
+#include <QDebug>
 #include <QPushButton>
 
 WMsgBox::WMsgBox(QWidget *parent) : QDialog(parent)
@@ -89,6 +90,64 @@ void WMsgBox::about(QWidget *parent)
     //set connections
     connect(w->okBtn, SIGNAL(clicked(bool)), w, SLOT(accept()));
     connect(w->closeBtn, SIGNAL(clicked(bool)), w, SLOT(reject()));
+
+    w->exec();
+}
+
+void WMsgBox::color(QWidget *parent)
+{
+    WMsgBox *w = new WMsgBox(parent);
+    w->move(326, 226);
+
+    //main widget setup
+    w->setWindowFlags(Qt::FramelessWindowHint);
+    w->setAttribute( Qt::WA_TranslucentBackground, true);
+    w->setObjectName("ColorBox");
+
+    //components new
+    w->bgLabel = new QLabel(w);
+    w->contentLabel = new QLabel(tr("Choose a theme"), w);
+    w->closeBtn = new QPushButton(w);
+    w->blueBtn = new QPushButton(w);
+    w->greenBtn = new QPushButton(w);
+    w->orangeBtn = new QPushButton(w);
+    w->purpleBtn = new QPushButton(w);
+    w->redBtn = new QPushButton(w);
+    w->yellowBtn = new QPushButton(w);
+
+    //set object name
+    w->bgLabel->setObjectName("MsgBoxBG");
+    w->contentLabel->setObjectName("MsgBoxContent");
+    w->closeBtn->setObjectName("MsgBoxClose");
+
+    //set position and size
+    w->bgLabel->setGeometry(QRect(0, 0, 328, 219));
+    w->contentLabel->setGeometry(QRect(0, 102, 328, 48));
+    w->closeBtn->setGeometry(QRect(301, 12, 10, 15));
+    w->blueBtn->setGeometry(QRect(170, 160, 36, 36));
+    w->greenBtn->setGeometry(QRect(218, 160, 36, 36));
+    w->orangeBtn->setGeometry(QRect(74, 160, 36, 36));
+    w->purpleBtn->setGeometry(QRect(266, 160, 36, 36));
+    w->redBtn->setGeometry(QRect(26, 160, 36, 36));
+    w->yellowBtn->setGeometry(QRect(122, 160, 36, 36));
+
+    //set format
+    w->contentLabel->setAlignment(Qt::AlignCenter);
+    w->blueBtn->setStyleSheet("background-color: #03a9f4; border-radius: 2px;");
+    w->greenBtn->setStyleSheet("background-color: #8bc34a; border-radius: 2px;");
+    w->orangeBtn->setStyleSheet("background-color: #ff9800; border-radius: 2px;");
+    w->purpleBtn->setStyleSheet("background-color: #673ab7; border-radius: 2px;");
+    w->redBtn->setStyleSheet("background-color: #e51c23; border-radius: 2px;");
+    w->yellowBtn->setStyleSheet("background-color: #ffeb3b; border-radius: 2px;");
+
+    //set connections
+    connect(w->closeBtn, SIGNAL(clicked(bool)), w, SLOT(reject()));
+    connect(w->blueBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToBlue()));
+    connect(w->greenBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToGreen()));
+    connect(w->orangeBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToOrange()));
+    connect(w->purpleBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToPurple()));
+    connect(w->redBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToRed()));
+    connect(w->yellowBtn, SIGNAL(clicked(bool)), parent, SLOT(changeToYellow()));
 
     w->exec();
 }

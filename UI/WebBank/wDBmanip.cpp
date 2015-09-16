@@ -233,7 +233,15 @@ QVector<QString> DBAccountManip::dbSelect(QString selectInfo)
         while(query.next())
         {
             for(int i = 0; i < 6; i++)
-                accountInfo.push_back(query.value(2 + i).toString());
+            {
+                if(i == 2 || i == 3)
+                {
+                    float f = query.value(2 + i).toFloat();
+                    accountInfo.push_back(QString::number(f, 'f', 2));
+                }
+                else
+                    accountInfo.push_back(query.value(2 + i).toString());
+            }
             return accountInfo;
         }
     }
@@ -250,7 +258,15 @@ QVector<QString> DBAccountManip::dbSelect(int num)
     for(int i = 0; i <= num; i++)
         query.next();
     for(int i = 0; i < 5; i++)
-        info.push_back(query.value(2 + i).toString());
+    {
+        if(i == 2 || i == 3)
+        {
+            float f = query.value(2 + i).toFloat();
+            info.push_back(QString::number(f, 'f', 2));
+        }
+        else
+            info.push_back(query.value(2 + i).toString());
+    }
     return info;
 }
 
@@ -324,7 +340,15 @@ QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo)
             content[0] = number1;
             content[1] = number2;
             for(int i = 2; i < 7; i++)
-                content[i] = query.value(i + 1).toString();
+            {
+                if(i == 2 || i == 4 || i == 5)
+                {
+                    float f = query.value(i + 1).toFloat();
+                    content[i] = QString::number(f, 'f', 2);
+                }
+                else
+                    content[i] = query.value(1 + i).toString();
+            }
             for(int i = 0; i < 7; i++)
                 transactionRecordInfo.push_back(content[i]);
         }
@@ -344,7 +368,15 @@ QVector<QString> DBTransactionRecordManip::dbSelect(QString selectInfo, int cols
         {
             QString content[3];
             for(int i = 0; i < cols; i++)
-                content[i] = query.value(i).toString();
+            {
+                if(i == 0)
+                {
+                    float f = query.value(0).toFloat();
+                    content[i] = QString::number(f, 'f', 2);
+                }
+                else
+                    content[i] = query.value(i).toString();
+            }
             for(int i = 0; i < cols; i++)
                 transactionRecords.push_back(content[i]);
         }
@@ -403,7 +435,15 @@ QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo)
             QString content[4];
             paymentRecordInfo.push_back(number);
             for(int i = 0; i < 4; i++)
-                content[i] = query.value(i + 2).toString();
+            {
+                if(i == 0 || i == 2)
+                {
+                    float f = query.value(i).toFloat();
+                    content[i] = QString::number(f, 'f', 2);
+                }
+                else
+                    content[i] = query.value(i + 2).toString();
+            }
             for(int i = 0; i < 4; i++)
                 paymentRecordInfo.push_back(content[i]);
         }
@@ -423,7 +463,15 @@ QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo, int cols)
         {
             QString content[3];
             for(int i = 0; i < cols; i++)
-                content[i] = query.value(i).toString();
+            {
+                if(i == 0)
+                {
+                    float f = query.value(0).toFloat();
+                    content[i] = QString::number(f, 'f', 2);
+                }
+                else
+                    content[i] = query.value(i).toString();
+            }
             for(int i = 0; i < cols; i++)
                 paymentRecords.push_back(content[i]);
         }
@@ -455,16 +503,19 @@ bool DBMessageManip::dbTableCreate()
     return result;
 }
 
-bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
+bool DBMessageManip::dbInsert(QVector<QString> &insertInfo)
+{
     QSqlQuery query;
     bool result;
     query.prepare("INSERT INTO message (userKey,content,status) VALUES (?,?,?)");
-    if(insertInfo.size() == 3){
+    if(insertInfo.size() == 3)
+    {
         query.addBindValue(insertInfo[0].toInt());
         query.addBindValue(insertInfo[2]);
         query.addBindValue("not read");
         result = query.exec();
-        if(result){
+        if(result)
+        {
             int key;
             query.exec("SELECT max(key) FROM message");
             query.next();
@@ -474,7 +525,8 @@ bool DBMessageManip::dbInsert(QVector<QString> &insertInfo){
             result = query.exec(updateInfo);
         }
     }
-    else{
+    else
+    {
         query.addBindValue(insertInfo[0].toInt());
         query.addBindValue(insertInfo[1]);
         query.addBindValue("not read");
@@ -519,7 +571,10 @@ bool DBMessageManip::dbDelete(QString deleteInfo)
 int DBMessageManip::dbSelectMessageAmount()
 {
     QSqlQuery query;
-    query.exec("SELECT FROM message WHERE status = 'not_read'");
+    int key = DBUserManip::dbSelectUserKey();
+    query.prepare("SELECT key FROM message WHERE status = 'not read' AND userKey = ?");
+    query.addBindValue(key);
+    query.exec();
     int amount = 0;
     while(query.next())
     {
@@ -605,14 +660,16 @@ QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo)
     query.prepare("SELECT number FROM account WHERE userKey = ?");
     query.addBindValue(key);
     query.exec();
-    while(query.next()){
+    while(query.next())
+    {
         number = query.value(0).toString();
         key = DBAccountManip::dbSelectAccountKey(number);
         QSqlQuery query1;
         query1.prepare("SELECT * FROM autoPay WHERE accountKey = ?");
         query1.addBindValue(key);
         query1.exec();
-        while(query1.next()){
+        while(query1.next())
+        {
             info.push_back(number);
             info.push_back(query1.value(2).toString());
             info.push_back(query1.value(3).toString());
@@ -643,17 +700,50 @@ bool DBAutoPayManip::dbDelete(QString number, QString type)
     return result;
 }
 
-bool DBAutoPayManip::dbSelectAutoPayment(QString number, QString type){
+bool DBAutoPayManip::dbSelectAutoPayment(QString number, QString type)
+{
     QSqlQuery query;
     query.prepare("SELECT type FROM autoPay WHERE accountKey = ?");
     int accountKey = DBAccountManip::dbSelectAccountKey(number);
     query.addBindValue(accountKey);
     bool result = query.exec();
-    if(result){
-        while(query.next()){
+    if(result)
+    {
+        while(query.next())
+        {
             if(type == query.value(0).toString())
                 return false;
         }
     }
     return result;
+}
+
+bool DBAutoPayManip::dbSelectAutoPayment(QString type)
+{
+    QSqlQuery query1;
+    int userKey = DBUserManip::dbSelectUserKey();
+    QVector<QString> numbers;
+    query1.prepare("SELECT number FROM account WHERE userKey = ?");
+    query1.addBindValue(userKey);
+    query1.exec();
+    if(!query1.next())
+        return true;
+    else
+        numbers.push_back(query1.value(0).toString());
+    while(query1.next())
+        numbers.push_back(query1.value(0).toString());
+    for(int i = 0; i < numbers.size(); i++)
+    {
+        int accountKey = DBAccountManip::dbSelectAccountKey(numbers[i]);
+        QSqlQuery query2;
+        query2.prepare("SELECT type FROM autoPay WHERE accountKey = ?");
+        query2.addBindValue(accountKey);
+        query2.exec();
+        while(query2.next())
+        {
+            if(query2.value(0).toString() == type)
+                return false;
+        }
+    }
+    return true;
 }

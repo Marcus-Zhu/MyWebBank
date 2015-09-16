@@ -9,13 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-        background-image:url(image/blue/login_blue.png);
+        background-image:url(image/blue/login.png);
         background-repeat:no-repeat;
 }
 
 QLabel#RegBG
 {
-        background-image:url(image/blue/reg_blue.png);
+        background-image:url(image/blue/reg.png);
 }
 
 QLabel#LogInNotice
@@ -32,12 +32,12 @@ QLabel#LoadingLabel{
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/blue/msgbox_blue.png);
+        background-image:url(image/blue/msgbox.png);
 }
 
 QLabel#AboutBoxBG
 {
-        background-image:url(image/blue/aboutbox_blue.png);
+        background-image:url(image/blue/aboutbox.png);
 }
 
 /*BankUI*/
@@ -48,7 +48,7 @@ QLabel#backgroundLabel
 
 QLabel#topbarLabel
 {
-        background-image:url(image/blue/topbar_blue.png);
+        background-image:url(image/blue/topbar.png);
 }
 
 QLabel#navbarLabel
@@ -479,12 +479,12 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image:url(image/checkbox0.png);
+        image:url(image/checkbox0.png);
 }
 
 QCheckBox::indicator:checked
 {
-        image:url(image/blue/checkbox1_blue.png);
+        image:url(image/checkbox1.png);
 }
 
 QTextEdit{

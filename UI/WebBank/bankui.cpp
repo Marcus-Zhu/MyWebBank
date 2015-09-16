@@ -8,6 +8,7 @@
 #include <QString>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
+#include <QSettings>
 
 #include "bankui.h"
 #include "wcurrentuser.h"
@@ -88,10 +89,10 @@ void BankUI::changeLanguage()
     updateLanguage();
 
     //write current language into trans.ini
-    QFile transFile("trans/trans.ini");
-    transFile.open(QFile::WriteOnly | QFile::Truncate);
-    isChinese ? transFile.write("trans/chn.qm") : transFile.write("trans/eng.qm");
-    transFile.close();
+    QSettings config("config.ini", QSettings::IniFormat);
+    config.setValue("QSS", ":/ui/ui_blue.qss");
+    config.setValue("LOGO", "image/blue/logo.png");
+    config.setValue("TRANS", isChinese ? "trans/chn.qm" : "trans/eng.qm");
 }
 
 void BankUI::updateLanguage()
@@ -110,7 +111,68 @@ void BankUI::updateLanguage()
 
 void BankUI::changeColor()
 {
+    //if color is changed
+    WMsgBox::color(this);
+}
 
+void BankUI::changeToBlue()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_blue.qss");
+    colorConfig.setValue("LOGO", "image/blue/logo.png");
+    //restart the window
+    closeColor();
+}
+
+void BankUI::changeToGreen()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_green.qss");
+    colorConfig.setValue("LOGO", "image/green/logo.png");
+    //restart the window
+    closeColor();
+}
+
+void BankUI::changeToOrange()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_orange.qss");
+    colorConfig.setValue("LOGO", "image/orange/logo.png");
+    //restart the window
+    closeColor();
+}
+
+void BankUI::changeToPurple()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_purple.qss");
+    colorConfig.setValue("LOGO", "image/purple/logo.png");
+    //restart the window
+    closeColor();
+}
+
+void BankUI::changeToRed()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_red.qss");
+    colorConfig.setValue("LOGO", "image/red/logo.png");
+    //restart the window
+    closeColor();
+}
+
+void BankUI::changeToYellow()
+{
+    //change color settings and write into color.ini
+    QSettings colorConfig("config.ini", QSettings::IniFormat);
+    colorConfig.setValue("QSS", ":/ui/ui_yellow.qss");
+    colorConfig.setValue("LOGO", "image/yellow/logo.png");
+    //restart the window
+    closeColor();
 }
 
 void BankUI::mouseMoveEvent(QMouseEvent *event)
@@ -139,11 +201,13 @@ void BankUI::mouseReleaseEvent(QMouseEvent *event)
 //the following are the slots for buttons on navbar
 void BankUI::showMyAccountPage()
 {
+    centerStack->myAccountPage->setTable();
     centerStack->setCurrentIndex(0);
 }
 
 void BankUI::showAccountQueryPage()
 {
+    centerStack->accountQueryPage->setTable();
     centerStack->setCurrentIndex(1);
 }
 
@@ -164,6 +228,7 @@ void BankUI::showPaymentPage()
 
 void BankUI::showAutoPayPage()
 {
+    centerStack->autoPayPage->setTable();
     centerStack->setCurrentIndex(5);
 }
 
@@ -199,6 +264,8 @@ void BankUI::showChangePwPage()
 
 void BankUI::showSysMsgPage()
 {
+    centerStack->sysMsgPage->setSysMsg();
+    topbar->checkMsg();
     centerStack->setCurrentIndex(12);
 }
 
@@ -275,6 +342,7 @@ void BankUI::openUX3()
     timer = new QTimer(this);
     timer->setInterval(8);
     timer->start();
+    topbar->checkMsg();
 
     //change opacity bit by bit
     connect(timer, SIGNAL(timeout()), this, SLOT(openUX5()));
@@ -334,6 +402,38 @@ bool BankUI::closeWindow()
 
     //after animation done, close the window
     connect(animation2, SIGNAL(finished()), this, SLOT(close()));
+    return true;
+}
+
+bool BankUI::closeColor()
+{
+    QPoint pos = this->mapToGlobal(QPoint(0, 0));
+    this->setMinimumSize(400, 300);
+
+    //set geometry change animation
+    QPropertyAnimation *animation1 = new QPropertyAnimation(this, "geometry");
+    animation1->setDuration(180);
+    animation1->setStartValue(QRect(pos.rx(), pos.ry(), 1000, 750));
+    animation1->setEndValue(QRect(pos.rx() + 300, pos.ry() + 250, 400, 300));
+    animation1->setEasingCurve(QEasingCurve::OutSine);
+
+    //set opacity change animation
+    QPropertyAnimation *animation2 = new QPropertyAnimation(this, "windowOpacity");
+    animation2->setDuration(160);
+    animation2->setStartValue(1);
+    animation2->setEndValue(0);
+
+    //start animation
+    animation1->start();
+    animation2->start();
+
+    QTimer::singleShot(500, this, SLOT(restartColor()));
+    return true;
+}
+
+bool BankUI::restartColor()
+{
+    qApp->exit(3);
     return true;
 }
 

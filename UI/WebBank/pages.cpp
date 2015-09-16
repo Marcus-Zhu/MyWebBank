@@ -37,10 +37,14 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->setGeometry(QRect(24, 72, 708, 192));
     table2->setGeometry(QRect(24, 336, 708, 192));
 
+    connect(table1, SIGNAL(cellClicked(int, int)), this, SLOT(showAccountRecord(int, int)));
+}
 
+void MyAccountPage::setTable()
+{
     //setup table1
     int accountNum = WUIManip::getAccountNum();
-
+    table1->clear();
     table1->setColumnCount(5);
     table1->setRowCount(accountNum);
 
@@ -85,6 +89,7 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table1->verticalHeader()->setDefaultSectionSize(48);
 
     //setup table2
+    table2->clear();
     QVector<QString> recordInfo = WUIManip::getAccountRecord(0);
     table2->setColumnCount(3);
     table2->setRowCount(recordInfo.size() / 3);
@@ -121,8 +126,6 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     table2->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table2->horizontalHeader()->setHighlightSections(false);
     table2->verticalHeader()->setDefaultSectionSize(48);
-
-    connect(table1, SIGNAL(cellClicked(int, int)), this, SLOT(showAccountRecord(int, int)));
 }
 
 void MyAccountPage::showAccountRecord(int row, int column)
@@ -242,24 +245,6 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     WDelegate *CMADele = new WDelegate();
     accountBox->setItemDelegate(CMADele);
 
-    //setup table
-    table->setColumnCount(3);
-    table->setRowCount(5);
-
-    QStringList header;
-    header << tr("Amount") << tr("Time") << tr("Transaction Type");
-    table->setHorizontalHeaderLabels(header);
-    table->horizontalHeader()->resizeSection(0, 100);
-    table->horizontalHeader()->resizeSection(1, 250);
-    WDelegate *CAQDele = new WDelegate();
-    table->setItemDelegate(CAQDele);
-    table->verticalHeader()->hide();
-    table->horizontalHeader()->setStretchLastSection(true);
-    table->setShowGrid(false);
-    table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table->horizontalHeader()->setHighlightSections(false);
-    table->verticalHeader()->setDefaultSectionSize(48);
 
     //setup date edit
     fromDate->setPlaceholderText("YYYY.MM.DD");
@@ -277,6 +262,29 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     connect(expenseCkBox, SIGNAL(clicked(bool)), this, SLOT(popIncome()));
     connect(searchBtn, SIGNAL(clicked(bool)), this, SLOT(search()));
     connect(recentBtn, SIGNAL(clicked(bool)), this, SLOT(recent()));
+}
+
+void AccountQueryPage::setTable()
+{
+    //setup table
+    table->clear();
+    table->setColumnCount(3);
+    table->setRowCount(5);
+
+    QStringList header;
+    header << tr("Amount") << tr("Time") << tr("Transaction Type");
+    table->setHorizontalHeaderLabels(header);
+    table->horizontalHeader()->resizeSection(0, 100);
+    table->horizontalHeader()->resizeSection(1, 250);
+    WDelegate *CAQDele = new WDelegate();
+    table->setItemDelegate(CAQDele);
+    table->verticalHeader()->hide();
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setShowGrid(false);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->horizontalHeader()->setHighlightSections(false);
+    table->verticalHeader()->setDefaultSectionSize(48);
 }
 
 void AccountQueryPage::search()
@@ -801,8 +809,17 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     cancelBtn->setGeometry(QRect(484, 192, 96, 36));
     table->setGeometry(QRect(24, 288, 708, 240));
 
+    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(setAutoPay()));
+    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(cancelAutoPay()));
+    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
+    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
+}
+
+void AutoPayPage::setTable()
+{
     //setup table
     QVector<QString> log = WUIManip::getAutopayRecord();
+    table->clear();
     table->setColumnCount(2);
     table->setRowCount(log.size() / 3);
 
@@ -828,13 +845,8 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     table->setShowGrid(false);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table->horizontalHeader()->resizeSection(0, 150);
+    table->horizontalHeader()->resizeSection(0, 450);
     table->verticalHeader()->setDefaultSectionSize(48);
-
-    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(setAutoPay()));
-    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(cancelAutoPay()));
-    connect(settingBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
-    connect(cancelBtn, SIGNAL(clicked(bool)), this, SLOT(updateTable()));
 }
 
 void AutoPayPage::setAutoPay()
@@ -884,6 +896,7 @@ void AutoPayPage::cancelAutoPay()
 void AutoPayPage::updateTable()
 {
     QVector<QString> log = WUIManip::getAutopayRecord();
+    table->setRowCount(log.size() / 3);
     table->clearContents();
     for (int i = 0; i < log.size() / 3; ++i)
     {
@@ -1048,7 +1061,7 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
     float val = (qrand() % 9000 + 1000) / 10;
     val1.setNum(val);
-    val2.setNum(val/10);
+    val2.setNum(val / 10);
     edit2->setText(val1);
     edit3->setText(val2);
 
@@ -1345,16 +1358,19 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     table->setGeometry(QRect(24, 72, 708, 480));
+}
 
-    //setup table
+void SysMsgPage::setSysMsg()
+{
     QVector<QString> msg = WUIManip::getSysMsg();
+    table->clear();
     table->setColumnCount(2);
     table->setRowCount(msg.size() / 2);
 
     QStringList headers;
-    headers << tr("Message Time") << tr("Content");
+    headers << tr("Message Time")
+            << tr("Content");
     table->setHorizontalHeaderLabels(headers);
-    table->horizontalHeader()->resizeSection(0, 400);
 
     for (int i = 0; i < msg.size() / 2; ++i)
     {
@@ -1374,7 +1390,7 @@ SysMsgPage::SysMsgPage(QWidget *parent) : WPage(parent)
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->setHighlightSections(false);
-    table->horizontalHeader()->resizeSection(0, 150);
+    table->horizontalHeader()->resizeSection(0, 250);
     table->verticalHeader()->setDefaultSectionSize(48);
 }
 
@@ -1382,6 +1398,11 @@ void SysMsgPage::updateLanguage()
 {
     //update language in this page
     mainTitle->setText(tr("System Message"));
+
+    QStringList headers;
+    headers << tr("Message Time")
+            << tr("Content");
+    table->setHorizontalHeaderLabels(headers);
 }
 
 AboutPage::AboutPage(QWidget *parent) : WPage(parent)
