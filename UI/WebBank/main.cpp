@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
         QSettings config("config.ini", QSettings::IniFormat);
         QString colorName = config.value("QSS").toString();
         QString logoName = config.value("LOGO").toString();
-        qDebug() << logoName;
         QFile qssFile(colorName);
         qssFile.open(QFile::ReadOnly);
         if(qssFile.isOpen())

@@ -82,12 +82,10 @@ void WTopbar::checkMsg()
 {
     if(WUIManip::hasSysMsg())
     {
-        qDebug() << "has msg";
         noticeLabel->setStyleSheet("background-image:url(:/image/image/msgnotice.png)");
     }
     else
     {
-        qDebug() << "has no msg";
         noticeLabel->setStyleSheet("background-image:none");
     }
 }
