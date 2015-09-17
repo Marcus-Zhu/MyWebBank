@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QDialog>
 #include <QString>
+#include <QTextEdit>
 #include <QMouseEvent>
 
 class WMsgBox : public QDialog
@@ -13,7 +14,9 @@ class WMsgBox : public QDialog
     Q_OBJECT
 public:
     explicit WMsgBox(QWidget *parent = 0);
-    static void information(QString content);
+    static void information(QString content, QWidget *parent = 0);
+    static void about(QWidget *parent = 0);
+    static void color(QWidget *parent = 0);
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -23,8 +26,15 @@ protected:
 private:
     QLabel *bgLabel;
     QLabel *contentLabel;
+    QTextEdit *contentText;
     QPushButton *closeBtn;
     QPushButton *okBtn;
+    QPushButton *blueBtn;
+    QPushButton *greenBtn;
+    QPushButton *orangeBtn;
+    QPushButton *purpleBtn;
+    QPushButton *redBtn;
+    QPushButton *yellowBtn;
     bool isPressed;
     QPoint movePoint;
 };

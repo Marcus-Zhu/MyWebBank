@@ -2,16 +2,19 @@
 #include <QPoint>
 
 #include "bars.h"
+#include "wuimanip.h"
 
 WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 {
     //components new
-    topbarLabel = new QLabel("", this);
+    topbarLabel = new QLabel(this);
 
-    userBtn = new QPushButton("", this);
-    settingBtn = new QPushButton("", this);
-    minBtn  = new QPushButton("", this);
-    closeBtn = new QPushButton("", this);
+    userBtn = new QPushButton(this);
+    settingBtn = new QPushButton(this);
+    minBtn  = new QPushButton(this);
+    closeBtn = new QPushButton(this);
+
+    noticeLabel = new QLabel(this);
 
     userMenu = new QMenu(this);
     settingMenu = new QMenu(this);
@@ -20,6 +23,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     sysmsgAction = new QAction(tr("Message"), this);
     logoutAction = new QAction(tr("Log Out"), this);
     languageAction = new QAction(tr("Language"), this);
+    colorAction = new QAction(tr("Change Theme"), this);
     aboutAction = new QAction(tr("About"), this);
 
     //adda actions to menu
@@ -28,10 +32,12 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     userMenu->addAction(sysmsgAction);
     userMenu->addAction(logoutAction);
     settingMenu->addAction(languageAction);
+    settingMenu->addAction(colorAction);
     settingMenu->addAction(aboutAction);
 
     //set object name
     topbarLabel->setObjectName("topbarLabel");
+    noticeLabel->setObjectName("noticeLabel");
 
     userBtn->setObjectName("userBtn");
     settingBtn->setObjectName("settingBtn");
@@ -40,15 +46,17 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
     userMenu->setObjectName("userBtnMenu");
     settingMenu->setObjectName("settingBtnMenu");
-    personalInfoAction->setObjectName(("personalInfoAction"));
-    changepwAction->setObjectName(("ChangepwAction"));
-    sysmsgAction->setObjectName(("MessageAction"));
-    logoutAction->setObjectName(("logoutAction"));
-    languageAction->setObjectName(("languageAction"));
-    aboutAction->setObjectName(("aboutAction"));
+    personalInfoAction->setObjectName("personalInfoAction");
+    changepwAction->setObjectName("ChangepwAction");
+    sysmsgAction->setObjectName("MessageAction");
+    logoutAction->setObjectName("logoutAction");
+    languageAction->setObjectName("languageAction");
+    colorAction->setObjectName("colorAction");
+    aboutAction->setObjectName("aboutAction");
 
     //set position and size
     topbarLabel->setGeometry(QRect(0, 0, 1000, 161));
+    noticeLabel->setGeometry(QRect(885, 54, 25, 30));
     userBtn->setGeometry(QRect(856, 60, 48, 48));
     settingBtn->setGeometry(QRect(928, 60, 48, 48));
     minBtn->setGeometry(QRect(950, 12, 10, 15));
@@ -64,9 +72,24 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     connect(personalInfoAction, SIGNAL(triggered(bool)), parent, SLOT(showUserInfoPage()));
     connect(changepwAction, SIGNAL(triggered(bool)), parent, SLOT(showChangePwPage()));
     connect(sysmsgAction, SIGNAL(triggered(bool)), parent, SLOT(showSysMsgPage()));
-    connect(logoutAction, SIGNAL(triggered(bool)), parent, SLOT(closeWindow()));
+    connect(logoutAction, SIGNAL(triggered(bool)), parent, SLOT(restartWindow()));
     connect(languageAction, SIGNAL(triggered(bool)), parent, SLOT(changeLanguage()));
+    connect(colorAction, SIGNAL(triggered(bool)), parent, SLOT(changeColor()));
     connect(aboutAction, SIGNAL(triggered(bool)), parent, SLOT(showAboutPage()));
+}
+
+void WTopbar::checkMsg()
+{
+    if(WUIManip::hasSysMsg())
+    {
+        qDebug() << "has msg";
+        noticeLabel->setStyleSheet("background-image:url(:/image/image/msgnotice.png)");
+    }
+    else
+    {
+        qDebug() << "has no msg";
+        noticeLabel->setStyleSheet("background-image:none");
+    }
 }
 
 void WTopbar::updateLanguage()
@@ -77,6 +100,7 @@ void WTopbar::updateLanguage()
     sysmsgAction->setText(tr("Message"));
     logoutAction->setText(tr("Log Out"));
     languageAction->setText(tr("Language"));
+    colorAction->setText(tr("Change Theme"));
     aboutAction->setText(tr("About"));
 }
 

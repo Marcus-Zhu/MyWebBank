@@ -29,6 +29,7 @@ class MyAccountPage : public WPage
 public:
     explicit MyAccountPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void showAccountRecord(int row, int column);
 private:
@@ -44,6 +45,7 @@ class AccountQueryPage : public WPage
 public:
     explicit AccountQueryPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void showCalendar1();
     void showCalendar2();
@@ -53,6 +55,7 @@ public slots:
     void popIncome();
     void search();
     void recent();
+    void exportExcel();
 private:
     QLabel *bgLabel;
     QLabel *label1;
@@ -63,11 +66,13 @@ private:
     QCheckBox *expenseCkBox;
     QPushButton *searchBtn;
     QPushButton *recentBtn;
+    QPushButton *exportBtn;
     WLineEdit *fromDate;
     WLineEdit *toDate;
     QCalendarWidget *calendar1;
     QCalendarWidget *calendar2;
     QLabel *calendarLabel;
+    int queryType;
 };
 
 class TransferPage : public WPage
@@ -124,6 +129,7 @@ public:
     void updateLanguage();
 public slots:
     void confirm();
+    void changeValue(int i);
 private:
     QLabel *label1;
     QLabel *label2;
@@ -134,6 +140,7 @@ private:
     QPushButton *queryBtn;
     QPushButton *confirmBtn;
     QPushButton *autoBtn;
+    int value[3];
 };
 
 class AutoPayPage : public WPage
@@ -142,9 +149,11 @@ class AutoPayPage : public WPage
 public:
     explicit AutoPayPage(QWidget *parent = 0);
     void updateLanguage();
+    void setTable();
 public slots:
     void setAutoPay();
     void cancelAutoPay();
+    void updateTable();
 private:
     QLabel *bgLabel;
     QLabel *label1;
@@ -270,6 +279,7 @@ class SysMsgPage : public WPage
 public:
     explicit SysMsgPage(QWidget *parent = 0);
     void updateLanguage();
+    void setSysMsg();
 public slots:
 private:
     QLabel *bgLabel;

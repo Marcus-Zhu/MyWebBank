@@ -98,3 +98,136 @@ bool WCreditCard::payment(const QString paymentType, float sum)
     bool result = pay.pay();
     return result;
 }
+
+WPlatinumCard::WPlatinumCard(QString number)
+{
+    setAccountInfo(number);
+    setCreditLimit(100000);
+    DBAccountManip accountManip;
+    accountManip.dbUpdate(number, getCreditLimit(), getDeposit());
+}
+
+void WPlatinumCard::interestCaculation(const float poundage)
+{
+    QDate currentDate = QDate::currentDate();
+    QString tableTime;
+    DBLogRecordManip dbLogRecord;
+    DBAccountManip dbAccount;
+
+    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'")
+                                      .arg(getAccountNumber())))[0];
+    QDateTime TableTime  = QDateTime::fromString(tableTime, "yyyy-MM-dd hh:mm:ss");
+    int days = -currentDate.daysTo(TableTime.date());
+    if(getStatus() != "frozen" )
+    {
+        float deposit = getDeposit();
+        if(WCurrentUser::userType == "normal")
+        {
+            deposit = deposit - deposit * days * NORMALFIXEDRATE * poundage;
+        }
+        else
+            deposit = deposit + deposit * days * VIPFIXEDRATE * poundage;
+    }
+
+    dbAccount.dbUpdate(getAccountNumber(), getCreditLimit(), getDeposit());
+}
+
+WGoldCard::WGoldCard(QString number)
+{
+    setAccountInfo(number);
+    setCreditLimit(50000);
+    DBAccountManip accountManip;
+    accountManip.dbUpdate(number, getCreditLimit(), getDeposit());
+}
+
+void WGoldCard::interestCaculation(const float poundage)
+{
+    QDate currentDate = QDate::currentDate();
+    QString tableTime;
+    DBLogRecordManip dbLogRecord;
+    DBAccountManip dbAccount;
+
+    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'")
+                                      .arg(getAccountNumber())))[0];
+    QDateTime TableTime  = QDateTime::fromString(tableTime, "yyyy-MM-dd hh:mm:ss");
+    int days = -currentDate.daysTo(TableTime.date());
+    if(getStatus() != "frozen" )
+    {
+        float deposit = getDeposit();
+        if(WCurrentUser::userType == "normal")
+        {
+            deposit = deposit - deposit * days * NORMALFIXEDRATE * poundage;
+        }
+        else
+            deposit = deposit + deposit * days * VIPFIXEDRATE * poundage;
+    }
+
+    dbAccount.dbUpdate(getAccountNumber(), getCreditLimit(), getDeposit());
+}
+
+WSilverCard::WSilverCard(QString number)
+{
+    setAccountInfo(number);
+    setCreditLimit(30000);
+    DBAccountManip accountManip;
+    accountManip.dbUpdate(number, getCreditLimit(), getDeposit());
+}
+
+void WSilverCard::interestCaculation(const float poundage)
+{
+    QDate currentDate = QDate::currentDate();
+    QString tableTime;
+    DBLogRecordManip dbLogRecord;
+    DBAccountManip dbAccount;
+
+    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'")
+                                      .arg(getAccountNumber())))[0];
+    QDateTime TableTime  = QDateTime::fromString(tableTime, "yyyy-MM-dd hh:mm:ss");
+    int days = -currentDate.daysTo(TableTime.date());
+    if(getStatus() != "frozen" )
+    {
+        float deposit = getDeposit();
+        if(WCurrentUser::userType == "normal")
+        {
+            deposit = deposit - deposit * days * NORMALFIXEDRATE * poundage;
+        }
+        else
+            deposit = deposit + deposit * days * VIPFIXEDRATE * poundage;
+    }
+
+    dbAccount.dbUpdate(getAccountNumber(), getCreditLimit(), getDeposit());
+}
+
+WNormalCreditCard::WNormalCreditCard(QString number)
+{
+    setAccountInfo(number);
+    setCreditLimit(10000);
+    DBAccountManip accountManip;
+    accountManip.dbUpdate(number, getCreditLimit(), getDeposit());
+}
+
+void WNormalCreditCard::interestCaculation(const float poundage)
+{
+    QDate currentDate = QDate::currentDate();
+    QString tableTime;
+    DBLogRecordManip dbLogRecord;
+    DBAccountManip dbAccount;
+
+    tableTime = (dbLogRecord.dbSelect(QString("SELECT MAX(time) WHERE number = '%1'")
+                                      .arg(getAccountNumber())))[0];
+    QDateTime TableTime  = QDateTime::fromString(tableTime, "yyyy-MM-dd hh:mm:ss");
+    int days = -currentDate.daysTo(TableTime.date());
+    if(getStatus() != "frozen" )
+    {
+        float deposit = getDeposit();
+        if(WCurrentUser::userType == "normal")
+        {
+            deposit = deposit - deposit * days * NORMALFIXEDRATE * poundage;
+        }
+        else
+            deposit = deposit + deposit * days * VIPFIXEDRATE * poundage;
+    }
+
+    dbAccount.dbUpdate(getAccountNumber(), getCreditLimit(), getDeposit());
+}
+

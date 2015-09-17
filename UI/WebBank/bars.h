@@ -12,6 +12,7 @@ class WTopbar : public QWidget
     Q_OBJECT
 public:
     explicit WTopbar(QWidget *parent = 0);
+    void checkMsg();
 
 signals:
 
@@ -22,6 +23,7 @@ public slots:
 
 private:
     QLabel *topbarLabel;
+    QLabel *noticeLabel;
     QPushButton *minBtn;
     QPushButton *closeBtn;
     QPushButton *userBtn;
@@ -33,6 +35,7 @@ private:
     QAction *sysmsgAction;
     QAction *logoutAction;
     QAction *languageAction;
+    QAction *colorAction;
     QAction *aboutAction;
 };
 

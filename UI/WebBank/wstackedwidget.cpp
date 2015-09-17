@@ -31,8 +31,8 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     changePwPage->setObjectName("ChangePwPage");
     sysMsgPage = new SysMsgPage(this);
     sysMsgPage->setObjectName("SysMsgPage");
-    aboutPage = new AboutPage(this);
-    aboutPage->setObjectName("AboutPage");
+    //    aboutPage = new AboutPage(this);
+    //    aboutPage->setObjectName("AboutPage");
     welcomePage = new WelcomePage(this);
     welcomePage->setObjectName("WelcomePage");
 
@@ -49,9 +49,10 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     this->addWidget(userInfoPage);
     this->addWidget(changePwPage);
     this->addWidget(sysMsgPage);
-    this->addWidget(aboutPage);
+    //    this->addWidget(aboutPage);
     this->addWidget(welcomePage);
-    this->setCurrentIndex(14);
+    //    this->setCurrentIndex(14);
+    this->setCurrentIndex(13);
 }
 
 void WStackedWidget::updateLanguage()
@@ -69,6 +70,6 @@ void WStackedWidget::updateLanguage()
     userInfoPage->updateLanguage();
     changePwPage->updateLanguage();
     sysMsgPage->updateLanguage();
-    aboutPage->updateLanguage();
+    //    aboutPage->updateLanguage();
     welcomePage->updateLanguage();
 }

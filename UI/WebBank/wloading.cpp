@@ -14,7 +14,7 @@ WLoading::WLoading(QDialog *parent) : QDialog(parent)
     //components new
     label1 = new QLabel(this);
     label2 = new QLabel(this);
-    movie = new QMovie("image/loading.gif");
+    movie = new QMovie(":/image/image/loading.gif");
 
     //set position and size
     label1->setGeometry(QRect(-50, -75, 400, 300));

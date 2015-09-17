@@ -5,19 +5,52 @@
 #include "waccount.h"
 #include "wcreditcard.h"
 #include "wquery.h"
+#include "wsysmsg.h"
 #include "wuser.h"
 
 #include <QString>
 #include <QVector>
 #include <QDebug>
+#include <QSqlDatabase>
 
 WUIManip::WUIManip()
 {
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("WebBankDatabase.db");
+    database.setUserName("txy");
+    database.setPassword("494799822");
+}
+
+bool WUIManip::openDatabase()
+{
+    database.open();
+    return database.isValid() ? true : false;
+}
+
+void WUIManip::closeDatabase()
+{
+    database.close();
 }
 
 int WUIManip::login(QString name, QString pwd)
 {
-    return WUser::checkIn(name, pwd);
+    int val = WUser::checkIn(name, pwd);
+    if (val == 4)
+    {
+        DBLogRecordManip manip;
+        QVector<QString> logInfo;
+        logInfo.push_back("Log In");
+        manip.dbInsert(logInfo);
+    }
+    return val;
+}
+
+bool WUIManip::logout()
+{
+    DBLogRecordManip manip;
+    QVector<QString> logInfo;
+    logInfo.push_back("Log Out");
+    return manip.dbInsert(logInfo);
 }
 
 bool WUIManip::registration(QVector<QString> userInfo)
@@ -58,11 +91,37 @@ QVector<QString> WUIManip::getAccountRecord(int accountNum)
     {
         WNormalAccount *account = new WNormalAccount(info[1]);
         records = account->recentRecords();
+        delete account;
     }
     else
     {
         WCreditCard *creditCard = new WCreditCard(info[1]);
-        records = creditCard->recentRecords();
+        QString type = creditCard->getType();
+        if (type == "platinumCard")
+        {
+            WPlatinumCard *card = new WPlatinumCard(info[1]);
+            records = card->recentRecords();
+            delete card;
+        }
+        else if (type == "goldCard")
+        {
+            WGoldCard *card = new WGoldCard(info[1]);
+            records = card->recentRecords();
+            delete card;
+        }
+        else if (type == "silverCard")
+        {
+            WSilverCard *card = new WSilverCard(info[1]);
+            records = card->recentRecords();
+            delete card;
+        }
+        else if (type == "normalCard")
+        {
+            WNormalCreditCard *card = new WNormalCreditCard(info[1]);
+            records = card->recentRecords();
+            delete card;
+        }
+        delete creditCard;
     }
     return records;
 }
@@ -82,7 +141,32 @@ bool WUIManip::transfer(QString account1, QString account2, QString amount)
     else
     {
         WCreditCard *creditCard = new WCreditCard(info[1]);
-        val = creditCard->transaction(account2, amount.toFloat());
+        QString type = creditCard->getType();
+        if (type == "platinumCard")
+        {
+            WPlatinumCard *card = new WPlatinumCard(info[1]);
+            val = card->transaction(account2, amount.toFloat());
+            delete card;
+        }
+        else if (type == "goldCard")
+        {
+            WGoldCard *card = new WGoldCard(info[1]);
+            val = card->transaction(account2, amount.toFloat());
+            delete card;
+        }
+        else if (type == "silverCard")
+        {
+            WSilverCard *card = new WSilverCard(info[1]);
+            val = card->transaction(account2, amount.toFloat());
+            delete card;
+        }
+        else if (type == "normalCard")
+        {
+            WNormalCreditCard *card = new WNormalCreditCard(info[1]);
+            val = card->transaction(account2, amount.toFloat());
+            delete card;
+        }
+        delete creditCard;
     }
     return val;
 }
@@ -131,9 +215,63 @@ bool WUIManip::payment(QString type, QString account, QString amount)
     else
     {
         WCreditCard *creditCard = new WCreditCard(info[1]);
-        val = creditCard->payment(type, amount.toFloat());
+        QString type = creditCard->getType();
+        if (type == "platinumCard")
+        {
+            WPlatinumCard *card = new WPlatinumCard(info[1]);
+            val = card->payment(type, amount.toFloat());
+            delete card;
+        }
+        else if (type == "goldCard")
+        {
+            WGoldCard *card = new WGoldCard(info[1]);
+            val = card->payment(type, amount.toFloat());
+            delete card;
+        }
+        else if (type == "silverCard")
+        {
+            WSilverCard *card = new WSilverCard(info[1]);
+            val = card->payment(type, amount.toFloat());
+            delete card;
+        }
+        else if (type == "normalCard")
+        {
+            WNormalCreditCard *card = new WNormalCreditCard(info[1]);
+            val = card->payment(type, amount.toFloat());
+            delete card;
+        }
+        delete creditCard;
     }
     return val;
+}
+
+bool WUIManip::setAutopay(QString account, QString type)
+{
+    QVector<QString> info;
+    info.push_back(account);
+    info.push_back(type);
+    DBAutoPayManip manip;
+    if (!manip.dbSelectAutoPayment(type))
+    {
+        return false;
+    }
+    return manip.dbInsert(info);
+}
+
+bool WUIManip::cancelAutopay(QString account, QString type)
+{
+    DBAutoPayManip manip;
+    if (manip.dbSelectAutoPayment(account, type))
+    {
+        return false;
+    }
+    return manip.dbDelete(account, type);
+}
+
+QVector<QString> WUIManip::getAutopayRecord()
+{
+    DBAutoPayManip manip;
+    return manip.dbSelect("");
 }
 
 QVector<QString> WUIManip::query(int type, QString account)
@@ -166,7 +304,6 @@ QVector<QString> WUIManip::query(int type, QString account)
 
 QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom, QDate dateTo)
 {
-    qDebug() << dateFrom << dateTo;
     QVector<QString> records;
     WQuery query(account);
     switch(type)
@@ -184,7 +321,59 @@ QVector<QString> WUIManip::dateQuery(int type, QString account, QDate dateFrom, 
     return records;
 }
 
+bool WUIManip::cardApply(int type)
+{
+    WUser user(WCurrentUser::userName);
+    QString account, accountType;
+    DBAccountManip manip;
+    switch(type)
+    {
+    case 0:
+        accountType = "platinumCard";
+        break;
+    case 1:
+        accountType = "goldCard";
+        break;
+    case 2:
+        accountType = "silverCard";
+        break;
+    case 3:
+        accountType = "normalCard";
+        break;
+    default:
+        break;
+    }
+    do
+    {
+        account.clear();
+        qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+        for (int i = 0; i < 19; ++i)
+        {
+            account.append(QString::number(qrand() % 10));
+        }
+    }
+    while(manip.dbSelectAccount(account));
+    return user.addAccount(account, accountType);
+}
 
+bool WUIManip::cardActivate(QString account)
+{
+    WCreditCard card(account);
+    return card.releaseAccount();
+}
+
+bool WUIManip::cardRepay(QString account1, QString account2, QString amount)
+{
+    QVector<QString> info;
+    WCreditCard *creditCard = new WCreditCard(info[1]);
+    return creditCard->transaction(account2, amount.toFloat());
+}
+
+bool WUIManip::cardLost(QString account)
+{
+    WCreditCard card(account);
+    return card.freezeAccount();
+}
 
 QVector<QString> WUIManip::getSysMsg()
 {
@@ -194,11 +383,17 @@ QVector<QString> WUIManip::getSysMsg()
     return msg;
 }
 
+bool WUIManip::hasSysMsg()
+{
+    WMessage msg;
+    msg.setMessageNumber();
+    return msg.getHaveNewMessage();
+}
+
 bool WUIManip::changePwd(QString oldPwd, QString newPwd)
 {
     WUser user(WCurrentUser::userName);
-    bool val = user.setPassword(oldPwd, newPwd);
-    return val;
+    return user.setPassword(oldPwd, newPwd);
 }
 
 QVector<QString> WUIManip::userInfo()

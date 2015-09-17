@@ -58,7 +58,7 @@ bool WPayment::pay()
     QVector<QString> info = dbAccount.dbSelect(number);
     QString accountType = info[0];
     if((currentDeposit < sum && accountType == "normalAccount")
-            || (currentDeposit + fixedDeposit < sum && accountType == "creditCard"))
+            || (currentDeposit + fixedDeposit < sum && accountType != "normalAccount"))
         return false;
     else
     {
@@ -84,6 +84,17 @@ bool WPayment::pay()
     }
 }
 
+bool WPayment::pay(int months)
+{
+    pay();
+    QString str = QString("datetime('now','-%1 month')").arg(months);
+    int key = DBPaymentRecordManip::dbSelectMaxKey();
+    QString updateInfo = QString("UPDATE paymentRecord SET time = %1 WHERE key = %2").arg(str).arg(key);
+    DBPaymentRecordManip paymentManip;
+    bool result = paymentManip.dbUpdate(updateInfo);
+    return result;
+}
+
 bool WPayment::autoPayment()
 {
     bool result[3] = {true, true, true};
@@ -97,20 +108,24 @@ bool WPayment::autoPayment()
                 type = autoPayType[i];
                 int months = 0;
                 bool r;
-                while(QDate::currentDate() >= autoPayDate[i].addMonths(1))
-                {
+                while(QDate::currentDate() >= autoPayDate[i].addMonths(months))
                     months++;
+                months--;
+                for(int j = 0; j < months; j++)
+                {
                     autoPayDate[i] = autoPayDate[i].addMonths(1);
                     QTime time = QTime::currentTime();
                     qsrand(time.msec() + time.second() * 1000);
                     sum = (100 + qrand() % 50);
                     type = autoPayType[i];
-                    r = pay();
+                    r = pay(months - j);
                     QVector<QString> insertInfo;
                     QString userKey = QString("%1").arg(DBUserManip::dbSelectUserKey());
                     insertInfo.push_back(userKey);
-                    insertInfo.push_back(autoPayDate[i].toString());
-                    insertInfo.push_back(QString("auto pay for the %1").arg(autoPayType[i]));
+                    QString str;
+                    str.setNum(months - j);
+                    insertInfo.push_back(str);
+                    insertInfo.push_back(QString("auto pay %1 for the %2").arg(sum).arg(autoPayType[i]));
                     messageManip.dbInsert(insertInfo);
                 }
                 result[i] = r;

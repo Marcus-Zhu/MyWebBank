@@ -9,7 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-	background-image:url(image/login.png);
+        background-image:url(:/image/image/purple/login.png);
+        background-repeat:no-repeat;
+}
+
+QLabel#RegBG
+{
+        background-image:url(:/image/image/purple/reg.png);
 }
 
 QLabel#LogInNotice
@@ -20,13 +26,18 @@ QLabel#LogInNotice
 }
 
 QLabel#LoadingLabel{
-        background-image:url(image/loading.png);
+        background-image:url(:/image/image/loading.png);
 }
 
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/msgbox.png);
+        background-image:url(:/image/image/purple/msgbox.png);
+}
+
+QLabel#AboutBoxBG
+{
+        background-image:url(:/image/image/purple/aboutbox.png);
 }
 
 QLabel#MsgBoxContent
@@ -37,17 +48,17 @@ QLabel#MsgBoxContent
 /*BankUI*/
 QLabel#backgroundLabel
 {
-	background-image:url(image/blankbg.png);
+	background-image:url(:/image/image/blankbg.png);
 }
 
 QLabel#topbarLabel
 {
-	background-image:url(image/topbar.png);
+        background-image:url(:/image/image/purple/topbar.png);
 }
 
 QLabel#navbarLabel
 {
-	background-image:url(image/navbar.png);
+	background-image:url(:/image/image/navbar.png);
 }
 
 QPushButton#queryBtn:pressed,
@@ -60,13 +71,13 @@ QPushButton#ccardBtn:pressed
 
 QPushButton#minBtn
 {
-	background-image:url(image/min0.png);
+	background-image:url(:/image/image/min0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#minBtn:hover
 {
-	background-image:url(image/min1.png);
+	background-image:url(:/image/image/min1.png);
 	background-repeat:no-repeat;
 }
 
@@ -74,7 +85,7 @@ QPushButton#closeBtn,
 QPushButton#LogInClose,
 QPushButton#MsgBoxClose
 {
-	background-image:url(image/close0.png);
+	background-image:url(:/image/image/close0.png);
 	background-repeat:no-repeat;
 }
 
@@ -82,31 +93,31 @@ QPushButton#closeBtn:hover,
 QPushButton#LogInClose:hover,
 QPushButton#MsgBoxClose:hover
 {
-	background-image:url(image/close1.png);
+	background-image:url(:/image/image/close1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#userBtn
 {
-	background-image:url(image/user0.png);
+	background-image:url(:/image/image/user0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#userBtn:hover
 {
-	background-image:url(image/user1.png);
+	background-image:url(:/image/image/user1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn
 {
-	background-image:url(image/setting0.png);
+	background-image:url(:/image/image/setting0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn:hover
 {
-	background-image:url(image/setting1.png);
+	background-image:url(:/image/image/setting1.png);
 	background-repeat:no-repeat;
 }
 
@@ -189,22 +200,22 @@ QLabel#Title
 
 QLabel#CMAbg
 {
-	background-image:url(image/CMAbg.png);
+	background-image:url(:/image/image/CMAbg.png);
 }
 
 QLabel#CAPbg
 {
-        background-image:url(image/CAPbg.png);
+        background-image:url(:/image/image/CAPbg.png);
 }
 
 QLabel#CAQbg
 {
-        background-image:url(image/CAQbg.png);
+        background-image:url(:/image/image/CAQbg.png);
 }
 
 QLabel#CSMbg
 {
-        background-image:url(image/CSMbg.png);
+        background-image:url(:/image/image/CSMbg.png);
 }
 
 QLabel#CMALabel2,
@@ -236,7 +247,7 @@ QPushButton#CPAutoBtn
 {
 	background:transparent;
 	border-radius:4px;
-	color:#039BE5;
+        color:#5e35b1;
 	font:bold 16px;
 	padding:0 16px;
 	text-align:center;
@@ -244,6 +255,7 @@ QPushButton#CPAutoBtn
 
 QPushButton#CAQSearch,
 QPushButton#CAQRecent,
+QPushButton#CAQExport,
 QPushButton#CTConfirmBtn,
 QPushButton#CCFConfirmBtn,
 QPushButton#CPConfirmBtn,
@@ -258,7 +270,7 @@ QPushButton#LogInLogIn,
 QPushButton#RegRegister,
 QPushButton#MsgBoxOK
 {
-	background:#039BE5;
+        background:#5e35b1;
 	border-radius:4px;
 	color:#EAEAEA;
 	font:bold 16px;
@@ -270,11 +282,12 @@ QPushButton#LogInReg:pressed,
 QPushButton#RegBack:pressed,
 QPushButton#CPAutoBtn:pressed
 {
-	color:#0277BD;
+        color:#4527a0;
 }
 
 QPushButton#CAQSearch:pressed,
 QPushButton#CAQRecent:pressed,
+QPushButton#CAQExport:pressed,
 QPushButton#CTConfirmBtn:pressed,
 QPushButton#CCFConfirmBtn:pressed,
 QPushButton#CPConfirmBtn:pressed,
@@ -289,9 +302,9 @@ QPushButton#RegRegister:pressed,
 QPushButton#LogInLogIn:pressed,
 QPushButton#MsgBoxOK:pressed
 {
-	background:#0288D1;
+        background:#512da8;
 	border-bottom:solid;
-	border-color:#01579b;
+        border-color:#311b92;
 	border-width:2px;
 	color:#EAEAEA;
 }
@@ -364,7 +377,7 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-	image:url(image/dropdown.png);
+	image:url(:/image/image/dropdown.png);
 }
 
 QComboBox QAbstractItemView::item
@@ -395,7 +408,7 @@ QLineEdit:focus
 {
 	background:transparent;
 	border-bottom:solid;
-	border-color:#039BE5;
+        border-color:#5e35b1;
 	border-width:2px;
 }
 
@@ -423,7 +436,7 @@ QTableWidget
 	alternate-background-color:#303337;
 	background:#FFF;
 	font:16px;
-	selection-background-color:#b3e5fc;
+        selection-background-color:#d1c4e9;
 	selection-color:#202020;
 }
 
@@ -473,12 +486,12 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image:url(image/checkbox0.png);
+	image:url(:/image/image/checkbox0.png);
 }
 
 QCheckBox::indicator:checked
 {
-	image:url(image/checkbox1.png);
+        image:url(:/image/image/checkbox1.png);
 }
 
 QTextEdit{
@@ -488,24 +501,24 @@ QTextEdit{
 
 QCalendarWidget QToolButton
 {
-        background-color:#81D4FA;
+        background-color:#b39ddb;
         height:36px;
         width:80px;
 }
 
 QCalendarWidget QSpinBox
 {
-        background-color:#E1F5FE;
+        background-color:#ede7f6;
 }
 
 QCalendarWidget QSpinBox::up-button
 {
-        image:url(image/spinbox-down.png);
+        image:url(:/image/image/spinbox-down.png);
 }
 
 QCalendarWidget QSpinBox::down-button
 {
-        image:url(image/spinbox-up.png);
+        image:url(:/image/image/spinbox-up.png);
 }
 
 QCalendarWidget QAbstractItemView:enabled
@@ -513,11 +526,11 @@ QCalendarWidget QAbstractItemView:enabled
         background-color:#EEE;
         color:rgba(0,0,0,222);
         font-size:24px;
-        selection-background-color:#039BE5;
+        selection-background-color:#5e35b1;
         selection-color:rgba(0,0,0,222);
 }
 
 QLabel#calendarLabel
 {
-        background-color:#81D4FA;
+        background-color:#b39ddb;
 }

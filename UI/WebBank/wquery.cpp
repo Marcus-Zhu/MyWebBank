@@ -24,7 +24,7 @@ QVector<QString> WQuery::queryRecentTenRecords()
     int size2 = (transactionRecord2.size() / 3) < 10 ? (transactionRecord2.size() / 7) : 10;
     for(int i = 0; i < size2; i++)
     {
-        transactionRecord2[3 * i + 2] = "be transfered into";
+        transactionRecord2[3 * i + 2] = "Transfer from Others";
     }
     int size3 = paymentRecord.size() / 3;
 
@@ -174,7 +174,7 @@ QVector<QString> WQuery::queryLatestThreeMonths()
     int size2 = (transactionRecord2.size() / 3) < 10 ? (transactionRecord2.size() / 7) : 10;
     for(int i = 0; i < size2; i++)
     {
-        transactionRecord2[3 * i + 2] = "be transfered into";
+        transactionRecord2[3 * i + 2] = "Transfer from Others";
     }
     int size3 = (paymentRecord.size() / 3) < 10 ? (paymentRecord.size() / 3) : 10;
 
@@ -329,7 +329,7 @@ QVector<QString> WQuery::queryBetweenTwoDates(QDate dateFrom, QDate dateTo)
     {
         infoBetweenTwoDays.push_back(transactionRecord1[3 * i]);
         infoBetweenTwoDays.push_back(transactionRecord1[3 * i + 1]);
-        infoBetweenTwoDays.push_back("be transfered into");
+        infoBetweenTwoDays.push_back("Transfer from Others");
     }
     for(int i = 0; i < size3 * 3; i++)
         infoBetweenTwoDays.push_back(paymentRecord[i]);
@@ -376,7 +376,7 @@ QVector<QString> WQuery::queryBetweenTwoDatesIncome(QDate dateFrom, QDate dateTo
     infoBetweenTwoDays = transferManip.dbSelect(selectInfo, 3);
     for(int i = 0; i < infoBetweenTwoDays.size() / 3; i++)
         if(infoBetweenTwoDays[3 * i + 2] == "transfer to other")
-            infoBetweenTwoDays[3 * i + 2] = "be transfered into";
+            infoBetweenTwoDays[3 * i + 2] = "Transfer from Others";
 
     //    int rows = infoBetweenTwoDays.size()/3;
     //    QDateTime times[rows];

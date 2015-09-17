@@ -11,6 +11,8 @@
 #include "wstackedwidget.h"
 #include "bars.h"
 
+enum COLOR {blue, green, orange, purple, red, yellow};
+
 class BankUI : public QWidget
 {
     Q_OBJECT
@@ -26,6 +28,13 @@ protected:
 
 private slots:
     void changeLanguage();
+    void changeColor();
+    void changeToBlue();
+    void changeToGreen();
+    void changeToOrange();
+    void changeToPurple();
+    void changeToRed();
+    void changeToYellow();
     void showMyAccountPage();
     void showAccountQueryPage();
     void showTransferPage();
@@ -42,6 +51,8 @@ private slots:
     void showAboutPage();
     void showWelcomePage();
     bool closeWindow();
+    bool restartColor();
+    bool restartWindow();
     void openUX2();
     void openUX3();
     void openUX4();
@@ -61,9 +72,11 @@ private:
     void setTranslator(int i);
     void initUI();
     void updateLanguage();
+    bool closeColor();
 
     QTranslator wTranslator;
     bool isChinese;//record the current language
+    COLOR color;//record the current color
 };
 
 #endif // BANKUI_H

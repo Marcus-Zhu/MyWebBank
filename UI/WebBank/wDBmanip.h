@@ -37,6 +37,7 @@ public:
     bool dbUpdate(QString updateInfo);
     QVector<QString> dbSelect(QString selectInfo);
     QVector<QString> dbSelect(int num);
+    bool dbSelectAccount(QString number);
     static int dbSelectUserKey(QString number);
     static int dbSelectAccountKey(QString accountNumber);
     static QString dbSelectAccountNumber(int key);
@@ -64,6 +65,7 @@ public:
     QVector<QString> dbSelect(QString selectInfo, int cols);
     bool dbDelete(QString deleteInfo = "");
     bool dbTableCreate();
+    static int dbSelectMaxKey();
 };
 
 class DBMessageManip: public WDBManip
@@ -96,6 +98,8 @@ public:
     bool dbDelete(QString deleteInfo);
     bool dbDelete(QString number, QString type);
     bool dbTableCreate();
+    bool dbSelectAutoPayment(QString number, QString type);
+    bool dbSelectAutoPayment(QString type);
 };
 
 #endif // WEBBANKDATABASEMANIP_H
