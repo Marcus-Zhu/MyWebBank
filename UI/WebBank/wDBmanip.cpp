@@ -587,7 +587,7 @@ bool DBLogRecordManip::dbTableCreate()
 {
     QSqlQuery query;
     bool result;
-    result = query.exec("CREATE TABLE logRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER"
+    result = query.exec("CREATE TABLE logRecord (key INTEGER PRIMARY KEY AUTOINCREMENT,userKey INTEGER,"
                         "time TIMESTAMP NOT NULL default CURRENT_TIMESTAMP,type VARCHAR(10))");
     return result;
 }

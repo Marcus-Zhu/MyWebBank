@@ -24,7 +24,7 @@ bool WTransfer::transferToOther()
     else
         poundage = VIPPOUNDAGE * sum;
     if((sum > currentDeposit - poundage && type == "normalAccount")
-            || (sum > currentDeposit + fixedDeposit - poundage && type == "creditCard"))
+            || (sum > currentDeposit + fixedDeposit - poundage && type != "normalAccount"))
         return false;
     else
     {

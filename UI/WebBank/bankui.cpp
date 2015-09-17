@@ -76,7 +76,7 @@ void BankUI::changeLanguage()
     QTranslator *wTranslator = new QTranslator();
 
     //change language settings
-    isChinese ? t = "trans/eng.qm" : t = "trans/chn.qm";
+    isChinese ? t = ":/trans/trans/eng.qm" : t = ":/trans/trans/chn.qm";
     isChinese ? isChinese = false : isChinese = true;
 
     //if translator loaded, install
@@ -92,7 +92,7 @@ void BankUI::changeLanguage()
     QSettings config("config.ini", QSettings::IniFormat);
     config.setValue("QSS", ":/ui/ui_blue.qss");
     config.setValue("LOGO", "image/blue/logo.png");
-    config.setValue("TRANS", isChinese ? "trans/chn.qm" : "trans/eng.qm");
+    config.setValue("TRANS", isChinese ? ":/trans/trans/chn.qm" : ":/trans/trans/eng.qm");
 }
 
 void BankUI::updateLanguage()
@@ -120,7 +120,7 @@ void BankUI::changeToBlue()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_blue.qss");
-    colorConfig.setValue("LOGO", "image/blue/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/blue/logo.png");
     //restart the window
     closeColor();
 }
@@ -130,7 +130,7 @@ void BankUI::changeToGreen()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_green.qss");
-    colorConfig.setValue("LOGO", "image/green/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/green/logo.png");
     //restart the window
     closeColor();
 }
@@ -140,7 +140,7 @@ void BankUI::changeToOrange()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_orange.qss");
-    colorConfig.setValue("LOGO", "image/orange/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/orange/logo.png");
     //restart the window
     closeColor();
 }
@@ -150,7 +150,7 @@ void BankUI::changeToPurple()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_purple.qss");
-    colorConfig.setValue("LOGO", "image/purple/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/purple/logo.png");
     //restart the window
     closeColor();
 }
@@ -160,7 +160,7 @@ void BankUI::changeToRed()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_red.qss");
-    colorConfig.setValue("LOGO", "image/red/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/red/logo.png");
     //restart the window
     closeColor();
 }
@@ -170,7 +170,7 @@ void BankUI::changeToYellow()
     //change color settings and write into color.ini
     QSettings colorConfig("config.ini", QSettings::IniFormat);
     colorConfig.setValue("QSS", ":/ui/ui_yellow.qss");
-    colorConfig.setValue("LOGO", "image/yellow/logo.png");
+    colorConfig.setValue("LOGO", ":/image/image/yellow/logo.png");
     //restart the window
     closeColor();
 }
@@ -401,6 +401,7 @@ bool BankUI::closeWindow()
     animation2->start();
 
     //after animation done, close the window
+    WUIManip::logout();
     connect(animation2, SIGNAL(finished()), this, SLOT(close()));
     return true;
 }
@@ -427,6 +428,7 @@ bool BankUI::closeColor()
     animation1->start();
     animation2->start();
 
+    //after animation done, close the window
     QTimer::singleShot(500, this, SLOT(restartColor()));
     return true;
 }
@@ -439,6 +441,7 @@ bool BankUI::restartColor()
 
 bool BankUI::restartWindow()
 {
+    WUIManip::logout();
     qApp->exit(2);
     return true;
 }

@@ -58,7 +58,7 @@ bool WPayment::pay()
     QVector<QString> info = dbAccount.dbSelect(number);
     QString accountType = info[0];
     if((currentDeposit < sum && accountType == "normalAccount")
-            || (currentDeposit + fixedDeposit < sum && accountType == "creditCard"))
+            || (currentDeposit + fixedDeposit < sum && accountType != "normalAccount"))
         return false;
     else
     {

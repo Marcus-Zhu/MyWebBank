@@ -101,7 +101,7 @@ QVector<QString> WAccount::recentRecords()
     int size2 = (transactionRecord2.size() / 3) < 10 ? (transactionRecord2.size() / 7) : 10;
     for(int i = 0; i < size2; i++)
     {
-        transactionRecord2[3 * i + 2] = "be transfered into";
+        transactionRecord2[3 * i + 2] = "Transfer from Others";
     }
     int size3 = paymentRecord.size() / 3;
 

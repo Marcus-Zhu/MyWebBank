@@ -5,13 +5,12 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT       += sql
+QT       += sql axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = WebBank
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
         bankui.cpp \

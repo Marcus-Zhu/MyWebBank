@@ -14,6 +14,7 @@ public:
     void closeDatabase();
 
     static int login(QString name, QString pwd);
+    static bool logout();
     static bool registration(QVector<QString> userInfo);
     static int getAccountNum();
     static QVector<QString> getAccountInfo(int num);

@@ -9,13 +9,13 @@
 /*Login*/
 QLabel#LogInBG
 {
-        background-image:url(image/blue/login.png);
+        background-image:url(:/image/image/blue/login.png);
         background-repeat:no-repeat;
 }
 
 QLabel#RegBG
 {
-        background-image:url(image/blue/reg.png);
+        background-image:url(:/image/image/blue/reg.png);
 }
 
 QLabel#LogInNotice
@@ -26,34 +26,34 @@ QLabel#LogInNotice
 }
 
 QLabel#LoadingLabel{
-        background-image:url(image/loading.png);
+        background-image:url(:/image/image/loading.png);
 }
 
 /*MsgBox*/
 QLabel#MsgBoxBG
 {
-        background-image:url(image/blue/msgbox.png);
+        background-image:url(:/image/image/blue/msgbox.png);
 }
 
 QLabel#AboutBoxBG
 {
-        background-image:url(image/blue/aboutbox.png);
+        background-image:url(:/image/image/blue/aboutbox.png);
 }
 
 /*BankUI*/
 QLabel#backgroundLabel
 {
-	background-image:url(image/blankbg.png);
+        background-image:url(:/image/image/blankbg.png);
 }
 
 QLabel#topbarLabel
 {
-        background-image:url(image/blue/topbar.png);
+        background-image:url(:/image/image/blue/topbar.png);
 }
 
 QLabel#navbarLabel
 {
-	background-image:url(image/navbar.png);
+        background-image:url(:/image/image/navbar.png);
 }
 
 QPushButton#queryBtn:pressed,
@@ -66,13 +66,13 @@ QPushButton#ccardBtn:pressed
 
 QPushButton#minBtn
 {
-	background-image:url(image/min0.png);
+        background-image:url(:/image/image/min0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#minBtn:hover
 {
-	background-image:url(image/min1.png);
+        background-image:url(:/image/image/min1.png);
 	background-repeat:no-repeat;
 }
 
@@ -80,7 +80,7 @@ QPushButton#closeBtn,
 QPushButton#LogInClose,
 QPushButton#MsgBoxClose
 {
-	background-image:url(image/close0.png);
+        background-image:url(:/image/image/close0.png);
 	background-repeat:no-repeat;
 }
 
@@ -88,31 +88,31 @@ QPushButton#closeBtn:hover,
 QPushButton#LogInClose:hover,
 QPushButton#MsgBoxClose:hover
 {
-	background-image:url(image/close1.png);
+        background-image:url(:/image/image/close1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#userBtn
 {
-	background-image:url(image/user0.png);
+        background-image:url(:/image/image/user0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#userBtn:hover
 {
-	background-image:url(image/user1.png);
+        background-image:url(:/image/image/user1.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn
 {
-	background-image:url(image/setting0.png);
+        background-image:url(:/image/image/setting0.png);
 	background-repeat:no-repeat;
 }
 
 QPushButton#settingBtn:hover
 {
-	background-image:url(image/setting1.png);
+        background-image:url(:/image/image/setting1.png);
 	background-repeat:no-repeat;
 }
 
@@ -195,22 +195,22 @@ QLabel#Title
 
 QLabel#CMAbg
 {
-	background-image:url(image/CMAbg.png);
+        background-image:url(:/image/image/CMAbg.png);
 }
 
 QLabel#CAPbg
 {
-        background-image:url(image/CAPbg.png);
+        background-image:url(:/image/image/CAPbg.png);
 }
 
 QLabel#CAQbg
 {
-        background-image:url(image/CAQbg.png);
+        background-image:url(:/image/image/CAQbg.png);
 }
 
 QLabel#CSMbg
 {
-        background-image:url(image/CSMbg.png);
+        background-image:url(:/image/image/CSMbg.png);
 }
 
 QLabel#CMALabel2,
@@ -250,6 +250,7 @@ QPushButton#CPAutoBtn
 
 QPushButton#CAQSearch,
 QPushButton#CAQRecent,
+QPushButton#CAQExport,
 QPushButton#CTConfirmBtn,
 QPushButton#CCFConfirmBtn,
 QPushButton#CPConfirmBtn,
@@ -281,6 +282,7 @@ QPushButton#CPAutoBtn:pressed
 
 QPushButton#CAQSearch:pressed,
 QPushButton#CAQRecent:pressed,
+QPushButton#CAQExport:pressed,
 QPushButton#CTConfirmBtn:pressed,
 QPushButton#CCFConfirmBtn:pressed,
 QPushButton#CPConfirmBtn:pressed,
@@ -370,7 +372,7 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-	image:url(image/dropdown.png);
+        image:url(:/image/image/dropdown.png);
 }
 
 QComboBox QAbstractItemView::item
@@ -479,12 +481,12 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-        image:url(image/checkbox0.png);
+        image:url(:/image/image/checkbox0.png);
 }
 
 QCheckBox::indicator:checked
 {
-        image:url(image/checkbox1.png);
+        image:url(:/image/image/checkbox1.png);
 }
 
 QTextEdit{
@@ -506,12 +508,12 @@ QCalendarWidget QSpinBox
 
 QCalendarWidget QSpinBox::up-button
 {
-        image:url(image/spinbox-down.png);
+        image:url(:/image/image/spinbox-down.png);
 }
 
 QCalendarWidget QSpinBox::down-button
 {
-        image:url(image/spinbox-up.png);
+        image:url(:/image/image/spinbox-up.png);
 }
 
 QCalendarWidget QAbstractItemView:enabled

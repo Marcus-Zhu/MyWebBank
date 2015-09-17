@@ -9,8 +9,6 @@
 #include <QtSql>
 #include <QSqlDatabase>
 
-//QSqlDatabase WUIManip::database = QSqlDatabase::addDatabase("QSQLITE");
-
 int main(int argc, char *argv[])
 {
     int exitcode = 0;
@@ -22,6 +20,7 @@ int main(int argc, char *argv[])
         QSettings config("config.ini", QSettings::IniFormat);
         QString colorName = config.value("QSS").toString();
         QString logoName = config.value("LOGO").toString();
+        qDebug() << logoName;
         QFile qssFile(colorName);
         qssFile.open(QFile::ReadOnly);
         if(qssFile.isOpen())
@@ -39,7 +38,7 @@ int main(int argc, char *argv[])
         QString transName = config.value("TRANS").toString();
         QTranslator *wTranslator = new QTranslator();
         wTranslator->load(transName);
-        int isChinese = transName == "trans/chn.qm" ? 1 : 0;
+        int isChinese = transName == ":/trans/trans/chn.qm" ? 1 : 0;
         a.installTranslator(wTranslator);
 
         //open database

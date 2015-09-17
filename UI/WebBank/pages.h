@@ -55,6 +55,7 @@ public slots:
     void popIncome();
     void search();
     void recent();
+    void exportExcel();
 private:
     QLabel *bgLabel;
     QLabel *label1;
@@ -65,11 +66,13 @@ private:
     QCheckBox *expenseCkBox;
     QPushButton *searchBtn;
     QPushButton *recentBtn;
+    QPushButton *exportBtn;
     WLineEdit *fromDate;
     WLineEdit *toDate;
     QCalendarWidget *calendar1;
     QCalendarWidget *calendar2;
     QLabel *calendarLabel;
+    int queryType;
 };
 
 class TransferPage : public WPage

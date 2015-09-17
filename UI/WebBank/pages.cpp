@@ -8,6 +8,9 @@
 #include <QTime>
 #include <QDebug>
 #include <QCryptographicHash>
+#include <QFileDialog>
+#include <QDir>
+#include <QAxObject>
 
 WPage::WPage(QWidget *parent): QWidget(parent)
 {
@@ -55,18 +58,61 @@ void MyAccountPage::setTable()
             << tr("Deposit")
             << tr("Status");
     table1->setHorizontalHeaderLabels(header1);
-    table1->horizontalHeader()->resizeSection(0, 160);
-    table1->horizontalHeader()->resizeSection(1, 240);
-    table1->horizontalHeader()->resizeSection(2, 110);
-    table1->horizontalHeader()->resizeSection(3, 110);
+    table1->horizontalHeader()->resizeSection(0, 140);
+    table1->horizontalHeader()->resizeSection(1, 210);
+    table1->horizontalHeader()->resizeSection(2, 120);
+    table1->horizontalHeader()->resizeSection(3, 120);
 
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accountInfo = WUIManip::getAccountInfo(i);
         for (int j = 0; j < 5; ++j)
         {
-            table1->setItem(i, j, new QTableWidgetItem(accountInfo[j]));
-            if (j != 2 && j != 3)
+            if (j == 0)
+            {
+                QString accountType;
+                if (accountInfo[0] == "normalAccount")
+                {
+                    accountType = tr("Normal Account");
+                }
+                else if (accountInfo[0] == "platinumCard")
+                {
+                    accountType = tr("Platinum Card");
+                }
+                else if (accountInfo[0] == "goldCard")
+                {
+                    accountType = tr("Gold Card");
+                }
+                else if (accountInfo[0] == "silverCard")
+                {
+                    accountType = tr("Silver Card");
+                }
+                else if (accountInfo[0] == "normalCard")
+                {
+                    accountType = tr("Normal Card");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(accountType);
+                table1->setItem(i, j, item);
+            }
+            else if (j == 4)
+            {
+                QString accountType;
+                if (accountInfo[4] == "normal")
+                {
+                    accountType = tr("Normal");
+                }
+                else if (accountInfo[4] == "frozen")
+                {
+                    accountType = tr("Frozen");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(accountType);
+                table1->setItem(i, j, item);
+            }
+            else
+            {
+                table1->setItem(i, j, new QTableWidgetItem(accountInfo[j]));
+            }
+            if (j == 0 || j == 1 || j == 4)
             {
                 table1->item(i, j)->setTextAlignment(Qt::AlignCenter);
             }
@@ -104,7 +150,44 @@ void MyAccountPage::setTable()
     {
         for (int j = 0; j < 3; ++j)
         {
-            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            if (j == 2)
+            {
+                QString transferType;
+                if (recordInfo[3 * i + 2] == "Water")
+                {
+                    transferType = tr("Water");
+                }
+                else if (recordInfo[3 * i + 2] == "Gas")
+                {
+                    transferType = tr("Gas");
+                }
+                else if (recordInfo[3 * i + 2] == "Electricity")
+                {
+                    transferType = tr("Electricity");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Others")
+                {
+                    transferType = tr("Transfer to Others");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Current")
+                {
+                    transferType = tr("Transfer to Current");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Fixed")
+                {
+                    transferType = tr("Transfer to Fixed");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer from Others")
+                {
+                    transferType = tr("Transfer from Others");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(transferType);
+                table2->setItem(i, j, item);
+            }
+            else
+            {
+                table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            }
             if (j != 0)
             {
                 table2->item(i, j)->setTextAlignment(Qt::AlignCenter);
@@ -138,7 +221,44 @@ void MyAccountPage::showAccountRecord(int row, int column)
     {
         for (int j = 0; j < 3; ++j)
         {
-            table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            if (j == 2)
+            {
+                QString transferType;
+                if (recordInfo[3 * i + 2] == "Water")
+                {
+                    transferType = tr("Water");
+                }
+                else if (recordInfo[3 * i + 2] == "Gas")
+                {
+                    transferType = tr("Gas");
+                }
+                else if (recordInfo[3 * i + 2] == "Electricity")
+                {
+                    transferType = tr("Electricity");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Others")
+                {
+                    transferType = tr("Transfer to Others");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Current")
+                {
+                    transferType = tr("Transfer to Current");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer to Fixed")
+                {
+                    transferType = tr("Transfer to Fixed");
+                }
+                else if (recordInfo[3 * i + 2] == "Transfer from Others")
+                {
+                    transferType = tr("Transfer from Others");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(transferType);
+                table2->setItem(i, j, item);
+            }
+            else
+            {
+                table2->setItem(i, j, new QTableWidgetItem(recordInfo[3 * i + j]));
+            }
             if (j != 0)
             {
                 table2->item(i, j)->setTextAlignment(Qt::AlignCenter);
@@ -168,6 +288,7 @@ void MyAccountPage::updateLanguage()
     QStringList header2;
     header2 << tr("Amount") << tr("Time") << tr("Transaction Type");
     table2->setHorizontalHeaderLabels(header2);
+    this->setTable();
 }
 
 AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
@@ -183,6 +304,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     expenseCkBox = new QCheckBox(tr("Expense"), this);
     searchBtn = new QPushButton(tr("SEARCH"), this);
     recentBtn = new QPushButton(tr("Recent Three Months"), this);
+    exportBtn = new QPushButton(tr("EXPORT"), this);
     fromDate = new WLineEdit(this);
     toDate = new WLineEdit(this);
     table = new QTableWidget(this);
@@ -201,6 +323,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     expenseCkBox->setObjectName("CAQExpense");
     searchBtn->setObjectName("CAQSearch");
     recentBtn->setObjectName("CAQRecent");
+    exportBtn->setObjectName("CAQExport");
     fromDate->setObjectName("CAQFrom");
     toDate->setObjectName("CAQTo");
     table->setObjectName("CAQTable");
@@ -213,11 +336,12 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     label2->setGeometry(QRect(368, 92, 100, 24));
     accountBox->setGeometry(QRect(124, 92, 200, 24));
     incomeCkBox->setGeometry(QRect(24, 140, 100, 24));
-    expenseCkBox->setGeometry(QRect(154, 140, 100, 24));
-    searchBtn->setGeometry(QRect(624, 134, 108, 36));
-    recentBtn->setGeometry(QRect(368, 134, 230, 36));
-    fromDate->setGeometry(QRect(490, 92, 108, 24));
-    toDate->setGeometry(QRect(628, 92, 108, 24));
+    expenseCkBox->setGeometry(QRect(130, 140, 100, 24));
+    searchBtn->setGeometry(QRect(516, 134, 100, 36));
+    recentBtn->setGeometry(QRect(278, 134, 220, 36));
+    exportBtn->setGeometry(QRect(632, 134, 100, 36));
+    fromDate->setGeometry(QRect(486, 92, 108, 24));
+    toDate->setGeometry(QRect(624, 92, 108, 24));
     table->setGeometry(QRect(24, 192, 708, 336));
     calendarLabel->setGeometry(QRect(360, 120, 380, 100));
     calendar1->move(QPoint(350, 120));
@@ -247,6 +371,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
 
 
     //setup date edit
+    queryType = -1;
     fromDate->setPlaceholderText("YYYY.MM.DD");
     toDate->setPlaceholderText("YYYY.MM.DD");
     QRegExp dateRestriction("[1-2][0-9]{3}\\.[0-9]{1,2}\\.[0-9]{1,2}");
@@ -262,6 +387,7 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     connect(expenseCkBox, SIGNAL(clicked(bool)), this, SLOT(popIncome()));
     connect(searchBtn, SIGNAL(clicked(bool)), this, SLOT(search()));
     connect(recentBtn, SIGNAL(clicked(bool)), this, SLOT(recent()));
+    connect(exportBtn, SIGNAL(clicked(bool)), this, SLOT(exportExcel()));
 }
 
 void AccountQueryPage::setTable()
@@ -294,14 +420,17 @@ void AccountQueryPage::search()
     {
         if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
         {
+            queryType = 1;
             records = WUIManip::query(1, accountBox->currentText());
         }
         else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
         {
+            queryType = 2;
             records = WUIManip::query(2, accountBox->currentText());
         }
         else
         {
+            queryType = 0;
             records = WUIManip::query(0, accountBox->currentText());
         }
     }
@@ -312,14 +441,17 @@ void AccountQueryPage::search()
         to = temp.fromString(toDate->text(), "yyyy.MM.dd");
         if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
         {
+            queryType = 4;
             records = WUIManip::dateQuery(1, accountBox->currentText(), from, to);
         }
         else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
         {
+            queryType = 5;
             records = WUIManip::dateQuery(2, accountBox->currentText(), from, to);
         }
         else
         {
+            queryType = 3;
             records = WUIManip::dateQuery(0, accountBox->currentText(), from, to);
         }
     }
@@ -329,7 +461,44 @@ void AccountQueryPage::search()
     {
         for (int j = 0; j < 3; ++j)
         {
-            table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            if (j == 2)
+            {
+                QString transferType;
+                if (records[3 * i + 2] == "Water")
+                {
+                    transferType = tr("Water");
+                }
+                else if (records[3 * i + 2] == "Gas")
+                {
+                    transferType = tr("Gas");
+                }
+                else if (records[3 * i + 2] == "Electricity")
+                {
+                    transferType = tr("Electricity");
+                }
+                else if (records[3 * i + 2] == "Transfer to Others")
+                {
+                    transferType = tr("Transfer to Others");
+                }
+                else if (records[3 * i + 2] == "Transfer to Current")
+                {
+                    transferType = tr("Transfer to Current");
+                }
+                else if (records[3 * i + 2] == "Transfer to Fixed")
+                {
+                    transferType = tr("Transfer to Fixed");
+                }
+                else if (records[3 * i + 2] == "Transfer from Others")
+                {
+                    transferType = tr("Transfer from Others");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(transferType);
+                table->setItem(i, j, item);
+            }
+            else
+            {
+                table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            }
             if (j != 0)
             {
                 table->item(i, j)->setTextAlignment(Qt::AlignCenter);
@@ -347,14 +516,17 @@ void AccountQueryPage::recent()
     QVector<QString> records;
     if (incomeCkBox->isChecked() && !expenseCkBox->isChecked())
     {
+        queryType = 7;
         records = WUIManip::query(8, accountBox->currentText());
     }
     else if (!incomeCkBox->isChecked() && expenseCkBox->isChecked())
     {
+        queryType = 8;
         records = WUIManip::query(16, accountBox->currentText());
     }
     else
     {
+        queryType = 6;
         records = WUIManip::query(4, accountBox->currentText());
     }
     QStringList header;
@@ -364,7 +536,44 @@ void AccountQueryPage::recent()
     {
         for (int j = 0; j < 3; ++j)
         {
-            table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            if (j == 2)
+            {
+                QString transferType;
+                if (records[3 * i + 2] == "Water")
+                {
+                    transferType = tr("Water");
+                }
+                else if (records[3 * i + 2] == "Gas")
+                {
+                    transferType = tr("Gas");
+                }
+                else if (records[3 * i + 2] == "Electricity")
+                {
+                    transferType = tr("Electricity");
+                }
+                else if (records[3 * i + 2] == "Transfer to Others")
+                {
+                    transferType = tr("Transfer to Others");
+                }
+                else if (records[3 * i + 2] == "Transfer to Current")
+                {
+                    transferType = tr("Transfer to Current");
+                }
+                else if (records[3 * i + 2] == "Transfer to Fixed")
+                {
+                    transferType = tr("Transfer to Fixed");
+                }
+                else if (records[3 * i + 2] == "Transfer from Others")
+                {
+                    transferType = tr("Transfer from Others");
+                }
+                QTableWidgetItem *item = new QTableWidgetItem(transferType);
+                table->setItem(i, j, item);
+            }
+            else
+            {
+                table->setItem(i, j, new QTableWidgetItem(records[3 * i + j]));
+            }
             if (j != 0)
             {
                 table->item(i, j)->setTextAlignment(Qt::AlignCenter);
@@ -375,6 +584,78 @@ void AccountQueryPage::recent()
             }
         }
     }
+}
+
+void AccountQueryPage::exportExcel()
+{
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Records"), "." ,tr("*.xls"));
+    if(filename.isEmpty())
+    {
+        WMsgBox::information(tr("Failed to get filename!"));
+        return;
+    }
+    QAxObject *excel = new QAxObject("Excel.application");
+    excel->dynamicCall("setVisible(bool)", false);
+    excel->setProperty("Visible", false);
+    QAxObject *workBooks = excel->querySubObject("WorkBooks");
+    workBooks->dynamicCall("Add");
+    QAxObject *workBook = excel->querySubObject("ActiveWorkBook");
+    QAxObject *worksheet = workBook->querySubObject("WorkSheets(int)", 1);
+    QVector<QString> records;
+    QDate from, to, temp;
+    switch(queryType)
+    {
+    case 0:
+        records = WUIManip::query(0, accountBox->currentText());
+        break;
+    case 1:
+        records = WUIManip::query(1, accountBox->currentText());
+        break;
+    case 2:
+        records = WUIManip::query(2, accountBox->currentText());
+        break;
+    case 3:
+        from = temp.fromString(fromDate->text(), "yyyy.MM.dd");
+        to = temp.fromString(toDate->text(), "yyyy.MM.dd");
+        records = WUIManip::dateQuery(0, accountBox->currentText(), from, to);
+        break;
+    case 4:
+        from = temp.fromString(fromDate->text(), "yyyy.MM.dd");
+        to = temp.fromString(toDate->text(), "yyyy.MM.dd");
+        records = WUIManip::dateQuery(1, accountBox->currentText(), from, to);
+        break;
+    case 5:
+        from = temp.fromString(fromDate->text(), "yyyy.MM.dd");
+        to = temp.fromString(toDate->text(), "yyyy.MM.dd");
+        records = WUIManip::dateQuery(2, accountBox->currentText(), from, to);
+        break;
+    case 6:
+        records = WUIManip::query(4, accountBox->currentText());
+        break;
+    case 7:
+        records = WUIManip::query(8, accountBox->currentText());
+        break;
+    case 8:
+        records = WUIManip::query(16, accountBox->currentText());
+        break;
+    }
+    records.push_front("Transaction Type");
+    records.push_front("Time");
+    records.push_front("Amount");
+    for(int i = 0; i < records.size() / 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            QAxObject *range = worksheet->querySubObject("Cells(int,int)", i + 1, j + 1);
+            range->setProperty("Value", records[3 * i + j]);
+        }
+    }
+    workBook->dynamicCall("SaveAs(const QString&)", QDir::toNativeSeparators(filename));
+    WMsgBox::information(tr("Successfully saved!"));
+    workBook->dynamicCall("Close()");
+    worksheet->clear();
+    excel->dynamicCall("Quit()");
+    delete excel;
 }
 
 void AccountQueryPage::popExpense()
@@ -429,6 +710,8 @@ void AccountQueryPage::updateLanguage()
     QStringList header;
     header << tr("Amount") << tr("Time") << tr("Transaction Type");
     table->setHorizontalHeaderLabels(header);
+    this->setTable();
+    this->recent();
 }
 
 TransferPage::TransferPage(QWidget *parent) : WPage(parent)
@@ -718,13 +1001,13 @@ void PaymentPage::confirm()
     switch(edit1->currentIndex())
     {
     case 0:
-        type = "water";
+        type = "Water";
         break;
     case 1:
-        type = "electricity";
+        type = "Electricity";
         break;
     case 2:
-        type = "gas";
+        type = "Gas";
         break;
     }
     bool val = WUIManip::payment(type, edit2->currentText(), edit3->text());
@@ -855,13 +1138,13 @@ void AutoPayPage::setAutoPay()
     switch(edit1->currentIndex())
     {
     case 0:
-        type = "water";
+        type = "Water";
         break;
     case 1:
-        type = "electricity";
+        type = "Electricity";
         break;
     case 2:
-        type = "gas";
+        type = "Gas";
         break;
     }
     bool val = WUIManip::setAutopay(edit2->currentText(), type);
@@ -877,13 +1160,13 @@ void AutoPayPage::cancelAutoPay()
     switch(edit1->currentIndex())
     {
     case 0:
-        type = "water";
+        type = "Water";
         break;
     case 1:
-        type = "electricity";
+        type = "Electricity";
         break;
     case 2:
-        type = "gas";
+        type = "Gas";
         break;
     }
     bool val = WUIManip::cancelAutopay(edit2->currentText(), type);
@@ -939,8 +1222,10 @@ CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
     confirmBtn->setObjectName("CCAConfirmBtn");
 
     //setup combobox item
-    edit1->addItem(tr("TYPE 1"));
-    edit1->addItem(tr("TYPE 2"));
+    edit1->addItem(tr("Platinum Card"));
+    edit1->addItem(tr("Gold Card"));
+    edit1->addItem(tr("Silver Card"));
+    edit1->addItem(tr("Normal Card"));
     WDelegate *CCADele = new WDelegate();
     edit1->setItemDelegate(CCADele);
 
@@ -969,8 +1254,10 @@ void CardApplyPage::updateLanguage()
     label1->setText(tr("Card type"));
     confirmBtn->setText(tr("CONFIRM"));
     edit1->clear();
-    edit1->addItem(tr("TYPE 1"));
-    edit1->addItem(tr("TYPE 2"));
+    edit1->addItem(tr("Platinum Card"));
+    edit1->addItem(tr("Gold Card"));
+    edit1->addItem(tr("Silver Card"));
+    edit1->addItem(tr("Normal Card"));
     WDelegate *CCADele = new WDelegate();
     edit1->setItemDelegate(CCADele);
 }

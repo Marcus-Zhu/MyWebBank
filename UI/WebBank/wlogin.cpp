@@ -102,8 +102,8 @@ WLogin::WLogin(QWidget *parent) : QDialog(parent)
 
     //set format
     notice->setAlignment(Qt::AlignCenter);
-    password->setEchoMode(QLineEdit::PasswordEchoOnEdit);
-    passwordConfirm->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+    password->setEchoMode(QLineEdit::Password);
+    passwordConfirm->setEchoMode(QLineEdit::Password);
     userName->setFocus();
 
     //set connections
