@@ -220,8 +220,8 @@ bool WNormalAccount::transaction(const transferType Type, const QString otherNum
         int userKey = DBAccountManip::dbSelectUserKey(otherNumber);
         insertInfo[0].setNum(userKey);
         insertInfo[1] = QString("%1 tranferred %2 to your account.").arg(otherNumber).arg(sum);
-        qDebug() << insertInfo[1];
-        dbMessage.dbInsert(insertInfo);
+        if(result)
+            dbMessage.dbInsert(insertInfo);
     }
     else if(Type == TransferToFixed)
     {
