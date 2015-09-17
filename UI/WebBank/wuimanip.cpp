@@ -4,6 +4,7 @@
 #include "wuser.h"
 #include "waccount.h"
 #include "wcreditcard.h"
+#include "wpayment.h"
 #include "wquery.h"
 #include "wsysmsg.h"
 #include "wuser.h"
@@ -41,6 +42,12 @@ int WUIManip::login(QString name, QString pwd)
         QVector<QString> logInfo;
         logInfo.push_back("Log In");
         manip.dbInsert(logInfo);
+    }
+    WUser user(name);
+    for (int i = 0; i < user.account.size(); ++i)
+    {
+        WPayment payment(user.account[i]);
+        payment.autoPayment();
     }
     return val;
 }
@@ -128,6 +135,10 @@ QVector<QString> WUIManip::getAccountRecord(int accountNum)
 
 bool WUIManip::transfer(QString account1, QString account2, QString amount)
 {
+    if (account1 == account2)
+    {
+        return false;
+    }
     QVector<QString> info;
     DBAccountManip accountManip;
     info = accountManip.dbSelect(account1);
@@ -271,7 +282,7 @@ bool WUIManip::cancelAutopay(QString account, QString type)
 QVector<QString> WUIManip::getAutopayRecord()
 {
     DBAutoPayManip manip;
-    return manip.dbSelect("");
+    return manip.dbSelect();
 }
 
 QVector<QString> WUIManip::query(int type, QString account)

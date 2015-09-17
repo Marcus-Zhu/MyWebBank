@@ -375,7 +375,7 @@ QVector<QString> WQuery::queryBetweenTwoDatesIncome(QDate dateFrom, QDate dateTo
     QVector<QString> infoBetweenTwoDays;
     infoBetweenTwoDays = transferManip.dbSelect(selectInfo, 3);
     for(int i = 0; i < infoBetweenTwoDays.size() / 3; i++)
-        if(infoBetweenTwoDays[3 * i + 2] == "transfer to other")
+        if(infoBetweenTwoDays[3 * i + 2] == "Transfer to Others")
             infoBetweenTwoDays[3 * i + 2] = "Transfer from Others";
 
     //    int rows = infoBetweenTwoDays.size()/3;

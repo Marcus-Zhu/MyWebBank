@@ -46,6 +46,7 @@ public:
     explicit AccountQueryPage(QWidget *parent = 0);
     void updateLanguage();
     void setTable();
+    void setComboBox();
 public slots:
     void showCalendar1();
     void showCalendar2();
@@ -81,6 +82,7 @@ class TransferPage : public WPage
 public:
     explicit TransferPage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void confirm();
 private:
@@ -104,6 +106,7 @@ class CurrentFixPage : public WPage
 public:
     explicit CurrentFixPage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void confirm();
 private:
@@ -127,6 +130,7 @@ class PaymentPage : public WPage
 public:
     explicit PaymentPage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void confirm();
     void changeValue(int i);
@@ -150,6 +154,7 @@ public:
     explicit AutoPayPage(QWidget *parent = 0);
     void updateLanguage();
     void setTable();
+    void setComboBox();
 public slots:
     void setAutoPay();
     void cancelAutoPay();
@@ -186,6 +191,7 @@ class CardActivatePage : public WPage
 public:
     explicit CardActivatePage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void activate();
 private:
@@ -200,6 +206,7 @@ class CardRepayPage : public WPage
 public:
     explicit CardRepayPage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void confirm();
 private:
@@ -222,6 +229,7 @@ class CardLostPage : public WPage
 public:
     explicit CardLostPage(QWidget *parent = 0);
     void updateLanguage();
+    void setComboBox();
 public slots:
     void report();
 private:

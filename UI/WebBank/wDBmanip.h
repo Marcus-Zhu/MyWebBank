@@ -95,6 +95,7 @@ public:
     bool dbInsert(QVector<QString> &insertInfo);
     bool dbUpdate(QString updateInfo);
     QVector<QString> dbSelect(QString selectInfo);
+    QVector<QString> dbSelect();
     bool dbDelete(QString deleteInfo);
     bool dbDelete(QString number, QString type);
     bool dbTableCreate();

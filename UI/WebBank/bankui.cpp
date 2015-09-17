@@ -207,27 +207,32 @@ void BankUI::showMyAccountPage()
 
 void BankUI::showAccountQueryPage()
 {
+    centerStack->accountQueryPage->setComboBox();
     centerStack->accountQueryPage->setTable();
     centerStack->setCurrentIndex(1);
 }
 
 void BankUI::showTransferPage()
 {
+    centerStack->transferPage->setComboBox();
     centerStack->setCurrentIndex(2);
 }
 
 void BankUI::shouCurrentFixPage()
 {
+    centerStack->currentFixPage->setComboBox();
     centerStack->setCurrentIndex(3);
 }
 
 void BankUI::showPaymentPage()
 {
+    centerStack->paymentPage->setComboBox();
     centerStack->setCurrentIndex(4);
 }
 
 void BankUI::showAutoPayPage()
 {
+    centerStack->autoPayPage->setComboBox();
     centerStack->autoPayPage->setTable();
     centerStack->setCurrentIndex(5);
 }
@@ -239,16 +244,19 @@ void BankUI::showCardApplyPage()
 
 void BankUI::showCardActivatePage()
 {
+    centerStack->cardActivatePage->setComboBox();
     centerStack->setCurrentIndex(7);
 }
 
 void BankUI::showCardRepayPage()
 {
+    centerStack->cardRepayPage->setComboBox();
     centerStack->setCurrentIndex(8);
 }
 
 void BankUI::showCardLostPage()
 {
+    centerStack->cardLostPage->setComboBox();
     centerStack->setCurrentIndex(9);
 }
 

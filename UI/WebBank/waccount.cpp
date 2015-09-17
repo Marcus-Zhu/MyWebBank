@@ -219,7 +219,7 @@ bool WNormalAccount::transaction(const transferType Type, const QString otherNum
         QVector<QString> insertInfo(2);
         int userKey = DBAccountManip::dbSelectUserKey(otherNumber);
         insertInfo[0].setNum(userKey);
-        insertInfo[1] = QString("%1 tranferred %2 to your account.").arg(otherNumber).arg(sum);
+        insertInfo[1] = QString("Account %1 tranferred %2 RMB to your account.").arg(otherNumber).arg(sum);
         if(result)
             dbMessage.dbInsert(insertInfo);
     }

@@ -37,7 +37,7 @@ bool WTransfer::transferToOther()
         currentDeposit = currentDeposit - sum - poundage;
         transferInfo[3].setNum(fixedDeposit);
         transferInfo[4].setNum(currentDeposit);
-        transferInfo[5] = "transfer to other";
+        transferInfo[5] = "Transfer to Others";
         result = db.dbInsert(transferInfo);
         return result;
     }
@@ -59,7 +59,7 @@ bool WTransfer::transferToFixed()
         fixedDeposit = fixedDeposit + sum;
         transferInfo[3].setNum(fixedDeposit);
         transferInfo[4].setNum(currentDeposit);
-        transferInfo[5] = "transfer to fixed";
+        transferInfo[5] = "Transfer to Fixed";
         result = db.dbInsert(transferInfo);
         return result;
     }
@@ -81,7 +81,7 @@ bool WTransfer::transferToCurrent()
         fixedDeposit = fixedDeposit - sum;
         transferInfo[3].setNum(fixedDeposit);
         transferInfo[4].setNum(currentDeposit);
-        transferInfo[5] = "transfer to current";
+        transferInfo[5] = "Transfer to Current";
         result = db.dbInsert(transferInfo);
         return result;
     }

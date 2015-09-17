@@ -417,7 +417,10 @@ bool DBPaymentRecordManip::dbInsert(QVector<QString> &insertInfo)
 
 bool DBPaymentRecordManip::dbUpdate(QString updateInfo)
 {
-    return false;
+    bool result;
+    QSqlQuery query;
+    result = query.exec(updateInfo);
+    return result;
 }
 
 QVector<QString> DBPaymentRecordManip::dbSelect(QString selectInfo)
@@ -651,7 +654,7 @@ bool DBAutoPayManip::dbInsert(QVector<QString> &insertInfo)
     return result;
 }
 
-QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo)
+QVector<QString> DBAutoPayManip::dbSelect()
 {
     QSqlQuery query;
     QVector<QString> info;
@@ -678,9 +681,25 @@ QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo)
     return info;
 }
 
+QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
+    QVector<QString> autoPayInfo;
+    QSqlQuery query;
+    query.exec(selectInfo);
+    while(query.next()){
+        int key = query.value(1).toInt();
+        autoPayInfo.push_back(DBAccountManip::dbSelectAccountNumber(key));
+        autoPayInfo.push_back(query.value(2).toString());
+        autoPayInfo.push_back(query.value(3).toString());
+    }
+    return autoPayInfo;
+}
+
 bool DBAutoPayManip::dbUpdate(QString updateInfo)
 {
-    return false;
+    bool result;
+    QSqlQuery query;
+    result = query.exec(updateInfo);
+    return result;
 }
 
 bool DBAutoPayManip::dbDelete(QString deleteInfo)

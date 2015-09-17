@@ -359,17 +359,6 @@ AccountQueryPage::AccountQueryPage(QWidget *parent) : WPage(parent)
     calendar2->setVisible(false);
     calendarLabel->setVisible(false);
 
-    //setup accounts
-    int accountNum = WUIManip::getAccountNum();
-    for (int i = 0; i < accountNum; ++i)
-    {
-        QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        accountBox->addItem(accounts[1]);
-    }
-    WDelegate *CMADele = new WDelegate();
-    accountBox->setItemDelegate(CMADele);
-
-
     //setup date edit
     queryType = -1;
     fromDate->setPlaceholderText("YYYY.MM.DD");
@@ -411,6 +400,20 @@ void AccountQueryPage::setTable()
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->setHighlightSections(false);
     table->verticalHeader()->setDefaultSectionSize(48);
+}
+
+void AccountQueryPage::setComboBox()
+{
+    //setup accounts
+    accountBox->clear();
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        accountBox->addItem(accounts[1]);
+    }
+    WDelegate *CMADele = new WDelegate();
+    accountBox->setItemDelegate(CMADele);
 }
 
 void AccountQueryPage::search()
@@ -743,16 +746,6 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     edit5->setObjectName("CTEdit5");
     confirmBtn->setObjectName("CTConfirmBtn");
 
-    int accountNum = WUIManip::getAccountNum();
-    for (int i = 0; i < accountNum; ++i)
-    {
-        QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
-    }
-
-    WDelegate *CTDele = new WDelegate();
-    edit1->setItemDelegate(CTDele);
-
     //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
@@ -768,6 +761,20 @@ TransferPage::TransferPage(QWidget *parent) : WPage(parent)
     confirmBtn->setGeometry(QRect(584, 336, 108, 36));
 
     connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void TransferPage::setComboBox()
+{
+    //setup accounts
+    edit1->clear();
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+    WDelegate *CTDele = new WDelegate();
+    edit1->setItemDelegate(CTDele);
 }
 
 void TransferPage::confirm()
@@ -843,19 +850,6 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
     edit5->setObjectName("CCFEdit5");
     confirmBtn->setObjectName("CCFConfirmBtn");
 
-    //setup accounts
-    int accountNum = WUIManip::getAccountNum();
-    for (int i = 0; i < accountNum; ++i)
-    {
-        QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
-    }
-
-    WDelegate *CCFDele1 = new WDelegate();
-    edit1->setItemDelegate(CCFDele1);
-
-    edit3->setText(edit1->currentText());
-
     edit4->addItem(tr("Current to Fix"));
     edit4->addItem(tr("Fix to Current"));
     WDelegate *CCFDele2 = new WDelegate();
@@ -877,6 +871,23 @@ CurrentFixPage::CurrentFixPage(QWidget *parent) : WPage(parent)
 
     connect(edit1, SIGNAL(currentIndexChanged(QString)), edit3, SLOT(setText(QString)));
     connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void CurrentFixPage::setComboBox()
+{
+    //setup accounts
+    edit1->clear();
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit1->addItem(accounts[1]);
+    }
+
+    WDelegate *CCFDele1 = new WDelegate();
+    edit1->setItemDelegate(CCFDele1);
+
+    edit3->setText(edit1->currentText());
 }
 
 void CurrentFixPage::confirm()
@@ -966,17 +977,6 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
     WDelegate *CPDele1 = new WDelegate();
     edit1->setItemDelegate(CPDele1);
 
-    //setup accounts
-    int accountNum = WUIManip::getAccountNum();
-    for (int i = 0; i < accountNum; ++i)
-    {
-        QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit2->addItem(accounts[1]);
-    }
-
-    WDelegate *CPDele2 = new WDelegate();
-    edit2->setItemDelegate(CPDele2);
-
     //set position and size
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
     label1->setGeometry(QRect(24, 92, 200, 24));
@@ -993,6 +993,21 @@ PaymentPage::PaymentPage(QWidget *parent) : WPage(parent)
             SLOT(showAutoPayPage()));
     connect(edit1, SIGNAL(currentIndexChanged(int)), this, SLOT(changeValue(int)));
     connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void PaymentPage::setComboBox()
+{
+    //setup accounts
+    edit2->clear();
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit2->addItem(accounts[1]);
+    }
+
+    WDelegate *CPDele2 = new WDelegate();
+    edit2->setItemDelegate(CPDele2);
 }
 
 void PaymentPage::confirm()
@@ -1070,16 +1085,6 @@ AutoPayPage::AutoPayPage(QWidget *parent) : WPage(parent)
     WDelegate *CAPDele1 = new WDelegate();
     edit1->setItemDelegate(CAPDele1);
 
-    int accountNum = WUIManip::getAccountNum();
-    for (int i = 0; i < accountNum; ++i)
-    {
-        QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit2->addItem(accounts[1]);
-    }
-
-    WDelegate *CAPDele2 = new WDelegate();
-    edit2->setItemDelegate(CAPDele2);
-
     //set position and size
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
     mainTitle->setGeometry(QRect(24, 6, 708, 60));
@@ -1130,6 +1135,21 @@ void AutoPayPage::setTable()
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->resizeSection(0, 450);
     table->verticalHeader()->setDefaultSectionSize(48);
+}
+
+void AutoPayPage::setComboBox()
+{
+    //setup accounts
+    edit2->clear();
+    int accountNum = WUIManip::getAccountNum();
+    for (int i = 0; i < accountNum; ++i)
+    {
+        QVector<QString> accounts = WUIManip::getAccountInfo(i);
+        edit2->addItem(accounts[1]);
+    }
+
+    WDelegate *CAPDele2 = new WDelegate();
+    edit2->setItemDelegate(CAPDele2);
 }
 
 void AutoPayPage::setAutoPay()
@@ -1275,7 +1295,19 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
     edit1->setObjectName("CCBEdit1");
     activateBtn->setObjectName("CCBActivateBtn");
 
+    //set position and size
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    activateBtn->setGeometry(QRect(584, 144, 108, 36));
+
+    connect(activateBtn, SIGNAL(clicked(bool)), this, SLOT(activate()));
+}
+
+void CardActivatePage::setComboBox()
+{
     //setup accounts
+    edit1->clear();
     int accountNum = WUIManip::getAccountNum();
     for (int i = 0; i < accountNum; ++i)
     {
@@ -1285,14 +1317,6 @@ CardActivatePage::CardActivatePage(QWidget *parent) : WPage(parent)
 
     WDelegate *CCBDele = new WDelegate();
     edit1->setItemDelegate(CCBDele);
-
-    //set position and size
-    mainTitle->setGeometry(QRect(24, 6, 708, 60));
-    label1->setGeometry(QRect(24, 92, 200, 24));
-    edit1->setGeometry(QRect(288, 88, 400, 32));
-    activateBtn->setGeometry(QRect(584, 144, 108, 36));
-
-    connect(activateBtn, SIGNAL(clicked(bool)), this, SLOT(activate()));
 }
 
 void CardActivatePage::activate()
@@ -1352,7 +1376,28 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
     edit2->setText(val1);
     edit3->setText(val2);
 
+
+    //set position and size
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    label2->setGeometry(QRect(24, 140, 200, 24));
+    label3->setGeometry(QRect(24, 188, 200, 24));
+    label4->setGeometry(QRect(24, 236, 200, 24));
+    label5->setGeometry(QRect(24, 284, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    edit2->setGeometry(QRect(288, 136, 400, 32));
+    edit3->setGeometry(QRect(288, 184, 400, 32));
+    edit4->setGeometry(QRect(288, 232, 400, 32));
+    edit5->setGeometry(QRect(288, 280, 400, 32));
+    confirmBtn->setGeometry(QRect(584, 336, 108, 36));
+
+    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
+}
+
+void CardRepayPage::setComboBox()
+{
     //setup accounts
+    edit1->clear();
     int accountNum = WUIManip::getAccountNum();
     for (int i = 0; i < accountNum; ++i)
     {
@@ -1373,22 +1418,6 @@ CardRepayPage::CardRepayPage(QWidget *parent) : WPage(parent)
 
     WDelegate *CCRDele2 = new WDelegate();
     edit4->setItemDelegate(CCRDele2);
-
-    //set position and size
-    mainTitle->setGeometry(QRect(24, 6, 708, 60));
-    label1->setGeometry(QRect(24, 92, 200, 24));
-    label2->setGeometry(QRect(24, 140, 200, 24));
-    label3->setGeometry(QRect(24, 188, 200, 24));
-    label4->setGeometry(QRect(24, 236, 200, 24));
-    label5->setGeometry(QRect(24, 284, 200, 24));
-    edit1->setGeometry(QRect(288, 88, 400, 32));
-    edit2->setGeometry(QRect(288, 136, 400, 32));
-    edit3->setGeometry(QRect(288, 184, 400, 32));
-    edit4->setGeometry(QRect(288, 232, 400, 32));
-    edit5->setGeometry(QRect(288, 280, 400, 32));
-    confirmBtn->setGeometry(QRect(584, 336, 108, 36));
-
-    connect(confirmBtn, SIGNAL(clicked(bool)), this, SLOT(confirm()));
 }
 
 void CardRepayPage::confirm()
@@ -1436,7 +1465,19 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
     edit1->setObjectName("CCLEdit1");
     reportBtn->setObjectName("CCLReportBtn");
 
+    //set position and size
+    mainTitle->setGeometry(QRect(24, 6, 708, 60));
+    label1->setGeometry(QRect(24, 92, 200, 24));
+    edit1->setGeometry(QRect(288, 88, 400, 32));
+    reportBtn->setGeometry(QRect(584, 144, 108, 36));
+
+    connect(reportBtn, SIGNAL(clicked(bool)), this, SLOT(report()));
+}
+
+void CardLostPage::setComboBox()
+{
     //setup accounts
+    edit1->clear();
     int accountNum = WUIManip::getAccountNum();
     for (int i = 0; i < accountNum; ++i)
     {
@@ -1446,14 +1487,6 @@ CardLostPage::CardLostPage(QWidget *parent) : WPage(parent)
 
     WDelegate *CCLDele = new WDelegate();
     edit1->setItemDelegate(CCLDele);
-
-    //set position and size
-    mainTitle->setGeometry(QRect(24, 6, 708, 60));
-    label1->setGeometry(QRect(24, 92, 200, 24));
-    edit1->setGeometry(QRect(288, 88, 400, 32));
-    reportBtn->setGeometry(QRect(584, 144, 108, 36));
-
-    connect(reportBtn, SIGNAL(clicked(bool)), this, SLOT(report()));
 }
 
 void CardLostPage::report()
@@ -1677,7 +1710,7 @@ void SysMsgPage::setSysMsg()
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->setHighlightSections(false);
-    table->horizontalHeader()->resizeSection(0, 250);
+    table->horizontalHeader()->resizeSection(0, 172);
     table->verticalHeader()->setDefaultSectionSize(48);
 }
 
