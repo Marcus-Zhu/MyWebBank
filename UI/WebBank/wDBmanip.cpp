@@ -681,11 +681,13 @@ QVector<QString> DBAutoPayManip::dbSelect()
     return info;
 }
 
-QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo){
+QVector<QString> DBAutoPayManip::dbSelect(QString selectInfo)
+{
     QVector<QString> autoPayInfo;
     QSqlQuery query;
     query.exec(selectInfo);
-    while(query.next()){
+    while(query.next())
+    {
         int key = query.value(1).toInt();
         autoPayInfo.push_back(DBAccountManip::dbSelectAccountNumber(key));
         autoPayInfo.push_back(query.value(2).toString());

@@ -11,9 +11,12 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QAxObject>
+#include <QLinearGradient>
+#include "qcustomplot.h"
 
 WPage::WPage(QWidget *parent): QWidget(parent)
 {
+    //set common main title
     mainTitle = new QLabel(this);
     mainTitle->setObjectName("Title");
 }
@@ -26,12 +29,14 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     title2 = new QLabel(tr("Recent Transaction Records"), this);
     table1 = new QTableWidget(this);
     table2 = new QTableWidget(this);
+    plotBtn = new QPushButton(tr("Show Statistics"), this);
 
     //set object name
     bgLabel->setObjectName("CMAbg");
     title2->setObjectName("CMALabel2");
     table1->setObjectName("CMATable1");
     table2->setObjectName("CMATable2");
+    plotBtn->setObjectName("CMAPlot");
 
     //set position and size
     bgLabel->setGeometry(QRect(0, 0, 751, 566));
@@ -39,8 +44,11 @@ MyAccountPage::MyAccountPage(QWidget *parent) : WPage(parent)
     title2->setGeometry(QRect(24, 280, 708, 48));
     table1->setGeometry(QRect(24, 72, 708, 192));
     table2->setGeometry(QRect(24, 336, 708, 192));
+    plotBtn->setGeometry(QRect(568, 24, 168, 36));
 
+    //set connections
     connect(table1, SIGNAL(cellClicked(int, int)), this, SLOT(showAccountRecord(int, int)));
+    connect(plotBtn, SIGNAL(clicked(bool)), parent->parent(), SLOT(showPlotPage()));
 }
 
 void MyAccountPage::setTable()
@@ -51,6 +59,7 @@ void MyAccountPage::setTable()
     table1->setColumnCount(5);
     table1->setRowCount(accountNum);
 
+    //setup table headers
     QStringList header1;
     header1 << tr("Card Type")
             << tr("Card Number")
@@ -63,6 +72,7 @@ void MyAccountPage::setTable()
     table1->horizontalHeader()->resizeSection(2, 120);
     table1->horizontalHeader()->resizeSection(3, 120);
 
+    //set table contents
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accountInfo = WUIManip::getAccountInfo(i);
@@ -123,9 +133,11 @@ void MyAccountPage::setTable()
         }
     }
 
+    //set table delegate
     WDelegate *CMADele1 = new WDelegate();
     table1->setItemDelegate(CMADele1);
 
+    //set table style
     table1->verticalHeader()->hide();
     table1->horizontalHeader()->setStretchLastSection(true);
     table1->setShowGrid(false);
@@ -140,6 +152,7 @@ void MyAccountPage::setTable()
     table2->setColumnCount(3);
     table2->setRowCount(recordInfo.size() / 3);
 
+    //set table
     QStringList header2;
     header2 << tr("Amount") << tr("Time") << tr("Transaction Type");
     table2->setHorizontalHeaderLabels(header2);
@@ -591,7 +604,7 @@ void AccountQueryPage::recent()
 
 void AccountQueryPage::exportExcel()
 {
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Records"), "." ,tr("*.xls"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Records"), "." , "*.xls");
     if(filename.isEmpty())
     {
         WMsgBox::information(tr("Failed to get filename!"));
@@ -709,6 +722,7 @@ void AccountQueryPage::updateLanguage()
     expenseCkBox->setText(tr("Expense"));
     searchBtn->setText(tr("SEARCH"));
     recentBtn->setText(tr("Recent Three Months"));
+    exportBtn->setText(tr("EXPORT"));
 
     QStringList header;
     header << tr("Amount") << tr("Time") << tr("Transaction Type");
@@ -881,7 +895,10 @@ void CurrentFixPage::setComboBox()
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
+        if (accounts[0] == "normalAccount")
+        {
+            edit1->addItem(accounts[1]);
+        }
     }
 
     WDelegate *CCFDele1 = new WDelegate();
@@ -1118,11 +1135,26 @@ void AutoPayPage::setTable()
 
     for (int i = 0; i < log.size() / 3; ++i)
     {
-        for (int j = 0; j < 2; ++j)
+        table->setItem(i, 0, new QTableWidgetItem(log[3 * i]));
+
+        QString accountType;
+        if (log[3 * i + 1] == "Water")
         {
-            table->setItem(i, j, new QTableWidgetItem(log[3 * i + j]));
-            table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            accountType = tr("Water");
         }
+        else if (log[3 * i + 1] == "Electricity")
+        {
+            accountType = tr("Electricity");
+        }
+        else if (log[3 * i + 1] == "Gas")
+        {
+            accountType = tr("Gas");
+        }
+        QTableWidgetItem *item = new QTableWidgetItem(accountType);
+        table->setItem(i, 1, item);
+
+        table->item(i, 0)->setTextAlignment(Qt::AlignCenter);
+        table->item(i, 1)->setTextAlignment(Qt::AlignCenter);
     }
 
     WDelegate *CAPDele = new WDelegate();
@@ -1203,11 +1235,26 @@ void AutoPayPage::updateTable()
     table->clearContents();
     for (int i = 0; i < log.size() / 3; ++i)
     {
-        for (int j = 0; j < 2; ++j)
+        table->setItem(i, 0, new QTableWidgetItem(log[3 * i]));
+
+        QString accountType;
+        if (log[3 * i + 1] == "Water")
         {
-            table->setItem(i, j, new QTableWidgetItem(log[3 * i + j]));
-            table->item(i, j)->setTextAlignment(Qt::AlignCenter);
+            accountType = tr("Water");
         }
+        else if (log[3 * i + 1] == "Electricity")
+        {
+            accountType = tr("Electricity");
+        }
+        else if (log[3 * i + 1] == "Gas")
+        {
+            accountType = tr("Gas");
+        }
+        QTableWidgetItem *item = new QTableWidgetItem(accountType);
+        table->setItem(i, 1, item);
+
+        table->item(i, 0)->setTextAlignment(Qt::AlignCenter);
+        table->item(i, 1)->setTextAlignment(Qt::AlignCenter);
     }
 }
 
@@ -1226,6 +1273,7 @@ void AutoPayPage::updateLanguage()
     edit1->addItem(tr("Gas Bill"));
     WDelegate *CAPDele1 = new WDelegate();
     edit1->setItemDelegate(CAPDele1);
+    this->setTable();
 }
 
 CardApplyPage::CardApplyPage(QWidget *parent) : WPage(parent)
@@ -1312,7 +1360,10 @@ void CardActivatePage::setComboBox()
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
+        if (accounts[0] != "normalAccount")
+        {
+            edit1->addItem(accounts[1]);
+        }
     }
 
     WDelegate *CCBDele = new WDelegate();
@@ -1402,7 +1453,10 @@ void CardRepayPage::setComboBox()
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
+        if (accounts[0] != "normalAccount")
+        {
+            edit1->addItem(accounts[1]);
+        }
     }
 
     WDelegate *CCRDele1 = new WDelegate();
@@ -1413,7 +1467,10 @@ void CardRepayPage::setComboBox()
     for (int i = 0; i < CRAccountNum; ++i)
     {
         QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit4->addItem(accounts[1]);
+        if (accounts[0] == "normalAccount")
+        {
+            edit4->addItem(accounts[1]);
+        }
     }
 
     WDelegate *CCRDele2 = new WDelegate();
@@ -1482,7 +1539,10 @@ void CardLostPage::setComboBox()
     for (int i = 0; i < accountNum; ++i)
     {
         QVector<QString> accounts = WUIManip::getAccountInfo(i);
-        edit1->addItem(accounts[1]);
+        if (accounts[0] != "normalAccount")
+        {
+            edit1->addItem(accounts[1]);
+        }
     }
 
     WDelegate *CCLDele = new WDelegate();

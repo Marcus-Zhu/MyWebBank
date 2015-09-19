@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Debug
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
+DEFINES       = -DUNICODE -DWIN32 -DQT_AXCONTAINER_LIB -DQT_AXBASE_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -nologo -Zc:wchar_t -Zi -MDd -W3 /Fddebug\WebBank.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -EHsc /Fddebug\WebBank.pdb $(DEFINES)
-INCPATH       = -I. -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtANGLE -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore -Idebug -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012 
+INCPATH       = -I. -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\ActiveQt -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtANGLE -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore -Idebug -IC:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\qtmaind.lib shell32.lib /LIBPATH:C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Cored.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Widgetsd.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Guid.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Sqld.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Cored.lib 
+LIBS          = /LIBPATH:C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\qtmaind.lib shell32.lib /LIBPATH:C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5AxContainerd.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5AxBased.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5AxBased.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Widgetsd.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Guid.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Cored.lib ole32.lib oleaut32.lib user32.lib gdi32.lib advapi32.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Widgetsd.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Guid.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Sqld.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5Cored.lib 
 QMAKE         = C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -53,17 +53,24 @@ SOURCES       = main.cpp \
 		wloading.cpp \
 		wlineedit.cpp \
 		wuimanip.cpp \
-		WebBankCurrentUser.cpp \
-		WebBankDataBaseManip.cpp \
-		WebBankUser.cpp \
-		WebBankSystemMessage.cpp debug\qrc_styleset.cpp \
+		wmsgbox.cpp \
+		wuser.cpp \
+		wtransfer.cpp \
+		wsysmsg.cpp \
+		wquery.cpp \
+		wpayment.cpp \
+		wDBmanip.cpp \
+		waccount.cpp \
+		wcreditcard.cpp \
+		wcurrentuser.cpp debug\qrc_styleset.cpp \
 		debug\moc_bankui.cpp \
 		debug\moc_pages.cpp \
 		debug\moc_bars.cpp \
 		debug\moc_wdelegate.cpp \
 		debug\moc_wlogin.cpp \
 		debug\moc_wloading.cpp \
-		debug\moc_wlineedit.cpp
+		debug\moc_wlineedit.cpp \
+		debug\moc_wmsgbox.cpp
 OBJECTS       = debug\main.obj \
 		debug\bankui.obj \
 		debug\wstackedwidget.obj \
@@ -74,10 +81,16 @@ OBJECTS       = debug\main.obj \
 		debug\wloading.obj \
 		debug\wlineedit.obj \
 		debug\wuimanip.obj \
-		debug\WebBankCurrentUser.obj \
-		debug\WebBankDataBaseManip.obj \
-		debug\WebBankUser.obj \
-		debug\WebBankSystemMessage.obj \
+		debug\wmsgbox.obj \
+		debug\wuser.obj \
+		debug\wtransfer.obj \
+		debug\wsysmsg.obj \
+		debug\wquery.obj \
+		debug\wpayment.obj \
+		debug\wDBmanip.obj \
+		debug\waccount.obj \
+		debug\wcreditcard.obj \
+		debug\wcurrentuser.obj \
 		debug\qrc_styleset.obj \
 		debug\moc_bankui.obj \
 		debug\moc_pages.obj \
@@ -85,7 +98,8 @@ OBJECTS       = debug\main.obj \
 		debug\moc_wdelegate.obj \
 		debug\moc_wlogin.obj \
 		debug\moc_wloading.obj \
-		debug\moc_wlineedit.obj
+		debug\moc_wlineedit.obj \
+		debug\moc_wmsgbox.obj
 
 DIST          =  bankui.h \
 		wstackedwidget.h \
@@ -96,10 +110,16 @@ DIST          =  bankui.h \
 		wloading.h \
 		wlineedit.h \
 		wuimanip.h \
-		WebBankCurrentUser.h \
-		WebBankDataBaseManip.h \
-		WebBankUser.h \
-		WebBankSystemMessage.h main.cpp \
+		wmsgbox.h \
+		wuser.h \
+		wtransfer.h \
+		wsysmsg.h \
+		wquery.h \
+		wpayment.h \
+		wDBmanip.h \
+		waccount.h \
+		wcreditcard.h \
+		wcurrentuser.h main.cpp \
 		bankui.cpp \
 		wstackedwidget.cpp \
 		pages.cpp \
@@ -109,10 +129,16 @@ DIST          =  bankui.h \
 		wloading.cpp \
 		wlineedit.cpp \
 		wuimanip.cpp \
-		WebBankCurrentUser.cpp \
-		WebBankDataBaseManip.cpp \
-		WebBankUser.cpp \
-		WebBankSystemMessage.cpp
+		wmsgbox.cpp \
+		wuser.cpp \
+		wtransfer.cpp \
+		wsysmsg.cpp \
+		wquery.cpp \
+		wpayment.cpp \
+		wDBmanip.cpp \
+		waccount.cpp \
+		wcreditcard.cpp \
+		wcurrentuser.cpp
 QMAKE_TARGET  = WebBank
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = WebBank.exe
@@ -167,7 +193,7 @@ DESTDIR_TARGET = debug\WebBank.exe
 first: all
 all: Makefile.Debug  $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET):  $(OBJECTS) 
+$(DESTDIR_TARGET): C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5AxContainerd.lib C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\lib\Qt5AxBased.lib $(OBJECTS) 
 	echo 1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "debug\\WebBank.exe.embed.manifest">debug\WebBank.exe_manifest.rc
 	if not exist $(DESTDIR_TARGET) if exist debug\WebBank.exe.embed.manifest del debug\WebBank.exe.embed.manifest
 	if exist debug\WebBank.exe.embed.manifest copy /Y debug\WebBank.exe.embed.manifest debug\WebBank.exe_manifest.bak
@@ -190,10 +216,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) WebBank.zip $(SOURCES) $(DIST) WebBank.pro C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\spec_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\common\msvc-desktop.conf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\qconfig.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dcore.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dcore_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dinput.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dinput_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquick.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquick_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquickrenderer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquickrenderer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3drenderer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3drenderer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axbase.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axbase_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axcontainer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axserver.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axserver_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bluetooth.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_clucene_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_concurrent.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_concurrent_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_core.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_core_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_dbus.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_dbus_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_declarative.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_declarative_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_enginio.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_enginio_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_gui.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_gui_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_help.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_help_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_location.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_location_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimedia.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimedia_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_network.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_network_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_nfc.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_nfc_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_opengl.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_opengl_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_openglextensions.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_positioning.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_positioning_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_printsupport.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_printsupport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qml.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qml_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmltest.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmltest_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quick.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quick_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickwidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_script.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_script_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_scripttools.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_scripttools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sensors.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sensors_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_serialport.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_serialport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sql.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sql_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_svg.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_svg_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_testlib.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_testlib_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uiplugin.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uitools.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uitools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webchannel.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webchannel_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkit.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkit_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkitwidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkitwidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_websockets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_websockets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_widgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_widgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_winextras.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_winextras_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xml.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xml_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt_functions.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\qt_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012\qmake.conf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\spec_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exclusive_builds.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\default_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\default_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\resolve_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exclusive_builds_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\default_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\build_pass.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\rtti.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\c++11.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\precompile_header.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\warn_on.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\resources.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\moc.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\opengl.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\uic.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\windows.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\testcase_targets.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exceptions.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\yacc.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\lex.prf WebBank.pro styleset.qrc C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmaind.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgetsd.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Guid.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sqld.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Cored.prl "chn.ts eng.ts" chn.ts eng.ts NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) WebBank.zip $(SOURCES) $(DIST) WebBank.pro C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\spec_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\common\msvc-desktop.conf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\qconfig.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dcore.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dcore_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dinput.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dinput_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquick.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquick_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquickrenderer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3dquickrenderer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3drenderer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_3drenderer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axbase.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axbase_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axcontainer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axserver.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_axserver_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bluetooth.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_clucene_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_concurrent.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_concurrent_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_core.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_core_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_dbus.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_dbus_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_declarative.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_declarative_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designer.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designer_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_enginio.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_enginio_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_gui.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_gui_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_help.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_help_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_location.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_location_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimedia.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimedia_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_network.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_network_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_nfc.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_nfc_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_opengl.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_opengl_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_openglextensions.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_positioning.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_positioning_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_printsupport.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_printsupport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qml.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qml_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmltest.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qmltest_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quick.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quick_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickwidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_script.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_script_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_scripttools.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_scripttools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sensors.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sensors_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_serialport.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_serialport_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sql.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_sql_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_svg.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_svg_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_testlib.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_testlib_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uiplugin.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uitools.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_uitools_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webchannel.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webchannel_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkit.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkit_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkitwidgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_webkitwidgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_websockets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_websockets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_widgets.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_widgets_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_winextras.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_winextras_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xml.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xml_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt_functions.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\qt_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012\qmake.conf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\spec_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exclusive_builds.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\default_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\default_pre.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\resolve_config.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exclusive_builds_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\default_post.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\build_pass.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\rtti.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\c++11.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\precompile_header.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\warn_on.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\qt.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\resources.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\moc.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\opengl.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\uic.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\dumpcpp.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\windows.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\testcase_targets.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exceptions.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\yacc.prf C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\lex.prf WebBank.pro styleset.qrc C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmaind.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxContainerd.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxBased.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgetsd.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Guid.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sqld.prl C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Cored.prl "chn.ts eng.ts" chn.ts eng.ts NO_PCH_SOURCES RESOURCES TYPELIBS HEADERS TYPELIBS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\bankui.obj debug\wstackedwidget.obj debug\pages.obj debug\bars.obj debug\wdelegate.obj debug\wlogin.obj debug\wloading.obj debug\wlineedit.obj debug\wuimanip.obj debug\WebBankCurrentUser.obj debug\WebBankDataBaseManip.obj debug\WebBankUser.obj debug\WebBankSystemMessage.obj debug\qrc_styleset.obj debug\moc_bankui.obj debug\moc_pages.obj debug\moc_bars.obj debug\moc_wdelegate.obj debug\moc_wlogin.obj debug\moc_wloading.obj debug\moc_wlineedit.obj
+	-$(DEL_FILE) debug\main.obj debug\bankui.obj debug\wstackedwidget.obj debug\pages.obj debug\bars.obj debug\wdelegate.obj debug\wlogin.obj debug\wloading.obj debug\wlineedit.obj debug\wuimanip.obj debug\wmsgbox.obj debug\wuser.obj debug\wtransfer.obj debug\wsysmsg.obj debug\wquery.obj debug\wpayment.obj debug\wDBmanip.obj debug\waccount.obj debug\wcreditcard.obj debug\wcurrentuser.obj debug\qrc_styleset.obj debug\moc_bankui.obj debug\moc_pages.obj debug\moc_bars.obj debug\moc_wdelegate.obj debug\moc_wlogin.obj debug\moc_wloading.obj debug\moc_wlineedit.obj debug\moc_wmsgbox.obj
 	-$(DEL_FILE) debug\WebBank.exp debug\WebBank.ilk debug\WebBank.idb debug\WebBank.exe.embed.manifest debug\WebBank.exe_manifest.rc debug\WebBank.exe_manifest.res
 
 distclean: clean 
@@ -205,6 +231,8 @@ mocclean: compiler_moc_header_clean compiler_moc_source_clean
 
 mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
+$(OBJECTS):
+
 check: first
 
 compiler_no_pch_compiler_make_all:
@@ -213,12 +241,82 @@ compiler_rcc_make_all: debug\qrc_styleset.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_styleset.cpp
 debug\qrc_styleset.cpp: styleset.qrc \
-		ui.qss
+		ui_green.qss \
+		ui_yellow.qss \
+		ui_purple.qss \
+		ui_red.qss \
+		ui_orange.qss \
+		ui_blue.qss \
+		trans\chn.qm \
+		trans\eng.qm \
+		trans\trans.ini \
+		image\dropdown.png \
+		image\close0.png \
+		image\close1.png \
+		image\loading.png \
+		image\loading.gif \
+		image\user0.png \
+		image\user1.png \
+		image\Commonbg.png \
+		image\CAQbg.png \
+		image\menubar.png \
+		image\CAPbg.png \
+		image\spinbox-up.png \
+		image\min0.png \
+		image\min1.png \
+		image\blankbg.png \
+		image\spinbox-down.png \
+		image\CSMbg.png \
+		image\navbar.png \
+		image\checkbox0.png \
+		image\checkbox1.png \
+		image\CMAbg.png \
+		image\setting0.png \
+		image\setting1.png \
+		image\msgnotice.png \
+		image\yellow\reg.png \
+		image\yellow\topbar.png \
+		image\yellow\login.png \
+		image\yellow\msgbox.png \
+		image\yellow\logo.png \
+		image\yellow\aboutbox.png \
+		image\orange\reg.png \
+		image\orange\topbar.png \
+		image\orange\login.png \
+		image\orange\msgbox.png \
+		image\orange\logo.png \
+		image\orange\aboutbox.png \
+		image\blue\reg.png \
+		image\blue\topbar.png \
+		image\blue\login.png \
+		image\blue\msgbox.png \
+		image\blue\logo.png \
+		image\blue\aboutbox.png \
+		image\purple\reg.png \
+		image\purple\topbar.png \
+		image\purple\login.png \
+		image\purple\msgbox.png \
+		image\purple\logo.png \
+		image\purple\aboutbox.png \
+		image\red\reg.png \
+		image\red\topbar.png \
+		image\red\login.png \
+		image\red\msgbox.png \
+		image\red\logo.png \
+		image\red\aboutbox.png \
+		image\green\reg.png \
+		image\green\topbar.png \
+		image\green\login.png \
+		image\green\msgbox.png \
+		image\green\logo.png \
+		image\green\aboutbox.png
 	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\rcc.exe -name styleset styleset.qrc -o debug\qrc_styleset.cpp
 
-compiler_moc_header_make_all: debug\moc_bankui.cpp debug\moc_pages.cpp debug\moc_bars.cpp debug\moc_wdelegate.cpp debug\moc_wlogin.cpp debug\moc_wloading.cpp debug\moc_wlineedit.cpp
+compiler_dumpcpp_decl_make_all:
+compiler_dumpcpp_decl_clean:
+compiler_moc_header_make_all: debug\moc_bankui.cpp debug\moc_pages.cpp debug\moc_bars.cpp debug\moc_wdelegate.cpp debug\moc_wlogin.cpp debug\moc_wloading.cpp debug\moc_wlineedit.cpp debug\moc_wmsgbox.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_bankui.cpp debug\moc_pages.cpp debug\moc_bars.cpp debug\moc_wdelegate.cpp debug\moc_wlogin.cpp debug\moc_wloading.cpp debug\moc_wlineedit.cpp
+	-$(DEL_FILE) debug\moc_bankui.cpp debug\moc_pages.cpp debug\moc_bars.cpp debug\moc_wdelegate.cpp debug\moc_wlogin.cpp debug\moc_wloading.cpp debug\moc_wlineedit.cpp debug\moc_wmsgbox.cpp
 debug\moc_bankui.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qwidget.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qwindowdefs.h \
@@ -378,7 +476,7 @@ debug\moc_bankui.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidg
 		bars.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QAction \
 		bankui.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore bankui.h -o debug\moc_bankui.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore bankui.h -o debug\moc_bankui.cpp
 
 debug\moc_pages.cpp: wlineedit.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObject \
@@ -527,7 +625,7 @@ debug\moc_pages.cpp: wlineedit.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget \
 		pages.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore pages.h -o debug\moc_pages.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore pages.h -o debug\moc_pages.cpp
 
 debug\moc_bars.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qwidget.h \
@@ -644,7 +742,7 @@ debug\moc_bars.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qpushbutton.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractbutton.h \
 		bars.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore bars.h -o debug\moc_bars.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore bars.h -o debug\moc_bars.cpp
 
 debug\moc_wdelegate.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QStyledItemDelegate \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qstyleditemdelegate.h \
@@ -764,7 +862,7 @@ debug\moc_wdelegate.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QS
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qframe.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qabstractitemmodel.h \
 		wdelegate.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wdelegate.h -o debug\moc_wdelegate.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wdelegate.h -o debug\moc_wdelegate.cpp
 
 debug\moc_wlogin.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QLabel \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlabel.h \
@@ -884,7 +982,7 @@ debug\moc_wlogin.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QLabe
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdialog.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\QMouseEvent \
 		wlogin.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wlogin.h -o debug\moc_wlogin.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wlogin.h -o debug\moc_wlogin.cpp
 
 debug\moc_wloading.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDialog \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdialog.h \
@@ -1004,7 +1102,7 @@ debug\moc_wloading.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDi
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlabel.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qframe.h \
 		wloading.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wloading.h -o debug\moc_wloading.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wloading.h -o debug\moc_wloading.cpp
 
 debug\moc_wlineedit.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObject \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
@@ -1117,8 +1215,134 @@ debug\moc_wlineedit.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObje
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextoption.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\QMouseEvent \
 		wlineedit.h
-	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wlineedit.h -o debug\moc_wlineedit.cpp
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wlineedit.h -o debug\moc_wlineedit.cpp
 
+debug\moc_wmsgbox.cpp: C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QLabel \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlabel.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qframe.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qwidget.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qwindowdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qwindowdefs_win.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvarlengtharray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmargins.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpaintdevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrect.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsize.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpalette.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qcolor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qrgb.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qbrush.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qmatrix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpolygon.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qregion.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatastream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qline.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtransform.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpainterpath.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qimage.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpixelformat.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpixmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsharedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsharedpointer_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfont.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfontmetrics.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfontinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qsizepolicy.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qcursor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qkeysequence.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qurl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qurlquery.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfile.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfiledevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qvector2d.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtouchdevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QPushButton \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qpushbutton.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractbutton.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qicon.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObject \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDialog \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdialog.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QTextEdit \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qtextedit.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractscrollarea.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextdocument.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextoption.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextcursor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextformat.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpen.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\QMouseEvent \
+		wmsgbox.h
+	C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/mkspecs/win32-msvc2012 -ID:/THU/Summer1/MyWebBank/UI/WebBank -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/ActiveQt -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtWidgets -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtGui -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtANGLE -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtSql -IC:/Develop/Qt/Qt5.5.0/5.5/msvc2012/include/QtCore wmsgbox.h -o debug\moc_wmsgbox.cpp
+
+compiler_dumpcpp_impl_make_all:
+compiler_dumpcpp_impl_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -1309,14 +1533,21 @@ debug\main.obj: main.cpp bankui.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qjsonobject.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qjsonvalue.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfactoryinterface.h \
+		wuimanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wmsgbox.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QApplication \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qapplication.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdesktopwidget.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qguiapplication.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qinputmethod.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QMessageBox \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qmessagebox.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QSettings \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsettings.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QtSql \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QtSqlDepends \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QtCore \
@@ -1344,7 +1575,6 @@ debug\main.obj: main.cpp bankui.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocess.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qresource.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsavefile.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsettings.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstandardpaths.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstorageinfo.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtemporarydir.h \
@@ -1415,8 +1645,6 @@ debug\main.obj: main.cpp bankui.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtimezone.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qxmlstream.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtcoreversion.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldriver.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldriverplugin.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlerror.h \
@@ -1431,8 +1659,7 @@ debug\main.obj: main.cpp bankui.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlistview.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlrelationaltablemodel.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqltablemodel.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qtsqlversion.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qtsqlversion.h
 
 debug\bankui.obj: bankui.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QMessageBox \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qmessagebox.h \
@@ -1556,6 +1783,7 @@ debug\bankui.obj: bankui.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidget
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QTimer \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtimer.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasictimer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QGraphicsEffect \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qgraphicseffect.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QPropertyAnimation \
@@ -1563,6 +1791,8 @@ debug\bankui.obj: bankui.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidget
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariantanimation.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qeasingcurve.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qabstractanimation.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QSettings \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsettings.h \
 		bankui.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QLabel \
@@ -1615,7 +1845,16 @@ debug\bankui.obj: bankui.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidget
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qcalendarwidget.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
 		bars.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QAction
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QAction \
+		wcurrentuser.h \
+		wuimanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wmsgbox.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDialog
 
 debug\wstackedwidget.obj: wstackedwidget.cpp wstackedwidget.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObject \
@@ -1919,6 +2158,16 @@ debug\pages.obj: pages.cpp wdelegate.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qcalendarwidget.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QWidget \
+		wmsgbox.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDialog \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdialog.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wuimanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QHeaderView \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qheaderview.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QListWidget \
@@ -1926,7 +2175,18 @@ debug\pages.obj: pages.cpp wdelegate.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlistview.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QToolButton \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qtoolbutton.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QTime \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QCryptographicHash \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcryptographichash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QFileDialog \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qfiledialog.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdir.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfileinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDir \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\ActiveQt\QAxObject \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\ActiveQt\qaxobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\ActiveQt\qaxbase.h
 
 debug\bars.obj: bars.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
@@ -2044,7 +2304,15 @@ debug\bars.obj: bars.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebu
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qmenu.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QPushButton \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qpushbutton.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractbutton.h
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractbutton.h \
+		wuimanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h
 
 debug\wdelegate.obj: wdelegate.cpp wdelegate.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QStyledItemDelegate \
@@ -2286,6 +2554,11 @@ debug\wlogin.obj: wlogin.cpp wlogin.h \
 		wuimanip.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QApplication \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qapplication.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreapplication.h \
@@ -2586,12 +2859,17 @@ debug\wuimanip.obj: wuimanip.cpp wuimanip.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
-		WebBankCurrentUser.h \
-		WebBankDataBaseManip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
-		WebBankUser.h \
+		wcurrentuser.h \
+		wDBmanip.h \
+		wuser.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QCoreApplication \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreapplication.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
@@ -2604,115 +2882,74 @@ debug\wuimanip.obj: wuimanip.cpp wuimanip.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qeventloop.h
-
-debug\WebBankCurrentUser.obj: WebBankCurrentUser.cpp WebBankCurrentUser.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h
-
-debug\WebBankDataBaseManip.obj: WebBankDataBaseManip.cpp WebBankDataBaseManip.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
-		WebBankCurrentUser.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\Qsql \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlQuery \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlquery.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlError \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlerror.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qeventloop.h \
+		waccount.h \
+		wcreditcard.h \
+		wpayment.h \
+		wquery.h \
+		wsysmsg.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+
+debug\wmsgbox.obj: wmsgbox.cpp wmsgbox.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QLabel \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qlabel.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qframe.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qwidget.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qwindowdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qwindowdefs_win.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
@@ -2720,12 +2957,72 @@ debug\WebBankDataBaseManip.obj: WebBankDataBaseManip.cpp WebBankDataBaseManip.h 
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmargins.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpaintdevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrect.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsize.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpalette.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qcolor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qrgb.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qbrush.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qmatrix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpolygon.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qregion.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatastream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qline.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtransform.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpainterpath.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qimage.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpixelformat.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpixmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsharedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsharedpointer_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfont.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfontmetrics.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qfontinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qsizepolicy.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qcursor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qkeysequence.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qevent.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
-		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qurl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qurlquery.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfile.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfiledevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qvector2d.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtouchdevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QPushButton \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qpushbutton.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractbutton.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qicon.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QObject \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QDialog \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qdialog.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\QTextEdit \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qtextedit.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtWidgets\qabstractscrollarea.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextdocument.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextoption.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextcursor.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qtextformat.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\qpen.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtGui\QMouseEvent \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug
 
-debug\WebBankUser.obj: WebBankUser.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QCoreApplication \
+debug\wuser.obj: wuser.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QCoreApplication \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreapplication.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
@@ -2800,15 +3097,69 @@ debug\WebBankUser.obj: WebBankUser.cpp C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\includ
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h \
-		WebBankSystemMessage.h \
-		WebBankUser.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		wsysmsg.h \
+		wuser.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
-		WebBankCurrentUser.h \
+		wcurrentuser.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
-		WebBankDataBaseManip.h
+		wDBmanip.h
 
-debug\WebBankSystemMessage.obj: WebBankSystemMessage.cpp WebBankSystemMessage.h \
-		WebBankCurrentUser.h \
+debug\wtransfer.obj: wtransfer.cpp wtransfer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wcurrentuser.h
+
+debug\wsysmsg.obj: wsysmsg.cpp wsysmsg.h \
+		wcurrentuser.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
@@ -2845,7 +3196,7 @@ debug\WebBankSystemMessage.obj: WebBankSystemMessage.cpp WebBankSystemMessage.h 
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
-		WebBankDataBaseManip.h \
+		wDBmanip.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
@@ -2859,6 +3210,422 @@ debug\WebBankSystemMessage.obj: WebBankSystemMessage.cpp WebBankSystemMessage.h 
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h
+
+debug\wquery.obj: wquery.cpp wquery.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wcurrentuser.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDateTime
+
+debug\wpayment.obj: wpayment.cpp wpayment.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wcurrentuser.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QTime \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvarlengtharray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+
+debug\wDBmanip.obj: wDBmanip.cpp wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wcurrentuser.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\Qsql \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlQuery \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlquery.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlError \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqlerror.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvarlengtharray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+
+debug\waccount.obj: waccount.cpp waccount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wcurrentuser.h \
+		wtransfer.h \
+		wpayment.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDateTime \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvarlengtharray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+
+debug\wcreditcard.obj: wcreditcard.cpp wcreditcard.h \
+		waccount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QVector \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvector.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qalgorithms.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiterator.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearraylist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringlist.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qregexp.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringmatcher.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpoint.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		wDBmanip.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\QSqlDatabase \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsqldatabase.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtSql\qsql.h \
+		wcurrentuser.h \
+		wtransfer.h \
+		wpayment.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDate \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdatetime.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qshareddata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qhash.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qpair.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QDebug \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qdebug.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtextstream.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qiodevice.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobjectdefs_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcoreevent.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qscopedpointer.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmetatype.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvarlengtharray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontainerfwd.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qisenum.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qobject_impl.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlocale.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qvariant.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qset.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcontiguouscache.h
+
+debug\wcurrentuser.obj: wcurrentuser.cpp wcurrentuser.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\QString \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstring.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qchar.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobal.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qconfig.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qfeatures.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsystemdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qprocessordetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qcompilerdetection.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypeinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qtypetraits.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qsysinfo.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qlogging.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qflags.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbasicatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_bootstrap.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qgenericatomic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_cxx11.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_gcc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_msvc.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv7.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv6.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_armv5.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_ia64.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_mips.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_x86.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qatomic_unix.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qglobalstatic.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qmutex.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnumeric.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qbytearray.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qrefcount.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qnamespace.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qarraydata.h \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\include\QtCore\qstringbuilder.h
 
 debug\qrc_styleset.obj: debug\qrc_styleset.cpp 
 
@@ -2875,6 +3642,8 @@ debug\moc_wlogin.obj: debug\moc_wlogin.cpp
 debug\moc_wloading.obj: debug\moc_wloading.cpp 
 
 debug\moc_wlineedit.obj: debug\moc_wlineedit.cpp 
+
+debug\moc_wmsgbox.obj: debug\moc_wmsgbox.cpp 
 
 ####### Install
 

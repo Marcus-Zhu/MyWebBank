@@ -20,6 +20,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     settingMenu = new QMenu(this);
     personalInfoAction = new QAction(tr("Personal Info"), this);
     changepwAction = new QAction(tr("Change Password"), this);
+    currencyAction = new QAction(tr("Currency"), this);
     sysmsgAction = new QAction(tr("Message"), this);
     logoutAction = new QAction(tr("Log Out"), this);
     languageAction = new QAction(tr("Language"), this);
@@ -29,6 +30,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
     //adda actions to menu
     userMenu->addAction(personalInfoAction);
     userMenu->addAction(changepwAction);
+    userMenu->addAction(currencyAction);
     userMenu->addAction(sysmsgAction);
     userMenu->addAction(logoutAction);
     settingMenu->addAction(languageAction);
@@ -71,6 +73,7 @@ WTopbar::WTopbar(QWidget *parent) : QWidget(parent)
 
     connect(personalInfoAction, SIGNAL(triggered(bool)), parent, SLOT(showUserInfoPage()));
     connect(changepwAction, SIGNAL(triggered(bool)), parent, SLOT(showChangePwPage()));
+    connect(currencyAction, SIGNAL(triggered(bool)), parent, SLOT(showCurrencyPage()));
     connect(sysmsgAction, SIGNAL(triggered(bool)), parent, SLOT(showSysMsgPage()));
     connect(logoutAction, SIGNAL(triggered(bool)), parent, SLOT(restartWindow()));
     connect(languageAction, SIGNAL(triggered(bool)), parent, SLOT(changeLanguage()));

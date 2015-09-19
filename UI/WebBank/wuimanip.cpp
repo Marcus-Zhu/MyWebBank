@@ -8,6 +8,7 @@
 #include "wquery.h"
 #include "wsysmsg.h"
 #include "wuser.h"
+#include "wnetworkcurrency.h"
 
 #include <QString>
 #include <QVector>
@@ -420,4 +421,33 @@ QVector<QString> WUIManip::userInfo()
     vec.push_back(info.address);
     vec.push_back(info.zipCode);
     return vec;
+}
+
+QString *WUIManip::getCurrency()
+{
+    QString data = WNetworkCurrency::getHtml(QString("http://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote%E2%80%98") );
+    QString *currency = new QString[4];
+    currency[0] = "CNY";
+    currency[1] = "EUR";
+    currency[2] = "KRW";
+    currency[3] = "JPY";
+    float ratesToFloat[4];
+    for(int i = 0; i < 4; i++)
+    {
+        int indexFrom = data.indexOf(currency[i]);
+        for(int j = 0; j < 2; j++)
+            indexFrom = data.indexOf('>', indexFrom + 1);
+        int indexAfter = data.indexOf('<', indexFrom);
+        indexAfter--, indexFrom++;
+        QString rate;
+        for(int j = indexFrom; j < indexAfter + 1; j++)
+            rate.append(data[j]);
+        ratesToFloat[i] = rate.toFloat();
+    }
+    ratesToFloat[0] = 1 / ratesToFloat[0];
+    for(int i = 1; i < 4; i++)
+        ratesToFloat[i] = ratesToFloat[i] * ratesToFloat[0];
+    for(int i = 0; i < 4; i++)
+        currency[i].setNum(ratesToFloat[i], 'f', 3);
+    return currency;
 }

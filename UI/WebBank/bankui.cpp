@@ -42,6 +42,7 @@ void BankUI::initUI()
     topbar = new WTopbar(this);
     centerStack = new WStackedWidget(this);
 
+    //set current user info
     QString loginfo = tr("User: ");
     loginfo.append(WCurrentUser::userName);
 
@@ -287,6 +288,18 @@ void BankUI::showWelcomePage()
     centerStack->setCurrentIndex(13);
 }
 
+void BankUI::showPlotPage()
+{
+    centerStack->plotPage->setPlot();
+    centerStack->setCurrentIndex(14);
+}
+
+void BankUI::showCurrencyPage()
+{
+    centerStack->setCurrentIndex(15);
+    centerStack->currencyPage->setCurrency();
+}
+
 //set up the opening animation
 void BankUI::openUX()
 {
@@ -443,12 +456,14 @@ bool BankUI::closeColor()
 
 bool BankUI::restartColor()
 {
+    //restart qapp to change UI theme color
     qApp->exit(3);
     return true;
 }
 
 bool BankUI::restartWindow()
 {
+    //restart qapp to re-login
     WUIManip::logout();
     qApp->exit(2);
     return true;

@@ -48,7 +48,7 @@ QLabel#MsgBoxContent
 /*BankUI*/
 QLabel#backgroundLabel
 {
-	background-image:url(:/image/image/blankbg.png);
+        background-image:url(:/image/image/bg.png);
 }
 
 QLabel#topbarLabel

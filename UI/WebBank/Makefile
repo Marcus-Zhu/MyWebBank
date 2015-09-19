@@ -196,6 +196,7 @@ Makefile: WebBank.pro C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012\
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\moc.prf \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\opengl.prf \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\uic.prf \
+		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\dumpcpp.prf \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\windows.prf \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\testcase_targets.prf \
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exceptions.prf \
@@ -203,6 +204,8 @@ Makefile: WebBank.pro C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012\
 		C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\lex.prf \
 		WebBank.pro \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmain.prl \
+		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxContainer.prl \
+		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxBase.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgets.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Gui.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sql.prl \
@@ -331,6 +334,7 @@ C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\resources.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\moc.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\opengl.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\uic.prf:
+C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\dumpcpp.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\win32\windows.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\testcase_targets.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\exceptions.prf:
@@ -338,6 +342,8 @@ C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\yacc.prf:
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\lex.prf:
 WebBank.pro:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmain.prl:
+C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxContainer.prl:
+C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxBase.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgets.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Gui.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sql.prl:

@@ -24,7 +24,7 @@ WPayment::WPayment(QString accountNumber, float sum, QString paymentType)
     for(int i = 0; i < size; i++)
     {
         haveAutoPayment[i] = true;
-        QDateTime time = QDateTime::fromString(autoPayInfo[2 + 3 * i],"yyyy-MM-dd hh:mm:ss");
+        QDateTime time = QDateTime::fromString(autoPayInfo[2 + 3 * i], "yyyy-MM-dd hh:mm:ss");
         autoPayDate[i] = time.date();
         autoPayType[i] = autoPayInfo[1 + 3 * i];
     }

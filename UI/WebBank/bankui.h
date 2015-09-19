@@ -50,6 +50,8 @@ private slots:
     void showSysMsgPage();
     void showAboutPage();
     void showWelcomePage();
+    void showCurrencyPage();
+    void showPlotPage();
     bool closeWindow();
     bool restartColor();
     bool restartWindow();

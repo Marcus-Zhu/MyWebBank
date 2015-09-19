@@ -2,6 +2,7 @@
 #define PAGES_H
 
 #include "wlineedit.h"
+#include "qcustomplot.h"
 
 #include <QLabel>
 #include <QComboBox>
@@ -37,6 +38,7 @@ private:
     QLabel *title2;
     QTableWidget *table1;
     QTableWidget *table2;
+    QPushButton *plotBtn;
 };
 
 class AccountQueryPage : public WPage
@@ -315,6 +317,44 @@ public slots:
 private:
     QTextEdit *label1;
     QTextEdit *label2;
+};
+
+class PlotPage : public WPage
+{
+    Q_OBJECT
+public:
+    explicit PlotPage(QWidget *parent = 0);
+    void updateLanguage();
+    void setPlot();
+public slots:
+private:
+    QPushButton *returnBtn;
+    bool isHistogram;
+    QCustomPlot *histogramPlot;
+    QCustomPlot *piePlot;
+    QCPBars *bars;
+    QVector<QCPBars *> piePlotBars;
+    QList <QCustomPlot *> plots;
+    QVector<double> coor;
+    void initPlot();
+};
+
+class CurrencyPage : public WPage
+{
+    Q_OBJECT
+public:
+    explicit CurrencyPage(QWidget *parent = 0);
+    void updateLanguage();
+    void setCurrency();
+private:
+    QLabel *label1;
+    QLabel *label2;
+    QLabel *label3;
+    QLabel *label4;
+    QLineEdit *edit1;
+    QLineEdit *edit2;
+    QLineEdit *edit3;
+    QLineEdit *edit4;
 };
 
 #endif // PAGES_H

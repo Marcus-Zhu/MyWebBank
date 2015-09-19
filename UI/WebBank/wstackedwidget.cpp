@@ -31,10 +31,12 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     changePwPage->setObjectName("ChangePwPage");
     sysMsgPage = new SysMsgPage(this);
     sysMsgPage->setObjectName("SysMsgPage");
-    //    aboutPage = new AboutPage(this);
-    //    aboutPage->setObjectName("AboutPage");
     welcomePage = new WelcomePage(this);
     welcomePage->setObjectName("WelcomePage");
+    plotPage = new PlotPage(this);
+    plotPage->setObjectName("PlotPage");
+    currencyPage = new CurrencyPage(this);
+    currencyPage->setObjectName("CurrencyPage");
 
     this->addWidget(myAccountPage);
     this->addWidget(accountQueryPage);
@@ -49,9 +51,9 @@ WStackedWidget::WStackedWidget(QWidget *parent):
     this->addWidget(userInfoPage);
     this->addWidget(changePwPage);
     this->addWidget(sysMsgPage);
-    //    this->addWidget(aboutPage);
     this->addWidget(welcomePage);
-    //    this->setCurrentIndex(14);
+    this->addWidget(plotPage);
+    this->addWidget(currencyPage);
     this->setCurrentIndex(13);
 }
 
@@ -70,6 +72,7 @@ void WStackedWidget::updateLanguage()
     userInfoPage->updateLanguage();
     changePwPage->updateLanguage();
     sysMsgPage->updateLanguage();
-    //    aboutPage->updateLanguage();
     welcomePage->updateLanguage();
+    plotPage->updateLanguage();
+    currencyPage->updateLanguage();
 }

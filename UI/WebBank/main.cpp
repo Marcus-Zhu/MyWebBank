@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QtSql>
 #include <QSqlDatabase>
+#include <QMessageBox>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,20 @@ int main(int argc, char *argv[])
 
     do
     {
+        //if relavent files not exist
+        QFileInfo file("WebBankDatabase.db");
+        if (!file.isFile())
+        {
+            QMessageBox::critical(NULL, "Warning", QObject::tr("Database not found! Program will exit!"), QMessageBox::Ok, QMessageBox::Ok);
+            exit(-1);
+        }
+        file.setFile("config.ini");
+        if (!file.isFile())
+        {
+            QMessageBox::critical(NULL, "Warning", QObject::tr("Configure file not found! Program will exit!"), QMessageBox::Ok, QMessageBox::Ok);
+            exit(-1);
+        }
+
         //read qss file for style sheet settings
         QSettings config("config.ini", QSettings::IniFormat);
         QString colorName = config.value("QSS").toString();
@@ -29,7 +44,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            WMsgBox::information(QObject::tr("Unable to open QSS File!"));
+            QMessageBox::critical(NULL, "Warning", QObject::tr("Unable to open QSS File! Program will exit!"), QMessageBox::Ok, QMessageBox::Ok);
             exit(-1);
         }
 
@@ -44,7 +59,7 @@ int main(int argc, char *argv[])
         WUIManip dbmanip;
         if(!dbmanip.openDatabase())
         {
-            WMsgBox::information(QObject::tr("Unable to open database!"));
+            QMessageBox::critical(NULL, "Warning", QObject::tr("Unable to open database! Program will exit!"), QMessageBox::Ok, QMessageBox::Ok);
             exit(-2);
         }
 

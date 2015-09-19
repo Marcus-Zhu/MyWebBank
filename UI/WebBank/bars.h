@@ -32,6 +32,7 @@ private:
     QMenu *settingMenu;
     QAction *personalInfoAction;
     QAction *changepwAction;
+    QAction *currencyAction;
     QAction *sysmsgAction;
     QAction *logoutAction;
     QAction *languageAction;

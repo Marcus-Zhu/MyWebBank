@@ -27,6 +27,8 @@ public:
     SysMsgPage *sysMsgPage;
     AboutPage *aboutPage;
     WelcomePage *welcomePage;
+    PlotPage *plotPage;
+    CurrencyPage *currencyPage;
 };
 
 #endif // WSTACKEDWIDGET_H

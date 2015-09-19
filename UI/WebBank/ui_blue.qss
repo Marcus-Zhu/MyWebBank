@@ -43,7 +43,7 @@ QLabel#AboutBoxBG
 /*BankUI*/
 QLabel#backgroundLabel
 {
-        background-image:url(:/image/image/blankbg.png);
+        background-image:url(:/image/image/bg.png);
 }
 
 QLabel#topbarLabel
@@ -248,6 +248,7 @@ QPushButton#CPAutoBtn
 	text-align:center;
 }
 
+QPushButton#CMAPlot,
 QPushButton#CAQSearch,
 QPushButton#CAQRecent,
 QPushButton#CAQExport,
@@ -263,7 +264,8 @@ QPushButton#CCLReportBtn,
 QPushButton#CCPConfirmBtn,
 QPushButton#LogInLogIn,
 QPushButton#RegRegister,
-QPushButton#MsgBoxOK
+QPushButton#MsgBoxOK,
+QPushButton#CHPReturn
 {
 	background:#039BE5;
 	border-radius:4px;
@@ -280,6 +282,7 @@ QPushButton#CPAutoBtn:pressed
 	color:#0277BD;
 }
 
+QPushButton#CMAPlot:pressed,
 QPushButton#CAQSearch:pressed,
 QPushButton#CAQRecent:pressed,
 QPushButton#CAQExport:pressed,
@@ -295,7 +298,8 @@ QPushButton#CCLReportBtn:pressed,
 QPushButton#CCPConfirmBtn:pressed,
 QPushButton#RegRegister:pressed,
 QPushButton#LogInLogIn:pressed,
-QPushButton#MsgBoxOK:pressed
+QPushButton#MsgBoxOK:pressed,
+QPushButton#CHPReturn:pressed
 {
 	background:#0288D1;
 	border-bottom:solid;

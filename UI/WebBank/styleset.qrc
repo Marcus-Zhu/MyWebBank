@@ -13,7 +13,6 @@
         <file>trans/trans.ini</file>
     </qresource>
     <qresource prefix="/image">
-        <file>image/blankbg.png</file>
         <file>image/CAPbg.png</file>
         <file>image/CAQbg.png</file>
         <file>image/checkbox0.png</file>
@@ -73,5 +72,6 @@
         <file>image/yellow/msgbox.png</file>
         <file>image/yellow/reg.png</file>
         <file>image/yellow/topbar.png</file>
+        <file>image/bg.png</file>
     </qresource>
 </RCC>

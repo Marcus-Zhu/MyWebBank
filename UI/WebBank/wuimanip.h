@@ -35,6 +35,7 @@ public:
     static bool hasSysMsg();
     static bool changePwd(QString oldPwd, QString newPwd);
     static QVector<QString> userInfo();
+    static QString *getCurrency();
 
     QSqlDatabase database;
 };

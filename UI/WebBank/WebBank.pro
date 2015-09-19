@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT       += sql axcontainer
+QT       += sql axcontainer printsupport network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     wDBmanip.cpp \
     waccount.cpp \
     wcreditcard.cpp \
-    wcurrentuser.cpp
+    wcurrentuser.cpp \
+    pages2.cpp \
+    qcustomplot.cpp
 
 HEADERS  += bankui.h \
     wstackedwidget.h \
@@ -51,7 +53,9 @@ HEADERS  += bankui.h \
     wDBmanip.h \
     waccount.h \
     wcreditcard.h \
-    wcurrentuser.h
+    wcurrentuser.h \
+    qcustomplot.h \
+    wnetworkcurrency.h
 
 RESOURCES += \
     styleset.qrc
