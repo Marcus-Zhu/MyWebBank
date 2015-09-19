@@ -69,7 +69,13 @@ bool WUIManip::registration(QVector<QString> userInfo)
     if (val1) return false;
     bool val2 = userManip.dbInsert(userInfo);
     WUser user;
-    user.addAccount(userInfo[8], "normalAccount");
+    QString number = userInfo[8];
+    QString type;
+    if(number.toLong()%2 == 0)
+        type = "normalAccount";
+    else
+        type = "VIP";
+    user.addAccount(userInfo[8], type,0);
     return val2;
 }
 
