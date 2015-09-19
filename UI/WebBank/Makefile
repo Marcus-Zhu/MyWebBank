@@ -206,9 +206,11 @@ Makefile: WebBank.pro C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\win32-msvc2012\
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmain.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxContainer.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxBase.prl \
+		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5PrintSupport.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgets.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Gui.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sql.prl \
+		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Network.prl \
 		C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile WebBank.pro
 C:\Develop\Qt\Qt5.5.0\5.5\msvc2012\mkspecs\features\spec_pre.prf:
@@ -344,9 +346,11 @@ WebBank.pro:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/qtmain.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxContainer.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5AxBase.prl:
+C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5PrintSupport.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Widgets.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Gui.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Sql.prl:
+C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Network.prl:
 C:/Develop/Qt/Qt5.5.0/5.5/msvc2012/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile WebBank.pro

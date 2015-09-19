@@ -289,6 +289,7 @@ void MyAccountPage::updateLanguage()
     //update language in this page
     mainTitle->setText(tr("My Account"));
     title2->setText(tr("Recent Transaction Records"));
+    plotBtn->setText(tr("Show Statistics"));
 
     QStringList header1;
     header1 << tr("Card Type")

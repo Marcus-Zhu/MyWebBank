@@ -337,5 +337,9 @@ void CurrencyPage::setCurrency()
 
 void CurrencyPage::updateLanguage()
 {
-
+    mainTitle->setText(tr("Currency Information"));
+    label1->setText(tr("CNY to USD"));
+    label2->setText(tr("CNY to EUR"));
+    label3->setText(tr("CNY to KRW"));
+    label4->setText(tr("CNY to JPY"));
 }

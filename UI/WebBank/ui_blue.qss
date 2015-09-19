@@ -420,7 +420,11 @@ QLineEdit#CUIEdit3,
 QLineEdit#CUIEdit4,
 QLineEdit#CUIEdit5,
 QLineEdit#CUIEdit6,
-QLineEdit#CUIEdit7
+QLineEdit#CUIEdit7,
+QLineEdit#CCPEdit1,
+QLineEdit#CCPEdit2,
+QLineEdit#CCPEdit3,
+QLineEdit#CCPEdit4
 {	
 	background:transparent;
 	border-bottom:dotted;

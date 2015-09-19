@@ -253,6 +253,7 @@ QPushButton#CPAutoBtn
 	text-align:center;
 }
 
+QPushButton#CMAPlot,
 QPushButton#CAQSearch,
 QPushButton#CAQRecent,
 QPushButton#CAQExport,
@@ -268,7 +269,8 @@ QPushButton#CCLReportBtn,
 QPushButton#CCPConfirmBtn,
 QPushButton#LogInLogIn,
 QPushButton#RegRegister,
-QPushButton#MsgBoxOK
+QPushButton#MsgBoxOK,
+QPushButton#CHPReturn
 {
         background:#dd191d;
 	border-radius:4px;
@@ -285,6 +287,7 @@ QPushButton#CPAutoBtn:pressed
         color:#c41411;
 }
 
+QPushButton#CMAPlot:pressed,
 QPushButton#CAQSearch:pressed,
 QPushButton#CAQRecent:pressed,
 QPushButton#CAQExport:pressed,
@@ -300,7 +303,8 @@ QPushButton#CCLReportBtn:pressed,
 QPushButton#CCPConfirmBtn:pressed,
 QPushButton#RegRegister:pressed,
 QPushButton#LogInLogIn:pressed,
-QPushButton#MsgBoxOK:pressed
+QPushButton#MsgBoxOK:pressed,
+QPushButton#CHPReturn:pressed
 {
         background:#d01716;
 	border-bottom:solid;
@@ -421,7 +425,11 @@ QLineEdit#CUIEdit3,
 QLineEdit#CUIEdit4,
 QLineEdit#CUIEdit5,
 QLineEdit#CUIEdit6,
-QLineEdit#CUIEdit7
+QLineEdit#CUIEdit7,
+QLineEdit#CCPEdit1,
+QLineEdit#CCPEdit2,
+QLineEdit#CCPEdit3,
+QLineEdit#CCPEdit4
 {	
 	background:transparent;
 	border-bottom:dotted;

@@ -98,6 +98,7 @@ void WTopbar::updateLanguage()
     //update language
     personalInfoAction->setText(tr("Personal Info"));
     changepwAction->setText(tr("Change Password"));
+    currencyAction->setText(tr("Currency"));
     sysmsgAction->setText(tr("Message"));
     logoutAction->setText(tr("Log Out"));
     languageAction->setText(tr("Language"));
