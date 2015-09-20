@@ -418,6 +418,9 @@ void AccountQueryPage::setTable()
 
 void AccountQueryPage::setComboBox()
 {
+    calendar1->setVisible(false);
+    calendar2->setVisible(false);
+    calendarLabel->setVisible(false);
     //setup accounts
     accountBox->clear();
     int accountNum = WUIManip::getAccountNum();

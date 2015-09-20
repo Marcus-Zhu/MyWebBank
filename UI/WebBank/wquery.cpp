@@ -327,8 +327,8 @@ QVector<QString> WQuery::queryBetweenTwoDates(QDate dateFrom, QDate dateTo)
         infoBetweenTwoDays.push_back(transactionRecord1[i]);
     for(int i = 0; i < size2; i++)
     {
-        infoBetweenTwoDays.push_back(transactionRecord1[3 * i]);
-        infoBetweenTwoDays.push_back(transactionRecord1[3 * i + 1]);
+        infoBetweenTwoDays.push_back(transactionRecord2[3 * i]);
+        infoBetweenTwoDays.push_back(transactionRecord2[3 * i + 1]);
         infoBetweenTwoDays.push_back("Transfer from Others");
     }
     for(int i = 0; i < size3 * 3; i++)
