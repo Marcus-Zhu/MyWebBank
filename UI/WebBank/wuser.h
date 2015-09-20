@@ -38,7 +38,7 @@ private:
 public:
     QVector<QString> account;
     bool setPassword(QString oldPassword, QString newPassword);
-    bool addAccount(QString number, QString type, int type = 1);
+    bool addAccount(QString number, QString type, int n = 1);
     int getAccountAmount()
     {
         return account.size();

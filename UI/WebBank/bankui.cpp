@@ -91,8 +91,6 @@ void BankUI::changeLanguage()
 
     //write current language into trans.ini
     QSettings config("config.ini", QSettings::IniFormat);
-    config.setValue("QSS", ":/ui/ui_blue.qss");
-    config.setValue("LOGO", "image/blue/logo.png");
     config.setValue("TRANS", isChinese ? ":/trans/trans/chn.qm" : ":/trans/trans/eng.qm");
 }
 

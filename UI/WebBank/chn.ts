@@ -353,13 +353,13 @@
     </message>
     <message>
         <location filename="bankui.cpp" line="46"/>
-        <location filename="bankui.cpp" line="102"/>
+        <location filename="bankui.cpp" line="100"/>
         <source>User: </source>
         <translation>用户： </translation>
     </message>
     <message>
         <location filename="bankui.cpp" line="50"/>
-        <location filename="bankui.cpp" line="105"/>
+        <location filename="bankui.cpp" line="103"/>
         <source>Credit to Zhu Yilin &amp; Tian Xingyu</source>
         <translation>朱奕霖 田星宇 版权所有</translation>
     </message>
@@ -611,36 +611,41 @@
     <name>CurrencyPage</name>
     <message>
         <location filename="pages2.cpp" line="287"/>
-        <location filename="pages2.cpp" line="340"/>
+        <location filename="pages2.cpp" line="345"/>
         <source>Currency Information</source>
         <translation>实时汇率信息</translation>
     </message>
     <message>
         <location filename="pages2.cpp" line="288"/>
-        <location filename="pages2.cpp" line="341"/>
+        <location filename="pages2.cpp" line="346"/>
         <source>CNY to USD</source>
         <translation>人民币 到 美元</translation>
     </message>
     <message>
         <location filename="pages2.cpp" line="289"/>
-        <location filename="pages2.cpp" line="342"/>
+        <location filename="pages2.cpp" line="347"/>
         <source>CNY to EUR</source>
         <translation>人民币 到 欧元</translation>
     </message>
     <message>
         <location filename="pages2.cpp" line="290"/>
-        <location filename="pages2.cpp" line="343"/>
+        <location filename="pages2.cpp" line="348"/>
         <source>CNY to KRW</source>
         <translation>人民币 到 韩元</translation>
     </message>
     <message>
         <location filename="pages2.cpp" line="291"/>
-        <location filename="pages2.cpp" line="344"/>
+        <location filename="pages2.cpp" line="349"/>
         <source>CNY to JPY</source>
         <translation>人民币 到 日元</translation>
     </message>
     <message>
-        <location filename="pages2.cpp" line="335"/>
+        <location filename="pages2.cpp" line="333"/>
+        <source>Network Error!</source>
+        <translation>网络错误！</translation>
+    </message>
+    <message>
+        <location filename="pages2.cpp" line="340"/>
         <source>Currency Information Acquired!</source>
         <translation>成功获取汇率信息！</translation>
     </message>

@@ -328,6 +328,11 @@ void CurrencyPage::setCurrency()
     edit3->setText("");
     edit4->setText("");
     QString *currency = WUIManip::getCurrency();
+    if (currency[0] == "inf")
+    {
+        WMsgBox::information(tr("Network Error!"));
+        return;
+    }
     edit1->setText(currency[0]);
     edit2->setText(currency[1]);
     edit3->setText(currency[2]);

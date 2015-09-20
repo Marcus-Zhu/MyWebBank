@@ -10,7 +10,6 @@
     <qresource prefix="/trans">
         <file>trans/chn.qm</file>
         <file>trans/eng.qm</file>
-        <file>trans/trans.ini</file>
     </qresource>
     <qresource prefix="/image">
         <file>image/CAPbg.png</file>

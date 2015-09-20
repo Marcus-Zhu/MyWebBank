@@ -98,7 +98,7 @@ int WUser::checkIn(QString name, QString password)
     }
 }
 
-bool WUser::addAccount(QString number, QString type,int type)
+bool WUser::addAccount(QString number, QString type, int n)
 {
     DBAccountManip accountManip;
     QVector<QString> insertInfo;
@@ -106,7 +106,7 @@ bool WUser::addAccount(QString number, QString type,int type)
     insertInfo.push_back(number);
     insertInfo.push_back("0");
     insertInfo.push_back("100000");
-    if(type == 1)
+    if(n == 1)
         insertInfo.push_back("frozen");
     else
         insertInfo.push_back("normal");

@@ -75,7 +75,7 @@ bool WUIManip::registration(QVector<QString> userInfo)
         type = "normalAccount";
     else
         type = "VIP";
-    user.addAccount(userInfo[8], type,0);
+    user.addAccount(userInfo[8], type, 0);
     return val2;
 }
 
